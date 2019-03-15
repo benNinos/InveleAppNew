@@ -101,6 +101,12 @@ public class PasswordActivity extends AppCompatActivity{
             @Override
             public void onResetClicked() {
 
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(binding.forgotPasswordEmail.getWindowToken(), 0);
+
+
+
+
                 int status = passwordVM.forgotPasswordEmailValidation();
 
                 if (status == Constants.EMAIL_EMPTY)
@@ -113,7 +119,7 @@ public class PasswordActivity extends AppCompatActivity{
 
                 if (emailpattern == Constants.EMAIL_INVALID)
                 {
-                    binding.forgotPasswordEmail.setError("Invalid Pattern");
+                    binding.forgotPasswordEmail.setError("Invalid Email Address");
                     binding.forgotPasswordEmail.requestFocus();
                 }
 
@@ -184,10 +190,6 @@ public class PasswordActivity extends AppCompatActivity{
                 }
 
             }
-
-
-
-
 
             @Override
             public void onSubmitClicked() {
@@ -261,6 +263,11 @@ public class PasswordActivity extends AppCompatActivity{
             @Override
             public void onVerifyOTPClicked() {
 
+
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(binding.forgotPasswordOtpCode.getWindowToken(), 0);
+
+
                 int status = passwordVM.resetPasswordOtpValidation();
                 if (status == Constants.OTP_EMPTY)
                 {
@@ -317,13 +324,11 @@ public class PasswordActivity extends AppCompatActivity{
 
             @Override
             public void onEnabledResendClicked() {
-                onResetClicked();
+
 
 
             }
         });
-
-
     }
 
     private void showProgressBar()

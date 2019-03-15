@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.ninositsolution.inveleapp.api.ApiService;
 import com.ninositsolution.inveleapp.api.RetrofitClient;
+import com.ninositsolution.inveleapp.forgot_password.pojo.OTPRequest;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 import com.ninositsolution.inveleapp.registration.pojo.RegistartionRequest;
 import com.ninositsolution.inveleapp.utils.Constants;
@@ -96,11 +97,11 @@ public class LoginRepo {
         return mobileSendOtpLiveData;
     }
 
-    public MutableLiveData<LoginVM> getOtpVerifyLivedata(String userId, String otp) {
+    public MutableLiveData<LoginVM> getOtpVerifyLivedata(OTPRequest otpRequest) {
 
         ApiService apiService = RetrofitClient.getApiService();
 
-       /* apiService.otpVerifyApi(userId,otp).subscribeOn(Schedulers.io())
+        apiService.otpVerifyApi(otpRequest).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<POJOClass>() {
                     @Override
@@ -128,7 +129,7 @@ public class LoginRepo {
                     public void onComplete() {
 
                     }
-                });*/
+                });
 
 
         return otpVerifyLivedata;

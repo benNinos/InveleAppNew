@@ -60,7 +60,7 @@ public class RegisterVM extends ViewModel {
     public void registerViaEmail(String device_id)
     {
         RegistartionRequest registartionRequest = new RegistartionRequest(email_name.get(), "",email.get(),
-                password.get(), "email", "", device_id, "android");
+                password.get(), "email", "", device_id, "android", "1");
 
         registerRepo = new RegisterRepo();
 
@@ -76,7 +76,7 @@ public class RegisterVM extends ViewModel {
     public void registerViaMobile (String device_id)
     {
         RegistartionRequest registartionRequest = new RegistartionRequest(mobile_name.get(), mobile.get(),"",
-                "", "mobile", "", device_id, "android");
+                "", "mobile", "", device_id, "android", "1");
 
         registerVMMutableLiveData = registerRepo.getRegisterVMMutableLiveData(registartionRequest);
         //pojoClassMutableLiveData = registerRepo.getRegisterVMMutableLiveData(registartionRequest);

@@ -4,6 +4,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableField;
 
+import com.ninositsolution.inveleapp.forgot_password.pojo.OTPRequest;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 import com.ninositsolution.inveleapp.pojo.Users;
 import com.ninositsolution.inveleapp.registration.pojo.RegistartionRequest;
@@ -67,21 +68,22 @@ public class LoginVM extends ViewModel {
 
    public void sendOtpApi(String device_id)
    {
-       RegistartionRequest registartionRequest = new RegistartionRequest("", mobile.get(), "", "", "mobile", "", device_id, "android");
+       RegistartionRequest registartionRequest = new RegistartionRequest("", mobile.get(), "", "", "mobile", "", device_id, "android", "0");
        mobileSendOtpLiveData = loginRepo.getMobileSendOtpLiveData(registartionRequest);
 
    }
 
    public void googleLoginApi(String name, String phone, String email,String uid, String deviceId)
    {
-       RegistartionRequest registartionRequest = new RegistartionRequest(name, phone, email, "","google", uid, deviceId, "Android");
+       RegistartionRequest registartionRequest = new RegistartionRequest(name, phone, email, "","google", uid, deviceId, "Android", "0");
 
        googleLoginLiveData = loginRepo.getMobileSendOtpLiveData(registartionRequest);
    }
 
    public void mobileOtpVerifyApi(String userId)
    {
-       otpVerifyLiveData =  loginRepo.getOtpVerifyLivedata(userId, otp_code.get());
+       OTPRequest otpRequest = new OTPRequest(userId, otp_code.get());
+       otpVerifyLiveData =  loginRepo.getOtpVerifyLivedata(otpRequest);
    }
 
     public MutableLiveData<LoginVM> getLoginVMMutableLiveData() {

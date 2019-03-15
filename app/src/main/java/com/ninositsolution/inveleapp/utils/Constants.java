@@ -23,6 +23,7 @@ public class Constants {
     public static final Integer EMAIL_VALID = 16;
 
     public static final Integer EMAIL_INVALID = 17;
+    public static final Integer INVALID_OTP_LENGTH = 18;
 
 }
 

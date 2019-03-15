@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -74,8 +75,14 @@
                     android:layout_margin="24dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:orientation="vertical">
+
+                    <LinearLayout
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:layout_width="0px"
+                        android:layout_height="0px"/>
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
@@ -86,6 +93,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/toolBarFont"
+                            android:paddingBottom="@dimen/_12sdp"
                             android:fontFamily="@font/roboto_regular"
                             android:inputType="text"
                             android:text="@={login.username}"
@@ -109,6 +117,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_regular"
                             android:inputType="textPassword"
+                            android:paddingBottom="@dimen/_12sdp"
                             android:textSize="@dimen/toolBarFont"
                             android:text="@={login.password}"
                             android:hint="@string/password"
@@ -119,7 +128,7 @@
 
                     <Space
                         android:layout_width="match_parent"
-                        android:layout_height="4dp" />
+                        android:layout_height="@dimen/_4sdp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -136,8 +145,9 @@
 
                     <Button
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_28sdp"
                         android:text="@string/login"
+                        android:textSize="@dimen/toolBarFont"
                         android:fontFamily="@font/roboto_regular"
                         android:onClick="@{()->iLogin.onLoginEmailClicked()}"
                         android:textColor="@android:color/white"
@@ -155,7 +165,7 @@
                     android:layout_margin="@dimen/_20sdp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:orientation="vertical">
 
                     <RelativeLayout
@@ -299,30 +309,35 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="42dp"
-                    android:layout_marginEnd="42dp"
-                    android:layout_marginTop="24dp"
+                    android:weightSum="10"
+                    android:layout_marginStart="@dimen/_36sdp"
+                    android:layout_marginEnd="@dimen/_36sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
                     android:orientation="horizontal">
 
                     <View
-                        android:layout_width="108dp"
-                        android:layout_height="4dp"
-                        android:background="#dbdbdb"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.5"
+                        android:layout_height="@dimen/_1sdp"
+                        android:background="@color/view_color"
                         android:layout_gravity="center"/>
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_margin="@dimen/_8sdp"
+                        android:gravity="center"
                         android:layout_height="wrap_content"
                         android:text="@string/or"
-                        android:textSize="22sp"
-                        android:fontFamily="@font/roboto_regular"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"/>
+                        android:textSize="@dimen/_16sdp"
+
+                        />
 
                     <View
-                        android:layout_width="108dp"
-                        android:layout_height="4dp"
-                        android:background="#dbdbdb"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.5"
+                        android:layout_height="@dimen/_1sdp"
+                        android:background="@color/view_color"
                         android:layout_gravity="center"/>
 
                 </LinearLayout>
@@ -349,25 +364,39 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="42dp"
-                    android:layout_marginEnd="42dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="24dp"
+                    android:layout_marginStart="@dimen/_24sdp"
+                    android:layout_marginEnd="@dimen/_24sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_20sdp"
                     android:orientation="horizontal">
 
-                    <Button
-                        android:layout_width="120dp"
-                        android:layout_height="36dp"
-                        android:layout_alignParentStart="true"
-                        android:onClick="@{()->iLogin.onFacebookClicked()}"
-                        android:fontFamily="@font/roboto_regular"
-                        android:background="#4867aa"
-                        android:layout_marginStart="8dp"
-                        android:text="@string/fb"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="0dp"
-                        android:textColor="@android:color/white"
-                        android:drawableStart="@drawable/ic_fb2"/>
+                    <FrameLayout
+                        android:id="@+id/FrameLayout1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <com.facebook.login.widget.LoginButton
+                            android:id="@+id/login_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone" />
+
+                        <Button
+                            android:layout_width="120dp"
+                            android:layout_height="36dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:background="#4867aa"
+                            android:onClick="@{()->iLogin.onFacebookClicked()}"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/fb"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="0dp"
+                            android:textColor="@android:color/white"
+                            android:drawableStart="@drawable/ic_fb2"/>
+
+                    </FrameLayout>
+
+
 
                     <Button
                         android:layout_width="120dp"

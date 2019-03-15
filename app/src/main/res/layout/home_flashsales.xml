@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="flashsales"
+            type="com.ninositsolution.inveleapp.home.HomeVM"/>
+
+        <variable
+            name="clickEvent"
+            type="int"/>
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="@dimen/card_elevation_size">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="@color/invelebg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/flash"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/more"
+                    android:layout_alignParentEnd="true"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="@dimen/more_text_size"
+                    tools:ignore="RelativeOverlap" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:baselineAligned="false">
+
+                <RelativeLayout
+                    android:id="@+id/onClick"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:padding="@dimen/_4sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:background="@color/white"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/flash_img1"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="@dimen/_130sdp"
+                        android:layout_height="@dimen/_150sdp"
+                        android:scaleType="centerCrop"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/shop4" />
+
+                    <TextView
+                        android:id="@+id/flash_item_name"
+                        android:layout_alignStart="@+id/flash_img1"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginBottom="@dimen/_4sdp"
+                        android:layout_below="@+id/flash_img1"
+                        android:textSize="@dimen/item_text_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/flash_item" />
+
+                    <LinearLayout
+                        android:id="@+id/flash_rate"
+                        android:layout_below="@+id/flash_item_name"
+                        android:layout_alignStart="@+id/flash_img1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/item_text_size"
+                            android:text="@string/flash_rate"
+                            android:textColor="@color/colorPrimary" />
+
+                        <Space
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:id="@+id/flash_delete_rate1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/item_text_size"
+                            android:text="@string/flash_deleted" />
+
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:id="@+id/flash_rating"
+                        android:layout_below="@+id/flash_rate"
+                        android:layout_alignStart="@+id/flash_img1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RatingBar
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_marginStart="-8dp"
+                            android:layout_height="wrap_content"
+                            android:numStars="5"
+                            android:rating="3.5"
+                            android:scaleX="0.8"
+                            android:scaleY="0.8"
+                            android:theme="@style/RatingBar"
+                            style="?android:attr/ratingBarStyleSmall"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_12sdp"
+                            android:text="@string/rating"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="@dimen/star_rating_num_size" />
+
+                        <Space
+                            android:layout_width="@dimen/_18sdp"
+                            android:layout_height="match_parent" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_8sdp"
+                            android:layout_height="@dimen/_8sdp"
+                            app:srcCompat="@drawable/ic_heart_black"
+                            android:layout_gravity="center_vertical"/>
+
+                        <Space
+                            android:layout_width="@dimen/_4sdp"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/heart"
+                            android:textSize="@dimen/star_rating_num_size"/>
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:background="@color/white"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/flash_img2"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="@dimen/_130sdp"
+                        android:layout_height="@dimen/_150sdp"
+                        android:scaleType="centerCrop"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/shop3"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/flash_item_name2"
+                        android:layout_alignStart="@+id/flash_img2"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginBottom="@dimen/_4sdp"
+                        android:layout_below="@+id/flash_img2"
+                        android:textSize="@dimen/item_text_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/flash_item" />
+
+                    <LinearLayout
+                        android:id="@+id/flash_rate2"
+                        android:layout_below="@+id/flash_item_name2"
+                        android:layout_alignStart="@+id/flash_img2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/flash_rate"
+                            android:textSize="@dimen/item_text_size"
+                            android:textColor="@color/colorPrimary" />
+
+                        <Space
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:id="@+id/flash_delete_rate2"
+                            android:textSize="@dimen/item_text_size"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/flash_deleted" />
+
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:id="@+id/flash_rating2"
+                        android:layout_below="@+id/flash_rate2"
+                        android:layout_alignStart="@+id/flash_img2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RatingBar
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="-8dp"
+                            android:numStars="5"
+                            android:rating="3.5"
+                            android:scaleX="0.8"
+                            android:scaleY="0.8"
+                            android:theme="@style/RatingBar"
+                            style="?android:attr/ratingBarStyleSmall"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_12sdp"
+                            android:text="@string/rating"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="@dimen/star_rating_num_size" />
+
+                        <Space
+                            android:layout_width="@dimen/_18sdp"
+                            android:layout_height="match_parent" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_8sdp"
+                            android:layout_height="@dimen/_8sdp"
+                            app:srcCompat="@drawable/ic_heart_black"
+                            android:layout_gravity="center_vertical"/>
+
+                        <Space
+                            android:layout_width="@dimen/_4sdp"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/heart"
+                            android:textSize="@dimen/star_rating_num_size"/>
+
+                    </LinearLayout>
+
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:background="@color/white"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/flash_img3"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="@dimen/_130sdp"
+                        android:layout_height="@dimen/_150sdp"
+                        android:scaleType="centerCrop"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/shop2" />
+
+                    <TextView
+                        android:id="@+id/flash_item_name3"
+                        android:layout_alignStart="@+id/flash_img3"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginBottom="@dimen/_4sdp"
+                        android:layout_below="@+id/flash_img3"
+                        android:textSize="@dimen/item_text_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/flash_item" />
+
+                    <LinearLayout
+                        android:id="@+id/flash_rate3"
+                        android:layout_below="@+id/flash_item_name3"
+                        android:layout_alignStart="@+id/flash_img3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/item_text_size"
+                            android:text="@string/flash_rate"
+                            android:textColor="@color/colorPrimary" />
+
+                        <Space
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:id="@+id/flash_delete_rate3"
+                            android:textSize="@dimen/item_text_size"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/flash_deleted" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/flash_rating3"
+                        android:layout_below="@+id/flash_rate3"
+                        android:layout_alignStart="@+id/flash_img3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RatingBar
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="-8dp"
+                            android:numStars="5"
+                            android:rating="3.5"
+                            android:scaleX="0.8"
+                            android:scaleY="0.8"
+                            android:theme="@style/RatingBar"
+                            style="?android:attr/ratingBarStyleSmall"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_12sdp"
+                            android:text="@string/rating"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="@dimen/star_rating_num_size" />
+
+                        <Space
+                            android:layout_width="@dimen/_18sdp"
+                            android:layout_height="match_parent" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_8sdp"
+                            android:layout_height="@dimen/_8sdp"
+                            app:srcCompat="@drawable/ic_heart_black"
+                            android:layout_gravity="center_vertical"/>
+
+                        <Space
+                            android:layout_width="@dimen/_4sdp"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/heart"
+                            android:textSize="@dimen/star_rating_num_size"/>
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:background="@color/white"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/flash_img4"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="@dimen/_130sdp"
+                        android:layout_height="@dimen/_150sdp"
+                        android:scaleType="centerCrop"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/shop1" />
+
+                    <TextView
+                        android:id="@+id/flash_item_name4"
+                        android:layout_alignStart="@+id/flash_img4"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginBottom="@dimen/_4sdp"
+                        android:layout_below="@+id/flash_img4"
+                        android:textSize="@dimen/item_text_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/flash_item" />
+
+                    <LinearLayout
+                        android:id="@+id/flash_rate4"
+                        android:layout_below="@+id/flash_item_name4"
+                        android:layout_alignStart="@+id/flash_img4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/item_text_size"
+                            android:text="@string/flash_rate"
+                            android:textColor="@color/colorPrimary" />
+
+                        <Space
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:id="@+id/flash_delete_rate4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/item_text_size"
+                            android:text="@string/flash_deleted" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/flash_rating4"
+                        android:layout_below="@+id/flash_rate4"
+                        android:layout_alignStart="@+id/flash_img4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RatingBar
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:numStars="5"
+                            android:rating="3.5"
+                            android:scaleX="0.8"
+                            android:scaleY="0.8"
+                            android:layout_marginStart="-8dp"
+                            android:theme="@style/RatingBar"
+                            style="?android:attr/ratingBarStyleSmall"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_12sdp"
+                            android:text="@string/rating"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="@dimen/star_rating_num_size" />
+
+                        <Space
+                            android:layout_width="@dimen/_18sdp"
+                            android:layout_height="match_parent" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_8sdp"
+                            android:layout_height="@dimen/_8sdp"
+                            app:srcCompat="@drawable/ic_heart_black"
+                            android:layout_gravity="center_vertical"
+                            tools:ignore="ContentDescription" />
+
+                        <Space
+                            android:layout_width="@dimen/_4sdp"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/heart"
+                            android:textSize="@dimen/star_rating_num_size"/>
+
+                    </LinearLayout>
+
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+
+</layout>

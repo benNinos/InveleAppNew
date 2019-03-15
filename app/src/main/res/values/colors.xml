@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#C90828</color>
+    <color name="colorPrimaryDark">#C90828</color>
+    <color name="colorProject">#f6f6f6</color>
+    <color name="colorAccent">#C90828</color>
+    <color name="grayWhite">#e2e0e2</color>
+    <color name="white">#ffffff</color>
+    <color name="textColor">#5b5c5b</color>
+    <color name="greyBackground">#e8e5e5</color>
+    <color name="invelebg">#f9f9f9</color>
+    <color name="black">#000000</color>
+    <color name="shadowColor">#f9f9f9</color>
+
+    <!-- fitme Activity -->
+
+    <color name="ash_color">#eeeeee</color>
+    <color name="tab_Indicator">#c90828</color>
+
+    <color name="add_to_cart">#364255</color>
+    <color name="buy_now">#d94255</color>
+
+
+    <color name="duskYellow">#ffc922</color>
+    <color name="lightGrey">#d3d3d3</color>
+
+    <color name="view_color">#E4E4E4</color>
+
+    <color name="cancel_split_line">#aaaaaa</color>
+
+    <color name="shipmentStatus">#65d074</color>
+
+    <color name="cart_edit_color">#7f7f7f</color>
+
+    <color name="layout_split">#e5e5e5</color>
+    <color name="text_color">#5b5c5b</color>
+    <color name="parent_layout_color">#f6f6f6</color>
+    <color name="layout_bgcolor">#ffffff</color>
+    <color name="button_bg">#e17789</color>
+    <color name="view_bgcolor">#e6e6e6</color>
+    <color name="button_bgcolor">#d94255</color>
+    <color name="help_line_color">#c9cac9</color>
+    <color name="star_grey">#a8a4a5</color>
+
+
+    <!--- Product Review Activity -->
+
+    <color name="review_choose_file_button_color">#e1e1e1</color>
+    <color name="review_end_view_color">#aaaaaa</color>
+    <color name="table_header_background">#ca0a29</color>
+
+
+    <color name="icon_colors">#282C3F</color>
+
+
+
+
+</resources>

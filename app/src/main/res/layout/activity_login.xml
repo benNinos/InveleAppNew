@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="iLogin"
+            type="com.ninositsolution.inveleapp.login.ILogin"/>
+
+        <variable
+            name="login"
+            type="com.ninositsolution.inveleapp.login.LoginVM"/>
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolBar_height"
+                android:background="@color/white"
+                app:contentInsetStart="0dp">
+
+                <LinearLayout
+                    android:id="@+id/login_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!--<ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_arrow_back_24dp"/>-->
+
+                    <Space
+                        android:layout_width="@dimen/_28sdp"
+                        android:layout_height="match_parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login"
+                        android:textSize="@dimen/toolBarFont"
+                        />
+
+
+                </LinearLayout>
+
+
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <RelativeLayout
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_8sdp">
+
+            <RelativeLayout
+                android:id="@+id/login_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/login_email"
+                    android:layout_margin="24dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/login_username"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/toolBarFont"
+                            android:fontFamily="@font/roboto_regular"
+                            android:inputType="text"
+                            android:text="@={login.username}"
+                            android:hint="@string/email_enter"
+                            tools:ignore="Autofill" />
+
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="12dp" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/login_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            android:inputType="textPassword"
+                            android:textSize="@dimen/toolBarFont"
+                            android:text="@={login.password}"
+                            android:hint="@string/password"
+                            tools:ignore="Autofill" />
+
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/forgot"
+                        android:fontFamily="@font/roboto_regular"
+                        android:onClick="@{()->iLogin.onForgotClicked()}"
+                        android:layout_gravity="end"
+                        android:textColor="@color/colorPrimary"/>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login"
+                        android:fontFamily="@font/roboto_regular"
+                        android:onClick="@{()->iLogin.onLoginEmailClicked()}"
+                        android:textColor="@android:color/white"
+                        android:background="@color/colorPrimary"
+                        android:layout_gravity="center"/>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/login_mobile"
+                    android:layout_margin="@dimen/_20sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:id="@+id/mobile_login_edit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/toolBarFont"
+                                android:text="@={login.mobile}"
+                                android:fontFamily="@font/roboto_regular"
+                                android:paddingBottom="@dimen/_12sdp"
+                                android:inputType="phone"
+                                android:hint="@string/phone_no"
+                                tools:ignore="Autofill" />
+
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/send_otp"
+                            android:layout_centerVertical="true"
+                            android:enabled="false"
+                            android:onClick="@{()->iLogin.onSendOtpClicked()}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:textColor="@color/star_grey"
+                            android:textSize="@dimen/_10sdp"
+                            android:text="@string/send_otp"/>
+
+                    </RelativeLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_10sdp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:id="@+id/otp_login_edit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@={login.otp_code}"
+                                android:fontFamily="@font/roboto_regular"
+                                android:inputType="numberPassword"
+                                android:maxLength="6"
+                                android:paddingBottom="@dimen/_12sdp"
+                                android:textSize="@dimen/toolBarFont"
+                                android:hint="@string/sms_code"
+                                tools:ignore="Autofill" />
+
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/login_timer"
+                            android:layout_centerVertical="true"
+                            android:enabled="false"
+                            android:onClick="@{()->iLogin.onResendClicked()}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="@color/star_grey"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:textSize="@dimen/_10sdp"
+                            android:text="@string/timer"/>
+
+
+                    </RelativeLayout>
+
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_4sdp" />
+
+                    <TextView
+                        android:id="@+id/resend_timer_text"
+                        android:enabled="false"
+                        android:onClick="@{()->iLogin.onResendClicked()}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:textColor="@color/star_grey"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:textSize="@dimen/_10sdp"
+                        android:text="@string/resend"/>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp" />
+
+                    <Button
+                        android:id="@+id/mobile_login_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login"
+                        android:fontFamily="@font/roboto_regular"
+                        android:onClick="@{()->iLogin.onLoginPhoneClicked()}"
+                        android:textColor="@android:color/white"
+                        android:background="@color/colorPrimary"
+                        android:layout_gravity="center"/>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp" />
+
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_below="@+id/login_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_user"
+                android:onClick="@{()->iLogin.onNewUserClicked()}"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/colorPrimary"/>
+
+            <LinearLayout
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="42dp"
+                    android:layout_marginEnd="42dp"
+                    android:layout_marginTop="24dp"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="108dp"
+                        android:layout_height="4dp"
+                        android:background="#dbdbdb"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/or"
+                        android:textSize="22sp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"/>
+
+                    <View
+                        android:layout_width="108dp"
+                        android:layout_height="4dp"
+                        android:background="#dbdbdb"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp" />
+
+                <Button
+                    android:id="@+id/login_with"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:text="@string/login_sms"
+                    android:fontFamily="@font/roboto_regular"
+                    android:onClick="@{()->iLogin.onLoginWithClicked()}"
+                    android:textColor="#7f7f7f"
+                    android:backgroundTint="@android:color/white"
+                    android:layout_gravity="center"/>
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="42dp"
+                    android:layout_marginEnd="42dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="120dp"
+                        android:layout_height="36dp"
+                        android:layout_alignParentStart="true"
+                        android:onClick="@{()->iLogin.onFacebookClicked()}"
+                        android:fontFamily="@font/roboto_regular"
+                        android:background="#4867aa"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/fb"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="0dp"
+                        android:textColor="@android:color/white"
+                        android:drawableStart="@drawable/ic_fb2"/>
+
+                    <Button
+                        android:layout_width="120dp"
+                        android:layout_height="36dp"
+                        android:background="#f2f3f4"
+                        android:onClick="@{()->iLogin.onGoogleClicked()}"
+                        android:fontFamily="@font/roboto_regular"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="0dp"
+                        android:drawableStart="@drawable/ic_google"
+                        android:layout_marginEnd="8dp"
+                        android:textColor="#7f8787"
+                        android:layout_alignParentEnd="true"
+                        android:text="@string/google" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/login_progress"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+
+</layout>

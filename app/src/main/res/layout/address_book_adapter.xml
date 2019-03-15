@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class = "MainAdapterBinding">
+
+        <variable
+            name="adapterBookVM"
+            type="com.ninositsolution.inveleapp.address_book.AddressBookVM"/>
+        <variable
+            name="adapterIAddressBook"
+            type="com.ninositsolution.inveleapp.address_book.IAddressBook"/>
+
+    </data>
+
+    <android.support.v7.widget.CardView
+        app:cardElevation="@dimen/_8sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:padding="@dimen/_8sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/address_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->adapterIAddressBook.radioButtonClicked()"/>
+
+            <TextView
+                android:id="@+id/address_name"
+                android:layout_toEndOf="@+id/address_radio"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Ajmal"
+                android:text="@={adapterBookVM.name}"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold"/>
+            </LinearLayout>
+            <LinearLayout
+                android:padding="@dimen/_8sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/address_phone"
+                android:layout_below="@+id/address_name"
+                android:layout_alignStart="@+id/address_name"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="+65 63801245"
+                android:text="@={adapterBookVM.contact_no}"
+                android:textSize="@dimen/_14sdp"
+                />
+
+            <TextView
+                android:id="@+id/address_1"
+                android:layout_below="@+id/address_phone"
+                android:layout_alignStart="@+id/address_name"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="725 Woodlands Avenue"
+                android:text="@={adapterBookVM.address}"
+                android:textSize="@dimen/_14sdp"
+                />
+
+            <TextView
+                android:id="@+id/pincode"
+                android:layout_below="@+id/address_1"
+                android:layout_alignStart="@+id/address_name"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Singapore - 730725"
+                android:text="@={adapterBookVM.city_pincode}"
+                android:textSize="@dimen/_14sdp"
+                />
+
+            <Button
+                android:id="@+id/shipping_button"
+                android:layout_below="@+id/pincode"
+                android:layout_alignStart="@+id/address_name"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:hint="Shipping Address"
+                android:textColorHint="@color/white"
+                android:text="@={adapterBookVM.ship_billAddress}"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:textStyle="bold"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/white"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right|center"
+                android:orientation="horizontal">
+
+            <RelativeLayout
+                android:onClick="@{()->adapterIAddressBook.onEditClicked()}"
+                android:id="@+id/address_edit"
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
+                android:layout_alignTop="@+id/shipping_button"
+                android:background="@drawable/margin"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/_8sdp">
+
+                <ImageView
+                    android:id="@+id/edit_button"
+                    android:layout_width="@dimen/_14sdp"
+                    android:layout_height="@dimen/_14sdp"
+                    android:src="@drawable/edit_button"
+                    android:layout_centerInParent="true"
+                    tools:ignore="ContentDescription" />
+            </RelativeLayout>
+
+                <RelativeLayout
+                    android:onClick="@{()->adapterIAddressBook.onDeleteClicked()}"
+                    android:id="@+id/address_delete"
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="@dimen/_32sdp"
+                    android:layout_alignTop="@+id/shipping_button"
+                    android:background="@drawable/margin"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/_8sdp">
+
+
+                <ImageView
+                    android:layout_width="@dimen/_14sdp"
+                    android:layout_height="@dimen/_14sdp"
+                    android:src="@drawable/delete_button"
+                    android:layout_centerInParent="true"
+                    tools:ignore="ContentDescription" />
+
+
+
+            </RelativeLayout>
+            </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_4sdp"
+                android:background="#e0e0e0"/>
+
+
+        </LinearLayout>
+
+
+
+
+    </android.support.v7.widget.CardView>
+
+</layout>
+

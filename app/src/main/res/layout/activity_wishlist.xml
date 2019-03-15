@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="wishlist"
+            type="com.ninositsolution.inveleapp.wishlist.WishlistVM"/>
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                app:contentInsetStart="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolBar_height"
+                android:background="@color/white">
+
+                <RelativeLayout
+                    android:id="@+id/wishlist_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/toolBar_height">
+
+                    <ImageView
+                        android:id="@+id/search_header_back"
+                        android:layout_width="@dimen/back_arrow_size"
+                        android:layout_height="@dimen/back_arrow_size"
+                        android:onClick="@{()->wishlist.onBackClicked()}"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/ic_arrow_back_24dp"
+                        tools:ignore="ContentDescription" />
+
+
+                    <TextView
+                        android:layout_toEndOf="@+id/search_header_back"
+                        android:layout_marginStart="@dimen/_18sdp"
+                        android:id="@+id/pass_header"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/whishlist_header"
+                        android:textSize="@dimen/toolBarFont"
+                        tools:ignore="RelativeOverlap" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@+id/wishlist_header_cart"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        app:srcCompat="@drawable/ic_search_colored_24dp"
+                        tools:ignore="ContentDescription" />
+
+
+                    <ImageView
+                        android:id="@+id/wishlist_header_cart"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        app:srcCompat="@drawable/ic_shopping_cart_colored"
+                        tools:ignore="ContentDescription" />
+
+                </RelativeLayout>
+
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <RelativeLayout
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:padding="@dimen/_6sdp"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/wishlist_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/cart_image"
+                    android:layout_width="@dimen/_160sdp"
+                    android:layout_height="@dimen/_160sdp"
+                    android:layout_centerInParent="true"
+                    app:srcCompat = "@drawable/wishlist"/>
+
+
+                <TextView
+                    android:id="@+id/empty_cart_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/cart_image"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:text="@string/empty_wishlist"
+                    android:textSize="@dimen/_14sdp"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+
+</layout>

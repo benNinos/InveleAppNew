@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="recentlyViewed"
+            type="com.ninositsolution.inveleapp.recently_viewed.RecentlyViewedVM"/>
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolBar_height"
+                app:contentInsetStart="0dp"
+                android:background="@color/white">
+
+                <RelativeLayout
+                    android:id="@+id/wishlist_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/toolBar_height">
+
+
+                    <ImageView
+                        android:id="@+id/search_header_back"
+                        android:layout_width="@dimen/back_arrow_size"
+                        android:layout_height="@dimen/back_arrow_size"
+                        android:onClick="@{()->recentlyViewed.onBackClicked()}"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/ic_arrow_back_24dp"
+                        tools:ignore="ContentDescription" />
+
+
+                    <TextView
+                        android:layout_toEndOf="@+id/search_header_back"
+                        android:layout_marginStart="@dimen/_18sdp"
+                        android:id="@+id/pass_header"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/recent_header"
+                        android:textSize="@dimen/toolBarFont"
+                        tools:ignore="RelativeOverlap" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@+id/wishlist_header_cart"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        app:srcCompat="@drawable/ic_search_colored_24dp"
+                        tools:ignore="ContentDescription" />
+
+
+                    <ImageView
+                        android:id="@+id/wishlist_header_cart"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        app:srcCompat="@drawable/ic_shopping_cart_colored"
+                        tools:ignore="ContentDescription" />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <RelativeLayout
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recently_viewed_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
+
+
+
+        </RelativeLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</layout>

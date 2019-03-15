@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="addressBook"
+            type="com.ninositsolution.inveleapp.address_book.AddressBookVM"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolBar_height">
+
+            <ImageView
+                android:id="@+id/account_header_back"
+                android:layout_width="36dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_arrow_back_24dp"
+                tools:ignore="ContentDescription" />
+
+
+            <TextView
+                android:layout_toEndOf="@+id/account_header_back"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:id="@+id/search_header"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/personal_info"
+                android:textSize="@dimen/_16sdp"
+                tools:ignore="RelativeOverlap" />
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#e0e0e0"/>
+
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_8sdp"
+                    tools:ignore="UselessParent">
+
+                    <ImageView
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="@dimen/_100sdp"
+                        android:layout_margin="@dimen/_8sdp"
+                        android:src="@drawable/profile"
+                        tools:ignore="ContentDescription" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:hint="@string/first_name"
+                            android:layout_height="wrap_content" />
+
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:hint="@string/last_name"
+                            android:layout_height="wrap_content" />
+
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_24sdp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_32sdp">
+
+                        <TextView
+                            android:layout_marginTop="@dimen/_4sdp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:layout_gravity=""
+                            android:text="@string/gender"
+                            android:textSize="@dimen/_16sdp"
+                            />
+
+                        <RadioGroup
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:fontFamily="@font/roboto_font"
+                                android:textSize="@dimen/_14sdp"
+                                android:text="@string/male"/>
+
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:fontFamily="@font/roboto_font"
+                                android:textSize="@dimen/_14sdp"
+                                android:text="@string/female"/>
+
+                        </RadioGroup>
+
+
+                    </LinearLayout>
+
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_24sdp" />
+
+
+                    <TextView
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_gravity=""
+                        android:text="@string/dob"
+                        android:textSize="@dimen/_16sdp"
+                        />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_12sdp" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="@dimen/_64sdp"
+                            android:layout_height="@dimen/_32sdp"
+                            android:text="Day"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:background="@drawable/margin"
+                            android:gravity="center"
+                            android:drawableEnd="@drawable/ic_keyboard_arrow_down_black_24dp"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:layout_width="@dimen/_64sdp"
+                            android:layout_height="@dimen/_32sdp"
+                            android:text="Month"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:background="@drawable/margin"
+                            android:gravity="center"
+                            android:drawableEnd="@drawable/ic_keyboard_arrow_down_black_24dp"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:layout_width="@dimen/_64sdp"
+                            android:layout_height="@dimen/_32sdp"
+                            android:text="Year"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:background="@drawable/margin"
+                            android:gravity="center"
+                            android:drawableEnd="@drawable/ic_keyboard_arrow_down_black_24dp"
+                            tools:ignore="HardcodedText" />
+
+                      <!--  <android.support.v7.widget.AppCompatSpinner
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:entries="@string/day">
+
+                        </android.support.v7.widget.AppCompatSpinner>
+
+                        <android.support.v7.widget.AppCompatSpinner
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:entries="@string/day">
+
+                        </android.support.v7.widget.AppCompatSpinner>
+
+                        <android.support.v7.widget.AppCompatSpinner
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:entries="@string/day">
+
+                        </android.support.v7.widget.AppCompatSpinner>-->
+
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_36sdp" />
+
+                    <Button
+                        android:id="@+id/add_address_button"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_width="@dimen/_180sdp"
+                        android:layout_height="@dimen/_42sdp"
+                        android:text="@string/update_profile"
+                        android:paddingStart="@dimen/_8sdp"
+                        android:paddingEnd="@dimen/_8sdp"
+                        android:textStyle="bold"
+                        android:background="@color/colorPrimary"
+                        android:textColor="@android:color/white"/>
+
+
+
+                </LinearLayout>
+
+
+        </android.support.v4.widget.NestedScrollView>
+
+
+
+
+
+    </LinearLayout>
+
+</layout>

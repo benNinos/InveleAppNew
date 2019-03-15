@@ -1,0 +1,671 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="helpDesk"
+            type="com.ninositsolution.inveleapp.help_desk.HelpDeskVM"/>
+        
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:background="@color/white"
+        app:contentInsetStart="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_36sdp"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/account_header_back"
+                    android:layout_width="36dp"
+                    android:layout_height="32dp"
+                    android:onClick="@{()->helpDesk.onBackClicked()}"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_centerVertical="true"
+                    app:srcCompat="@drawable/ic_arrow_back_24dp"
+                    tools:ignore="ContentDescription" />
+
+
+                <TextView
+                    android:layout_toEndOf="@+id/account_header_back"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:id="@+id/search_header"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/help_desk_header"
+                    android:textSize="@dimen/toolBarFont"
+                    tools:ignore="RelativeOverlap" />
+
+
+            </RelativeLayout>
+
+
+
+    </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:background="@color/invelebg"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_8sdp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_64sdp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/help_center"
+                    tools:ignore="ContentDescription" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_8sdp" />
+
+                <android.support.v7.widget.CardView
+                    app:cardElevation="@dimen/_8sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_12sdp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/looking_for"
+                            android:textSize="@dimen/help_desk_regular"
+                            android:layout_gravity="center_horizontal"/>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_12sdp" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/_8sdp"
+                                android:hint="@string/type_your_queries"
+                                android:background="@drawable/altered_edittext_bg"
+                                android:layout_marginStart="@dimen/_16sdp"
+                                tools:ignore="Autofill,HardcodedText,RtlHardcoded,RtlSymmetry"
+                                android:inputType="text" />
+
+                            <Button
+                                android:id="@+id/button"
+                                android:layout_width="@dimen/_60sdp"
+                                android:layout_height="@dimen/_34sdp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="@dimen/_16sdp"
+                                android:background="@drawable/altered_button_bg"
+                                android:textAllCaps="false"
+                                android:textColor="@android:color/white"
+                                android:text="@string/button_text" />
+
+                        </RelativeLayout>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_12sdp" />
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:weightSum="3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <android.support.v7.widget.CardView
+                                app:cardElevation="@dimen/_8sdp"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_margin="@dimen/_1sdp"
+                                android:layout_height="@dimen/_72sdp">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_36sdp"
+                                    android:layout_height="@dimen/_36sdp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="@dimen/_12sdp"
+                                    android:src="@drawable/corder"
+                                    tools:ignore="ContentDescription" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="@string/order_tracking"
+                                    android:layout_gravity="bottom"
+                                    android:textSize="@dimen/help_desk_small"
+                                    android:layout_margin="@dimen/_2sdp"/>
+
+
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                app:cardElevation="@dimen/_8sdp"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_margin="@dimen/_1sdp"
+                                android:layout_height="@dimen/_72sdp">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_36sdp"
+                                    android:layout_height="@dimen/_36sdp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="@dimen/_12sdp"
+                                    android:src="@drawable/cdelivery"
+                                    tools:ignore="ContentDescription" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="@string/cancellation"
+                                    android:layout_gravity="bottom"
+                                    android:textSize="@dimen/help_desk_small"
+                                    android:layout_margin="@dimen/_2sdp"/>
+
+
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                app:cardElevation="@dimen/_8sdp"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_margin="@dimen/_1sdp"
+                                android:layout_height="@dimen/_72sdp">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_36sdp"
+                                    android:layout_height="@dimen/_36sdp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="@dimen/_12sdp"
+                                    android:src="@drawable/corder"
+                                    tools:ignore="ContentDescription" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="@string/refund_return"
+                                    android:layout_gravity="bottom"
+                                    android:textSize="@dimen/help_desk_small"
+                                    android:layout_margin="@dimen/_2sdp"/>
+
+
+                            </android.support.v7.widget.CardView>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:weightSum="3"
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <android.support.v7.widget.CardView
+                                app:cardElevation="@dimen/_8sdp"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_margin="@dimen/_1sdp"
+                                android:layout_height="@dimen/_72sdp">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_36sdp"
+                                    android:layout_height="@dimen/_36sdp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="@dimen/_12sdp"
+                                    android:src="@drawable/corder"
+                                    tools:ignore="ContentDescription" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="@string/payment"
+                                    android:layout_gravity="bottom"
+                                    android:textSize="@dimen/help_desk_small"
+                                    android:layout_margin="@dimen/_2sdp"/>
+
+
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                app:cardElevation="@dimen/_8sdp"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_margin="@dimen/_1sdp"
+                                android:layout_height="@dimen/_72sdp">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_36sdp"
+                                    android:layout_height="@dimen/_36sdp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="@dimen/_12sdp"
+                                    android:src="@drawable/corder"
+                                    tools:ignore="ContentDescription" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="@string/refund_return"
+                                    android:layout_gravity="bottom"
+                                    android:textSize="@dimen/help_desk_small"
+                                    android:layout_margin="@dimen/_2sdp"/>
+
+
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                app:cardElevation="@dimen/_8sdp"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_margin="@dimen/_1sdp"
+                                android:layout_height="@dimen/_72sdp">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_36sdp"
+                                    android:layout_height="@dimen/_36sdp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="@dimen/_11sdp"
+                                    android:src="@drawable/corder"
+                                    tools:ignore="ContentDescription" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="@string/account_settings"
+                                    android:layout_gravity="bottom"
+                                    android:textSize="@dimen/help_desk_small"
+                                    android:layout_margin="@dimen/_2sdp"/>
+
+
+                            </android.support.v7.widget.CardView>
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_8sdp" />
+
+                <android.support.v7.widget.CardView
+                    app:cardElevation="@dimen/_8sdp"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginEnd="@dimen/_12sdp">
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/ic_add_black_24dp"
+                            android:text="@string/help_ques_1"
+                            android:textSize="@dimen/help_desk_regular"/>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_12sdp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_2sdp"
+                            android:background="@color/help_line_color"/>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/ic_add_black_24dp"
+                            android:text="@string/help_ques_2"
+                            android:textSize="@dimen/help_desk_regular"/>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_12sdp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_2sdp"
+                            android:background="@color/help_line_color"/>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/ic_add_black_24dp"
+                            android:text="@string/help_ques_3"
+                            android:textSize="@dimen/help_desk_regular"/>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_12sdp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_2sdp"
+                            android:background="@color/help_line_color"/>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/ic_add_black_24dp"
+                            android:text="@string/help_ques_4"
+                            android:textSize="@dimen/help_desk_regular"/>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_12sdp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_2sdp"
+                            android:background="@color/help_line_color"/>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/ic_add_black_24dp"
+                            android:text="@string/help_ques_5"
+                            android:textSize="@dimen/help_desk_regular"/>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_12sdp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_2sdp"
+                            android:background="@color/help_line_color"/>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/ic_add_black_24dp"
+                            android:text="@string/help_ques_6"
+                            android:textSize="@dimen/help_desk_regular"/>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_12sdp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_2sdp"
+                            android:background="@color/help_line_color"/>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/ic_add_black_24dp"
+                            android:text="@string/help_ques_7"
+                            android:textSize="@dimen/help_desk_regular"/>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_12sdp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_2sdp"
+                            android:background="@color/help_line_color"/>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/ic_add_black_24dp"
+                            android:text="@string/help_ques_8"
+                            android:textSize="@dimen/help_desk_regular"/>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_12sdp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_2sdp"
+                            android:background="@color/help_line_color"/>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/ic_add_black_24dp"
+                            android:text="@string/help_ques_9"
+                            android:textSize="@dimen/help_desk_regular"
+                            tools:ignore="TooManyViews" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_12sdp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_2sdp"
+                            android:background="@color/help_line_color"/>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/ic_add_black_24dp"
+                            android:text="@string/help_ques_10"
+                            android:textSize="@dimen/help_desk_regular"/>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_12sdp" />
+
+                    </LinearLayout>
+
+
+                </android.support.v7.widget.CardView>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_8sdp" />
+
+                <android.support.v7.widget.CardView
+                    app:cardElevation="@dimen/_8sdp"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_margin="@dimen/_12sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:layout_centerHorizontal="true"
+                            android:id="@+id/help_call_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+
+                            <TextView
+                                android:id="@+id/call_us"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/call_us"
+                                android:textSize="@dimen/help_desk_regular"/>
+
+                            <TextView
+                                android:id="@+id/num_1"
+                                android:layout_toEndOf="@+id/call_us"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:text="@string/num_1"
+                                android:textSize="@dimen/help_desk_regular"/>
+
+                            <TextView
+                                android:id="@+id/comma"
+                                android:layout_toEndOf="@+id/num_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/comma"
+                                android:textSize="@dimen/help_desk_regular"/>
+
+                            <TextView
+                                android:id="@+id/num_2"
+                                android:layout_toEndOf="@+id/call_us"
+                                android:layout_below="@+id/num_1"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:text="@string/num_2"
+                                android:textSize="@dimen/help_desk_regular"/>
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/help_or"
+                            android:layout_below="@+id/help_call_layout"
+                            android:layout_centerHorizontal="true"
+                            android:layout_margin="@dimen/_8sdp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/or"
+                            android:textSize="@dimen/help_desk_regular"/>
+
+                        <RelativeLayout
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@+id/help_or"
+                            android:id="@+id/help_email_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+
+                            <TextView
+                                android:id="@+id/email_us"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/call_us"
+                                android:textSize="@dimen/help_desk_regular"/>
+
+                            <TextView
+                                android:id="@+id/help_email"
+                                android:layout_toEndOf="@+id/email_us"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:text="@string/email_addr"
+                                android:textSize="@dimen/help_desk_regular"/>
+
+
+                        </RelativeLayout>
+
+
+
+
+                    </RelativeLayout>
+
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+
+        </android.support.v4.widget.NestedScrollView>
+
+
+
+    </android.support.design.widget.CoordinatorLayout>
+    
+</layout>

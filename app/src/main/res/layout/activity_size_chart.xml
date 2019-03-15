@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".size_chart.SizeChartActivity">
+
+
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            app:contentInsetStart="0dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_36sdp">
+
+            <LinearLayout
+                android:id="@+id/cart_tool_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_36sdp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="@dimen/_8sdp"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="32dp"
+                    android:onClick="@{()->cart.onBackClicked()}"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_arrow_back_24dp"
+                    tools:ignore="ContentDescription" />
+
+                <Space
+                    android:layout_width="@dimen/_8sdp"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/toolBarFont"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/size_chart_header"/>
+
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:elevation="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_50sdp">
+
+        <TableRow
+            android:background="@color/table_header_background"
+            android:weightSum="7"
+            android:layout_height="@dimen/_48sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_4sdp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:gravity="center"
+                android:background="@drawable/table_white_border"
+                android:text="@string/table_header_country"
+                android:textColor="@android:color/white"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_white_border"
+                android:gravity="center"
+                android:text="Size"
+                android:textColor="@android:color/white"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:gravity="center"
+                android:background="@drawable/table_white_border"
+                android:text="@string/height_header_text"
+                android:textColor="@android:color/white"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_white_border"
+                android:gravity="center"
+                android:text="@string/chest_header_textview"
+                android:textColor="@android:color/white"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_white_border"
+                android:gravity="center"
+                android:text="@string/header_neck_textview"
+                android:textColor="@android:color/white"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_white_border"
+
+                android:gravity="center"
+                android:text="@string/table_waist_textview"
+                android:textColor="@android:color/white"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_white_border"
+                android:gravity="center"
+                android:text="@string/table_arm_textview"
+                android:textColor="@android:color/white"/>
+
+        </TableRow>
+
+        <TableRow
+            android:background="@drawable/table_border"
+            android:weightSum="7"
+            android:layout_height="@dimen/_48sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_4sdp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:gravity="center"
+                android:background="@drawable/table_border"
+                android:text="India"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="XL"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="20-21"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="22-23"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="24-25"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="25-26"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="30"
+                android:textColor="@android:color/black"/>
+
+        </TableRow>
+
+        <TableRow
+            android:background="@drawable/table_border"
+            android:weightSum="7"
+            android:layout_height="@dimen/_48sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_4sdp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:gravity="center"
+                android:background="@drawable/table_border"
+                android:text="India"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="XL"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="20-21"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="22-23"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="24-25"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="25-26"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="30"
+                android:textColor="@android:color/black"/>
+
+        </TableRow>
+
+        <TableRow
+            android:background="@drawable/table_border"
+            android:weightSum="7"
+            android:layout_height="@dimen/_48sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_4sdp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:gravity="center"
+                android:background="@drawable/table_border"
+                android:text="India"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="XL"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="20-21"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="22-23"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="24-25"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="25-26"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="30"
+                android:textColor="@android:color/black"/>
+
+        </TableRow>
+
+        <TableRow
+            android:background="@drawable/table_border"
+            android:weightSum="7"
+            android:layout_height="@dimen/_48sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_4sdp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:gravity="center"
+                android:background="@drawable/table_border"
+                android:text="India"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="XL"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="20-21"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="22-23"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="24-25"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="25-26"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="30"
+                android:textColor="@android:color/black"/>
+
+        </TableRow>
+
+        <TableRow
+            android:background="@drawable/table_border"
+            android:weightSum="7"
+            android:layout_height="@dimen/_48sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_4sdp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:gravity="center"
+                android:background="@drawable/table_border"
+                android:text="India"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="XL"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="20-21"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="22-23"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="24-25"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="25-26"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="30"
+                android:textColor="@android:color/black"/>
+
+        </TableRow>
+
+        <TableRow
+            android:background="@drawable/table_border"
+            android:weightSum="7"
+            android:layout_height="@dimen/_48sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_4sdp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:gravity="center"
+                android:background="@drawable/table_border"
+                android:text="India"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="XL"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="20-21"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="22-23"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="24-25"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="25-26"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@drawable/table_border"
+                android:gravity="center"
+                android:text="30"
+                android:textColor="@android:color/black"/>
+
+        </TableRow>
+    </TableLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

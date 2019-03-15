@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "446803575025",
+    "firebase_url": "https://inveleapp.firebaseio.com",
+    "project_id": "inveleapp",
+    "storage_bucket": "inveleapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:446803575025:android:88334679c355fd05",
+        "android_client_info": {
+          "package_name": "com.ninositsolution.inveleapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "446803575025-niqllh7vs5n8s8s7hugrggpl13is56p3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ninositsolution.inveleapp",
+            "certificate_hash": "050ef3617a204ed75bc43b2bbc2389c84936ff6b"
+          }
+        },
+        {
+          "client_id": "446803575025-rm20k69c00lcgde6410cu0cabg91plqc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDptX9Bu_9EdKbnlwBGAllDfqqnVxWZrvg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "446803575025-rm20k69c00lcgde6410cu0cabg91plqc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

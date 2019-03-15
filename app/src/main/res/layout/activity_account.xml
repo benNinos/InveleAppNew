@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="account"
+            type="com.ninositsolution.inveleapp.account.AccountVM"/>
+    </data>
+
+  <!--  <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolBar_height"
+                app:contentInsetStart="0dp"
+                android:background="@color/white">
+
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+    </android.support.design.widget.CoordinatorLayout>-->
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolBar_height">
+
+            <ImageView
+                android:id="@+id/account_header_back"
+                android:layout_width="@dimen/back_arrow_size"
+                android:layout_height="@dimen/back_arrow_size"
+                android:onClick="@{()->account.onBackClicked()}"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_arrow_back_24dp"
+                tools:ignore="ContentDescription" />
+
+
+            <TextView
+                android:layout_toEndOf="@+id/account_header_back"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:id="@+id/search_header"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/account_header"
+                android:textSize="@dimen/toolBarFont"
+                tools:ignore="RelativeOverlap" />
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#e0e0e0"/>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/invelebg"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/profile_bg"
+                    android:padding="@dimen/_6sdp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/account_profile_pic"
+                        android:layout_width="@dimen/profile_pic"
+                        android:layout_height="@dimen/profile_pic"
+                        android:layout_margin="@dimen/_8sdp"
+                        android:src="@drawable/user" />
+
+                    <TextView
+                        android:id="@+id/account_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/account_name"
+                        android:textSize="@dimen/_18sdp"
+                        android:alpha="0.8"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_alignTop="@+id/account_profile_pic"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:layout_toEndOf="@+id/account_profile_pic"
+                        tools:ignore="RelativeOverlap" />
+
+                    <TextView
+                        android:id="@+id/account_additional_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/account_add_info"
+                        android:textSize="@dimen/account_page_12sdp"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:layout_below="@+id/account_name"
+                        android:textColor="@color/white"
+                        android:layout_alignStart="@id/account_name"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_24sdp"
+                        android:paddingStart="@dimen/_8sdp"
+                        android:paddingEnd="@dimen/_8sdp"
+                        android:text="@string/account_button_fitme"
+                        android:onClick="@{()->account.onUpdateFitmeClicked()}"
+                        android:layout_below="@+id/account_additional_info"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:textSize="@dimen/_10sdp"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:background="@drawable/fitme_button"
+                        android:layout_alignStart="@+id/account_name"
+                        tools:ignore="UnusedAttribute"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/app_icon"
+                        android:layout_height="@dimen/app_icon"
+                        android:layout_alignParentEnd="true"
+                        android:onClick="@{()->account.onSettingsClicked()}"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:layout_alignTop="@+id/account_name"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        app:srcCompat="@drawable/ic_settings_white_24dp"
+                        tools:ignore="ContentDescription"/>
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.CardView
+                    app:cardElevation="@dimen/card_elevation_size"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:paddingTop="@dimen/_8sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/my_order"
+                            android:textSize="@dimen/account_page_12sdp"
+                            android:textStyle="bold"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            android:textColor="@android:color/black"/>
+
+                        <TextView
+                            android:id="@+id/account_order_history"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:text="@string/view_order"
+                            android:onClick="@{()->account.onOrderHistoryClicked()}"
+                            android:layout_marginEnd="@dimen/_16sdp"
+                            android:textSize="@dimen/more_text_size"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            tools:ignore="RelativeOverlap" />
+
+
+                        <LinearLayout
+                            android:layout_below="@+id/account_order_history"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:weightSum="4"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:baselineAligned="false">
+
+                            <android.support.v7.widget.CardView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:shadowColor="@color/shadowColor"
+                                app:cardElevation="@dimen/elevation"
+                                android:layout_height="@dimen/_72sdp">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/account_page_icon_size"
+                                        android:layout_centerInParent="true"
+                                        android:src="@drawable/cmyorder"
+                                        tools:ignore="ContentDescription" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_marginBottom="@dimen/_8sdp"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="@dimen/item_text_size"
+                                        android:text="@string/cart" />
+
+                                </RelativeLayout>
+
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                android:onClick="@{()->account.onOrdersClicked()}"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:shadowColor="@color/shadowColor"
+                                app:cardElevation="@dimen/elevation"
+                                android:layout_height="@dimen/_72sdp">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/account_page_icon_size"
+                                        android:layout_centerInParent="true"
+                                        android:src="@drawable/cmyorder"
+                                        tools:ignore="ContentDescription" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_marginBottom="@dimen/_8sdp"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="@dimen/item_text_size"
+                                        android:layout_gravity="center_horizontal"
+                                        android:text="@string/order" />
+
+                                </RelativeLayout>
+
+
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                android:onClick="@{()->account.onReviewsClicked()}"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:shadowColor="@color/shadowColor"
+                                app:cardElevation="@dimen/elevation"
+                                android:layout_height="@dimen/_72sdp">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/account_page_icon_size"
+                                        android:layout_centerInParent="true"
+                                        android:src="@drawable/cmyorder"
+                                        tools:ignore="ContentDescription" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_marginBottom="@dimen/_8sdp"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="@dimen/item_text_size"
+                                        android:layout_gravity="center_horizontal"
+                                        android:text="@string/review" />
+
+                                </RelativeLayout>
+
+
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                android:onClick="@{()->account.onCancelClicked()}"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:layout_marginEnd="@dimen/_2sdp"
+                                android:shadowColor="@color/shadowColor"
+                                app:cardElevation="@dimen/elevation"
+                                android:layout_height="@dimen/_72sdp">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/account_page_icon_size"
+                                        android:layout_centerInParent="true"
+                                        android:src="@drawable/cmyorder"
+                                        tools:ignore="ContentDescription" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_marginBottom="@dimen/_8sdp"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="@dimen/item_text_size"
+                                        android:layout_gravity="center_horizontal"
+                                        android:text="@string/cancel" />
+
+                                </RelativeLayout>
+
+
+                            </android.support.v7.widget.CardView>
+
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    app:cardElevation="@dimen/card_elevation_size"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_8sdp">
+
+                        <TextView
+                            android:id="@+id/fitme"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fitme"
+                            android:textSize="@dimen/account_page_12sdp"
+                            android:textStyle="bold"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:textColor="@android:color/black"/>
+
+                        <ImageView
+                            android:id="@+id/fitme_image"
+                            android:background="@drawable/margin"
+                            android:padding="@dimen/_1sdp"
+                            android:layout_below="@+id/fitme"
+                            android:layout_alignStart="@+id/fitme"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="@dimen/_80sdp"
+                            android:src="@drawable/fitmeeee"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/fitme_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@+id/fitme_image"
+                            android:layout_toEndOf="@+id/fitme_image"
+                            android:text="@string/account_name"
+                            android:textSize="@dimen/_14sdp"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            tools:ignore="RelativeOverlap" />
+
+                        <LinearLayout
+                            android:id="@+id/fitme_icon_layout"
+                            android:layout_below="@+id/fitme_name"
+                            android:layout_toEndOf="@+id/fitme_image"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/app_icon"
+                                android:layout_height="@dimen/app_icon"
+                                android:src="@drawable/tshirt"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:layout_marginBottom="@dimen/_4sdp"
+                                android:layout_marginStart="@dimen/_6sdp"
+                                android:layout_marginEnd="@dimen/_6sdp"
+                                tools:ignore="ContentDescription" />
+
+                            <ImageView
+                                android:layout_width="@dimen/app_icon"
+                                android:layout_height="@dimen/app_icon"
+                                android:src="@drawable/sleeve"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:layout_marginBottom="@dimen/_4sdp"
+                                android:layout_marginStart="@dimen/_6sdp"
+                                android:layout_marginEnd="@dimen/_6sdp"
+                                tools:ignore="ContentDescription" />
+
+                            <ImageView
+                                android:layout_width="@dimen/app_icon"
+                                android:layout_height="@dimen/app_icon"
+                                android:src="@drawable/shorts"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:layout_marginBottom="@dimen/_4sdp"
+                                android:layout_marginStart="@dimen/_6sdp"
+                                android:layout_marginEnd="@dimen/_6sdp"
+                                tools:ignore="ContentDescription" />
+
+                            <LinearLayout
+                                android:layout_width="@dimen/_56sdp"
+                                android:layout_height="@dimen/_24sdp"
+                                android:layout_marginStart="@dimen/_6sdp"
+                                android:orientation="horizontal"
+                                android:background="@drawable/margin"
+                                tools:ignore="UseCompoundDrawables">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/_4sdp"
+                                    android:layout_gravity="center_vertical"
+                                    android:src="@drawable/edit"
+                                    tools:ignore="ContentDescription" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/edit"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:layout_margin="@dimen/_4sdp"
+                                    />
+
+                            </LinearLayout>
+
+
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/add_profile"
+                            android:layout_below="@+id/fitme_icon_layout"
+                            android:layout_toEndOf="@+id/fitme_image"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:onClick="@{()->account.onAddProfileClicked()}"
+                            android:layout_alignStart="@+id/fitme_icon_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/add_profile"
+                            android:textSize="@dimen/_12sdp"
+                            android:textColor="@color/colorPrimary"/>
+
+                    </RelativeLayout>
+
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    app:cardElevation="@dimen/card_elevation_size"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:onClick="@{()->account.onWishlistClicked()}"
+                            android:layout_height="@dimen/_44sdp"
+                            android:layout_marginStart="@dimen/account_page_8sdp"
+                            android:layout_marginEnd="@dimen/account_page_8sdp"
+                            android:padding="@dimen/_8sdp">
+
+                            <ImageView
+                                android:layout_width="@dimen/_24sdp"
+                                android:layout_height="@dimen/_24sdp"
+                                android:scaleX="1.6"
+                                android:scaleY="1.6"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/hand"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/_38sdp"
+                                android:text="@string/wishlist"
+                                android:textSize="@dimen/text_settings"
+                                tools:ignore="RelativeOverlap" />
+
+                            <ImageView
+                                android:layout_alignParentEnd="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:layout_centerVertical="true"
+                                app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp"
+                                tools:ignore="ContentDescription" />
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:layout_marginStart="@dimen/account_page_16sdp"
+                            android:layout_marginEnd="@dimen/account_page_16sdp"
+                            android:background="@color/grayWhite"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:onClick="@{()->account.onRecentsClicked()}"
+                            android:layout_marginStart="@dimen/account_page_8sdp"
+                            android:layout_marginEnd="@dimen/account_page_8sdp"
+                            android:layout_height="@dimen/_44sdp"
+                            android:padding="@dimen/_8sdp">
+
+                            <ImageView
+                                android:layout_width="@dimen/_24sdp"
+                                android:layout_height="@dimen/_24sdp"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:scaleX="1.6"
+                                android:scaleY="1.6"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/cmywishlist"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/_38sdp"
+                                android:text="@string/recent"
+                                android:textSize="@dimen/text_settings"
+                                tools:ignore="RelativeOverlap" />
+
+                            <ImageView
+                                android:layout_alignParentEnd="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:layout_centerVertical="true"
+                                app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp"
+                                tools:ignore="ContentDescription" />
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:layout_marginStart="@dimen/account_page_16sdp"
+                            android:layout_marginEnd="@dimen/account_page_16sdp"
+                            android:background="@color/grayWhite"/>
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:onClick="@{()->account.onCouponClicked()}"
+                            android:layout_marginStart="@dimen/account_page_8sdp"
+                            android:layout_marginEnd="@dimen/account_page_8sdp"
+                            android:layout_height="@dimen/_44sdp"
+                            android:padding="@dimen/_8sdp">
+
+                            <ImageView
+                                android:layout_width="@dimen/_24sdp"
+                                android:layout_height="@dimen/_24sdp"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:scaleX="1.6"
+                                android:scaleY="1.6"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/cwallet"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/_38sdp"
+                                android:text="@string/coupon"
+                                android:textSize="@dimen/text_settings"
+                                tools:ignore="RelativeOverlap" />
+
+                            <ImageView
+                                android:layout_alignParentEnd="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:layout_centerVertical="true"
+                                app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp"
+                                tools:ignore="ContentDescription" />
+
+                        </RelativeLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:layout_marginStart="@dimen/account_page_16sdp"
+                            android:layout_marginEnd="@dimen/account_page_16sdp"
+                            android:background="@color/grayWhite"/>
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_marginStart="@dimen/account_page_8sdp"
+                            android:layout_marginEnd="@dimen/account_page_8sdp"
+                            android:onClick="@{()->account.onAddressClicked()}"
+                            android:layout_height="@dimen/_44sdp"
+                            android:padding="@dimen/_8sdp">
+
+                            <ImageView
+                                android:layout_width="@dimen/_24sdp"
+                                android:layout_height="@dimen/_24sdp"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:scaleX="1.6"
+                                android:scaleY="1.6"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/cmyprofile"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/_38sdp"
+                                android:text="@string/address"
+                                android:textSize="@dimen/text_settings"
+                                tools:ignore="RelativeOverlap" />
+
+                            <ImageView
+                                android:layout_alignParentEnd="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:layout_centerVertical="true"
+                                app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp"
+                                tools:ignore="ContentDescription" />
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:layout_marginStart="@dimen/account_page_16sdp"
+                            android:layout_marginEnd="@dimen/account_page_16sdp"
+                            android:background="@color/grayWhite"/>
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:onClick="@{()->account.onMyAccountClickedClicked()}"
+                            android:layout_height="@dimen/_44sdp"
+                            android:layout_marginStart="@dimen/account_page_8sdp"
+                            android:layout_marginEnd="@dimen/account_page_8sdp"
+                            android:padding="@dimen/_8sdp">
+
+                            <ImageView
+                                android:layout_width="@dimen/_24sdp"
+                                android:layout_height="@dimen/_24sdp"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:scaleX="1.6"
+                                android:scaleY="1.6"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/cmyprofile"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/_38sdp"
+                                android:text="@string/account_header"
+                                android:textSize="@dimen/text_settings"
+                                tools:ignore="RelativeOverlap" />
+
+                            <ImageView
+                                android:layout_alignParentEnd="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:layout_centerVertical="true"
+                                app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp"
+                                tools:ignore="ContentDescription" />
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:layout_marginStart="@dimen/account_page_16sdp"
+                            android:layout_marginEnd="@dimen/account_page_16sdp"
+                            android:background="@color/grayWhite"/>
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:onClick="@{()->account.onHelpDeskClicked()}"
+                            android:layout_height="@dimen/_44sdp"
+                            android:layout_marginStart="@dimen/account_page_8sdp"
+                            android:layout_marginEnd="@dimen/account_page_8sdp"
+                            android:padding="@dimen/_8sdp">
+
+                            <ImageView
+                                android:layout_width="@dimen/_24sdp"
+                                android:layout_height="@dimen/_24sdp"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:scaleX="1.6"
+                                android:scaleY="1.6"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/cmyprofile"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/_38sdp"
+                                android:text="@string/help"
+                                android:textSize="@dimen/text_settings"
+                                tools:ignore="RelativeOverlap" />
+
+                            <ImageView
+                                android:layout_alignParentEnd="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:layout_centerVertical="true"
+                                app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp"
+                                tools:ignore="ContentDescription" />
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:layout_marginStart="@dimen/account_page_16sdp"
+                            android:layout_marginEnd="@dimen/account_page_16sdp"
+                            android:background="@color/grayWhite"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:onClick="@{()->account.onContactUSClicked()}"
+                            android:layout_height="@dimen/_44sdp"
+                            android:layout_marginStart="@dimen/account_page_8sdp"
+                            android:layout_marginEnd="@dimen/account_page_8sdp"
+                            android:padding="@dimen/_8sdp">
+
+                            <ImageView
+                                android:layout_width="@dimen/_24sdp"
+                                android:layout_height="@dimen/_24sdp"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:scaleX="1.6"
+                                android:scaleY="1.6"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/cmyprofile"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/_38sdp"
+                                android:text="@string/contact"
+                                android:textSize="@dimen/text_settings"
+                                tools:ignore="RelativeOverlap" />
+
+                            <ImageView
+                                android:layout_alignParentEnd="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_4sdp"
+                                android:layout_centerVertical="true"
+                                app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp"
+                                tools:ignore="ContentDescription" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+
+    </LinearLayout>
+
+
+
+
+
+</layout>

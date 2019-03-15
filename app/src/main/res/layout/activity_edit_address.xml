@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="editAddress"
+            type="com.ninositsolution.inveleapp.edit_address.EditAddressVM"/>
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_36sdp">
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentInsetLeft="0dp"
+                android:background="@color/white">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/toolBar_height">
+
+                    <ImageView
+                        android:onClick="@{()->editAddress.onBackClicked()}"
+                        android:id="@+id/account_header_back"
+                        android:layout_width="36dp"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/ic_arrow_back_24dp"
+                        tools:ignore="ContentDescription" />
+
+
+                    <TextView
+                        android:layout_toEndOf="@+id/account_header_back"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:id="@+id/search_header"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Edit Address"
+                        android:textSize="@dimen/_16sdp"
+                        tools:ignore="HardcodedText,RelativeOverlap" />
+
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@color/invelebg"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    tools:ignore="UselessParent">
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        android:paddingLeft="@dimen/_20sdp"
+                        android:paddingRight="@dimen/_20sdp" >
+
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/address_input_layout_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+
+
+                            <EditText
+                                android:id="@+id/address_input_name"
+                                android:layout_width="match_parent"
+                                android:paddingBottom="@dimen/edit_padding"
+                                android:layout_height="wrap_content"
+                                android:text="@string/account_name"
+                                android:hint="@string/float_name"
+                                android:inputType="textPersonName"
+                                tools:ignore="Autofill" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+
+
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/address_input_layout_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_20sdp">
+
+                            <EditText
+                                android:id="@+id/address_input_number"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/phone_sample"
+                                android:paddingBottom="@dimen/edit_padding"
+                                android:hint="@string/float_contact"
+                                android:inputType="number"
+                                tools:ignore="Autofill"/>
+
+                        </android.support.design.widget.TextInputLayout>
+
+
+                        <android.support.design.widget.TextInputLayout
+                                android:id="@+id/address_input_layout_postal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_20sdp">
+
+                            <EditText
+                                android:id="@+id/address_input_postal"
+                                android:layout_width="match_parent"
+                                android:paddingBottom="@dimen/edit_padding"
+                                android:text="@string/postalcode"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/float_postal"
+                                android:inputType="number"
+                                tools:ignore="Autofill" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/address_input_layout_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_20sdp">
+
+
+                            <EditText
+                                android:id="@+id/address_input_address"
+                                android:layout_width="match_parent"
+                                android:paddingBottom="@dimen/edit_padding"
+                                android:layout_height="wrap_content"
+                                android:text="@string/address_sample"
+                                android:hint="@string/float_address"
+                                android:inputType="text"
+                                tools:ignore="Autofill" />
+
+
+                        </android.support.design.widget.TextInputLayout>
+
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/address_input_layout_unitNo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_20sdp">
+
+
+                            <EditText
+                                android:id="@+id/address_input_unitNo"
+                                android:layout_width="match_parent"
+                                android:paddingBottom="@dimen/edit_padding"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/float_floor"
+                                android:text="@string/postalcode"
+                                android:inputType="text"
+                                tools:ignore="Autofill" />
+                        </android.support.design.widget.TextInputLayout>
+
+
+                        <RadioGroup
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+
+                            <RadioButton
+                                android:id="@+id/shipping_radio_btn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/textView_shipping"
+                                android:checked="true"/>
+                            <RadioButton
+                                android:id="@+id/billing_radio_btn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text = "@string/textView_billing"/>
+
+                        </RadioGroup>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_88sdp" />
+
+
+                    </LinearLayout>
+
+
+
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <LinearLayout
+            android:layout_gravity="bottom"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:background="#EDEDED"/>
+
+
+            <Button
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:gravity="center"
+                android:layout_margin="@dimen/_16sdp"
+                android:background="@color/colorPrimary"
+                android:text="@string/button_update"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:layout_gravity="center_horizontal"/>
+
+
+        </LinearLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+
+</layout>

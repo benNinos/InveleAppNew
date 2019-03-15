@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="home"
+            type="com.ninositsolution.inveleapp.home.HomeVM"/>
+
+        <variable
+            name="presenter"
+            type="com.ninositsolution.inveleapp.home.IHomeClick"/>
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolBar_height"
+                app:contentInsetStart="0dp"
+                android:layout_gravity="start"
+                android:background="@color/white"
+                android:gravity="center|start"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/logo_invele1"
+                        android:layout_width="@dimen/_72sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_height="@dimen/_24sdp"
+                        android:visibility="visible"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:src="@drawable/name_logo_primary"
+                        tools:ignore="ContentDescription" />
+
+                    <ImageView
+                        android:id="@+id/logo_invele2"
+                        android:layout_width="@dimen/_80sdp"
+                        android:visibility="gone"
+                        android:layout_centerVertical="true"
+                        android:layout_height="@dimen/_32sdp"
+                        android:src="@drawable/invele_logo_toolbar"
+                        tools:ignore="ContentDescription" />
+
+                    <ImageView
+                        android:id="@+id/search_icon"
+                        android:onClick="@{()->home.onSearchClicked()}"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:layout_toStartOf="@+id/wishlist_icon"
+                        app:srcCompat="@drawable/ic_search_colored_24dp"
+                        tools:ignore="ContentDescription" />
+
+                    <ImageView
+                        android:id="@+id/wishlist_icon"
+                        android:onClick="@{()->home.onWishlistClicked()}"
+                        android:layout_toStartOf="@+id/cart_icon"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:layout_width="@dimen/_18sdp"
+                        android:layout_height="@dimen/_18sdp"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/ic_heart_color"
+                        tools:ignore="ContentDescription" />
+
+                    <ImageView
+                        android:id="@+id/cart_icon"
+                        android:onClick="@{()->home.onCartClicked()}"
+                        android:layout_width="@dimen/_18sdp"
+                        android:layout_height="@dimen/_18sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/ic_shopping_cart_colored"
+                        tools:ignore="ContentDescription" />
+
+                </RelativeLayout>
+
+
+            </android.support.v7.widget.Toolbar>
+
+
+        </android.support.design.widget.AppBarLayout>
+
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/home_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_below="@+id/home_toolbar2">
+
+            <LinearLayout
+                android:id="@+id/home_main_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/invelebg">
+
+                <RelativeLayout
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:id="@+id/home_banner1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_90sdp"
+                    android:orientation="vertical">
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/view_pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_90sdp">
+
+                    </android.support.v4.view.ViewPager>
+
+                    <LinearLayout
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:id="@+id/slider_dots"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <android.support.v4.view.ViewPager
+
+                    android:id="@+id/home_three_image_view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_75sdp">
+
+                </android.support.v4.view.ViewPager>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/home_categories" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_12sdp" />
+
+                    <include layout="@layout/home_flashsales"
+                        android:id="@+id/clicks"
+                        app:clickEvent="@{1}"/>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_12sdp" />
+
+                    <include layout="@layout/home_trending" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_12sdp" />
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="@dimen/card_elevation_size">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/invelebg"
+                            android:orientation="vertical"
+                            android:padding="@dimen/_4sdp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_8sdp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/brands"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:onClick="@{()->home.onBrandMoreClicked()}"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/more"
+                                    android:layout_alignParentEnd="true"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:textSize="@dimen/more_text_size"
+                                    tools:ignore="RelativeOverlap" />
+
+                            </RelativeLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_2sdp"
+                                android:layout_margin="@dimen/_8sdp"
+                                android:background="@color/ash_color"/>
+
+                            <android.support.v4.view.ViewPager
+                                android:background="@color/invelebg"
+                                android:id="@+id/viewpager_brands"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_160sdp">
+
+                            </android.support.v4.view.ViewPager>
+
+                        </LinearLayout>
+
+
+                    </android.support.v7.widget.CardView>
+
+
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_12sdp" />
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="@dimen/card_elevation_size">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/invelebg"
+                            android:orientation="vertical"
+                            android:padding="@dimen/_4sdp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_8sdp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/under"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/more"
+                                    android:layout_alignParentEnd="true"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:textSize="@dimen/more_text_size"
+                                    tools:ignore="RelativeOverlap" />
+
+                            </RelativeLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_2sdp"
+                                android:layout_margin="@dimen/_8sdp"
+                                android:background="@color/ash_color"/>
+
+                            <android.support.v4.view.ViewPager
+                                android:background="@color/invelebg"
+                                android:id="@+id/viewpager_under"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_110sdp">
+
+                            </android.support.v4.view.ViewPager>
+
+                        </LinearLayout>
+
+
+                    </android.support.v7.widget.CardView>
+
+
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_12sdp" />
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="@dimen/card_elevation_size">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/invelebg"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_8sdp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/mens"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/more"
+                                    android:layout_alignParentEnd="true"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:textSize="@dimen/more_text_size"
+                                    tools:ignore="RelativeOverlap" />
+
+                            </RelativeLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_2sdp"
+                                android:layout_margin="@dimen/_8sdp"
+                                android:background="@color/ash_color"/>
+
+                            <android.support.v4.view.ViewPager
+                                android:background="@color/invelebg"
+                                android:id="@+id/viewpager_mens"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_232sdp">
+
+                            </android.support.v4.view.ViewPager>
+
+                        </LinearLayout>
+
+
+                    </android.support.v7.widget.CardView>
+
+
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_12sdp" />
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="@dimen/card_elevation_size">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/invelebg"
+                            android:orientation="vertical"
+                            >
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_8sdp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/womens"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/more"
+                                    android:layout_alignParentEnd="true"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:textSize="@dimen/more_text_size" />
+
+                            </RelativeLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_2sdp"
+                                android:layout_margin="@dimen/_8sdp"
+                                android:background="@color/ash_color"/>
+
+                            <android.support.v4.view.ViewPager
+                                android:background="@color/invelebg"
+                                android:id="@+id/viewpager_womens"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_232sdp">
+
+                            </android.support.v4.view.ViewPager>
+
+                        </LinearLayout>
+
+
+                    </android.support.v7.widget.CardView>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_12sdp" />
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="@dimen/card_elevation_size">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/invelebg"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_8sdp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/electronics"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/more"
+                                    android:layout_alignParentEnd="true"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:textSize="@dimen/more_text_size" />
+
+                            </RelativeLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_2sdp"
+                                android:layout_margin="@dimen/_8sdp"
+                                android:background="@color/ash_color"/>
+
+                            <android.support.v4.view.ViewPager
+                                android:background="@color/invelebg"
+                                android:id="@+id/viewpager_electronics"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_232sdp">
+
+                            </android.support.v4.view.ViewPager>
+
+                        </LinearLayout>
+
+
+                    </android.support.v7.widget.CardView>
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_12sdp" />
+
+                </LinearLayout>
+
+                    <Space
+                        android:background="@color/invelebg"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_42sdp" />
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            app:labelVisibilityMode="labeled"
+            app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
+            android:background="?android:attr/windowBackground"
+            app:menu="@menu/navigation" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+</layout>

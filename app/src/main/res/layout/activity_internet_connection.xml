@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="iInternet"
+            type="com.ninositsolution.inveleapp.no_internet_connection.IInternetConnection"/>
+
+        <variable
+            name="internet"
+            type="com.ninositsolution.inveleapp.no_internet_connection.InternetConnectionVM"/>
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_36sdp"
+                app:contentInsetStart="0dp"
+                android:background="@color/white">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp">
+
+                    <ImageView
+                        android:id="@+id/account_header_back"
+                        android:layout_width="36dp"
+                        android:layout_height="32dp"
+                        android:onClick="@{()->iInternet.onBackClicked()}"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/ic_arrow_back_24dp"
+                        tools:ignore="ContentDescription" />
+
+
+                    <TextView
+                        android:layout_toEndOf="@+id/account_header_back"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:id="@+id/search_header"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/back"
+                        android:textSize="@dimen/toolBarFont"
+                        tools:ignore="RelativeOverlap" />
+
+
+                </RelativeLayout>
+
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <RelativeLayout
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/no_internet_img"
+                android:layout_width="@dimen/_240sdp"
+                android:layout_height="@dimen/_240sdp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_80sdp"
+                android:src="@drawable/no_internet_img"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/no_internet_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/internet_connection_lost"
+                android:textSize="@dimen/prod_text_size"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/no_internet_img"/>
+
+            <Button
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="wrap_content"
+                android:text="@string/try_again_textview"
+                android:onClick="@{()->iInternet.onTryAgainClicked()}"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:background="@drawable/rounded_bgcolor_button"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/no_internet_text"
+                android:textColor="@color/white"/>
+
+        </RelativeLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</layout>
+

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.ninositsolution.inveleapp">
+
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/invele_logo_icon"
+        android:hardwareAccelerated="false"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/invele_logo_icon"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:largeHeap="true"
+        android:usesCleartextTraffic="true"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity android:name=".size_chart.SizeChartActivity" />
+        <activity android:name=".payment.PaymentActivity" />
+        <activity android:name=".product_review.ProductReviewActivity" />
+
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".my_order.MapsActivity"
+            android:label="@string/title_activity_maps" />
+        <activity android:name=".product_review.ProductReviewActivity"
+            tools:ignore="DuplicateActivity" />
+        <activity android:name=".view_store.ViewStoreActivity" />
+        <activity android:name=".review_all.ReviewAllActivity" />
+        <activity android:name=".help_desk.HelpDeskActivity" />
+        <activity android:name=".all_brands.AllBrandsActivity" />
+        <activity android:name=".coupon.CouponActivity" />
+        <activity android:name=".review.ReviewActivity" />
+        <activity android:name=".my_order.MyOrderActivity" />
+        <activity android:name=".cancel_order.CancelOrderActivity" />
+        <activity android:name=".social_media.SocialMediaActivity" />
+        <activity android:name=".edit_address.EditAddressActivity" />
+        <activity android:name=".add_address.AddAddressActivity" />
+        <activity
+            android:name=".product_detail_page.ProductDetailActivity"
+            android:label="@string/title_activity_product_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".recently_viewed.RecentlyViewedActivity" />
+        <activity android:name=".search_everywhere.SearchEverywhereActivity" />
+        <activity android:name=".personal_information.PersonalInformationActivity" />
+        <activity android:name=".address_book.AddressBookActivity" />
+        <activity android:name=".change_password.ChangePasswordActivity" />
+        <activity android:name=".change_email.ChangeEmailActivity" />
+        <activity android:name=".add_mobile.AddMobileActivity" />
+        <activity android:name=".account_information.AccountInformationActivity" />
+        <activity android:name=".fitme.FitmeActivity" />
+        <activity android:name=".settings.SettingsActivity" />
+        <activity android:name=".search.SearchActivity" />
+        <activity android:name=".wishlist.WishlistActivity" />
+        <activity android:name=".account.AccountActivity" />
+        <activity android:name=".cart.CartActivity" />
+        <activity android:name=".categories.CategoryActivity" />
+        <activity android:name=".registration.RegisterActivity" />
+        <activity android:name=".login.LoginActivity" />
+        <activity android:name=".forgot_password.PasswordActivity" />
+        <activity
+            android:name=".home.HomeActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

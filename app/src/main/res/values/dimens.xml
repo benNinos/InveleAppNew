@@ -1,0 +1,106 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- Adapter cart -->
+    <dimen name="adapter_startMargin">@dimen/_8sdp</dimen>
+    <dimen name="adapter_topMargin">@dimen/_8sdp</dimen>
+
+
+    <!-- App icons sizes -->
+
+    <dimen name="app_icon">@dimen/_18sdp</dimen>
+
+    <!-- profile Pic-->
+
+    <dimen name="profile_pic">@dimen/_48sdp</dimen>
+
+    <!-- settings Text size-->
+
+    <dimen name="text_settings">@dimen/_12sdp</dimen>
+
+    <!-- Card elevation-->
+
+    <dimen name="elevation">@dimen/_2sdp</dimen>
+
+    <!-- toolbar font size-->
+
+    <dimen name="toolBarFont">@dimen/_12sdp</dimen>
+
+    <!-- Project level toolbar height -->
+
+    <dimen name="toolBar_height">@dimen/_42sdp</dimen>
+
+
+    <!-- Category child size-->
+
+    <dimen name="catChildSize">@dimen/_10sdp</dimen>
+
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="edit_padding">@dimen/_16sdp</dimen>
+
+    <!-- Cancel order Activity-->
+
+    <dimen name="cancel_text_size">@dimen/_11sdp</dimen>
+    <dimen name="dellivery_status_textview_size">@dimen/_14sdp</dimen>
+
+    <dimen name="shipping_points">@dimen/_12sdp</dimen>
+
+
+    <dimen name="prod_text_size">@dimen/_14sdp</dimen>
+
+    <dimen name="prod_text_small">@dimen/_12sdp</dimen>
+    <dimen name="filter_textview_size">@dimen/_11sdp</dimen>
+    <dimen name="filter_heading_textsize">@dimen/_11sdp</dimen>
+    <dimen name="show_less_textview_size">@dimen/_11sdp</dimen>
+    <dimen name="review_button_textsize">@dimen/_9sdp</dimen>
+    <dimen name="filter_box_margin">@dimen/_8sdp</dimen>
+
+    <dimen name="help_desk_regular">@dimen/_14sdp</dimen>
+    <dimen name="help_desk_small">@dimen/_11sdp</dimen>
+
+    <!-- Product review Activity-->
+
+    <dimen name="review_page_textview_size">@dimen/_12sdp</dimen>
+    <dimen name="review_page_hint_textview_size">@dimen/_12sdp</dimen>
+
+
+    <dimen name="more_text_size">@dimen/_10sdp</dimen>
+    <dimen name="star_rating_num_size">@dimen/_9sdp</dimen>
+    <dimen name="item_text_size">@dimen/_10sdp</dimen>
+
+
+    <dimen name="card_elevation_size">@dimen/_2sdp</dimen>
+
+
+    <dimen name="categories_icon_size">@dimen/_16sdp</dimen>
+
+
+
+    <dimen name="categories_space_size">@dimen/_10sdp</dimen>
+
+
+    <dimen name="all_brand_photo_width">@dimen/_62sdp</dimen>
+    <dimen name="all_brand_photo_height">@dimen/_66sdp</dimen>
+    <dimen name="all_brand_photo_text">@dimen/_10sdp</dimen>
+
+    <dimen name="cat_left_pane_spacing">0.8dp</dimen>
+    <dimen name="back_arrow_size">@dimen/_20sdp</dimen>
+    <dimen name="account_page_12sdp">@dimen/_12sdp</dimen>
+    <dimen name="account_page_8sdp">@dimen/_8sdp</dimen>
+    <dimen name="account_page_16sdp">@dimen/_16sdp</dimen>
+    <dimen name="account_page_icon_size">@dimen/_42sdp</dimen>
+
+    <!-- Product review Activity-->
+
+    <dimen name="register_page_12sdp">@dimen/_12sdp</dimen>
+
+
+    <dimen name="filter_height">@dimen/_30sdp</dimen>
+
+
+
+
+</resources>

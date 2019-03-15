@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="popup"
+            type="com.ninositsolution.inveleapp.categories.PopupClickListener"/>
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/pop_up_menu"
+        app:cardElevation="@dimen/_4sdp"
+        android:padding="@dimen/_8sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_gravity="end"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:onClick="@{()->popup.onLoginClicked()}"
+                android:id="@+id/review_layout_1"
+                android:layout_margin="@dimen/_2sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:text="Login"/>
+
+
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:background="@color/view_bgcolor"/>
+
+
+
+            <RelativeLayout
+                android:id="@+id/review_layout_2"
+                android:onClick="@{()->popup.onHomeClicked()}"
+                android:layout_width="match_parent"
+                android:layout_margin="@dimen/_2sdp"
+
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:text="Home"/>
+
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:background="@color/view_bgcolor"/>
+
+            <RelativeLayout
+                android:id="@+id/review_layout_3"
+                android:layout_margin="@dimen/_2sdp"
+                android:onClick="@{()->popup.onMyAccountClicked()}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:text="My Account"/>
+
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:background="@color/view_bgcolor"/>
+
+            <RelativeLayout
+                android:id="@+id/review_layout_4"
+                android:onClick="@{()->popup.onMyOrdersClicked()}"
+                android:layout_width="match_parent"
+                android:layout_margin="@dimen/_2sdp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:text="My Orders"/>
+
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:background="@color/view_bgcolor"/>
+
+
+
+            <RelativeLayout
+                android:id="@+id/review_layout_5"
+                android:layout_margin="@dimen/_2sdp"
+                android:onClick="@{()->popup.onMyWishlistClicked()}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:text="My Wishlist"/>
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+
+
+
+    </android.support.v7.widget.CardView>
+
+</layout>
+
+

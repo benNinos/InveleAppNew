@@ -1,0 +1,513 @@
+<resources>
+    <string name="app_name">Invele</string>
+
+    <!--Registration Activity-->
+
+    <string name="email">Email</string>
+    <string name="mobile">Mobile No</string>
+    <string name="name">Name</string>
+    <string name="password">Enter your Password</string>
+    <string name="agree">I agree with all terms and conditions</string>
+    <string name="user">Already User</string>
+    <string name="user2">Already have an account</string>
+    <string name="continue_button">Continue</string>
+    <string name="register_with">(or) Register with</string>
+    <string name="fb">Facebook</string>
+    <string name="google">Google</string>
+    <string name="mobile2">Enter your mobile no</string>
+    <string name="otp">OTP</string>
+    <string name="resend">RESEND</string>
+    <string name="timer">45 Sec</string>
+
+    <!--Login Activity-->
+
+    <string name="login">Login</string>
+    <string name="email_enter">Enter your Email ID</string>
+    <string name="forgot">Forgot Password</string>
+    <string name="or">or</string>
+    <string name="login_sms">Login with SMS</string>
+    <string name="phone_no">Phone number</string>
+    <string name="sms_code">SMS Verification code</string>
+    <string name="resend_code">Resend Code</string>
+    <string name="new_user">New User ?  Click here</string>
+
+    <!--Password Activity-->
+
+    <string name="password_reset">You can reset your password here.</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="email_phone">Email/Phone number</string>
+    <string name="change_password">Change Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="password_plain">Password</string>
+    <string name="submit">Submit</string>
+
+
+    <!--Password Activity-->
+
+    <string name="title_activity_home">Home</string>
+    <string name="categories">Categories</string>
+    <string name="cart">Cart</string>
+    <string name="account">Account</string>
+
+    <!--Home Activity-->
+
+    <string name="search">Search</string>
+    <string name="flash">Flash sales</string>
+    <string name="flash_timer">08:20:13</string>
+    <string name="view_all">View All</string>
+    <string name="more">More ></string>
+    <string name="health">Health</string>
+    <string name="flash_item">Lenovo k6 Power (32GB, 64GB, 128GB, 264GB)</string>
+    <string name="flash_rate">$500 - $1500</string>
+    <string name="flash_deleted">$ 2000</string>
+    <string name="rating">(5)</string>
+    <string name="heart">21</string>
+    <string name="trending">Trending Products</string>
+    <string name="brands">Brands</string>
+    <string name="under">Under 10$</string>
+    <string name="mens">Men\'s Fashion</string>
+    <string name="womens">Women\'s Fashion</string>
+    <string name="electronics">Electronics and Mobiles</string>
+    <string name="username">username</string>
+
+
+    <!--Categories Activity-->
+
+    <string name="category_header">All Category</string>
+    <string name="all_categories">All Categories</string>
+    <string name="boys">Boys &amp; girls</string>
+    <string name="mobiles">Mobiles &amp; Tablets</string>
+    <string name="electronics_cat">Electronics</string>
+    <string name="home">Home &amp; Living</string>
+    <string name="babies">Babies &amp; Toys</string>
+    <string name="health_cat">Health &amp; Sports</string>
+    <string name="books">Books &amp; More</string>
+    <string name="beauty">Beauty &amp; Care</string>
+    <string name="formal">Formal</string>
+    <string name="delete">Delete</string>
+
+    <!--Cart Activity-->
+
+    <string name="cart_item">Jack &amp; Jones Mens Jeans</string>
+    <string name="cart_rate">$500 - $5000</string>
+    <string name="cart_delete_rate">$5000</string>
+    <string name="cart_count">1</string>
+    <string name="store_name">Store Name</string>
+    <string name="cart_quantity">Quantity</string>
+    <string name="total_stock">(Total Stock 32)</string>
+    <string name="cart_confirm">Confirm</string>
+    <string name="mens_brand">Mens Brand Jeans Fashion Casual</string>
+
+    <!--Whishlist Activity-->
+
+    <string name="whishlist_header">My Wishlist(5)</string>
+
+    <!--Search activity-->
+
+    <string name="overall_search">Search for Brands &amp; Products</string>
+    <string name="search_every">Search Everywhere</string>
+    <string name="search_nearby">Search Nearby</string>
+    <string name="postal_code">Enter Area or Postal Code</string>
+    <string name="search_adapter_sample_text">iphone 6s plus protector</string>
+
+    <!--Account activity-->
+
+    <string name="account_header">My Account</string>
+    <string name="account_name">Ajmal Ajmal</string>
+    <string name="account_add_info">Add Additional Information</string>
+    <string name="account_button_fitme">Update Your Fitme</string>
+    <string name="my_order">My Order</string>
+    <string name="view_order">View Order History</string>
+    <string name="order">Orders</string>
+    <string name="review">Reviews</string>
+    <string name="cancel">Return/Cancel</string>
+    <string name="fitme">FitMe</string>
+    <string name="edit">Edit</string>
+    <string name="add_profile">+ Add Profile</string>
+    <string name="wishlist">Wishlist</string>
+    <string name="recent">Recently Viewed</string>
+    <string name="address">Address</string>
+    <string name="coupon">Coupon</string>
+    <string name="help">Help Desk</string>
+    <string name="contact">Contact US</string>
+
+    <!--Settings activity-->
+
+    <string name="settings">Settings</string>
+    <string name="account_info">Account Information</string>
+    <string name="address_book">Address Book</string>
+    <string name="personal_info">Personal Information</string>
+    <string name="social_media">Social Media Accounts</string>
+    <string name="popups">Popups &amp; Notifications</string>
+    <string name="account_deletion">Request Account Deletion</string>
+    <string name="logout">Logout</string>
+
+    <!--Fitme activity-->
+
+    <string name="fitme_toolbar">Fit Me</string>
+    <string name="enter_name">Enter your name</string>
+    <string name="men">Men</string>
+    <string name="women">Women</string>
+    <string name="cm">CM</string>
+    <string name="inches">INCHES</string>
+    <string name="shoulder">Shoulder</string>
+    <string name="arm_hole">Arm Hole</string>
+    <string name="save">Save</string>
+    <string name="update">Update</string>
+    <string name="gender">Gender</string>
+    <string name="measure">Measurement</string>
+    <string name="question">\?</string>
+
+    <!--Account Information activity-->
+
+    <string name="add_mobile">Add Mobile</string>
+    <string name="change_email">Change Email</string>
+
+    <!--Add Mobile activity-->
+
+    <string name="change_mobile">Change Mobile Number</string>
+    <string name="change_mobile_text">You can change your mobile number here.</string>
+    <string name="phone_no_hint">Enter Phone Number</string>
+
+
+    <!--Change Email activity-->
+
+    <string name="change_email_text">You can change your email here.</string>
+
+    <!--Change Password activity-->
+
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New Password</string>
+
+    <!--Address Book activity-->
+
+    <string name="phone_sample">+65 63801245</string>
+    <string name="address_sample">#04\-482, 725 Woodlands Avenue</string>
+    <string name="pincode">Singapore \- 730725</string>
+    <string name="postalcode">730725</string>
+    <string name="shipping">Shipping Address</string>
+    <string name="billing">Billing Address</string>
+    <string name="add_address">+ Add Address</string>
+
+    <!--Personal Information activity-->
+
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="dob">Date of Birth</string>
+    <string name="day">Day</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="update_profile">Update Profile</string>
+
+    <!--Recently Viewed activity-->
+
+    <string name="recent_header">Recently Viewed</string>
+
+    <!--Search Everywhere activity-->
+
+    <string name="search_everywhere_header">Formal Shirts</string>
+    <string name="everywhere">Everywhere</string>
+    <string name="relevance">Relevance</string>
+    <string name="price">Price</string>
+    <string name="filter">Filter By</string>
+    <string name="low">Low to High</string>
+    <string name="high">High to Low</string>
+
+    <!--Product Detail activity-->
+
+    <string name="add_cart">Add to cart</string>
+    <string name="buy_now">Buy Now</string>
+    <string name="user_view">User View</string>
+    <string name="product_price">$85.80 - $95.50</string>
+    <string name="offer">15% OFF</string>
+    <string name="product_detail_name">Apple IPhone XR 64GB ~ 128 ~ 256GB 6.1 Inch</string>
+    <string name="screen_size">5.1 Inch</string>
+    <string name="product_store_name">Store Name Store Name</string>
+    <string name="product_desc">Product Description</string>
+    <string name="product_count">989 Products</string>
+    <string name="view_score">Product Description</string>
+    <string name="specification">Specification</string>
+    <string name="spec_category">Category</string>
+    <string name="spec_brand">Brand</string>
+    <string name="spec_storage">Storage</string>
+    <string name="spec_ram">Ram</string>
+    <string name="spec_electronics">Electronics > Mobiles</string>
+    <string name="spec_apple">Apple</string>
+    <string name="spec_128GB">128GB</string>
+    <string name="spec_64GB">64GB</string>
+    <string name="spec_32GB">32GB</string>
+    <string name="spec_256GB">256GB</string>
+    <string name="spec_4GB">4GB</string>
+    <string name="option_1">Option 1</string>
+    <string name="option_2">Option 2</string>
+    <string name="voucher">Voucher</string>
+    <string name="off_5">5% OFF</string>
+    <string name="off_10">10% OFF</string>
+    <string name="off_15">15% OFF</string>
+    <string name="view_more">View More</string>
+    <string name="description">Description</string>
+    <string name="other_products">Other Products From Seller</string>
+    <string name="helpful_count">114 people found this helpful</string>
+    <string name="delay_delivery">Delay Delivery</string>
+    <string name="delivery_desc">By Radha Jun 20, 2018 &amp; 08.00AM</string>
+    <string name="good_service">Good Service by invele Delivery</string>
+    <string name="product_rating">Product Ratings (10)</string>
+    <string name="desc_explanation">iSight camera, 1.5 Pixels, Auto Focus, Focus Pixels, f/2.2 Aperture, True Tone Flash, Five-element Lens, Hybris IR Filter, Backsize Illumination Sensor, Sapphire Crystal lens Cover.</string>
+
+    <!--Cancel Order activity-->
+
+    <string name="cancel_header">Cancel/Return</string>
+    <string name="order_id">Order ID:</string>
+    <string name="order_id_value">406–08364dl9859509</string>
+    <string name="order_placed">ORDER PLACED on</string>
+    <string name="order_placed_date">27 june 2018</string>
+    <string name="order_item">Women Steel Quartz</string>
+    <string name="order_price">Price :</string>
+    <string name="order_price_value">$ 125</string>
+    <string name="order_quantity">Qty :</string>
+    <string name="order_quantity_value">1</string>
+    <string name="support">Support</string>
+    <string name="print">Print</string>
+    <string name="details">Details</string>
+    <string name="status">Status :</string>
+    <string name="status_value">Order cancelled/Refund Initiated</string>
+    <string name="order_cancel">Cancel</string>
+    <string name="track_order"><u>Track Order</u></string>
+    <string name="delivered">Delivered</string>
+    <string name="store_pickup">Store Pickup</string>
+    <string name="shipment">Shipment Details</string>
+    <string name="onRequest">On Request</string>
+    <string name="confirmed">confirmed</string>
+    <string name="Shipping">Shipping</string>
+    <string name="order_confirmation">Order is confirmed and being ready for dispatch</string>
+    <string name="shipped_date">29 July 2017  01:58 AM</string>
+    <string name="my_order_header">My Order</string>
+
+
+    <!--Help Desk Activity-->
+
+    <string name="help_desk_header">Help Desk</string>
+    <string name="looking_for">Hi Rushiyogar ! what are looking for?</string>
+    <string name="type_your_queries">Please type your queries</string>
+    <string name="apply">Apply</string>
+    <string name="order_tracking">Order Tracking</string>
+    <string name="cancellation">Cancellation</string>
+    <string name="refund_return">Refund/Return</string>
+    <string name="payment">Payment</string>
+    <string name="account_settings">Account Settings</string>
+    <string name="help_ques_1">1. How to place Order?</string>
+    <string name="help_ques_2">2. How ton contact seller?</string>
+    <string name="help_ques_3">3. How to track my order?</string>
+    <string name="help_ques_4">4. How do i get my invoice?</string>
+    <string name="help_ques_5">5. How can i cancel my order?</string>
+    <string name="help_ques_6">6. Can I cancel my order after shipped?</string>
+    <string name="help_ques_7">7. What is Search Nearby?</string>
+    <string name="help_ques_8">8. When will I receive my order</string>
+    <string name="help_ques_9">9. How can I know if my order is confirmed?</string>
+    <string name="help_ques_10">10. How to buy in combo deal?</string>
+    <string name="call_us">Call us 24/7 at</string>
+    <string name="email_us">Email us 24/7 at</string>
+    <string name="num_1">+65–6000–4000</string>
+    <string name="num_2">+65–8555–5555</string>
+    <string name="email_addr">help@invele.in</string>
+    <string name="comma">,</string>
+    <string name="help_ans">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae dignissimos excepturi fuga illum, libero natus placeat quas repudiandae sit voluptate? Ducimus eos, nulla provident quae quibusdam sapiente voluptate. Ad culpa cum doloremque ea eos et harum hic, illum incidunt ipsa iusto non obcaecati perferendis porro quod recusandae sit voluptas voluptatibus.</string>
+
+    <!--Review All Activity-->
+
+    <string name="review_all_header">Review All</string>
+    <string name="all_star">All Star</string>
+    <string name="average_user_rating">Average user rating</string>
+    <string name="rating_breakdown">Rating breakdown</string>
+    <string name="rate_43">4.3</string>
+    <string name="rate_5">/5</string>
+
+    <!--View Store Activity-->
+
+    <string name="view_store_header">Store Name</string>
+    <string name="joined">Joined : 9 Months</string>
+
+
+    <!--Bottom Sheet Product detail-->
+
+    <string name="select_shipping_option">Select Shipping Option</string>
+    <string name="singpost_smartpac">Singpost Smartpac</string>
+    <string name="standard_delivery">Standard Delivery</string>
+    <string name="economic_delivery">Economic Delivery</string>
+    <string name="sample_rate">SGD 2.00</string>
+    <string name="ok_button">OK</string>
+
+    <!--Pop Up Product Detail-->
+
+    <string name="store_location">Store Location</string>
+
+    <!--Bottom Sheet Store Pickup-->
+
+    <string name="store_details">Store Details</string>
+    <string name="mbox">MBOX</string>
+    <string name="store_details_addr_1">169 Uppar Paya Lebar Road,</string>
+    <string name="store_details_addr_2">Singapore 534860, Singapore 534860</string>
+    <string name="seller_contact_no_key">Seller Contact Number</string>
+    <string name="seller_contact_no_value">Rushi Yogar +6541443418516</string>
+
+    <!--Arun's work-->
+
+    <string name="float_name">Name</string>
+    <string name="float_contact">Contact Number</string>
+    <string name="float_postal">Postal Code</string>
+    <string name="float_address">Address</string>
+    <string name="float_city">City</string>
+    <string name="float_floor">Floor/Unit Number</string>
+    <string name="textView_shipping">shipping Address </string>
+    <string name="textView_billing">Billing Address</string>
+    <string name="review_item_name">OnePlus 6</string>
+    <string name="button_save">Save</string>
+    <string name="locate">Locate</string>
+    <string name="button_update">Update</string>
+    <string name="product_name">Oneplus 6t Mclaren edition</string>
+    <string name="price_textView">Price:</string>
+    <string name="more_details_textView">More Details</string>
+    <string name="review_header">Reviews</string>
+    <string name="product_discount">On Min $250, for all Products  </string>
+    <string name="textView_coupon">NEWCB15</string>
+    <string name="available_coupons_textView">Available Coupons</string>
+    <string name="button_text">Apply</string>
+    <string name="prices">$215</string>
+    <string name="summary_textView">Summary of Your Review</string>
+    <string name="hint_summary">Summary of review</string>
+    <string name="review_textView">Review</string>
+    <string name="hint_review">write your review here…</string>
+    <string name="button_label">Choose file</string>
+    <string name="no_file">No file chosen</string>
+    <string name="submit_button">submit</string>
+    <string name="textView_facebook">Facebook</string>
+    <string name="textView_twitter">Twitter</string>
+    <string name="textview_instagram">Instagram</string>
+    <string name="or_textview">Or</string>
+    <string name="filter_heading_pricerange">Price Range</string>
+    <string name="filter_heading_categories">Categories</string>
+    <string name="filter_heading_size">Size</string>
+    <string name="show_less_textview">Show Less</string>
+    <string name="offer_details_textView">15% OFF Products</string>
+    <string name="review_product_name">Apple iPhone</string>
+    <string name="shopping_cart_textView">Shopping Cart</string>
+    <string name="apply_button_text">Apply</string>
+    <string name="all_textView">ALL</string>
+    <string name="total_label_textview">Total :</string>
+    <string name="price_value_textview">$150.20</string>
+    <string name="shipping_textview">Shipping: $10</string>
+    <string name="checkout_textview">Checkout</string>
+    <string name="shipping_price_textView">S$10.25</string>
+    <string name="checkbox_text">ALL</string>
+    <string name="order_review">Review</string>
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="babies_toys">babies _toys</string>
+    <string name="all_shops_textview">All Shops</string>
+    <string name="everywhere_textview">EVERYWHERE</string>
+    <string name="nearby_textview">NEARBY</string>
+    <string name="filter_search">Search</string>
+    <string name="filter_edittext_hint">Enter area or postal code</string>
+    <string name="filter_hint_min">Min</string>
+    <string name="filter_range_symbol">-</string>
+    <string name="filter_hint_max">Max</string>
+    <string name="shirt_label_textview">Shirts(254)</string>
+    <string name="casual_label_textview">Casual(100)</string>
+    <string name="full_sleve_label">Full Sleeve(50)</string>
+    <string name="half_sleeve_label">Half Sleeve(100)</string>
+    <string name="formals_textView_label">Formals(10)</string>
+    <string name="dhoties_label_textView">Dhoties(25)</string>
+    <string name="coat_label_textview">Coats(200)</string>
+    <string name="suits_label_textview">Suits(10)</string>
+    <string name="singpost_label_textview">Singpost</string>
+    <string name="standard_label_textview">Standard</string>
+    <string name="economy_label_textview">Economy</string>
+    <string name="store_pickup_label_textview">Store Pickup</string>
+    <string name="cash_on_delivery_textview">Cash On Delivery</string>
+    <string name="online_pay_textview">Online Pay</string>
+    <string name="track_order_label_textview">Track Order</string>
+    <string name="cancel_order_textView">Cancel Order</string>
+    <string name="filter_size_small_label">S</string>
+    <string name="filter_size_medium">M</string>
+    <string name="filter_size_XL">XL</string>
+    <string name="filter_size_2XL">2XL</string>
+    <string name="filter_size_3XL">3XL</string>
+    <string name="filter_color_label">Color</string>
+    <string name="color_red_label">Red</string>
+    <string name="dealy_delivery_textview">Dealy Delivery</string>
+
+    <string name="color_green_label">Green</string>
+    <string name="color_yellow_label">Yellow</string>
+    <string name="color_blue_label">Blue</string>
+    <string name="color_white_label">White</string>
+    <string name="color_pink_label">Pink</string>
+    <string name="filter_condition_label">Condition</string>
+    <string name="condition_used">Used</string>
+    <string name="condition_new">New</string>
+    <string name="filter_brand_textView">Brand</string>
+    <string name="shipping_option_textview">Shipping Option</string>
+    <string name="brand_raymond">Raymond</string>
+    <string name="otto_brand_label">OTTO</string>
+    <string name="brand_vitomine">Vitomine</string>
+    <string name="brand_peter_england">Peter England</string>
+    <string name="brand_allen_solloy">Allen Solly</string>
+    <string name="brand_roush">Roush</string>
+    <string name="brand_leeder">Leeder</string>
+    <string name="vanhuesen_brand">VanHuesen</string>
+    <string name="title_activity_product_detail">ProductDetailActivity</string>
+    <string name="view_store">View Store</string>
+    <string name="delivery_review_textview">Good service by Invele Delivery</string>
+    <string name="all_star_textView">All Star</string>
+    <string name="empty_shopping_cart_textview">Your Shopping Cart is empty</string>
+    <string name="contiune_shopping_button_textView">Contiune Shopping</string>
+    <string name="payment_textview">Payment</string>
+    <string name="payment_unsuccessfull_textview">Payment Unsuccessful !</string>
+    <string name="payment_request_textview">Please re-attempt again to complete the payment</string>
+    <string name="try_again_textview">Try again</string>
+    <string name="continue_shopping_textview">Continue Shopping</string>
+    <string name="empty_wishlist">Your wishlist is empty</string>
+    <string name="empty_order_textview">Your order is empty</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="store_pick">Store Pickup</string>
+    <string name="payment_success_greeting">Thank you Arun !</string>
+    <string name="order_status">Your Order (ORDER ID 12347121100) has been placed succesfully</string>
+    <string name="order_details_line_1">Your Order ID (ORDER ID 12655480) has been</string>
+    <string name="placed_successfully_textview">placed successfully.</string>
+    <string name="please_go_to_my_textview">Please go to my order</string>
+    <string name="track_order_text">section to track your orders</string>
+    <string name="size_chart_textview">Size Chart</string>
+    <string name="size_chart_header">Size Chart</string>
+    <string name="table_header_country">Country</string>
+    <string name="table_header_size">Size</string>
+    <string name="table_header_height">Height</string>
+    <string name="table_header_chest">Chest</string>
+    <string name="table_header_Waist">Waist</string>
+    <string name="table_header_neck">Neck</string>
+    <string name="table_header_arm">Arm</string>
+    <string name="height_header_text">Height</string>
+    <string name="chest_header_textview">Chest</string>
+    <string name="header_neck_textview">Neck</string>
+    <string name="table_waist_textview">Waist</string>
+    <string name="table_arm_textview">Arm</string>
+    <string name="back">Back</string>
+    <string name="internet_connection_lost">Internet Connection Lost</string>
+    <string name="search_product">Search Product</string>
+    <string name="search_brand">Search brand</string>
+    <string name="formal_shirts">Formal Shirts</string>
+    <string name="reset">Reset</string>
+    <string name="send_otp">SEND OTP</string>
+    <string name="verification_code_hint">Verification Code</string>
+    <string name="resend_otp">Resend</string>
+
+    <string name="reset_password_otp_text">We send a OTP to your Email</string>
+    <string name="static_otp_timer">45 Sec</string>
+    <!--<string name="default_web_client_id">446803575025-rm20k69c00lcgde6410cu0cabg91plqc.apps.googleusercontent.com</string>-->
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+
+</resources>

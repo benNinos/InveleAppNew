@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="myOrder"
+            type="com.ninositsolution.inveleapp.my_order.MyOrderVM"/>
+
+        <variable
+            name="iMyOrder"
+            type="com.ninositsolution.inveleapp.my_order.IMyOrder"/>
+
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_36sdp"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                app:contentInsetStart="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_36sdp"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_35sdp">
+
+                        <ImageView
+                            android:id="@+id/account_header_back"
+                            android:layout_width="36dp"
+                            android:layout_height="32dp"
+                            android:onClick="@{()->myOrder.onBackClicked()}"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:layout_centerVertical="true"
+                            app:srcCompat="@drawable/ic_arrow_back_24dp"
+                            tools:ignore="ContentDescription" />
+
+
+                        <TextView
+                            android:layout_toEndOf="@+id/account_header_back"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:id="@+id/search_header"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/my_order_header"
+                            android:textSize="@dimen/toolBarFont"
+                            tools:ignore="RelativeOverlap" />
+
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:background="#e0e0e0"/>
+
+
+                </LinearLayout>
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/order_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+        <include
+            android:fitsSystemWindows="true"
+            app:behavior_hideable="true"
+            app:behavior_peekHeight="0dp"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            app:layout_behavior="@string/bottom_sheet_behavior"
+            android:id="@+id/bottom_sheet_trackorder"
+            layout="@layout/bottom_sheet_trackorder">
+
+        </include>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/cart_image"
+                android:layout_width="@dimen/_160sdp"
+                android:layout_height="@dimen/_160sdp"
+                android:layout_centerInParent="true"
+                app:srcCompat = "@drawable/cart_image"/>
+
+
+            <TextView
+                android:id="@+id/empty_cart_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cart_image"
+                android:textColor="@color/textColor"
+                android:layout_centerHorizontal="true"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:text="@string/empty_order_textview"
+                android:textSize="@dimen/_14sdp"/>
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_marginEnd="@dimen/_150sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_centerHorizontal="true"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:onClick="@{()->iMyOrder.onPlaceOrderClicked()}"
+                android:text="Place Order"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/_40sdp"
+                android:layout_below="@id/empty_cart_textView"/>
+
+        </RelativeLayout>
+
+        <include
+            android:fitsSystemWindows="true"
+            app:behavior_hideable="true"
+            app:behavior_peekHeight="0dp"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            app:layout_behavior="@string/bottom_sheet_behavior"
+            android:id="@+id/bottom_sheet_store"
+            layout="@layout/bottom_sheet_store_pickup">
+
+        </include>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</layout>

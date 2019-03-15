@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/delivered_details_layout"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
+                tools:ignore="UselessParent">
+
+                <TextView
+                    android:id="@+id/shipment_details"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/shipment"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_14sdp"/>
+
+                <LinearLayout
+                    android:id="@+id/shipping_points"
+                    android:weightSum="3"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/_18sdp"
+                    android:layout_marginEnd="@dimen/_18sdp"
+                    android:layout_marginTop="@dimen/_42sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false">
+
+                    <RelativeLayout
+                        android:layout_weight="0.8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/shipment_circle1"
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="@dimen/_12sdp"
+                            android:layout_marginStart="@dimen/_14sdp"
+                            app:srcCompat="@drawable/shipment_circle"
+                            tools:ignore="ContentDescription" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/shipment_circle1"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            android:text="@string/onRequest"
+                            android:textColor="@color/shipmentStatus"
+                            android:textSize="@dimen/_9sdp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_weight="1.2"
+                        android:layout_marginEnd="@dimen/shipping_points"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/shipment_circle2"
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="@dimen/_12sdp"
+                            android:layout_centerHorizontal="true"
+                            app:srcCompat="@drawable/shipment_circle"
+                            tools:ignore="ContentDescription" />
+
+
+                        <TextView
+                            android:layout_below="@id/shipment_circle2"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            android:textSize="@dimen/_9sdp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/confirmed"
+                            android:textColor="@color/shipmentStatus"/>
+
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/shipment_circle4"
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="@dimen/_12sdp"
+                            android:layout_centerHorizontal="true"
+                            app:srcCompat="@drawable/shipment_circle"
+                            tools:ignore="ContentDescription" />
+
+
+                        <TextView
+                            android:id="@+id/shipment_onRequest"
+                            android:layout_below="@id/shipment_circle4"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            android:textSize="@dimen/_9sdp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/delivered"
+                            android:textColor="@color/shipmentStatus"/>
+
+                    </RelativeLayout>
+
+
+
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/status_line"
+                    android:layout_marginTop="@dimen/_28sdp"
+                    android:layout_marginStart="@dimen/_42sdp"
+                    android:layout_marginEnd="@dimen/_52sdp"
+                    android:background="@color/shipmentStatus"
+                    android:layout_below="@+id/shipment_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_4sdp"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_8sdp"
+                android:padding="@dimen/_8sdp"
+                android:background="@drawable/round_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/store_details"
+                    android:textSize="@dimen/prod_text_size"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mbox"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:textSize="@dimen/prod_text_small"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/store_details_addr_1"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:textSize="@dimen/prod_text_small"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/store_details_addr_2"
+                    android:textSize="@dimen/prod_text_small"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/seller_contact_no_key"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:textSize="@dimen/prod_text_small"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/seller_contact_no_value"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:textSize="@dimen/prod_text_small"/>
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_8sdp" />
+
+            <fragment
+                android:layout_margin="@dimen/_12sdp"
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_16sdp" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+
+</android.support.v7.widget.CardView>

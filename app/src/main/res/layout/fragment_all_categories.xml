@@ -1,0 +1,830 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_marginStart="@dimen/_4sdp"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".categories.fragments.fragment_all_categories.AllCategoriesFragment">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:columnCount="3">
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="@dimen/_4sdp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="@dimen/all_brand_photo_width"
+                        android:layout_height="@dimen/all_brand_photo_height"
+                        android:scaleType="fitXY"
+                        app:srcCompat="@drawable/img1"
+                        tools:ignore="ContentDescription" />
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_2sdp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="@dimen/all_brand_photo_text"
+                        android:text="@string/formal"/>
+
+                </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img2"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img3"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img4"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img1"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img2"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img3"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img4"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img1"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img2"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img3"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img4"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img1"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img2"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img3"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img4"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img1"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img2"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img3"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img4"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img1"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img2"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img3"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img4"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img1"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img2"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img3"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img4"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img1"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img2"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img3"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/all_brand_photo_width"
+                    android:layout_height="@dimen/all_brand_photo_height"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img4"
+                    tools:ignore="ContentDescription" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/all_brand_photo_text"
+                    android:text="@string/formal"/>
+
+            </LinearLayout>
+
+
+        </GridLayout>
+
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+
+
+</FrameLayout>

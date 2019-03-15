@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="adapterCart"
+            type="com.ninositsolution.inveleapp.cart.CartVM"/>
+    </data>
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                tools:ignore="UnusedAttribute">
+
+                <android.support.v4.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:padding="@dimen/_4sdp"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:layout_marginBottom="@dimen/_8sdp"
+                            android:layout_height="wrap_content">
+
+                            <CheckBox
+                                android:id="@+id/head_checkBox"
+                                android:layout_centerVertical="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:id="@+id/head_name"
+                                android:layout_toEndOf="@+id/head_checkBox"
+                                android:layout_marginTop="@dimen/adapter_topMargin"
+                                android:text="@string/store_name"
+                                android:textSize="@dimen/_12sdp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/adapter_startMargin"
+                                android:textColor="@android:color/black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:id="@+id/cart_delete"
+                                android:text="@string/delete"
+                                android:textSize="@dimen/more_text_size"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/adapter_startMargin"
+                                android:textColor="@color/colorPrimary"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="@dimen/_8sdp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:ignore="RelativeOverlap" />
+
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@color/grayWhite"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:padding="@dimen/_4sdp"
+                            android:layout_height="wrap_content">
+
+                            <CheckBox
+                                android:id="@+id/cart_checkBox"
+                                android:layout_centerVertical="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <ImageView
+                                android:id="@+id/cart_image"
+                                android:layout_toEndOf="@+id/cart_checkBox"
+                                android:src="@drawable/img1"
+                                android:layout_marginStart="@dimen/adapter_startMargin"
+                                android:layout_width="@dimen/_70sdp"
+                                android:layout_height="@dimen/_90sdp"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:id="@+id/cart_item"
+                                android:layout_toEndOf="@+id/cart_image"
+                                android:layout_marginTop="@dimen/adapter_topMargin"
+                                android:text="@string/cart_item"
+                                android:layout_marginStart="@dimen/adapter_startMargin"
+                                android:textColor="@android:color/black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:id="@+id/cart_rate"
+                                android:layout_toEndOf="@+id/cart_image"
+                                android:layout_below="@+id/cart_item"
+                                android:layout_marginTop="@dimen/adapter_topMargin"
+                                android:text="@string/cart_rate"
+                                android:textStyle="bold"
+                                android:layout_marginStart="@dimen/adapter_startMargin"
+                                android:textColor="@color/colorPrimary"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:id="@+id/cart_delete_rate"
+                                android:layout_toEndOf="@+id/cart_rate"
+                                android:layout_below="@+id/cart_item"
+                                android:layout_marginTop="@dimen/adapter_topMargin"
+                                android:text="@string/cart_delete_rate"
+                                android:layout_marginStart="@dimen/adapter_startMargin"
+                                android:textColor="@color/textColor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <TableLayout
+                                android:id="@+id/cart_count"
+                                android:layout_below="@+id/cart_rate"
+                                android:layout_toEndOf="@+id/cart_image"
+                                android:background="@drawable/margin"
+                                android:layout_marginTop="@dimen/adapter_topMargin"
+                                android:layout_marginStart="@dimen/adapter_startMargin"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TableRow tools:ignore="UselessParent">
+
+                                    <TextView
+                                        android:id="@+id/cart_count_minus"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:alpha="0.5"
+                                        android:background="@drawable/margin"
+                                        android:textSize="@dimen/_18sdp"
+                                        android:paddingStart="@dimen/_8sdp"
+                                        android:paddingEnd="@dimen/_8sdp"
+                                        android:textColor="@android:color/black"
+                                        android:text="-"
+                                        tools:ignore="HardcodedText" />
+
+                                    <TextView
+                                        android:id="@+id/cart_count_no"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@android:color/black"
+                                        android:alpha="0.5"
+                                        android:layout_marginTop="-3dp"
+                                        android:paddingStart="@dimen/_18sdp"
+                                        android:paddingEnd="@dimen/_18sdp"
+                                        android:text="1"
+                                        tools:ignore="HardcodedText" />
+
+                                    <TextView
+                                        android:id="@+id/cart_count_plus"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/margin"
+                                        android:textColor="@android:color/black"
+                                        android:alpha="0.5"
+                                        android:textSize="@dimen/_18sdp"
+                                        android:paddingStart="@dimen/_8sdp"
+                                        android:paddingEnd="@dimen/_8sdp"
+                                        android:text="+"
+                                        tools:ignore="HardcodedText" />
+
+
+                                </TableRow>
+
+                            </TableLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/cart_edit_button"
+                                android:layout_alignBottom="@+id/cart_count"
+                                android:layout_toEndOf="@+id/cart_delete_rate"
+                                android:background="@drawable/margin"
+                                android:layout_width="@dimen/_24sdp"
+                                android:layout_height="@dimen/_24sdp">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_12sdp"
+                                    android:layout_height="@dimen/_12sdp"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/edit_button"
+                                    tools:ignore="ContentDescription" />
+
+                            </RelativeLayout>
+
+
+                            <RelativeLayout
+                                android:layout_toEndOf="@+id/cart_edit_button"
+                                android:layout_alignBottom="@+id/cart_count"
+                                android:layout_marginStart="@dimen/_12sdp"
+                                android:id="@+id/cart_delete_button"
+                                android:background="@drawable/margin"
+                                android:layout_width="@dimen/_24sdp"
+                                android:layout_height="@dimen/_24sdp">
+
+                                <ImageView
+                                    android:layout_centerInParent="true"
+                                    android:layout_width="@dimen/_12sdp"
+                                    android:layout_height="@dimen/_12sdp"
+                                    android:src="@drawable/delete_button"
+                                    tools:ignore="ContentDescription" />
+
+
+                            </RelativeLayout>
+
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@color/grayWhite"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:padding="@dimen/_4sdp"
+                            android:layout_height="wrap_content">
+
+                            <CheckBox
+                                android:id="@+id/cart_checkBox1"
+                                android:layout_centerVertical="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <ImageView
+                                android:id="@+id/cart_image1"
+                                android:layout_toEndOf="@+id/cart_checkBox1"
+                                android:src="@drawable/nex1"
+                                android:layout_marginStart="@dimen/adapter_startMargin"
+                                android:layout_width="@dimen/_70sdp"
+                                android:layout_height="@dimen/_90sdp"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:id="@+id/cart_item1"
+                                android:layout_toEndOf="@+id/cart_image1"
+                                android:layout_marginTop="@dimen/adapter_topMargin"
+                                android:text="@string/cart_item"
+                                android:layout_marginStart="@dimen/adapter_startMargin"
+                                android:textColor="@android:color/black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:id="@+id/cart_rate1"
+                                android:layout_toEndOf="@+id/cart_image1"
+                                android:layout_below="@+id/cart_item1"
+                                android:layout_marginTop="@dimen/adapter_topMargin"
+                                android:text="@string/cart_rate"
+                                android:textStyle="bold"
+                                android:layout_marginStart="@dimen/adapter_startMargin"
+                                android:textColor="@color/colorPrimary"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:id="@+id/cart_delete_rate1"
+                                android:layout_toEndOf="@+id/cart_rate1"
+                                android:layout_below="@+id/cart_item1"
+                                android:layout_marginTop="@dimen/adapter_topMargin"
+                                android:text="@string/cart_delete_rate"
+                                android:layout_marginStart="@dimen/adapter_startMargin"
+                                android:textColor="@color/textColor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <TableLayout
+                                android:id="@+id/cart_count1"
+                                android:layout_below="@+id/cart_rate1"
+                                android:layout_toEndOf="@+id/cart_image1"
+                                android:background="@drawable/margin"
+                                android:layout_marginTop="@dimen/adapter_topMargin"
+                                android:layout_marginStart="@dimen/adapter_startMargin"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TableRow tools:ignore="UselessParent">
+
+                                    <TextView
+                                        android:id="@+id/cart_count_minus1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/margin"
+                                        android:textSize="@dimen/_18sdp"
+                                        android:paddingStart="@dimen/_8sdp"
+                                        android:paddingEnd="@dimen/_8sdp"
+                                        android:alpha="0.5"
+                                        android:textColor="@android:color/black"
+                                        android:text="-"
+                                        tools:ignore="HardcodedText" />
+
+                                    <TextView
+                                        android:id="@+id/cart_count_no1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@android:color/black"
+                                        android:layout_marginTop="-3dp"
+                                        android:paddingStart="@dimen/_18sdp"
+                                        android:paddingEnd="@dimen/_18sdp"
+                                        android:alpha="0.5"
+                                        android:text="1"
+                                        tools:ignore="HardcodedText" />
+
+                                    <TextView
+                                        android:id="@+id/cart_count_plus1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/margin"
+                                        android:textColor="@android:color/black"
+                                        android:textSize="@dimen/_18sdp"
+                                        android:paddingStart="@dimen/_8sdp"
+                                        android:paddingEnd="@dimen/_8sdp"
+                                        android:alpha="0.5"
+                                        android:text="+"
+                                        tools:ignore="HardcodedText" />
+
+
+                                </TableRow>
+
+                            </TableLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/cart_edit_button1"
+                                android:layout_alignBottom="@+id/cart_count1"
+                                android:layout_toEndOf="@+id/cart_delete_rate1"
+                                android:background="@drawable/margin"
+                                android:layout_width="@dimen/_24sdp"
+                                android:layout_height="@dimen/_24sdp">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_12sdp"
+                                    android:layout_height="@dimen/_12sdp"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/edit_button"
+                                    tools:ignore="ContentDescription" />
+
+                            </RelativeLayout>
+
+
+                            <RelativeLayout
+                                android:layout_toEndOf="@+id/cart_edit_button1"
+                                android:layout_alignBottom="@+id/cart_count1"
+                                android:layout_marginStart="@dimen/_12sdp"
+                                android:id="@+id/cart_delete_button1"
+                                android:background="@drawable/margin"
+                                android:layout_width="@dimen/_24sdp"
+                                android:layout_height="@dimen/_24sdp">
+
+                                <ImageView
+                                    android:layout_centerInParent="true"
+                                    android:layout_width="@dimen/_12sdp"
+                                    android:layout_height="@dimen/_12sdp"
+                                    android:src="@drawable/delete_button"
+                                    tools:ignore="ContentDescription" />
+
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+
+                </android.support.v4.widget.NestedScrollView>
+
+            </android.support.v7.widget.CardView>
+
+</layout>

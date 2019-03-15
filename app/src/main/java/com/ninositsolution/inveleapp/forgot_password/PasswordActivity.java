@@ -39,20 +39,7 @@ public class PasswordActivity extends AppCompatActivity{
         binding.setPassword(passwordVM);
         binding.setLifecycleOwner(this);
 
-        new CountDownTimer(45000,1000)
-        {
-            public void onTick(long millisUntilFinished) {
-                binding.otpTimerText.setText(millisUntilFinished / 1000 +" " + "Sec"  );
-            }
 
-            public void onFinish() {
-                if (binding.disabledResend.getVisibility() == View.VISIBLE)
-                {
-                    binding.disabledResend.setVisibility(View.GONE);
-                    binding.enabledResend.setVisibility(View.VISIBLE);
-                }
-            }
-        }.start();
 
         InputFilter[] filters = new InputFilter[1];
         filters[0] = new InputFilter.LengthFilter(6);
@@ -82,11 +69,37 @@ public class PasswordActivity extends AppCompatActivity{
         });
 
 
+        binding.confirmResetPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                int passmatch = passwordVM.passwordMatchValidation();
+                if (passmatch == Constants.PASSWPORD_MATCH)
+                {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(binding.confirmResetPassword.getWindowToken(), 0);
+
+                }
+
+            }
+        });
+
+
         binding.setIPassword(new IPassword() {
             @Override
             public void onResetClicked() {
-
-
 
                 int status = passwordVM.forgotPasswordEmailValidation();
 
@@ -115,27 +128,53 @@ public class PasswordActivity extends AppCompatActivity{
 
                             if (!passwordVM.status.get().isEmpty())
                             {
-                                hideProgressBar();
-                                Toast.makeText(PasswordActivity.this, ""+passwordVM.msg.get(), Toast.LENGTH_SHORT).show();
-                                passwordVM.status.set("");
-                                passwordVM.otpEmail.set(passwordVM.email.get());
-                            } else
-                            {
 
+                                if (passwordVM.status.get().equalsIgnoreCase("success")) {
+                                    hideProgressBar();
+
+                                    if (binding.passEmailLayout.getVisibility() == View.VISIBLE) {
+                                        binding.passEmailLayout.setVisibility(View.GONE);
+                                    }
+
+                                    if (binding.resetPasswordOtpLayout.getVisibility() == View.GONE) {
+                                        binding.resetPasswordOtpLayout.setVisibility(View.VISIBLE);
+
+
+
+                                        new CountDownTimer(45000,1000)
+                                        {
+                                            public void onTick(long millisUntilFinished) {
+                                                binding.otpTimerText.setText(millisUntilFinished / 1000 +" " + "Sec"  );
+                                            }
+
+                                            public void onFinish() {
+                                                if (binding.disabledResend.getVisibility() == View.VISIBLE)
+                                                {
+                                                    binding.disabledResend.setVisibility(View.GONE);
+                                                    binding.enabledResend.setVisibility(View.VISIBLE);
+                                                }
+                                            }
+                                        }.start();
+
+
+                                    }
+
+                                    Toast.makeText(PasswordActivity.this, "" + passwordVM.msg.get(), Toast.LENGTH_SHORT).show();
+                                    passwordVM.status.set("");
+                                    passwordVM.otpEmail.set(passwordVM.email.get());
+                                }
+                                if (passwordVM.status.get().equalsIgnoreCase("error")) {
+
+                                    if (binding.passEmailLayout.getVisibility() == View.GONE)
+                                    {
+                                        binding.passEmailLayout.setVisibility(View.VISIBLE);
+                                    }
+                                }
                             }
-
-                            if (binding.resetPasswordOtpLayout.getVisibility()== View.GONE)
+                            else
                             {
-                                binding.resetPasswordOtpLayout.setVisibility(View.VISIBLE);
-
-
+                                Toast.makeText(getApplicationContext(),"API Empty",Toast.LENGTH_LONG).show();
                             }
-
-                            if (binding.passEmailLayout.getVisibility() == View.VISIBLE)
-                            {
-                                binding.passEmailLayout.setVisibility(View.GONE);
-                            }
-
                         }
                     });
 
@@ -145,6 +184,10 @@ public class PasswordActivity extends AppCompatActivity{
                 }
 
             }
+
+
+
+
 
             @Override
             public void onSubmitClicked() {
@@ -159,13 +202,13 @@ public class PasswordActivity extends AppCompatActivity{
                 {
                     binding.confirmResetPassword.setError("required");
                     binding.confirmResetPassword.requestFocus();
-                }else if (!binding.resetPassword.equals(binding.confirmResetPassword))
-                {
-                    binding.confirmResetPassword.setError("passwords do not match");
-
                 }
 
-
+               int passwordMatch = passwordVM.passwordMatchValidation();
+                if (passwordMatch == Constants.PASSWORD_MISMATCH)
+                {
+                    binding.confirmResetPassword.setError("Passwords do not Match");
+                }
 
                 else if (status == Constants.SUCCESS)
                 {
@@ -176,21 +219,37 @@ public class PasswordActivity extends AppCompatActivity{
                         public void onChanged(@Nullable PasswordVM passwordVM) {
                             if (!passwordVM.status.get().isEmpty())
                             {
-                                hideProgressBar();
-                                Toast.makeText(PasswordActivity.this, ""+passwordVM.msg.get(), Toast.LENGTH_SHORT).show();
-                                Log.i(TAG, "message : "+passwordVM.msg.get());
-                                passwordVM.status.set("");
-                                Intent intent = new Intent(PasswordActivity.this,LoginActivity.class);
-                                startActivity(intent);
+                                if (passwordVM.status.get().equalsIgnoreCase("success"))
+                                {
+                                    hideProgressBar();
+                                    Intent intent = new Intent(PasswordActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+
+                                    Toast.makeText(PasswordActivity.this, ""+passwordVM.msg.get(), Toast.LENGTH_SHORT).show();
+                                    Log.i(TAG, "message : "+passwordVM.msg.get());
+                                    passwordVM.status.set("");
+
+
+                                } else
+                                    if (passwordVM.status.get().equalsIgnoreCase("error"))
+                                    {
+                                        Toast.makeText(getApplicationContext(),"Something Went Wrong",Toast.LENGTH_LONG).show();
+                                    }
+
+                            }
+                            else
+                            {
+                                Toast.makeText(getApplicationContext(),"API Empty",Toast.LENGTH_LONG).show();
                             }
 
                         }
                     });
                 }
-                else{
+                else
+                    {
                     Toast.makeText(PasswordActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
 
-                }
+                    }
 
             }
 
@@ -219,24 +278,38 @@ public class PasswordActivity extends AppCompatActivity{
 
                             if (!passwordVM.status.get().isEmpty())
                             {
-                                hideProgressBar();
-                                Toast.makeText(PasswordActivity.this, ""+passwordVM.msg.get(), Toast.LENGTH_SHORT).show();
-                                Log.i(TAG, "message : "+passwordVM.msg.get());
-                                passwordVM.status.set("");
-                            }
-
-                            if (binding.resetPasswordOtpLayout.getVisibility() == View.VISIBLE)
-                            {
-                                binding.resetPasswordOtpLayout.setVisibility(View.GONE);
-                            }
-
-                                if (binding.passPassLayout.getVisibility() == View.GONE)
+                                if (passwordVM.status.get().equalsIgnoreCase("success"))
                                 {
-                                    binding.passPassLayout.setVisibility(View.VISIBLE);
+                                    hideProgressBar();
+
+                                    if (binding.resetPasswordOtpLayout.getVisibility() == View.VISIBLE)
+                                    {
+                                        binding.resetPasswordOtpLayout.setVisibility(View.GONE);
+                                    }
+
+                                    if (binding.passPassLayout.getVisibility() == View.GONE)
+                                    {
+                                        binding.passPassLayout.setVisibility(View.VISIBLE);
+                                    }
+
+                                    Toast.makeText(PasswordActivity.this, ""+passwordVM.msg.get(), Toast.LENGTH_SHORT).show();
+                                    Log.i(TAG, "message : "+passwordVM.msg.get());
+                                    passwordVM.status.set("");
+                                }
+                                else if (passwordVM.status.get().equalsIgnoreCase("error"))
+                                {
+                                    binding.resetPasswordOtpLayout.setVisibility(View.VISIBLE);
                                 }
 
+                            }
 
-                        }
+                            else
+                                {
+                                    Toast.makeText(getApplicationContext(),"API Empty",Toast.LENGTH_LONG).show();
+                                }
+                            }
+
+
                     });
                 }
 

@@ -159,6 +159,16 @@ public class PasswordRepo {
         }
     }
 
+    public int passwordValidation (String password, String confirmPassword){
+        if (!password.equals(confirmPassword))
+        {
+            return Constants.PASSWORD_MISMATCH;
+        }
+        else {
+            return Constants.PASSWPORD_MATCH;
+        }
+    }
+
 
 
 

@@ -21,8 +21,10 @@ public class Constants {
     public static final Integer CITY = 14;
     public static final Integer ADDRESS_TYPE = 15;
     public static final Integer EMAIL_VALID = 16;
-
     public static final Integer EMAIL_INVALID = 17;
+    public static final Integer PASSWPORD_MATCH = 18;
+    public static final Integer PASSWORD_MISMATCH = 19;
+
 
 }
 

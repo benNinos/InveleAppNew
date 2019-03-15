@@ -6,6 +6,7 @@ import android.util.Log;
 import com.ninositsolution.inveleapp.add_address.AddAddressVM;
 import com.ninositsolution.inveleapp.add_address.pojo.AddAddressRequest;
 import com.ninositsolution.inveleapp.address_book.pojo.AddressBookRequest;
+import com.ninositsolution.inveleapp.address_book.pojo.AddressUpdateRequest;
 import com.ninositsolution.inveleapp.api.ApiService;
 import com.ninositsolution.inveleapp.api.RetrofitClient;
 import com.ninositsolution.inveleapp.pojo.AddressList;
@@ -49,20 +50,23 @@ public class AddressBookRepo {
 
                         //pojoClassMutableLiveData.setValue(pojoClass);
                         AddressBookVM addressBookVM;
+                        Log.e(TAG,"list_size==>"+pojoClass.addresses.size());
 
                         arrayList = new ArrayList<>();
-                        for(int i =0;i<pojoClass.address_list.size();i++){
+                        for(int i =0;i<pojoClass.addresses.size();i++){
 
-                            addressList = new AddressList(pojoClass.address_list.get(i).id,pojoClass.address_list.get(i).user_id,
-                                    pojoClass.address_list.get(i).address_type,pojoClass.address_list.get(i).address,pojoClass.address_list.get(i).address1,
-                                    pojoClass.address_list.get(i).name,pojoClass.address_list.get(i).postal_code,pojoClass.address_list.get(i).city,
-                                    pojoClass.address_list.get(i).contact_no,pojoClass.address_list.get(i).is_billing_address,pojoClass.address_list.get(i).is_shipping_address,
-                                    pojoClass.address_list.get(i).user_default);
+                            addressList = new AddressList(pojoClass.addresses.get(i).id,pojoClass.addresses.get(i).user_id,
+                                    pojoClass.addresses.get(i).address_type,pojoClass.addresses.get(i).address,pojoClass.addresses.get(i).address1,
+                                    pojoClass.addresses.get(i).name,pojoClass.addresses.get(i).postal_code,pojoClass.addresses.get(i).city,
+                                    pojoClass.addresses.get(i).contact_no,pojoClass.addresses.get(i).is_billing_address,pojoClass.addresses.get(i).is_shipping_address,
+                                    pojoClass.addresses.get(i).user_default);
+
+                            addressBookVM = new AddressBookVM(addressList);
+
+                            arrayList.add(addressBookVM);
 
                         }
-                        addressBookVM = new AddressBookVM(addressList);
 
-                        arrayList.add(addressBookVM);
                         addressBookVMMutableLiveData.setValue(arrayList);
 
                     }
@@ -93,11 +97,11 @@ public class AddressBookRepo {
 
         return addressBookVMMutableLiveData;
     }
-    public MutableLiveData<AddressBookVM> getUpdateDefaultVMMutableLiveData(AddressBookRequest addressBookRequest) {
+    public MutableLiveData<AddressBookVM> getUpdateDefaultVMMutableLiveData(AddressUpdateRequest addressUpdateRequest) {
 
         ApiService apiService = RetrofitClient.getApiService();
 
-        apiService.defaultAddressUpdate(addressBookRequest)
+        apiService.defaultAddressUpdate(addressUpdateRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<POJOClass>() {
@@ -112,9 +116,9 @@ public class AddressBookRepo {
 
                         //pojoClassMutableLiveData.setValue(pojoClass);
 
-                      //  AddressBookVM addressBookVM = new AddressBookVM(pojoClass);
+                       AddressBookVM addressBookVM = new AddressBookVM(pojoClass);
 
-                       // defaultUpdateVMMutableLiveData.setValue(addressBookVM);
+                       defaultUpdateVMMutableLiveData.setValue(addressBookVM);
                     }
 
                     @Override

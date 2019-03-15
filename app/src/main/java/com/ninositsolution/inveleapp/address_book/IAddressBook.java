@@ -7,9 +7,14 @@ package com.ninositsolution.inveleapp.address_book;
  */
 public interface IAddressBook {
 
+
+    void onBackClicked();
+    void onAddAddressClicked();
     void radioButtonClicked();
     void onEditClicked();
     void onDeleteClicked();
-    void onBackClicked();
-    void onAddAddressClicked();
+
+
+
+
 }

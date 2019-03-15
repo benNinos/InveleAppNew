@@ -11,7 +11,7 @@
             name="adapterBookVM"
             type="com.ninositsolution.inveleapp.address_book.AddressBookVM"/>
         <variable
-            name="adapterIAddressBook"
+            name="IAddressBook"
             type="com.ninositsolution.inveleapp.address_book.IAddressBook"/>
 
     </data>
@@ -31,21 +31,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <RadioButton
+                <RadioGroup
+                    android:id="@+id/radio_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:onCheckedChanged="@{()->IAddressBook.radioButtonClicked()}"
+                    android:visibility="visible">
+
+
+                <RadioButton
                 android:id="@+id/address_radio"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{()->adapterIAddressBook.radioButtonClicked()"/>
+                android:layout_height="wrap_content" />
+                </RadioGroup>
 
             <TextView
                 android:id="@+id/address_name"
                 android:layout_toEndOf="@+id/address_radio"
-                android:layout_marginTop="@dimen/_4sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
                 android:hint="Ajmal"
                 android:text="@={adapterBookVM.name}"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_13sdp"
                 android:textStyle="bold"/>
             </LinearLayout>
             <LinearLayout
@@ -63,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:hint="+65 63801245"
                 android:text="@={adapterBookVM.contact_no}"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_13sdp"
                 />
 
             <TextView
@@ -75,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:hint="725 Woodlands Avenue"
                 android:text="@={adapterBookVM.address}"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_13sdp"
                 />
 
             <TextView
@@ -87,14 +96,14 @@
                 android:layout_height="wrap_content"
                 android:hint="Singapore - 730725"
                 android:text="@={adapterBookVM.city_pincode}"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_13sdp"
                 />
 
             <Button
                 android:id="@+id/shipping_button"
                 android:layout_below="@+id/pincode"
                 android:layout_alignStart="@+id/address_name"
-                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
                 android:hint="Shipping Address"
@@ -103,6 +112,7 @@
                 android:paddingStart="@dimen/_8sdp"
                 android:paddingEnd="@dimen/_8sdp"
                 android:textStyle="bold"
+                android:textSize="@dimen/_13sdp"
                 android:background="@color/colorPrimary"
                 android:textColor="@android:color/white"/>
 
@@ -113,7 +123,7 @@
                 android:orientation="horizontal">
 
             <RelativeLayout
-                android:onClick="@{()->adapterIAddressBook.onEditClicked()}"
+                android:onClick="@{()->IAddressBook.onEditClicked()}"
                 android:id="@+id/address_edit"
                 android:layout_width="@dimen/_32sdp"
                 android:layout_height="@dimen/_32sdp"
@@ -132,14 +142,15 @@
             </RelativeLayout>
 
                 <RelativeLayout
-                    android:onClick="@{()->adapterIAddressBook.onDeleteClicked()}"
+                    android:onClick="@{()->IAddressBook.onDeleteClicked()}"
                     android:id="@+id/address_delete"
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
                     android:layout_alignTop="@+id/shipping_button"
                     android:background="@drawable/margin"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="@dimen/_8sdp">
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:visibility="gone">
 
 
                 <ImageView

@@ -9,8 +9,9 @@ public class POJOClass {
     public String city;
     public Integer otp;
     public Integer otp_verify;
-    public Users users;
+    //public Users users;
     public Users user;
     public List<AddressList>address_list;
+    public List<AddressList>addresses;
 
 }

@@ -1,12 +1,13 @@
-package com.ninositsolution.inveleapp.add_address;
+package com.ninositsolution.inveleapp.edit_address;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
-import android.util.Patterns;
 
+import com.ninositsolution.inveleapp.add_address.AddAddressVM;
 import com.ninositsolution.inveleapp.add_address.pojo.AddAddressRequest;
 import com.ninositsolution.inveleapp.api.ApiService;
 import com.ninositsolution.inveleapp.api.RetrofitClient;
+import com.ninositsolution.inveleapp.edit_address.pojo.EditAddressRequest;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 import com.ninositsolution.inveleapp.utils.Constants;
 
@@ -15,17 +16,17 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class AddAddressRepo {
+public class EditAddressRepo {
 
     private static final String TAG = "EditAddressRepo";
 
-    private MutableLiveData<AddAddressVM> addAddressVMMutableLiveData = new MutableLiveData<>();
-    private MutableLiveData<AddAddressVM> locateAddessVMMutableLiveData = new MutableLiveData<>();
-    public MutableLiveData<AddAddressVM> getAddAddressVMMutableLiveData(AddAddressRequest addAddressRequest) {
+    private MutableLiveData<EditAddressVM> editAddressVMMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<EditAddressVM> locateAddessVMMutableLiveData = new MutableLiveData<>();
+    public MutableLiveData<EditAddressVM> getEditAddressVMMutableLiveData(EditAddressRequest editAddressRequest) {
 
         ApiService apiService = RetrofitClient.getApiService();
 
-        apiService.addAddressApi(addAddressRequest)
+        apiService.UpdateAddressApi(editAddressRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<POJOClass>() {
@@ -41,9 +42,9 @@ public class AddAddressRepo {
 
                         //pojoClassMutableLiveData.setValue(pojoClass);
 
-                        AddAddressVM addAddressVM = new AddAddressVM(pojoClass);
+                        EditAddressVM editAddressVM = new EditAddressVM(pojoClass);
 
-                        addAddressVMMutableLiveData.setValue(addAddressVM);
+                        editAddressVMMutableLiveData.setValue(editAddressVM);
                     }
 
                     @Override
@@ -60,7 +61,7 @@ public class AddAddressRepo {
                 });
 
 
-        return addAddressVMMutableLiveData;
+        return editAddressVMMutableLiveData;
     }
 
 
@@ -103,7 +104,7 @@ public class AddAddressRepo {
         return Constants.SUCCESS;
     }
 
-    public MutableLiveData<AddAddressVM> getLocateAddessVMMutableLiveData(AddAddressRequest addAddressRequest) {
+    public MutableLiveData<EditAddressVM> getLocateAddessVMMutableLiveData(AddAddressRequest addAddressRequest) {
 
         ApiService apiService = RetrofitClient.getApiService();
 
@@ -123,9 +124,9 @@ public class AddAddressRepo {
 
                         //pojoClassMutableLiveData.setValue(pojoClass);
 
-                        AddAddressVM addAddressVM = new AddAddressVM(pojoClass);
+                        EditAddressVM editAddressVM = new EditAddressVM(pojoClass);
 
-                        locateAddessVMMutableLiveData.setValue(addAddressVM);
+                        locateAddessVMMutableLiveData.setValue(editAddressVM);
                     }
 
                     @Override

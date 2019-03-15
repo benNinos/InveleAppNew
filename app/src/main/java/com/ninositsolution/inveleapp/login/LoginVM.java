@@ -28,7 +28,7 @@ public class LoginVM extends ViewModel {
     public ObservableField<Integer> otp = new ObservableField<>();
     public ObservableField<Integer> otp_verify = new ObservableField<>();
     public ObservableField<Users> user = new ObservableField<>();
-    public ObservableField<Users> users = new ObservableField<>();
+
 
     public LoginVM(POJOClass pojoClass)
     {
@@ -38,6 +38,7 @@ public class LoginVM extends ViewModel {
         this.otp_verify.set(pojoClass.otp_verify);
         this.user.set(pojoClass.user);
     }
+
 
     public LoginVM()
     {

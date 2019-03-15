@@ -4,6 +4,8 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableField;
 
+import com.ninositsolution.inveleapp.forgot_password.pojo.OTPRequest;
+import com.ninositsolution.inveleapp.login.LoginVM;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 import com.ninositsolution.inveleapp.pojo.Users;
 import com.ninositsolution.inveleapp.registration.pojo.RegistartionRequest;
@@ -16,8 +18,11 @@ import com.ninositsolution.inveleapp.registration.pojo.RegistartionRequest;
 public class RegisterVM extends ViewModel {
 
     private RegisterRepo registerRepo;
+
     private MutableLiveData<RegisterVM> registerVMMutableLiveData = new MutableLiveData<>();
+    private  MutableLiveData<RegisterVM> otpVerifyLiveData = new MutableLiveData<>();
     private MutableLiveData<POJOClass> pojoClassMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<RegisterVM> googleLoginLiveData = new MutableLiveData<>();
 
     // UI fields
 
@@ -26,19 +31,20 @@ public class RegisterVM extends ViewModel {
     public ObservableField<String> password = new ObservableField<>("");
     public ObservableField<String> mobile = new ObservableField<>("");
     public ObservableField<String> mobile_name = new ObservableField<>("");
+    public ObservableField<String> enter_otp = new ObservableField<>("");
 
     // POJO fields
 
     public ObservableField<String> status = new ObservableField<>();
     public ObservableField<String> msg = new ObservableField<>();
-    public ObservableField<Users> users = new ObservableField<>();
+    public ObservableField<Users> user = new ObservableField<>();
     public ObservableField<Integer> otp = new ObservableField<>();
 
     public RegisterVM(POJOClass pojoClass)
     {
         this.status.set(pojoClass.status);
         this.msg.set(pojoClass.msg);
-        this.users.set(pojoClass.users);
+        this.user.set(pojoClass.user);
         this.otp.set(pojoClass.otp);
     }
 
@@ -73,6 +79,13 @@ public class RegisterVM extends ViewModel {
 
     }
 
+    public void googleLoginApi(String name, String phone, String email,String uid, String deviceId)
+    {
+        RegistartionRequest registartionRequest = new RegistartionRequest(name, phone, email, "","google", uid, deviceId, "Android", "1");
+
+        googleLoginLiveData = registerRepo.getRegisterVMMutableLiveData(registartionRequest);
+    }
+
     public void registerViaMobile (String device_id)
     {
         RegistartionRequest registartionRequest = new RegistartionRequest(mobile_name.get(), mobile.get(),"",
@@ -88,5 +101,25 @@ public class RegisterVM extends ViewModel {
 
     public MutableLiveData<RegisterVM> getRegisterVMMutableLiveData() {
         return registerVMMutableLiveData;
+    }
+
+    public int otpValidations() {
+
+        return registerRepo.otpValidations(enter_otp.get());
+    }
+
+    public void otpVerifyApi(String userId) {
+
+        OTPRequest otpRequest = new OTPRequest(userId, enter_otp.get());
+
+        otpVerifyLiveData = registerRepo.getOtpVerifyLiveData(otpRequest);
+    }
+
+    public MutableLiveData<RegisterVM> getOtpVerifyLiveData() {
+        return otpVerifyLiveData;
+    }
+
+    public MutableLiveData<RegisterVM> getGoogleLoginLiveData() {
+        return googleLoginLiveData;
     }
 }

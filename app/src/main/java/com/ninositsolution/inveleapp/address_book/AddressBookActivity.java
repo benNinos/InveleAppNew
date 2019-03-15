@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.add_address.AddAddressActivity;
@@ -25,7 +26,9 @@ public class AddressBookActivity extends AppCompatActivity implements IAddressBo
     ActivityAddressBookBinding binding;
     private AddressBookAdapter addressBookAdapter;
     AddressBookVM addressBookVM;
+    IAddressBook iAddressBook;
     Activity activity;
+    String select_id="";
     public static final String TAG = AddressBookActivity.class.getSimpleName();
 
     @Override
@@ -37,7 +40,8 @@ public class AddressBookActivity extends AppCompatActivity implements IAddressBo
 
         activity = AddressBookActivity.this;
         binding.setAddressBook(addressBookVM);
-        //binding.setLifecycleOwner(this);
+        binding.setLifecycleOwner(this);
+
 
         binding.addressBookRecyclerview.setHasFixedSize(true);
         binding.addressBookRecyclerview.setLayoutManager(new LinearLayoutManager(this));
@@ -45,8 +49,9 @@ public class AddressBookActivity extends AppCompatActivity implements IAddressBo
         addressBookVM = ViewModelProviders.of(this).get(AddressBookVM.class);
 
 
-
+        //invoke the get address api list
         addressBookVM.getAddressList(Session.getUserId(AddressBookActivity.this));
+        //address list api service response
 
         addressBookVM.getAddressBookVMMutableLiveData().observe(this, new Observer<List<AddressBookVM>>() {
             @Override
@@ -56,29 +61,32 @@ public class AddressBookActivity extends AppCompatActivity implements IAddressBo
 
                 addressBookAdapter = new AddressBookAdapter(AddressBookActivity.this, addressBookVMS);
                 binding.addressBookRecyclerview.setAdapter(addressBookAdapter);
+                addressBookAdapter.setClikEvent(new AddressBookAdapter.ClickEvent() {
+                    @Override
+                    public void setClickEventItem(int position, String id, String user_id) {
+                        Log.e(TAG,"selected_id==>"+id);
+                        if(!id.equalsIgnoreCase("")){
+                            select_id = id;
+                            addressBookVM.updateAddressDefault(id);
+                        }
+                    }
+
+
+                });
             }
-
-
         });
+        //address default update response
+        addressBookVM.getDefaultUpdateVMMutableLiveData().observe(this, new Observer<AddressBookVM>() {
+            @Override
+            public void onChanged(@Nullable AddressBookVM addressBookVM) {
+                Toast.makeText(AddressBookActivity.this,addressBookVM.msg.get(),Toast.LENGTH_SHORT).show();
 
+                //update  the recylcerview
+                //invoke the get address api list
+                addressBookVM.getAddressList(Session.getUserId(AddressBookActivity.this));
 
-
-
-    }
-
-
-    @Override
-    public void radioButtonClicked() {
-
-    }
-
-    @Override
-    public void onEditClicked() {
-
-    }
-
-    @Override
-    public void onDeleteClicked() {
+            }
+        });
 
     }
 
@@ -94,4 +102,23 @@ public class AddressBookActivity extends AppCompatActivity implements IAddressBo
         startActivity(new Intent(this,AddAddressActivity.class));
 
     }
+
+    @Override
+    public void radioButtonClicked() {
+
+    }
+
+    @Override
+    public void onEditClicked() {
+
+
+    }
+
+    @Override
+    public void onDeleteClicked() {
+
+    }
+
+
+
 }

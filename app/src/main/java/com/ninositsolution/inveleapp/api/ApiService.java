@@ -1,6 +1,8 @@
 package com.ninositsolution.inveleapp.api;
 
 import com.ninositsolution.inveleapp.address_book.pojo.AddressBookRequest;
+import com.ninositsolution.inveleapp.address_book.pojo.AddressUpdateRequest;
+import com.ninositsolution.inveleapp.edit_address.pojo.EditAddressRequest;
 import com.ninositsolution.inveleapp.forgot_password.pojo.OTPRequest;
 import com.ninositsolution.inveleapp.forgot_password.pojo.ResetPasswordRequest;
 import com.ninositsolution.inveleapp.login.LoginRequest;
@@ -24,6 +26,10 @@ public interface ApiService {
     @POST("users/address/add")
     Observable<POJOClass> addAddressApi(@Body AddAddressRequest addAddressRequest);
 
+    @POST("users/address/update")
+    Observable<POJOClass> UpdateAddressApi(@Body EditAddressRequest editAddressRequest);
+
+
     @POST("postal-code-search")
     Observable<POJOClass> locateAddressApi(@Body AddAddressRequest addAddressRequest);
 
@@ -31,7 +37,7 @@ public interface ApiService {
     Observable<POJOClass>addressList(@Body AddressBookRequest addressBookRequest);
 
     @POST("users/address/default")
-    Observable<POJOClass> defaultAddressUpdate(@Body AddressBookRequest addressBookRequest);
+    Observable<POJOClass> defaultAddressUpdate(@Body AddressUpdateRequest addressUpdateRequest);
 
     @FormUrlEncoded
     @POST("users/forgot_password")

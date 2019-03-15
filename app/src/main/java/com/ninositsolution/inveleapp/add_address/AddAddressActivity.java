@@ -73,7 +73,7 @@ public class AddAddressActivity extends AppCompatActivity {
                                 addAddressVM.address.set(addressVM.address_list.get().get(0).ROAD_NAME);
                                 addAddressVM.city_name.set(addressVM.city.get());
                             }else if(addressVM.status.get().equalsIgnoreCase("error")){
-                                Toast.makeText(AddAddressActivity.this, "" + addAddressVM.msg.get(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddAddressActivity.this, "" + addressVM.msg.get(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

@@ -11,6 +11,7 @@ import com.ninositsolution.inveleapp.add_address.AddAddressRepo;
 import com.ninositsolution.inveleapp.add_address.AddAddressVM;
 import com.ninositsolution.inveleapp.add_address.pojo.AddAddressRequest;
 import com.ninositsolution.inveleapp.address_book.pojo.AddressBookRequest;
+import com.ninositsolution.inveleapp.address_book.pojo.AddressUpdateRequest;
 import com.ninositsolution.inveleapp.pojo.AddressList;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 
@@ -29,11 +30,15 @@ public class AddressBookVM extends ViewModel {
     private MutableLiveData<AddressBookVM> defaultUpdateVMMutableLiveData = new MutableLiveData<>();
     //UI fields
 
-    public ObservableField<String> name = new ObservableField<>();
-    public ObservableField<String> contact_no = new ObservableField<>();
-    public ObservableField<String> address = new ObservableField<>();
-    public ObservableField<String> city_pincode = new ObservableField<>();
-    public ObservableField<String> ship_billAddress = new ObservableField<>();
+    public ObservableField<String> name = new ObservableField<>("");
+    public ObservableField<String> contact_no = new ObservableField<>("");
+    public ObservableField<String> address = new ObservableField<>("");
+    public ObservableField<String> city_pincode = new ObservableField<>("");
+    public ObservableField<String> ship_billAddress = new ObservableField<>("");
+    public ObservableField<String>billingAddress = new ObservableField<>("");
+    public ObservableField<String>id = new ObservableField<>("");
+    public ObservableField<String>user_id = new ObservableField<>("");
+    public ObservableField<String>user_default = new ObservableField<>("");
     //pojo fields
     public ObservableField<String> status = new ObservableField<>();
     public ObservableField<String> msg = new ObservableField<>();
@@ -47,11 +52,15 @@ public class AddressBookVM extends ViewModel {
 
     }
     public AddressBookVM(AddressList addressLists){
+        this.id.set(addressLists.getId());
+        this.user_id.set(addressLists.getUser_id());
+        this.user_default.set(addressLists.getUser_default());
         this.name.set(addressLists.getName());
         this.contact_no.set(addressLists.getContact_no());
         this.address.set(addressLists.getAddress()+","+addressLists.getAddress1());
         this.city_pincode.set(addressLists.getCity()+","+addressLists.getPostal_code());
-        this.ship_billAddress.set(addressLists.getIs_billing_address());
+        this.ship_billAddress.set(addressLists.getIs_shipping_address());
+        this.billingAddress.set(addressLists.getIs_billing_address());
 
     }
 
@@ -78,12 +87,12 @@ public class AddressBookVM extends ViewModel {
     public void updateAddressDefault(String user_address_id)
     {
         Log.e("user_address_id","user_address_id==>"+user_address_id);
-        AddressBookRequest addressBookRequest = new AddressBookRequest(user_address_id);
+        AddressUpdateRequest addressUpdateRequest = new AddressUpdateRequest(user_address_id);
 
         addressBookRepo = new AddressBookRepo();
 
         // pojoClassMutableLiveData = registerRepo.getRegisterVMMutableLiveData(registartionRequest);
-        defaultUpdateVMMutableLiveData = addressBookRepo.getUpdateDefaultVMMutableLiveData(addressBookRequest);
+        defaultUpdateVMMutableLiveData = addressBookRepo.getUpdateDefaultVMMutableLiveData(addressUpdateRequest);
 
         //String message = registerVMMutableLiveData.getValue().status.get();
 

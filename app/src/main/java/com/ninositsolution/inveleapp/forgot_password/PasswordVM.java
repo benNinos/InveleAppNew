@@ -63,6 +63,11 @@ public class PasswordVM extends ViewModel{
         return passwordRepo.forgotEmailPatternValidation(email.get());
     }
 
+    public int passwordMatchValidation(){
+
+        return  passwordRepo.passwordValidation(newPassword.get(),confirmPassword.get());
+    }
+
 
 
     public int resetPasswordValidation()

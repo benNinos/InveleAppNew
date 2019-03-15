@@ -100,7 +100,7 @@ public class LoginRepo {
 
         ApiService apiService = RetrofitClient.getApiService();
 
-        apiService.otpVerifyApi(userId,otp).subscribeOn(Schedulers.io())
+       /* apiService.otpVerifyApi(userId,otp).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<POJOClass>() {
                     @Override
@@ -128,7 +128,7 @@ public class LoginRepo {
                     public void onComplete() {
 
                     }
-                });
+                });*/
 
 
         return otpVerifyLivedata;

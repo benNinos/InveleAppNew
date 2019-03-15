@@ -1,5 +1,7 @@
 package com.ninositsolution.inveleapp.api;
 
+import com.ninositsolution.inveleapp.address_book.pojo.AddressBookRequest;
+import com.ninositsolution.inveleapp.forgot_password.pojo.OTPRequest;
 import com.ninositsolution.inveleapp.forgot_password.pojo.ResetPasswordRequest;
 import com.ninositsolution.inveleapp.login.LoginRequest;
 import com.ninositsolution.inveleapp.add_address.pojo.AddAddressRequest;

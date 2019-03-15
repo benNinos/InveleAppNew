@@ -6,4 +6,5 @@ public interface IPassword {
     void onSubmitClicked();
     void onBackClicked();
     void onVerifyOTPClicked();
+    void onEnabledResendClicked();
 }

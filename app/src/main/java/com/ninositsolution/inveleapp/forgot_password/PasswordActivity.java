@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -37,6 +38,21 @@ public class PasswordActivity extends AppCompatActivity{
         passwordVM = ViewModelProviders.of(this).get(PasswordVM.class);
         binding.setPassword(passwordVM);
         binding.setLifecycleOwner(this);
+
+        new CountDownTimer(45000,1000)
+        {
+            public void onTick(long millisUntilFinished) {
+                binding.otpTimerText.setText(millisUntilFinished / 1000 +" " + "Sec"  );
+            }
+
+            public void onFinish() {
+                if (binding.disabledResend.getVisibility() == View.VISIBLE)
+                {
+                    binding.disabledResend.setVisibility(View.GONE);
+                    binding.enabledResend.setVisibility(View.VISIBLE);
+                }
+            }
+        }.start();
 
         InputFilter[] filters = new InputFilter[1];
         filters[0] = new InputFilter.LengthFilter(6);
@@ -196,7 +212,7 @@ public class PasswordActivity extends AppCompatActivity{
                     if (status == Constants.SUCCESS)
                 {
                     showProgressBar();
-                    passwordVM.otpVerifyApi(Integer.parseInt(Session.getUserId(PasswordActivity.this)));
+                    passwordVM.otpVerifyApi(Session.getUserId(PasswordActivity.this));
                     passwordVM.getOtpMutableLiveData().observe(PasswordActivity.this, new Observer<PasswordVM>() {
                         @Override
                         public void onChanged(@Nullable PasswordVM passwordVM) {
@@ -223,6 +239,13 @@ public class PasswordActivity extends AppCompatActivity{
                         }
                     });
                 }
+
+            }
+
+            @Override
+            public void onEnabledResendClicked() {
+                onResetClicked();
+
 
             }
         });

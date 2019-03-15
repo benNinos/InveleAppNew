@@ -76,7 +76,7 @@ public class PasswordVM extends ViewModel{
         passwordVMMutableLiveData =  passwordRepo.getPasswordVMMutableLiveData(email.get());
     }
 
-    public void otpVerifyApi(Integer user_id)
+    public void otpVerifyApi(String user_id)
     {
       OTPRequest otpRequest = new OTPRequest(user_id,otpCode.get());
       otpMutableLiveData = passwordRepo.getOtpMutableLiveData(otpRequest);

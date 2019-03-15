@@ -8,6 +8,10 @@
         <variable
             name="editAddress"
             type="com.ninositsolution.inveleapp.edit_address.EditAddressVM"/>
+
+        <variable
+            name="IEditAddress"
+            type="com.ninositsolution.inveleapp.edit_address.IEditAddress"/>
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -29,7 +33,7 @@
                     android:layout_height="@dimen/toolBar_height">
 
                     <ImageView
-                        android:onClick="@{()->editAddress.onBackClicked()}"
+                        android:onClick="@{()->IEditAddress.onBackClicked()}"
                         android:id="@+id/account_header_back"
                         android:layout_width="36dp"
                         android:layout_height="32dp"
@@ -86,6 +90,51 @@
                         android:paddingLeft="@dimen/_20sdp"
                         android:paddingRight="@dimen/_20sdp" >
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="left|center">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Address Type :"
+                                android:textColor="@android:color/black"
+                                android:textSize="@dimen/_12sdp"
+                                tools:ignore="HardcodedText"/>
+
+
+                            <RadioGroup
+                                android:id="@+id/radio_group"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:onCheckedChanged="@{()->IEditAddress.onRadioButtonClicked()}"
+                                android:visibility="visible">
+
+
+                                <RadioButton
+                                    android:id="@+id/home_radio_btn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Home"
+                                    android:checked="true"/>
+                                <RadioButton
+                                    android:id="@+id/office_radio_btn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text ="Office"/>
+                                <RadioButton
+                                    android:id="@+id/other_radio_btn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text ="Others"/>
+
+                            </RadioGroup>
+
+                        </LinearLayout>
+
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/address_input_layout_name"
@@ -99,8 +148,8 @@
                                 android:layout_width="match_parent"
                                 android:paddingBottom="@dimen/edit_padding"
                                 android:layout_height="wrap_content"
-                                android:text="@string/account_name"
                                 android:hint="@string/float_name"
+                                android:text="@={editAddress.Name}"
                                 android:inputType="textPersonName"
                                 tools:ignore="Autofill" />
 
@@ -119,7 +168,7 @@
                                 android:id="@+id/address_input_number"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/phone_sample"
+                                android:text="@={editAddress.contact_number}"
                                 android:paddingBottom="@dimen/edit_padding"
                                 android:hint="@string/float_contact"
                                 android:inputType="number"
@@ -127,46 +176,52 @@
 
                         </android.support.design.widget.TextInputLayout>
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:orientation="horizontal">
 
-                        <android.support.design.widget.TextInputLayout
+                            <android.support.design.widget.TextInputLayout
                                 android:id="@+id/address_input_layout_postal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_20sdp">
+                                android:layout_weight="1">
 
-                            <EditText
-                                android:id="@+id/address_input_postal"
-                                android:layout_width="match_parent"
-                                android:paddingBottom="@dimen/edit_padding"
-                                android:text="@string/postalcode"
-                                android:layout_height="wrap_content"
-                                android:hint="@string/float_postal"
-                                android:inputType="number"
-                                tools:ignore="Autofill" />
+                                <EditText
+                                    android:id="@+id/address_input_postal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:backgroundTint="@android:color/transparent"
+                                    android:hint="@string/float_postal"
+                                    android:inputType="number"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:paddingBottom="@dimen/edit_padding"
+                                    android:text="@={editAddress.postal_code}"
+                                    tools:ignore="Autofill" />
+                            </android.support.design.widget.TextInputLayout>
 
-                        </android.support.design.widget.TextInputLayout>
+
+                            <Button
+                                android:id="@+id/locate_button"
+                                android:layout_width="@dimen/_60sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:background="@color/colorPrimary"
+                                android:textSize="@dimen/_12sdp"
+                                android:gravity="center"
+                                android:text="@string/locate"
+                                android:onClick="@{()->IEditAddress.onLocateClicked()}"
+                                android:textAllCaps="false"
+                                android:textColor="@android:color/white" />
 
 
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/address_input_layout_address"
+                        </LinearLayout>
+
+                        <View
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_20sdp">
-
-
-                            <EditText
-                                android:id="@+id/address_input_address"
-                                android:layout_width="match_parent"
-                                android:paddingBottom="@dimen/edit_padding"
-                                android:layout_height="wrap_content"
-                                android:text="@string/address_sample"
-                                android:hint="@string/float_address"
-                                android:inputType="text"
-                                tools:ignore="Autofill" />
-
-
-                        </android.support.design.widget.TextInputLayout>
-
+                            android:layout_height="@dimen/_1sdp"
+                            android:background="@color/cart_edit_color"/>
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/address_input_layout_unitNo"
@@ -181,17 +236,87 @@
                                 android:paddingBottom="@dimen/edit_padding"
                                 android:layout_height="wrap_content"
                                 android:hint="@string/float_floor"
-                                android:text="@string/postalcode"
+                                android:text="@={editAddress.floor_unit_numer}"
                                 android:inputType="text"
                                 tools:ignore="Autofill" />
                         </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/address_input_layout_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_20sdp">
+
+
+                            <EditText
+                                android:id="@+id/address_input_address"
+                                android:layout_width="match_parent"
+                                android:paddingBottom="@dimen/edit_padding"
+                                android:layout_height="wrap_content"
+                                android:text="@={editAddress.address}"
+                                android:hint="@string/float_address"
+                                android:inputType="text"
+                                tools:ignore="Autofill" />
+
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/city_input_layout_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_20sdp">
+
+
+                            <EditText
+                                android:id="@+id/city_input_address"
+                                android:layout_width="match_parent"
+                                android:paddingBottom="@dimen/edit_padding"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/_12sdp"
+                                android:hint="@string/float_city"
+                                android:text="@={editAddress.city_name}"
+                                android:editable="false"
+                                android:inputType="text"
+                                tools:ignore="Autofill" />
+
+
+                        </android.support.design.widget.TextInputLayout>
+
+
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:orientation="vertical">
+
+                            <CheckBox
+                                android:id="@+id/shipping_checkbox"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:onCheckedChanged="@{()->IEditAddress.onShipaddressClicked()}"
+                                android:text="@string/textView_shipping"
+                                android:checked="true"/>
+
+                            <CheckBox
+                                android:id="@+id/billing_checkbox"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:onCheckedChanged="@{()->IEditAddress.onBillAddressClicked()}"
+                                android:text="@string/textView_billing"
+                                />
+
+                        </LinearLayout>
 
 
                         <RadioGroup
                             android:layout_marginTop="@dimen/_20sdp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
 
                             <RadioButton
@@ -248,10 +373,19 @@
                 android:gravity="center"
                 android:layout_margin="@dimen/_16sdp"
                 android:background="@color/colorPrimary"
-                android:text="@string/button_update"
+                android:text="Update"
+                android:onClick="@{()->IEditAddress.onSaveClicked()}"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:layout_gravity="center_horizontal"/>
+
+            <ProgressBar
+                android:id="@+id/register_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_gravity="center"/>
+
 
 
         </LinearLayout>

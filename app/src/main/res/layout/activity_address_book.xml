@@ -18,6 +18,7 @@
         android:layout_height="match_parent">
 
         <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_36sdp">
 
@@ -61,14 +62,10 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_36sdp"
                 android:orientation="vertical">
 
                 <View
@@ -79,7 +76,8 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:padding="@dimen/_8sdp">
 
                     <android.support.v7.widget.RecyclerView
@@ -91,15 +89,16 @@
                     </android.support.v7.widget.RecyclerView>
                 </RelativeLayout>
 
-            </LinearLayout>
 
-        </android.support.v4.widget.NestedScrollView>
 
-        <RelativeLayout
-            android:layout_gravity="bottom"
+
+        <LinearLayout
             android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_72sdp">
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:layout_height="@dimen/_72sdp"
+            android:orientation="vertical">
 
             <View
                 android:layout_width="match_parent"
@@ -110,6 +109,7 @@
                 android:onClick="@{()->IAddressBook.onAddAddressClicked()}"
                 android:id="@+id/add_address_button"
                 android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="@dimen/_180sdp"
                 android:layout_height="@dimen/_42sdp"
                 android:text="@string/add_address"
@@ -120,7 +120,8 @@
                 android:textColor="@android:color/white"/>
 
 
-        </RelativeLayout>
+        </LinearLayout>
+            </LinearLayout>
 
 
 

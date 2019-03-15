@@ -28,7 +28,10 @@ public class RegistartionRequest {
     @SerializedName("device_type")
     public String device_type;
 
-    public RegistartionRequest(String first_name, String mobile, String email, String password, String login_type, String uid, String device_id, String device_type) {
+    @SerializedName("Is_registration")
+    public String Is_registration;
+
+    public RegistartionRequest(String first_name, String mobile, String email, String password, String login_type, String uid, String device_id, String device_type, String Is_registration) {
         this.first_name = first_name;
         this.mobile = mobile;
         this.email = email;
@@ -37,5 +40,6 @@ public class RegistartionRequest {
         this.uid = uid;
         this.device_id = device_id;
         this.device_type = device_type;
+        this.Is_registration = Is_registration;
     }
 }

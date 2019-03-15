@@ -129,10 +129,21 @@ public class RegisterActivity extends AppCompatActivity {
                     registerVM.getRegisterVMMutableLiveData().observe(RegisterActivity.this, new Observer<RegisterVM>() {
                         @Override
                         public void onChanged(@Nullable RegisterVM registerVM) {
-                            hideProgressBar();
 
-                            Toast.makeText(RegisterActivity.this, ""+registerVM.msg.get(), Toast.LENGTH_SHORT).show();
-                            Session.setUserId(String.valueOf(registerVM.otp.get()), RegisterActivity.this);
+                            if (!registerVM.status.get().isEmpty())
+                            {
+                                hideProgressBar();
+
+                                if (registerVM.status.get().equalsIgnoreCase("success"))
+                                {
+                                    Toast.makeText(RegisterActivity.this, ""+registerVM.msg.get(), Toast.LENGTH_SHORT).show();
+                                    Session.setUserId(String.valueOf(registerVM.otp.get()), RegisterActivity.this);
+                                    getOtpLayout();
+                                } else
+                                {
+                                    Toast.makeText(RegisterActivity.this, ""+registerVM.msg.get(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
                         }
                     });
 

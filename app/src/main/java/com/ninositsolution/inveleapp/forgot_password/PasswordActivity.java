@@ -39,8 +39,6 @@ public class PasswordActivity extends AppCompatActivity{
         binding.setPassword(passwordVM);
         binding.setLifecycleOwner(this);
 
-
-
         InputFilter[] filters = new InputFilter[1];
         filters[0] = new InputFilter.LengthFilter(6);
         binding.forgotPasswordOtpCode.setFilters(filters);
@@ -86,7 +84,7 @@ public class PasswordActivity extends AppCompatActivity{
             public void afterTextChanged(Editable s) {
 
                 int passmatch = passwordVM.passwordMatchValidation();
-                if (passmatch == Constants.PASSWPORD_MATCH)
+                if (passmatch == Constants.PASSWORD_MATCH)
                 {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(binding.confirmResetPassword.getWindowToken(), 0);
@@ -144,8 +142,6 @@ public class PasswordActivity extends AppCompatActivity{
 
                                     if (binding.resetPasswordOtpLayout.getVisibility() == View.GONE) {
                                         binding.resetPasswordOtpLayout.setVisibility(View.VISIBLE);
-
-
 
                                         new CountDownTimer(45000,1000)
                                         {

@@ -25,6 +25,8 @@ public class Constants {
     public static final Integer PASSWPORD_MATCH = 18;
     public static final Integer PASSWORD_MISMATCH = 19;
 
+    public static  String user_address_id="";
+
 
 }
 

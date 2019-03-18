@@ -4,8 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class EditAddressRequest {
 
-    @SerializedName("user_id")
-    public String user_id;
+    @SerializedName("user_address_id")
+    public String user_address_id;
 
     @SerializedName("address_type")
     public String address_type;
@@ -36,8 +36,8 @@ public class EditAddressRequest {
     public String is_shipping;
 
 
-    public EditAddressRequest(String user_id, String address_type, String name, String address, String address1, String postal_code, String city, String contact_no, String is_billing, String is_shipping) {
-        this.user_id = user_id;
+    public EditAddressRequest(String user_address_id, String address_type, String name, String address, String address1, String postal_code, String city, String contact_no, String is_billing, String is_shipping) {
+        this.user_address_id = user_address_id;
         this.address_type = address_type;
         this.name = name;
         this.address = address;

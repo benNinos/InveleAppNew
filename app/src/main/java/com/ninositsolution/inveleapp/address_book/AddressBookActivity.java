@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,8 +15,11 @@ import android.widget.Toast;
 
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.add_address.AddAddressActivity;
+import com.ninositsolution.inveleapp.address_book.pojo.AddressUpdateRequest;
 import com.ninositsolution.inveleapp.databinding.ActivityAddressBookBinding;
 import com.ninositsolution.inveleapp.edit_address.EditAddressActivity;
+import com.ninositsolution.inveleapp.edit_address.EditAddressModel;
+import com.ninositsolution.inveleapp.edit_address.EditAddressVM;
 import com.ninositsolution.inveleapp.utils.Session;
 
 import java.util.ArrayList;
@@ -29,6 +33,9 @@ public class AddressBookActivity extends AppCompatActivity implements IAddressBo
     IAddressBook iAddressBook;
     Activity activity;
     String select_id="";
+    EditAddressVM editAddressVM;
+   //ArrayList<EditAddressModel> editAddressModel;
+    EditAddressModel editAddressModel;
     public static final String TAG = AddressBookActivity.class.getSimpleName();
 
     @Override
@@ -72,6 +79,14 @@ public class AddressBookActivity extends AppCompatActivity implements IAddressBo
                     }
 
 
+                    @Override
+                    public void setClickEventEdit(int position, String id, String user_id) {
+                        Log.e(TAG,"edit_clicked==>");
+
+                        Intent intent = new Intent(AddressBookActivity.this,EditAddressActivity.class);
+                        intent.putExtra("user_address_id",id);
+                        startActivity(intent);
+                    }
                 });
             }
         });
@@ -110,6 +125,7 @@ public class AddressBookActivity extends AppCompatActivity implements IAddressBo
 
     @Override
     public void onEditClicked() {
+        Log.e(TAG,"onEditClicked==>");
 
 
     }

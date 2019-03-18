@@ -9,6 +9,7 @@ import android.util.Log;
 import com.ninositsolution.inveleapp.add_address.AddAddressRepo;
 import com.ninositsolution.inveleapp.add_address.AddAddressVM;
 import com.ninositsolution.inveleapp.add_address.pojo.AddAddressRequest;
+import com.ninositsolution.inveleapp.address_book.pojo.AddressUpdateRequest;
 import com.ninositsolution.inveleapp.edit_address.pojo.EditAddressRequest;
 import com.ninositsolution.inveleapp.pojo.AddressList;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
@@ -18,6 +19,7 @@ import java.util.List;
 public class EditAddressVM extends ViewModel {
 
     private EditAddressRepo editAddressRepo;
+    private MutableLiveData<EditAddressVM> showAddressVMMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<EditAddressVM> editAddressVMMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<EditAddressVM>searchAddressVMMutableLiveData = new MutableLiveData<>();
 
@@ -28,17 +30,20 @@ public class EditAddressVM extends ViewModel {
     public ObservableField<String>floor_unit_numer = new ObservableField<>("");
     public ObservableField<String>address = new ObservableField<>("");
     public ObservableField<String>city_name = new ObservableField<>("");
-    public ObservableField<String>address_type = new ObservableField<>();
-    public ObservableField<String>is_billing = new ObservableField<>();
-    public ObservableField<String>is_shipping = new ObservableField<>();
-    public ObservableField<String>Home = new ObservableField<>();
-    public ObservableField<String>Office = new ObservableField<>();
-    public ObservableField<String>Others = new ObservableField<>();
+    public ObservableField<String>address_type = new ObservableField<>("");
+    public ObservableField<String>is_billing = new ObservableField<>("");
+    public ObservableField<String>is_shipping = new ObservableField<>("");
+    public ObservableField<String>Home = new ObservableField<>("");
+    public ObservableField<String>Office = new ObservableField<>("");
+    public ObservableField<String>Others = new ObservableField<>("");
+    public ObservableField<String>user_address_id = new ObservableField<>("");
+    public ObservableField<String>user_id = new ObservableField<>("");
 
     //pojo fields
     public ObservableField<String> status = new ObservableField<>();
     public ObservableField<String> msg = new ObservableField<>();
     public ObservableField<String>city = new ObservableField<>();
+    public ObservableField<AddressList>user_address = new ObservableField<>();
     public ObservableField  <List<AddressList>> address_list = new ObservableField<>();
 
     public EditAddressVM(POJOClass pojoClass)
@@ -47,6 +52,7 @@ public class EditAddressVM extends ViewModel {
         this.msg.set(pojoClass.msg);
         this.city.set(pojoClass.city);
         this.address_list.set(pojoClass.address_list);
+        this.user_address.set(pojoClass.user_address);
 
     }
 
@@ -66,9 +72,17 @@ public class EditAddressVM extends ViewModel {
         return editAddressRepo.addressValidation(Name.get(), contact_number.get(), postal_code.get(),floor_unit_numer.get(),address.get(),city_name.get(),address_type.get());
     }
 
-    public void EditAddress(String user_id)
+    public void ShowAddress(String user_address_id){
+        AddressUpdateRequest addressUpdateRequest = new AddressUpdateRequest(user_address_id);
+
+        editAddressRepo = new EditAddressRepo();
+
+        showAddressVMMutableLiveData = editAddressRepo.getshowAddessVMMutableLiveData(addressUpdateRequest);
+    }
+
+    public void EditAddress(String user_address_id)
     {
-        EditAddressRequest editAddressRequest = new EditAddressRequest(user_id, address_type.get(),Name.get(),
+        EditAddressRequest editAddressRequest = new EditAddressRequest(user_address_id, address_type.get(),Name.get(),
                 floor_unit_numer.get(), address.get(),postal_code.get(),city_name.get(), contact_number.get(),is_billing.get(),is_shipping.get());
 
         editAddressRepo = new EditAddressRepo();
@@ -105,6 +119,11 @@ public class EditAddressVM extends ViewModel {
     public MutableLiveData<EditAddressVM>getSearchAddressVMMutableLiveData(){
         return  searchAddressVMMutableLiveData;
     }
+
+    public MutableLiveData<EditAddressVM>getShowAddressVMMutableLiveData(){
+        return  showAddressVMMutableLiveData;
+    }
+
 
 
 

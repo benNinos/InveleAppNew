@@ -39,7 +39,7 @@ public class AddressBookVM extends ViewModel {
     public ObservableField<String>id = new ObservableField<>("");
     public ObservableField<String>user_id = new ObservableField<>("");
     public ObservableField<String>user_default = new ObservableField<>("");
-    //pojo fields
+    //UpdateProfileRequest fields
     public ObservableField<String> status = new ObservableField<>();
     public ObservableField<String> msg = new ObservableField<>();
     public ObservableField  <List<AddressList>> address_list = new ObservableField<>();

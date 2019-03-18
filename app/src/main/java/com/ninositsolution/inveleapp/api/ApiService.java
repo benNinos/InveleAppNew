@@ -8,6 +8,7 @@ import com.ninositsolution.inveleapp.forgot_password.pojo.OTPRequest;
 import com.ninositsolution.inveleapp.forgot_password.pojo.ResetPasswordRequest;
 import com.ninositsolution.inveleapp.login.LoginRequest;
 import com.ninositsolution.inveleapp.add_address.pojo.AddAddressRequest;
+import com.ninositsolution.inveleapp.personal_information.pojo.UpdateProfileRequest;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 import com.ninositsolution.inveleapp.registration.pojo.RegistartionRequest;
 
@@ -54,6 +55,11 @@ public interface ApiService {
     @POST("users/password/update")
 
     Observable<POJOClass> updatePasswordApi (@Body ChangePassowrdRequest changePassowrdRequest);
+
+
+    @POST("users/profile_update")
+
+    Observable<POJOClass> profileUpdateApi (@Body UpdateProfileRequest updateProfileRequest);
 
 
 

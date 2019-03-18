@@ -6,4 +6,8 @@ package com.ninositsolution.inveleapp.personal_information;
  * ben@ninositsolution.com
  */
 public interface IPersonalInformation {
+
+     void onUpdateProfileClicked();
+     void omImageViewClicked();
+     void onDateEditTextClicked();
 }

@@ -165,7 +165,7 @@ public class PasswordRepo {
             return Constants.PASSWORD_MISMATCH;
         }
         else {
-            return Constants.PASSWPORD_MATCH;
+            return Constants.PASSWORD_MATCH;
         }
     }
 

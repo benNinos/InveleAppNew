@@ -27,14 +27,15 @@ public class AddressBookAdapter extends RecyclerView.Adapter<AddressBookAdapter.
     public Context context;
     private List<AddressBookVM> arrayList;
     private LayoutInflater layoutInflater;
-    private  OnClickListener onClickListener;
-    AddressBookClick addressBookClick;
+
+    IAddressBook iAddressBook;
     private RadioButton lastCheckedRadioGroup = null;
     boolean radio_checked=false;
     public static final String TAG = AddressBookAdapter.class.getSimpleName();
 
     public interface ClickEvent{
         void setClickEventItem(int position,String id,String user_id);
+        void setClickEventEdit(int position,String id,String user_id);
     }
     ClickEvent clickEvent;
 
@@ -56,7 +57,7 @@ public class AddressBookAdapter extends RecyclerView.Adapter<AddressBookAdapter.
 
         MainAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.address_book_adapter, viewGroup, false);
 
-        return new MainViewHolder(binding,onClickListener);
+        return new MainViewHolder(binding,iAddressBook);
     }
 
     @Override
@@ -67,7 +68,7 @@ public class AddressBookAdapter extends RecyclerView.Adapter<AddressBookAdapter.
 
         Log.e(TAG,"LIST_SIZE==>"+arrayList.size());
 
-        mainViewHolder.bind(addressBookVM,addressBookClick);
+        mainViewHolder.bind(addressBookVM,iAddressBook);
 
 
         if(addressBookVM.ship_billAddress.get().equalsIgnoreCase("1")){
@@ -115,13 +116,12 @@ public class AddressBookAdapter extends RecyclerView.Adapter<AddressBookAdapter.
             @Override
             public void onClick(View v) {
 
-                context.startActivity(new Intent(context, EditAddressActivity.class));
+                clickEvent.setClickEventEdit(position,addressBookVM.id.get(),addressBookVM.user_id.get());
+
+               // context.startActivity(new Intent(context, EditAddressActivity.class));
 
             }
         });
-
-
-
     }
 
     @Override
@@ -135,46 +135,42 @@ public class AddressBookAdapter extends RecyclerView.Adapter<AddressBookAdapter.
     public class MainViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private MainAdapterBinding binding;
-        public OnClickListener onClickListener;
+        public IAddressBook iAddressBook;
 
 
-        public MainViewHolder(@NonNull final MainAdapterBinding binding,OnClickListener onClickListener) {
+        public MainViewHolder(@NonNull final MainAdapterBinding binding, final IAddressBook iAddressBook) {
             super(binding.getRoot());
             this.binding = binding;
-            this.onClickListener = onClickListener;
-           /* binding.radioGroup.setOnClickListener(new View.OnClickListener() {
+            this.iAddressBook = iAddressBook;
+        /*   binding.editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AddressBookVM addressBookVM = binding.getAdapterBookVM();
-                    Log.e(TAG,"clciked_position==>"+addressBookVM.id+"\nid-==>"+arrayList.get(getAdapterPosition()).id);
+
+                    Log.e(TAG,"edit_clicked==>"+"\nselect_id==>"+arrayList.get(getAdapterPosition()).id.get());
+
+
                 }
             });*/
-
-
-
         }
 
-        public void bind(final AddressBookVM  addressBookVM,AddressBookClick addressBookClick)
+        public void bind(final AddressBookVM  addressBookVM,IAddressBook iAddressBook)
         {
             this.binding.setAdapterBookVM(addressBookVM);
-           // this.binding.setIAddressBook(addressBookVM);
+            this.binding.setIAddressBook(iAddressBook);
            // this.binding.setIAddressBook(iAddressBook);
             binding.executePendingBindings();
 
         }
-
 
         public MainAdapterBinding getBinding()
         {
             return binding;
         }
 
-
         @Override
         public void onClick(View v) {
 
             Log.e(TAG, "onClick: " + getAdapterPosition()+"\nId==>"+arrayList.get(getAdapterPosition()).id);
-            onClickListener.onNoteClick(getAdapterPosition());
 
         }
     }

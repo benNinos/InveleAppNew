@@ -8,4 +8,5 @@ package com.ninositsolution.inveleapp.change_password;
 public interface IChangePassword {
 
     void onBackClicked();
+    void onChangePasswordClicked();
 }

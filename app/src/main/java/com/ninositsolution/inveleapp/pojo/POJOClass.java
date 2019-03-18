@@ -13,5 +13,6 @@ public class POJOClass {
     public Users user;
     public List<AddressList>address_list;
     public List<AddressList>addresses;
+    public AddressList user_address;
 
 }

@@ -354,6 +354,7 @@
                             android:paddingStart="4dp"
                             android:paddingEnd="4dp"
                             android:textSize="@dimen/register_page_12sdp"
+                            android:text="@={register.enter_otp}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_regular"

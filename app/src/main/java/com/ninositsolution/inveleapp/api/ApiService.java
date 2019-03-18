@@ -2,6 +2,7 @@ package com.ninositsolution.inveleapp.api;
 
 import com.ninositsolution.inveleapp.address_book.pojo.AddressBookRequest;
 import com.ninositsolution.inveleapp.address_book.pojo.AddressUpdateRequest;
+import com.ninositsolution.inveleapp.change_password.pojo.ChangePassowrdRequest;
 import com.ninositsolution.inveleapp.edit_address.pojo.EditAddressRequest;
 import com.ninositsolution.inveleapp.forgot_password.pojo.OTPRequest;
 import com.ninositsolution.inveleapp.forgot_password.pojo.ResetPasswordRequest;
@@ -52,6 +53,12 @@ public interface ApiService {
 
     @POST("users/reset_password")
     Observable<POJOClass> resetPasswordApi (@Body ResetPasswordRequest resetPasswordRequest);
+
+    @POST("users/password/update")
+
+    Observable<POJOClass> updatePasswordApi (@Body ChangePassowrdRequest changePassowrdRequest);
+
+
 
     @POST("users/login")
     Observable<POJOClass> loginApi(@Body LoginRequest loginRequest);

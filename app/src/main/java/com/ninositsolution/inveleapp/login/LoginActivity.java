@@ -3,6 +3,9 @@ package com.ninositsolution.inveleapp.login;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,10 +13,21 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -24,6 +38,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -33,6 +48,16 @@ import com.ninositsolution.inveleapp.forgot_password.PasswordActivity;
 import com.ninositsolution.inveleapp.registration.RegisterActivity;
 import com.ninositsolution.inveleapp.utils.Constants;
 import com.ninositsolution.inveleapp.utils.Session;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -46,12 +71,18 @@ public class LoginActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
 
+    CallbackManager callbackManager;
+    private FirebaseAuth auth;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
         initGoogle();
+
+        initFacebook();
 
         binding.mobileLoginEdit.addTextChangedListener(new GenericTextWatcher(binding.mobileLoginEdit));
         //binding.otpLoginEdit.addTextChangedListener(new GenericTextWatcher(binding.otpLoginEdit));
@@ -97,19 +128,29 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onChanged(@Nullable LoginVM loginVM) {
 
-                            if (loginVM.status.get().equalsIgnoreCase("success"))
+                            if (!loginVM.status.get().isEmpty())
                             {
-                                hideProgressBar();
+                                if (loginVM.status.get().equalsIgnoreCase("success"))
+                                {
+                                    hideProgressBar();
 
-                                Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
 
-                                Session.setUserId(String.valueOf(loginVM.user.get().id),LoginActivity.this);
-                                Log.i(TAG, "User_id : "+loginVM.user.get().id);
+                                    Session.setUserId(String.valueOf(loginVM.user.get().id),LoginActivity.this);
+                                    Log.i(TAG, "User_id : "+loginVM.user.get().id);
+                                    loginVM.status.set("");
+                                } else
+                                {
+                                    hideProgressBar();
+                                    Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
+                                    loginVM.status.set("");
+                                }
                             } else
                             {
-                                hideProgressBar();
-                                Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Api Error", Toast.LENGTH_SHORT).show();
                             }
+
+
                         }
                     });
 
@@ -152,8 +193,10 @@ public class LoginActivity extends AppCompatActivity {
                                 {
 
                                     Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
+                                    loginVM.status.set("");
                                 } else  {
                                     Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
+                                    loginVM.status.set("");
                                 }
                             } else
                             {
@@ -195,6 +238,28 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFacebookClicked() {
 
+                binding.loginButton.performClick();
+
+                LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+
+                        handlefacebooktoken(loginResult.getAccessToken());
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Toast.makeText(LoginActivity.this, "cancelled", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+                        Toast.makeText(LoginActivity.this, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+
             }
 
             @Override
@@ -234,6 +299,7 @@ public class LoginActivity extends AppCompatActivity {
                                 {
 
                                     Toast.makeText(LoginActivity.this, ""+loginVM.otp.get(), Toast.LENGTH_SHORT).show();
+                                    Session.setUserId(String.valueOf(loginVM.user.get().id), LoginActivity.this);
                                     loginVM.status.set("");
                                     loginVMGlobal.otp_code.set(String.valueOf(loginVM.otp.get()));
 
@@ -262,8 +328,62 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    private void handlefacebooktoken(AccessToken accessToken) {
+
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful())
+                        {
+                            FirebaseUser firebaseUser = auth.getCurrentUser();
+                            updateUI(firebaseUser);
+                        }
+                        else
+                        {
+                            Toast.makeText(LoginActivity.this, "Could not register", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    private void updateUI(FirebaseUser firebaseUser) {
+
+        //email.setText(firebaseUser.getEmail());
+    }
+
+    private void initFacebook() {
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+
+        callbackManager = CallbackManager.Factory.create();
+        binding.loginButton.setReadPermissions(Arrays.asList("user_photos", "email",
+                "user_birthday", "public_profile", "AccessToken"));
+
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo("com.ninositsolution.inveleapp", PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures)
+            {
+                MessageDigest digest = MessageDigest.getInstance("SHA");
+                digest.update(signature.toByteArray());
+                String key = Base64.encodeToString(digest.digest(), Base64.DEFAULT);
+                Log.i("Keyhash",key);
+                Toast.makeText(this, ""+key, Toast.LENGTH_SHORT).show();
+                //email.setText(key);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 
         //if the requestCode is the Google Sign In code that we defined at starting
@@ -404,6 +524,8 @@ public class LoginActivity extends AppCompatActivity {
         if (binding.loginProgress.getVisibility() == View.GONE)
             binding.loginProgress.setVisibility(View.VISIBLE);
     }
+
+
 
     private void hideProgressBar()
     {

@@ -22,8 +22,13 @@ public class Constants {
     public static final Integer ADDRESS_TYPE = 15;
     public static final Integer EMAIL_VALID = 16;
     public static final Integer EMAIL_INVALID = 17;
-    public static final Integer PASSWPORD_MATCH = 18;
+    public static final Integer INVALID_OTP_LENGTH = 18;
+    public static final Integer PASSWORD_MATCH = 18;
     public static final Integer PASSWORD_MISMATCH = 19;
+    public static final Integer CONFIRM_NEW_PASSWORD_EMPTY = 20;
+    public static final Integer NEW_PASSWORD_EMPTY = 21;
+
+
 
     public static  String user_address_id="";
 

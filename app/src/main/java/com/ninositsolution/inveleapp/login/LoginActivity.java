@@ -2,6 +2,7 @@ package com.ninositsolution.inveleapp.login;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -23,11 +24,8 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -45,21 +43,18 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.ActivityLoginBinding;
 import com.ninositsolution.inveleapp.forgot_password.PasswordActivity;
+import com.ninositsolution.inveleapp.home.HomeActivity;
 import com.ninositsolution.inveleapp.registration.RegisterActivity;
 import com.ninositsolution.inveleapp.utils.Constants;
 import com.ninositsolution.inveleapp.utils.Session;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
-import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
+
+    Context context;
 
     private static final int RC_SIGN_IN = 234;
 
@@ -79,6 +74,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+
+        context = LoginActivity.this;
 
         initGoogle();
 
@@ -139,6 +136,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Session.setUserId(String.valueOf(loginVM.user.get().id),LoginActivity.this);
                                     Log.i(TAG, "User_id : "+loginVM.user.get().id);
                                     loginVM.status.set("");
+                                    startActivity(new Intent(context, HomeActivity.class));
                                 } else
                                 {
                                     hideProgressBar();
@@ -194,6 +192,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                     Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
                                     loginVM.status.set("");
+                                    startActivity(new Intent(context, HomeActivity.class));
                                 } else  {
                                     Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
                                     loginVM.status.set("");
@@ -406,6 +405,8 @@ public class LoginActivity extends AppCompatActivity {
                     {
                         Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
                         Session.setUserId(String.valueOf(loginVM.user.get().id), LoginActivity.this);
+                        loginVM.status.set("");
+                        startActivity(new Intent(context, HomeActivity.class));
                     } else
                     {
                         Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
@@ -547,6 +548,7 @@ public class LoginActivity extends AppCompatActivity {
                                             hideProgressBar();
                                             Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
                                             loginVM.status.set("");
+                                            startActivity(new Intent(context, HomeActivity.class));
                                         } else
                                         {
                                             hideProgressBar();

@@ -7,6 +7,7 @@ public class POJOClass {
     public String status;
     public String msg;
     public String city;
+    public String login_status;
     public Integer otp;
     public Integer otp_verify;
     //public Users users;

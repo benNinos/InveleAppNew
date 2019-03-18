@@ -375,6 +375,7 @@
                         android:enabled="false"
                         android:fontFamily="@font/roboto_regular"
                         android:text="@string/resend"
+                        android:textColor="@color/star_grey"
                         tools:ignore="RelativeOverlap" />
 
                     <View
@@ -462,20 +463,31 @@
                     android:layout_marginTop="@dimen/_32sdp"
                     android:orientation="horizontal">
 
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="36dp"
-                        android:layout_alignParentStart="true"
-                        android:onClick="@{()->iRegister.onFacebookClicked()}"
-                        android:fontFamily="@font/roboto_regular"
-                        android:background="@drawable/round_margin"
-                        android:text="@string/fb"
-                        android:textSize="@dimen/_12sdp"
-                        android:paddingStart="@dimen/_8sdp"
-                        android:paddingEnd="@dimen/_8sdp"
-                        android:textColor="#7f8787"
-                        android:drawablePadding="@dimen/_8sdp"
-                        android:drawableStart="@drawable/ic_facebook"/>
+                    <FrameLayout
+                        android:id="@+id/FrameLayout1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <com.facebook.login.widget.LoginButton
+                            android:id="@+id/login_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone" />
+
+                        <Button
+                            android:layout_width="120dp"
+                            android:layout_height="36dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:background="#4867aa"
+                            android:onClick="@{()->iRegister.onFacebookClicked()}"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/fb"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="0dp"
+                            android:textColor="@android:color/white"
+                            android:drawableStart="@drawable/ic_fb2"/>
+
+                    </FrameLayout>
 
                     <Button
                         android:layout_width="@dimen/_100sdp"

@@ -35,11 +35,16 @@ public class AddressBookVM extends ViewModel {
     public ObservableField<String> address = new ObservableField<>("");
     public ObservableField<String> city_pincode = new ObservableField<>("");
     public ObservableField<String> ship_billAddress = new ObservableField<>("");
-    public ObservableField<String>billingAddress = new ObservableField<>("");
-    public ObservableField<String>id = new ObservableField<>("");
-    public ObservableField<String>user_id = new ObservableField<>("");
-    public ObservableField<String>user_default = new ObservableField<>("");
-    //UpdateProfileRequest fields
+    public ObservableField<String> billingAddress = new ObservableField<>("");
+    public ObservableField<String> id = new ObservableField<>("");
+    public ObservableField<String> user_id = new ObservableField<>("");
+    public ObservableField<String> user_default = new ObservableField<>("");
+    public ObservableField<String>floor_unit = new ObservableField<>("");
+
+    //custom field
+    public ObservableField<String>address_type = new ObservableField<>("");
+    public ObservableField<String>postal_code = new ObservableField<>("");
+    //pojo fields
     public ObservableField<String> status = new ObservableField<>();
     public ObservableField<String> msg = new ObservableField<>();
     public ObservableField  <List<AddressList>> address_list = new ObservableField<>();
@@ -48,22 +53,24 @@ public class AddressBookVM extends ViewModel {
     {
         this.status.set(pojoClass.status);
         this.msg.set(pojoClass.msg);
-
-
     }
     public AddressBookVM(AddressList addressLists){
         this.id.set(addressLists.getId());
         this.user_id.set(addressLists.getUser_id());
         this.user_default.set(addressLists.getUser_default());
+        this.address_type.set(addressLists.getAddress_type());
+        //for edit screen
+        this.floor_unit.set(addressLists.getAddress());
+        this.postal_code.set(addressLists.getPostal_code());
+
         this.name.set(addressLists.getName());
         this.contact_no.set(addressLists.getContact_no());
-        this.address.set(addressLists.getAddress()+","+addressLists.getAddress1());
+        this.address.set(addressLists.getAddress1());
         this.city_pincode.set(addressLists.getCity()+","+addressLists.getPostal_code());
         this.ship_billAddress.set(addressLists.getIs_shipping_address());
         this.billingAddress.set(addressLists.getIs_billing_address());
 
     }
-
     public AddressBookVM() {
         addressBookRepo = new AddressBookRepo();
 
@@ -81,7 +88,6 @@ public class AddressBookVM extends ViewModel {
         //String message = registerVMMutableLiveData.getValue().status.get();
 
         //  stringMutableLiveData.setValue(message);
-
     }
 
     public void updateAddressDefault(String user_address_id)

@@ -603,14 +603,14 @@
 
         </RelativeLayout>
 
-    <com.nhaarman.supertooltips.ToolTipRelativeLayout
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:id="@+id/tooltip_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <com.nhaarman.supertooltips.ToolTipRelativeLayout
+            android:id="@+id/tooltip_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-    </com.nhaarman.supertooltips.ToolTipRelativeLayout>
+        </com.nhaarman.supertooltips.ToolTipRelativeLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 

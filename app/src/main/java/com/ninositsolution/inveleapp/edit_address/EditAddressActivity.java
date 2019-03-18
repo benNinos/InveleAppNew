@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import com.ninositsolution.inveleapp.add_address.AddAddressRepo;
 import com.ninositsolution.inveleapp.add_address.AddAddressVM;
 import com.ninositsolution.inveleapp.add_address.IAddAddress;
 import com.ninositsolution.inveleapp.add_address.pojo.AddAddressRequest;
+import com.ninositsolution.inveleapp.address_book.AddressBookActivity;
 import com.ninositsolution.inveleapp.databinding.ActivityEditAddressBinding;
 import com.ninositsolution.inveleapp.edit_address.pojo.EditAddressRequest;
 import com.ninositsolution.inveleapp.utils.Constants;
@@ -28,6 +30,8 @@ public class EditAddressActivity extends AppCompatActivity {
 
     ActivityEditAddressBinding binding;
     EditAddressVM editAddressVM;
+    EditAddressModel editAddressModel;
+    String user_address_id="";
     public static final String TAG = EditAddressActivity.class.getSimpleName();
 
     @Override
@@ -42,8 +46,82 @@ public class EditAddressActivity extends AppCompatActivity {
 
         binding.setEditAddress(editAddressVM);
         binding.setLifecycleOwner(this);
+       editAddressModel = new EditAddressModel();
         Log.e(TAG,"user_id==>"+ Session.getUserId(EditAddressActivity.this));
        // binding.setEditAddress(new EditAddressVM(getApplicationContext(),this));
+
+        //set the radio button address_type value
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            user_address_id = extras.getString("user_address_id");
+            Constants.user_address_id = user_address_id;
+            //Log.e(TAG,"edit_values==>"+editAddressModel.size());
+        }
+
+        if(!user_address_id.equalsIgnoreCase("")){
+            //invoke the get address api list
+            editAddressVM.ShowAddress(user_address_id);
+
+
+        }
+        editAddressVM.getShowAddressVMMutableLiveData().observe(EditAddressActivity.this, new Observer<EditAddressVM>() {
+            @Override
+            public void onChanged(@Nullable EditAddressVM editAddVM) {
+
+                if(editAddVM.status.get().equalsIgnoreCase("success")) {
+
+                    //  addAddressVM = addressVM;
+
+                    Toast.makeText(EditAddressActivity.this, "" + editAddVM.msg.get(), Toast.LENGTH_SHORT).show();
+                    Log.e(TAG,"id==>"+editAddVM.user_address.get().id+"\nuser_id==>"+editAddVM.user_address.get().user_id);
+                    editAddressVM.Name.set(editAddVM.user_address.get().name);
+                    editAddressVM.contact_number.set(editAddVM.user_address.get().contact_no);
+                    editAddressVM.postal_code.set(editAddVM.user_address.get().postal_code);
+                    editAddressVM.floor_unit_numer.set(editAddVM.user_address.get().address);
+                    editAddressVM.address.set(editAddVM.user_address.get().address1);
+                    editAddressVM.city_name.set(editAddVM.user_address.get().city+","+editAddVM.user_address.get().postal_code);
+
+                    if(!editAddVM.user_address.get().address_type.equalsIgnoreCase("")){
+                        if(editAddVM.user_address.get().address_type.equalsIgnoreCase("Home")){
+                            ((RadioButton)binding.radioGroup.getChildAt(0)).setChecked(true);
+                            editAddressVM.address_type.set("Home");
+                        }else if(editAddVM.user_address.get().address_type.equalsIgnoreCase("Office")){
+                            ((RadioButton)binding.radioGroup.getChildAt(1)).setChecked(true);
+                            editAddressVM.address_type.set("Office");
+                        }else if(editAddVM.user_address.get().address_type.equalsIgnoreCase("Others")){
+                            ((RadioButton)binding.radioGroup.getChildAt(2)).setChecked(true);
+                            editAddressVM.address_type.set("Others");
+                        }
+
+                    }
+                    //set the shipping and billing status
+
+                    if(!editAddVM.user_address.get().is_shipping_address.equalsIgnoreCase("1")){
+                        binding.shippingCheckbox.setChecked(true);
+                        editAddressVM.is_shipping.set("1");
+                    }else {
+                        binding.shippingCheckbox.setChecked(false);
+                        editAddressVM.is_shipping.set("0");
+                    }
+
+                    if(!editAddVM.user_address.get().is_billing_address.equalsIgnoreCase("1")){
+                        binding.billingCheckbox.setChecked(true);
+                        editAddressVM.is_billing.set("1");
+                    }else {
+                        binding.billingCheckbox.setChecked(false);
+                        editAddressVM.is_billing.set("0");
+                    }
+
+                }else if(editAddVM.status.get().equalsIgnoreCase("error")){
+                    Toast.makeText(EditAddressActivity.this, "" + editAddVM.msg.get(), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+
+
 
         binding.setIEditAddress(new IEditAddress() {
             @Override
@@ -172,14 +250,19 @@ public class EditAddressActivity extends AppCompatActivity {
                 {
                     showProgressBar();
 
-                    editAddressVM.EditAddress(Session.getUserId(EditAddressActivity.this));
+                    editAddressVM.EditAddress(Constants.user_address_id);
 
                     editAddressVM.getEditAddressVMMutableLiveData().observe(EditAddressActivity.this, new Observer<EditAddressVM>() {
                         @Override
-                        public void onChanged(@Nullable EditAddressVM addAddressVM) {
+                        public void onChanged(@Nullable EditAddressVM editAddressVM) {
                             hideProgressBar();
 
-                            Toast.makeText(EditAddressActivity.this, ""+addAddressVM.msg.get(), Toast.LENGTH_SHORT).show();
+                            if(editAddressVM.status.get().equalsIgnoreCase("success")) {
+
+                                Toast.makeText(EditAddressActivity.this, "" + editAddressVM.msg.get(), Toast.LENGTH_SHORT).show();
+                            }else if(editAddressVM.status.get().equalsIgnoreCase("error")){
+                                Toast.makeText(EditAddressActivity.this, "" + editAddressVM.msg.get(), Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
 

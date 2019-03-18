@@ -1,17 +1,32 @@
 package com.ninositsolution.inveleapp.registration;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -22,16 +37,20 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.ActivityRegisterBinding;
+import com.ninositsolution.inveleapp.home.HomeActivity;
 import com.ninositsolution.inveleapp.login.LoginActivity;
-import com.ninositsolution.inveleapp.login.LoginVM;
-import com.ninositsolution.inveleapp.pojo.POJOClass;
 import com.ninositsolution.inveleapp.utils.Constants;
 import com.ninositsolution.inveleapp.utils.Session;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -43,14 +62,25 @@ public class RegisterActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
 
+    Context context;
+
     private static final int RC_SIGN_IN = 234;
+    private FirebaseAuth auth;
+
+    CallbackManager callbackManager;
+
+    CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_register);
 
+        context = RegisterActivity.this;
+
         initGoogle();
+
+        initFacebook();
 
 
         registerVMGlobal = ViewModelProviders.of(this).get(RegisterVM.class);
@@ -74,12 +104,13 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onUserClicked() {
-                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                startActivity(new Intent(context, LoginActivity.class));
                 finish();
             }
 
             @Override
             public void onEmailContinueClicked() {
+                Session.setIsEmailRegistered(true, context);
 
                 int status = registerVMGlobal.emailValidation();
 
@@ -107,7 +138,7 @@ public class RegisterActivity extends AppCompatActivity {
                 {
                     showProgressBar();
 
-                    registerVMGlobal.registerViaEmail(Session.getDevice_id(RegisterActivity.this));
+                    registerVMGlobal.registerViaEmail(Session.getDevice_id(context));
 
                    registerVMGlobal.getRegisterVMMutableLiveData().observe(RegisterActivity.this, new Observer<RegisterVM>() {
                        @Override
@@ -123,9 +154,16 @@ public class RegisterActivity extends AppCompatActivity {
                                    Toast.makeText(RegisterActivity.this, ""+registerVM.msg.get(), Toast.LENGTH_SHORT).show();
                                    Session.setUserId(String.valueOf(registerVM.user.get().id), RegisterActivity.this);
                                    getOtpLayout();
+                                   registerVMGlobal.enter_otp.set(String.valueOf(registerVM.otp.get()));
 
                                } else {
                                    Toast.makeText(RegisterActivity.this, ""+registerVM.msg.get(), Toast.LENGTH_SHORT).show();
+
+                                   if (registerVM.msg.get().equalsIgnoreCase("Email Already Registered"))
+
+                                   {
+                                       showAlert();
+                                   }
                                }
                            } else
                            {
@@ -150,6 +188,8 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onMobileContinueClicked() {
+
+                Session.setIsEmailRegistered(false, RegisterActivity.this);
 
                 int status = registerVMGlobal.mobileValidation();
 
@@ -198,6 +238,70 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onResendClicked() {
 
+                if (Session.getIsEmailRegistered(RegisterActivity.this))
+                {
+                        showProgressBar();
+
+                        registerVMGlobal.registerViaEmail(Session.getDevice_id(RegisterActivity.this));
+
+                        registerVMGlobal.getRegisterVMMutableLiveData().observe(RegisterActivity.this, new Observer<RegisterVM>() {
+                            @Override
+                            public void onChanged(@Nullable RegisterVM registerVM) {
+
+                                hideProgressBar();
+
+                                if (!registerVM.status.get().isEmpty())
+                                {
+
+                                    if (registerVM.status.get().equalsIgnoreCase("success"))
+                                    {
+                                        Toast.makeText(RegisterActivity.this, ""+registerVM.msg.get(), Toast.LENGTH_SHORT).show();
+                                        Session.setUserId(String.valueOf(registerVM.user.get().id), RegisterActivity.this);
+                                        getOtpLayout();
+
+                                    } else {
+                                        Toast.makeText(RegisterActivity.this, ""+registerVM.msg.get(), Toast.LENGTH_SHORT).show();
+                                    }
+                                } else
+                                {
+                                    Toast.makeText(RegisterActivity.this, "Api Error", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
+
+                } else
+                {
+                    showProgressBar();
+                    registerVMGlobal.registerViaMobile(Session.getDevice_id(RegisterActivity.this));
+
+                    registerVMGlobal.getRegisterVMMutableLiveData().observe(RegisterActivity.this, new Observer<RegisterVM>() {
+                        @Override
+                        public void onChanged(@Nullable RegisterVM registerVM) {
+
+                            if (!registerVM.status.get().isEmpty())
+                            {
+                                hideProgressBar();
+
+                                if (registerVM.status.get().equalsIgnoreCase("success"))
+                                {
+                                    Toast.makeText(RegisterActivity.this, ""+registerVM.msg.get(), Toast.LENGTH_SHORT).show();
+                                    Session.setUserId(String.valueOf(registerVM.user.get().id), RegisterActivity.this);
+                                    Log.i(TAG, "user_id : "+registerVM.user.get().id);
+                                    getOtpLayout();
+                                    registerVMGlobal.enter_otp.set(String.valueOf(registerVM.otp.get()));
+
+                                } else
+                                {
+                                    Toast.makeText(RegisterActivity.this, ""+registerVM.msg.get(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                    });
+                }
+                    binding.resend.setEnabled(false);
+                    countDownTimer.start();
+                    binding.resend.setTextColor(getResources().getColor(R.color.star_grey));
             }
 
             @Override
@@ -230,7 +334,9 @@ public class RegisterActivity extends AppCompatActivity {
                                 {
                                     Toast.makeText(RegisterActivity.this, ""+registerVM.msg.get(), Toast.LENGTH_SHORT).show();
                                     // next process
-                                    getBackRegistrationVisibility();
+                                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                                   // getBackRegistrationVisibility();
+                                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                                     registerVM.status.set("");
 
                                 } else {
@@ -255,6 +361,30 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onFacebookClicked() {
 
+                showProgressBar();
+
+                binding.loginButton.performClick();
+
+                LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+
+                        handlefacebooktoken(loginResult.getAccessToken());
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        hideProgressBar();
+                        Toast.makeText(RegisterActivity.this, "cancelled", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+                        hideProgressBar();
+                        Toast.makeText(RegisterActivity.this, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
 
             @Override
@@ -270,8 +400,148 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    private void showAlert() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+
+        builder.setTitle(R.string.already_registered)
+                .setMessage(R.string.proceed_with_login)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                    }
+                })
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create()
+                .show();
+    }
+
+    private void handlefacebooktoken(AccessToken accessToken) {
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful())
+                        {
+                            FirebaseUser firebaseUser = auth.getCurrentUser();
+                            updateUI(firebaseUser);
+                        }
+                        else
+                        {
+                            hideProgressBar();
+                            Toast.makeText(RegisterActivity.this, "Could not register", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    private void updateUI(FirebaseUser firebaseUser) {
+
+        if (firebaseUser.getDisplayName() != null)
+        {
+            Log.i(TAG, "fb_name : "+firebaseUser.getDisplayName());
+            Session.setUsername(firebaseUser.getDisplayName(), RegisterActivity.this);
+        }
+
+        if (firebaseUser.getPhoneNumber() != null)
+        {
+            Log.i(TAG, "fb_phone : "+firebaseUser.getPhoneNumber());
+            Session.setUserPhone(firebaseUser.getPhoneNumber(), RegisterActivity.this);
+        }
+
+        if (firebaseUser.getEmail() != null)
+        {
+            Log.i(TAG, "fb_email : "+firebaseUser.getEmail());
+            Session.setUserEmail(firebaseUser.getEmail(), RegisterActivity.this);
+        }
+
+        if (firebaseUser.getUid() != null)
+        {
+            Log.i(TAG, "fb_uid : "+firebaseUser.getUid());
+            Session.setUserUid(firebaseUser.getUid(), RegisterActivity.this);
+        }
+
+        if (firebaseUser.getPhotoUrl() != null)
+        {
+            Log.i(TAG, "fb_photo : "+firebaseUser.getPhotoUrl());
+            Session.setUserPhoto(firebaseUser.getPhotoUrl().toString(), RegisterActivity.this);
+        }
+
+        registerVMGlobal.fbLoginApi(
+                Session.getUserName(RegisterActivity.this),
+                Session.getUserPhone(RegisterActivity.this),
+                Session.getUserEmail(RegisterActivity.this),
+                Session.getUserUid(RegisterActivity.this),
+                Session.getDevice_id(RegisterActivity.this)
+        );
+
+        registerVMGlobal.getFbLoginLiveData().observe(RegisterActivity.this, new Observer<RegisterVM>() {
+            @Override
+            public void onChanged(@Nullable RegisterVM registerVM) {
+
+                hideProgressBar();
+
+                if (!registerVM.status.get().isEmpty())
+                {
+                    if (registerVM.status.get().equalsIgnoreCase("success"))
+                    {
+                        Toast.makeText(RegisterActivity.this, ""+registerVM.msg.get(), Toast.LENGTH_SHORT).show();
+                        Session.setUserId(String.valueOf(registerVM.user.get().id), RegisterActivity.this);
+                        registerVM.status.set("");
+                        startActivity(new Intent(context, HomeActivity.class));
+                    } else
+                    {
+                        Toast.makeText(RegisterActivity.this, ""+registerVM.msg.get(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                else
+                {
+                    Toast.makeText(RegisterActivity.this, "Api Error", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
+    private void initFacebook() {
+
+        auth = FirebaseAuth.getInstance();
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+
+        callbackManager = CallbackManager.Factory.create();
+        binding.loginButton.setReadPermissions(Arrays.asList("email"));
+
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo("com.ninositsolution.inveleapp", PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures)
+            {
+                MessageDigest digest = MessageDigest.getInstance("SHA");
+                digest.update(signature.toByteArray());
+                String key = Base64.encodeToString(digest.digest(), Base64.DEFAULT);
+                Log.i("Keyhash",key);
+                Toast.makeText(this, ""+key, Toast.LENGTH_SHORT).show();
+                //email.setText(key);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 
         //if the requestCode is the Google Sign In code that we defined at starting
@@ -292,7 +562,7 @@ public class RegisterActivity extends AppCompatActivity {
         } else
         {
             hideProgressBar();
-            Toast.makeText(this, "User permission Denied", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "User permission Denied", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -369,6 +639,7 @@ public class RegisterActivity extends AppCompatActivity {
                                             Toast.makeText(RegisterActivity.this, ""+registerVM.msg.get(), Toast.LENGTH_SHORT).show();
                                             registerVM.status.set("");
                                             Session.setUserId(String.valueOf(registerVM.user.get().id), RegisterActivity.this);
+                                            startActivity(new Intent(context, HomeActivity.class));
                                         } else
                                         {
                                             Toast.makeText(RegisterActivity.this, ""+registerVM.msg.get(), Toast.LENGTH_SHORT).show();
@@ -380,9 +651,6 @@ public class RegisterActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-
-
-
 
                         } else {
 
@@ -429,6 +697,21 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void getOtpLayout() {
+
+        countDownTimer = new CountDownTimer(45000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                    binding.timer.setText(millisUntilFinished/1000 + " sec");
+            }
+
+            @Override
+            public void onFinish() {
+
+                binding.resend.setEnabled(true);
+                binding.resend.setTextColor(getResources().getColor(R.color.colorPrimary));
+
+            }
+        }.start();
 
         if (binding.registerLayout.getVisibility() == View.VISIBLE)
         {

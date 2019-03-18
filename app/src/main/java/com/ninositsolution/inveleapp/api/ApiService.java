@@ -31,12 +31,15 @@ public interface ApiService {
     @POST("users/address/update")
     Observable<POJOClass> UpdateAddressApi(@Body EditAddressRequest editAddressRequest);
 
-
     @POST("postal-code-search")
     Observable<POJOClass> locateAddressApi(@Body AddAddressRequest addAddressRequest);
 
     @POST("users/addresses")
     Observable<POJOClass>addressList(@Body AddressBookRequest addressBookRequest);
+
+    @POST("users/address")
+    Observable<POJOClass>showAddress(@Body AddressUpdateRequest addressUpdateRequest);
+
 
     @POST("users/address/default")
     Observable<POJOClass> defaultAddressUpdate(@Body AddressUpdateRequest addressUpdateRequest);

@@ -190,7 +190,6 @@
                                 android:hint="@string/float_postal"
                                 android:inputType="number"
                                 android:textSize="@dimen/_12sdp"
-                                android:paddingBottom="@dimen/edit_padding"
                                 android:text="@={addAddress.postal_code}"
                                 tools:ignore="Autofill" />
                     </android.support.design.widget.TextInputLayout>

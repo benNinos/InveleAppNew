@@ -2,6 +2,7 @@ package com.ninositsolution.inveleapp.login;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -23,11 +24,8 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -45,21 +43,18 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.ActivityLoginBinding;
 import com.ninositsolution.inveleapp.forgot_password.PasswordActivity;
+import com.ninositsolution.inveleapp.home.HomeActivity;
 import com.ninositsolution.inveleapp.registration.RegisterActivity;
 import com.ninositsolution.inveleapp.utils.Constants;
 import com.ninositsolution.inveleapp.utils.Session;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
-import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
+
+    Context context;
 
     private static final int RC_SIGN_IN = 234;
 
@@ -79,6 +74,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+
+        context = LoginActivity.this;
 
         initGoogle();
 
@@ -139,6 +136,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Session.setUserId(String.valueOf(loginVM.user.get().id),LoginActivity.this);
                                     Log.i(TAG, "User_id : "+loginVM.user.get().id);
                                     loginVM.status.set("");
+                                    startActivity(new Intent(context, HomeActivity.class));
                                 } else
                                 {
                                     hideProgressBar();
@@ -194,6 +192,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                     Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
                                     loginVM.status.set("");
+                                    startActivity(new Intent(context, HomeActivity.class));
                                 } else  {
                                     Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
                                     loginVM.status.set("");
@@ -238,6 +237,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFacebookClicked() {
 
+                showProgressBar();
+
                 binding.loginButton.performClick();
 
                 LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -249,11 +250,13 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onCancel() {
+                        hideProgressBar();
                         Toast.makeText(LoginActivity.this, "cancelled", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError(FacebookException error) {
+                        hideProgressBar();
                         Toast.makeText(LoginActivity.this, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
@@ -343,6 +346,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         else
                         {
+                            hideProgressBar();
                             Toast.makeText(LoginActivity.this, "Could not register", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -351,16 +355,82 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser firebaseUser) {
 
-        //email.setText(firebaseUser.getEmail());
+        if (firebaseUser.getDisplayName() != null)
+        {
+         Log.i(TAG, "fb_name : "+firebaseUser.getDisplayName());
+         Session.setUsername(firebaseUser.getDisplayName(), LoginActivity.this);
+        }
+
+        if (firebaseUser.getPhoneNumber() != null)
+        {
+            Log.i(TAG, "fb_phone : "+firebaseUser.getPhoneNumber());
+            Session.setUserPhone(firebaseUser.getPhoneNumber(), LoginActivity.this);
+        }
+
+        if (firebaseUser.getEmail() != null)
+        {
+            Log.i(TAG, "fb_email : "+firebaseUser.getEmail());
+            Session.setUserEmail(firebaseUser.getEmail(), LoginActivity.this);
+        }
+
+        if (firebaseUser.getUid() != null)
+        {
+            Log.i(TAG, "fb_uid : "+firebaseUser.getUid());
+            Session.setUserUid(firebaseUser.getUid(), LoginActivity.this);
+        }
+
+        if (firebaseUser.getPhotoUrl() != null)
+        {
+            Log.i(TAG, "fb_photo : "+firebaseUser.getPhotoUrl());
+            Session.setUserPhoto(firebaseUser.getPhotoUrl().toString(), LoginActivity.this);
+        }
+
+        loginVMGlobal.fbLoginApi(
+                Session.getUserName(LoginActivity.this),
+                Session.getUserPhone(LoginActivity.this),
+                Session.getUserEmail(LoginActivity.this),
+                Session.getUserUid(LoginActivity.this),
+                Session.getDevice_id(LoginActivity.this)
+        );
+
+        loginVMGlobal.getFbLoginLiveData().observe(LoginActivity.this, new Observer<LoginVM>() {
+            @Override
+            public void onChanged(@Nullable LoginVM loginVM) {
+
+                hideProgressBar();
+
+                if (!loginVM.status.get().isEmpty())
+                {
+                    if (loginVM.status.get().equalsIgnoreCase("success"))
+                    {
+                        Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
+                        Session.setUserId(String.valueOf(loginVM.user.get().id), LoginActivity.this);
+                        loginVM.status.set("");
+                        startActivity(new Intent(context, HomeActivity.class));
+                    } else
+                    {
+                        Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                else
+                {
+                    Toast.makeText(LoginActivity.this, "Api Error", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
     }
 
     private void initFacebook() {
 
+        auth = FirebaseAuth.getInstance();
+
         FacebookSdk.sdkInitialize(getApplicationContext());
 
         callbackManager = CallbackManager.Factory.create();
-        binding.loginButton.setReadPermissions(Arrays.asList("user_photos", "email",
-                "user_birthday", "public_profile", "AccessToken"));
+        binding.loginButton.setReadPermissions(Arrays.asList("email"));
 
         try {
             PackageInfo info = getPackageManager().getPackageInfo("com.ninositsolution.inveleapp", PackageManager.GET_SIGNATURES);
@@ -404,7 +474,7 @@ public class LoginActivity extends AppCompatActivity {
         } else
         {
             hideProgressBar();
-            Toast.makeText(this, "User permission Denied", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, "User permission Denied", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -478,6 +548,7 @@ public class LoginActivity extends AppCompatActivity {
                                             hideProgressBar();
                                             Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
                                             loginVM.status.set("");
+                                            startActivity(new Intent(context, HomeActivity.class));
                                         } else
                                         {
                                             hideProgressBar();
@@ -498,8 +569,6 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
 
                         }
-
-                        // ...
                     }
                 });
     }
@@ -569,19 +638,6 @@ public class LoginActivity extends AppCompatActivity {
                    binding.sendOtp.setTextColor(getResources().getColor(R.color.star_grey));
                }
            }
-
-         /*   if (view.getId() == R.id.otp_login_edit)
-            {
-                if (text.length() == 4)
-                {
-                    binding.resendTimerText.setEnabled(true);
-                    binding.resendTimerText.setTextColor(getResources().getColor(R.color.colorPrimary));
-                } else {
-                    binding.resendTimerText.setEnabled(false);
-                    binding.resendTimerText.setTextColor(getResources().getColor(R.color.star_grey));
-                }
-            }
-*/
         }
     }
 }

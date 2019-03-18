@@ -22,6 +22,7 @@ public class LoginVM extends ViewModel {
     private MutableLiveData<LoginVM> mobileSendOtpLiveData = new MutableLiveData<>();
     private MutableLiveData<LoginVM> googleLoginLiveData = new MutableLiveData<>();
     private MutableLiveData<LoginVM> otpVerifyLiveData = new MutableLiveData<>();
+    private MutableLiveData<LoginVM> fbLoginLiveData = new MutableLiveData<>();
 
     public ObservableField<String> status = new ObservableField<>();
     public ObservableField<String> msg = new ObservableField<>();
@@ -81,6 +82,12 @@ public class LoginVM extends ViewModel {
        googleLoginLiveData = loginRepo.getMobileSendOtpLiveData(registartionRequest);
    }
 
+   public void fbLoginApi(String name, String phone, String email,String uid, String deviceId)
+   {
+       RegistartionRequest registartionRequest = new RegistartionRequest(name, phone, email, "", "facebook", uid, deviceId, "android", "0");
+       fbLoginLiveData = loginRepo.getMobileSendOtpLiveData(registartionRequest);
+   }
+
    public void mobileOtpVerifyApi(String userId)
    {
        OTPRequest otpRequest = new OTPRequest(userId, otp_code.get());
@@ -101,5 +108,9 @@ public class LoginVM extends ViewModel {
 
     public MutableLiveData<LoginVM> getOtpVerifyLiveData() {
         return otpVerifyLiveData;
+    }
+
+    public MutableLiveData<LoginVM> getFbLoginLiveData() {
+        return fbLoginLiveData;
     }
 }

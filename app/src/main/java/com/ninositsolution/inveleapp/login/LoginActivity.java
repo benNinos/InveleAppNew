@@ -238,6 +238,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFacebookClicked() {
 
+                showProgressBar();
+
                 binding.loginButton.performClick();
 
                 LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -249,11 +251,13 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onCancel() {
+                        hideProgressBar();
                         Toast.makeText(LoginActivity.this, "cancelled", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError(FacebookException error) {
+                        hideProgressBar();
                         Toast.makeText(LoginActivity.this, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
@@ -343,6 +347,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         else
                         {
+                            hideProgressBar();
                             Toast.makeText(LoginActivity.this, "Could not register", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -351,16 +356,80 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser firebaseUser) {
 
-        //email.setText(firebaseUser.getEmail());
+        if (firebaseUser.getDisplayName() != null)
+        {
+         Log.i(TAG, "fb_name : "+firebaseUser.getDisplayName());
+         Session.setUsername(firebaseUser.getDisplayName(), LoginActivity.this);
+        }
+
+        if (firebaseUser.getPhoneNumber() != null)
+        {
+            Log.i(TAG, "fb_phone : "+firebaseUser.getPhoneNumber());
+            Session.setUserPhone(firebaseUser.getPhoneNumber(), LoginActivity.this);
+        }
+
+        if (firebaseUser.getEmail() != null)
+        {
+            Log.i(TAG, "fb_email : "+firebaseUser.getEmail());
+            Session.setUserEmail(firebaseUser.getEmail(), LoginActivity.this);
+        }
+
+        if (firebaseUser.getUid() != null)
+        {
+            Log.i(TAG, "fb_uid : "+firebaseUser.getUid());
+            Session.setUserUid(firebaseUser.getUid(), LoginActivity.this);
+        }
+
+        if (firebaseUser.getPhotoUrl() != null)
+        {
+            Log.i(TAG, "fb_photo : "+firebaseUser.getPhotoUrl());
+            Session.setUserPhoto(firebaseUser.getPhotoUrl().toString(), LoginActivity.this);
+        }
+
+        loginVMGlobal.fbLoginApi(
+                Session.getUserName(LoginActivity.this),
+                Session.getUserPhone(LoginActivity.this),
+                Session.getUserEmail(LoginActivity.this),
+                Session.getUserUid(LoginActivity.this),
+                Session.getDevice_id(LoginActivity.this)
+        );
+
+        loginVMGlobal.getFbLoginLiveData().observe(LoginActivity.this, new Observer<LoginVM>() {
+            @Override
+            public void onChanged(@Nullable LoginVM loginVM) {
+
+                hideProgressBar();
+
+                if (!loginVM.status.get().isEmpty())
+                {
+                    if (loginVM.status.get().equalsIgnoreCase("success"))
+                    {
+                        Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
+                        Session.setUserId(String.valueOf(loginVM.user.get().id), LoginActivity.this);
+                    } else
+                    {
+                        Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                else
+                {
+                    Toast.makeText(LoginActivity.this, "Api Error", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
     }
 
     private void initFacebook() {
 
+        auth = FirebaseAuth.getInstance();
+
         FacebookSdk.sdkInitialize(getApplicationContext());
 
         callbackManager = CallbackManager.Factory.create();
-        binding.loginButton.setReadPermissions(Arrays.asList("user_photos", "email",
-                "user_birthday", "public_profile", "AccessToken"));
+        binding.loginButton.setReadPermissions(Arrays.asList("email"));
 
         try {
             PackageInfo info = getPackageManager().getPackageInfo("com.ninositsolution.inveleapp", PackageManager.GET_SIGNATURES);
@@ -404,7 +473,7 @@ public class LoginActivity extends AppCompatActivity {
         } else
         {
             hideProgressBar();
-            Toast.makeText(this, "User permission Denied", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, "User permission Denied", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -498,8 +567,6 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
 
                         }
-
-                        // ...
                     }
                 });
     }
@@ -569,19 +636,6 @@ public class LoginActivity extends AppCompatActivity {
                    binding.sendOtp.setTextColor(getResources().getColor(R.color.star_grey));
                }
            }
-
-         /*   if (view.getId() == R.id.otp_login_edit)
-            {
-                if (text.length() == 4)
-                {
-                    binding.resendTimerText.setEnabled(true);
-                    binding.resendTimerText.setTextColor(getResources().getColor(R.color.colorPrimary));
-                } else {
-                    binding.resendTimerText.setEnabled(false);
-                    binding.resendTimerText.setTextColor(getResources().getColor(R.color.star_grey));
-                }
-            }
-*/
         }
     }
 }

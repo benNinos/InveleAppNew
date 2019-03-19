@@ -69,9 +69,13 @@ public class AddAddressActivity extends AppCompatActivity {
                               //  addAddressVM = addressVM;
 
                                 Toast.makeText(AddAddressActivity.this, "" + addressVM.msg.get(), Toast.LENGTH_SHORT).show();
-                                Log.e(TAG,"address==>"+addressVM.address_list.get().get(0).ROAD_NAME+"\ncity==>"+addressVM.city.get());
-                                addAddressVM.address.set(addressVM.address_list.get().get(0).ROAD_NAME);
-                                addAddressVM.city_name.set(addressVM.city.get());
+                                if(!addressVM.address_list.get().isEmpty()) {
+                                    Log.e(TAG, "address==>" + addressVM.address_list.get().get(0).ROAD_NAME + "\ncity==>" + addressVM.city.get());
+                                    addAddressVM.address.set(addressVM.address_list.get().get(0).ROAD_NAME);
+                                    addAddressVM.city_name.set(addressVM.city.get());
+                                }else {
+                                    Toast.makeText(AddAddressActivity.this,"List Empty",Toast.LENGTH_SHORT).show();
+                                }
                             }else if(addressVM.status.get().equalsIgnoreCase("error")){
                                 Toast.makeText(AddAddressActivity.this, "" + addressVM.msg.get(), Toast.LENGTH_SHORT).show();
                             }

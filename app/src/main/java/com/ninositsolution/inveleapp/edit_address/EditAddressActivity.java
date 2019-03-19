@@ -156,9 +156,14 @@ public class EditAddressActivity extends AppCompatActivity {
                                 //  addAddressVM = addressVM;
 
                                 Toast.makeText(EditAddressActivity.this, "" + addressVM.msg.get(), Toast.LENGTH_SHORT).show();
-                                Log.e(TAG,"address==>"+addressVM.address_list.get().get(0).ROAD_NAME+"\ncity==>"+addressVM.city.get());
-                                editAddressVM.address.set(addressVM.address_list.get().get(0).ROAD_NAME);
-                                editAddressVM.city_name.set(addressVM.city.get());
+
+                                if(!addressVM.status.get().isEmpty()) {
+                                    Log.e(TAG, "address==>" + addressVM.address_list.get().get(0).ROAD_NAME + "\ncity==>" + addressVM.city.get());
+                                    editAddressVM.address.set(addressVM.address_list.get().get(0).ROAD_NAME);
+                                    editAddressVM.city_name.set(addressVM.city.get());
+                                }else {
+                                    Toast.makeText(EditAddressActivity.this,"No Address",Toast.LENGTH_SHORT).show();
+                                }
                             }else if(addressVM.status.get().equalsIgnoreCase("error")){
                                 Toast.makeText(EditAddressActivity.this, "" + addressVM.msg.get(), Toast.LENGTH_SHORT).show();
                             }

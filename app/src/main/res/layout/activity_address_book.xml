@@ -106,18 +106,18 @@
                 android:background="#e0e0e0"/>
 
             <Button
-                android:onClick="@{()->IAddressBook.onAddAddressClicked()}"
                 android:id="@+id/add_address_button"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="@dimen/_180sdp"
                 android:layout_height="@dimen/_42sdp"
-                android:text="@string/add_address"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/colorPrimary"
+                android:onClick="@{()->IAddressBook.onAddAddressClicked()}"
                 android:paddingStart="@dimen/_8sdp"
                 android:paddingEnd="@dimen/_8sdp"
-                android:textStyle="bold"
-                android:background="@color/colorPrimary"
-                android:textColor="@android:color/white"/>
+                android:text="@string/add_address"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
 
 
         </LinearLayout>

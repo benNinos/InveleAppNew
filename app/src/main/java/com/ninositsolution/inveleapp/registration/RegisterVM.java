@@ -23,6 +23,7 @@ public class RegisterVM extends ViewModel {
     private  MutableLiveData<RegisterVM> otpVerifyLiveData = new MutableLiveData<>();
     private MutableLiveData<POJOClass> pojoClassMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<RegisterVM> googleLoginLiveData = new MutableLiveData<>();
+    private MutableLiveData<RegisterVM> fbLoginLiveData = new MutableLiveData<>();
 
     // UI fields
 
@@ -115,11 +116,21 @@ public class RegisterVM extends ViewModel {
         otpVerifyLiveData = registerRepo.getOtpVerifyLiveData(otpRequest);
     }
 
+    public void fbLoginApi(String name, String phone, String email,String uid, String deviceId)
+    {
+        RegistartionRequest registartionRequest = new RegistartionRequest(name, phone, email, "", "facebook", uid, deviceId, "android", "1");
+        fbLoginLiveData = registerRepo.getRegisterVMMutableLiveData(registartionRequest);
+    }
+
     public MutableLiveData<RegisterVM> getOtpVerifyLiveData() {
         return otpVerifyLiveData;
     }
 
     public MutableLiveData<RegisterVM> getGoogleLoginLiveData() {
         return googleLoginLiveData;
+    }
+
+    public MutableLiveData<RegisterVM> getFbLoginLiveData() {
+        return fbLoginLiveData;
     }
 }

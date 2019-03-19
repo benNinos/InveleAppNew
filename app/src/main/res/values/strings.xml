@@ -22,6 +22,10 @@
     <string name="otp">OTP</string>
     <string name="resend">RESEND</string>
     <string name="timer">45 Sec</string>
+    <string name="already_registered">Email Already Registered</string>
+    <string name="proceed_with_login">Do you want to proceed with login?</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
 
     <!--Login Activity-->
 

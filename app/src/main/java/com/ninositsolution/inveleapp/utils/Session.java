@@ -23,6 +23,7 @@ public class Session {
     private static final String user_phone = "user_phone";
     private static final String user_uid = "user_uid";
     private static final String user_photo = "user_photo";
+    private static final String is_email_registered = "is_email_registered";
 
     public Session(Context context)
     {
@@ -88,12 +89,12 @@ public class Session {
 
     public static String getUserUid(Context context)
     {
-        return context.getSharedPreferences("Session", Context.MODE_PRIVATE).getString(user_id, "");
+        return context.getSharedPreferences("Session", Context.MODE_PRIVATE).getString(user_uid, "");
     }
 
     public static void setUserUid(String value, Context context)
     {
-        context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(user_id, value).apply();
+        context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(user_uid, value).apply();
     }
 
     public static String getUserPhoto(Context context)
@@ -104,5 +105,15 @@ public class Session {
     public static void setUserPhoto(String value, Context context)
     {
         context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(user_photo, value).apply();
+    }
+
+    public static Boolean getIsEmailRegistered(Context context)
+    {
+        return context.getSharedPreferences("Session", Context.MODE_PRIVATE).getBoolean(is_email_registered, false);
+    }
+
+    public static void setIsEmailRegistered(Boolean value, Context context)
+    {
+        context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putBoolean(is_email_registered, value).apply();
     }
 }

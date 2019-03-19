@@ -48,8 +48,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-
-
             }
 
             @Override
@@ -65,14 +63,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
-
-
-
 
         binding.setIChangePassword(new IChangePassword() {
             @Override
@@ -123,7 +113,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
                                  if (changePasswordVM.status.get().equalsIgnoreCase("success"))
                                  {
                                      hideProgressBar();
-
                                      Intent intent = new Intent(ChangePasswordActivity.this, AccountInformationActivity.class);
                                      startActivity(intent);
                                      Toast.makeText(ChangePasswordActivity.this, ""+changePasswordVM.msg.get(), Toast.LENGTH_SHORT).show();
@@ -132,20 +121,17 @@ public class ChangePasswordActivity extends AppCompatActivity {
                                  } else
                                  if (changePasswordVM.status.get().equalsIgnoreCase("error"))
                                  {
-                                     Toast.makeText(getApplicationContext(),"Something Went Wrong",Toast.LENGTH_LONG).show();
+                                     Toast.makeText(getApplicationContext(),"API Empty",Toast.LENGTH_LONG).show();
                                  }
                              }
                              else
                              {
-                                 Toast.makeText(getApplicationContext(),"API Empty",Toast.LENGTH_LONG).show();
+                                 Toast.makeText(getApplicationContext(),"Something went Wrong",Toast.LENGTH_LONG).show();
                              }
 
                          }
                      });
                  }
-
-
-
             }
         });
     }

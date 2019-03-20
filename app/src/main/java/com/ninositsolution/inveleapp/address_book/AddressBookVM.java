@@ -25,9 +25,11 @@ import java.util.List;
 public class AddressBookVM extends ViewModel {
 
 
+
     private AddressBookRepo addressBookRepo;
     private MutableLiveData<List<AddressBookVM>> addressBookVMMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<AddressBookVM> defaultUpdateVMMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<AddressBookVM>addressDeleteVMMutableLiveData = new MutableLiveData<>();
     //UI fields
 
     public ObservableField<String> name = new ObservableField<>("");
@@ -35,7 +37,7 @@ public class AddressBookVM extends ViewModel {
     public ObservableField<String> address = new ObservableField<>("");
     public ObservableField<String> city_pincode = new ObservableField<>("");
     public ObservableField<String> ship_billAddress = new ObservableField<>("");
-    public ObservableField<String> billingAddress = new ObservableField<>("");
+    public ObservableField<String> billAddress = new ObservableField<>("");
     public ObservableField<String> id = new ObservableField<>("");
     public ObservableField<String> user_id = new ObservableField<>("");
     public ObservableField<String> user_default = new ObservableField<>("");
@@ -68,7 +70,7 @@ public class AddressBookVM extends ViewModel {
         this.address.set(addressLists.getAddress1());
         this.city_pincode.set(addressLists.getCity()+","+addressLists.getPostal_code());
         this.ship_billAddress.set(addressLists.getIs_shipping_address());
-        this.billingAddress.set(addressLists.getIs_billing_address());
+        this.billAddress.set(addressLists.getIs_billing_address());
 
     }
     public AddressBookVM() {
@@ -105,6 +107,22 @@ public class AddressBookVM extends ViewModel {
         //  stringMutableLiveData.setValue(message);
 
     }
+    public void addressDelete(String user_address_id)
+    {
+        Log.e("user_address_id","user_address_id==>"+user_address_id);
+        AddressUpdateRequest addressUpdateRequest = new AddressUpdateRequest(user_address_id);
+
+        addressBookRepo = new AddressBookRepo();
+
+        // pojoClassMutableLiveData = registerRepo.getRegisterVMMutableLiveData(registartionRequest);
+        addressDeleteVMMutableLiveData = addressBookRepo.getAddressDeleteVMMutableLiveData(addressUpdateRequest);
+
+        //String message = registerVMMutableLiveData.getValue().status.get();
+
+        //  stringMutableLiveData.setValue(message);
+
+    }
+
 
 
     public MutableLiveData <List<AddressBookVM>> getAddressBookVMMutableLiveData() {
@@ -113,6 +131,9 @@ public class AddressBookVM extends ViewModel {
 
     public MutableLiveData<AddressBookVM>getDefaultUpdateVMMutableLiveData(){
         return  defaultUpdateVMMutableLiveData;
+    }
+    public MutableLiveData<AddressBookVM>addressDeleteMutableLiveData(){
+        return  addressDeleteVMMutableLiveData;
     }
 
 

@@ -57,7 +57,7 @@ public class HomeActivity extends AppCompatActivity implements IHome{
 
     int currentPage = 0;
     Timer timer;
-    final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
+    final long DELAY_MS = 500; //delay in milliseconds before task is to be executed
     final long PERIOD_MS = 2000; // time in milliseconds between successive task executions.
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

@@ -105,7 +105,7 @@
                 android:layout_alignStart="@+id/address_name"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
+                android:layout_height="35dp"
                 android:hint="Shipping Address"
                 android:textColorHint="@color/white"
                 android:text="@={adapterBookVM.ship_billAddress}"
@@ -116,7 +116,25 @@
                 android:background="@color/colorPrimary"
                 android:textColor="@android:color/white"/>
 
-            <LinearLayout
+                <Button
+                    android:id="@+id/billing_button"
+                    android:layout_below="@+id/pincode"
+                    android:layout_alignStart="@+id/address_name"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:hint="Billing Address"
+                    android:textColorHint="@color/white"
+                    android:text="@={adapterBookVM.billAddress}"
+                    android:paddingStart="@dimen/_8sdp"
+                    android:paddingEnd="@dimen/_8sdp"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_13sdp"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@android:color/white"/>
+
+
+                <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right|center"
@@ -129,8 +147,7 @@
                 android:layout_height="@dimen/_32sdp"
                 android:layout_alignTop="@+id/shipping_button"
                 android:background="@drawable/margin"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="@dimen/_8sdp">
+                android:layout_alignParentEnd="true">
 
                 <ImageView
                     android:id="@+id/edit_button"
@@ -147,9 +164,9 @@
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
                     android:layout_alignTop="@+id/shipping_button"
+                    android:layout_marginStart="@dimen/_3sdp"
                     android:background="@drawable/margin"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="@dimen/_8sdp"
                     android:visibility="gone">
 
 

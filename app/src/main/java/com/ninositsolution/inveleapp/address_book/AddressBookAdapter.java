@@ -36,6 +36,7 @@ public class AddressBookAdapter extends RecyclerView.Adapter<AddressBookAdapter.
     public interface ClickEvent{
         void setClickEventItem(int position,String id,String user_id);
         void setClickEventEdit(int position,String id,String user_id);
+        void setClickEventDelete(int position,String id,String user_id);
     }
     ClickEvent clickEvent;
 
@@ -70,18 +71,37 @@ public class AddressBookAdapter extends RecyclerView.Adapter<AddressBookAdapter.
 
         mainViewHolder.bind(addressBookVM,iAddressBook);
 
+        if(!addressBookVM.ship_billAddress.get().equalsIgnoreCase("")) {
 
-        if(addressBookVM.ship_billAddress.get().equalsIgnoreCase("1")){
-            mainViewHolder.binding.shippingButton.setVisibility(View.VISIBLE);
-            mainViewHolder.binding.shippingButton.setText("Shipping Address");
-        }else if(addressBookVM.billingAddress.get().equalsIgnoreCase("1")){
 
-            mainViewHolder.binding.shippingButton.setVisibility(View.VISIBLE);
-            mainViewHolder.binding.shippingButton.setText("Billing Address");
+            if (addressBookVM.ship_billAddress.get().equalsIgnoreCase("1")) {
+                mainViewHolder.binding.shippingButton.setVisibility(View.VISIBLE);
+                mainViewHolder.binding.shippingButton.setText("Shipping Address");
+            } else {
+                mainViewHolder.binding.shippingButton.setVisibility(View.GONE);
 
-        }else {
-            mainViewHolder.binding.shippingButton.setVisibility(View.GONE);
-            mainViewHolder.binding.addressDelete.setVisibility(View.VISIBLE);
+            }
+        }
+
+        if(!addressBookVM.billAddress.get().equalsIgnoreCase("")) {
+
+            if (addressBookVM.billAddress.get().equalsIgnoreCase("1")) {
+
+                mainViewHolder.binding.billingButton.setVisibility(View.VISIBLE);
+                mainViewHolder.binding.billingButton.setText("Billing Address");
+            } else {
+                mainViewHolder.binding.billingButton.setVisibility(View.GONE);
+            }
+        }
+
+        if(!addressBookVM.ship_billAddress.get().equalsIgnoreCase("")&& !addressBookVM.billAddress.get().equalsIgnoreCase("")) {
+
+            if (addressBookVM.ship_billAddress.get().equalsIgnoreCase("0") && addressBookVM.billAddress.get().equalsIgnoreCase("0")) {
+
+                mainViewHolder.binding.addressDelete.setVisibility(View.VISIBLE);
+            } else {
+                mainViewHolder.binding.addressDelete.setVisibility(View.GONE);
+            }
         }
         //address default set
         if(addressBookVM.user_default.get().equalsIgnoreCase("1")){
@@ -119,6 +139,14 @@ public class AddressBookAdapter extends RecyclerView.Adapter<AddressBookAdapter.
                 clickEvent.setClickEventEdit(position,addressBookVM.id.get(),addressBookVM.user_id.get());
 
                // context.startActivity(new Intent(context, EditAddressActivity.class));
+
+            }
+        });
+
+        mainViewHolder.binding.addressDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickEvent.setClickEventDelete(position,addressBookVM.id.get(),addressBookVM.user_id.get());
 
             }
         });

@@ -624,7 +624,6 @@ public class RegisterActivity extends AppCompatActivity {
                                     Session.getDevice_id(RegisterActivity.this)
                             );
 
-
                             registerVMGlobal.getGoogleLoginLiveData().observe(RegisterActivity.this, new Observer<RegisterVM>() {
                                 @Override
                                 public void onChanged(@Nullable RegisterVM registerVM) {
@@ -659,10 +658,7 @@ public class RegisterActivity extends AppCompatActivity {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(RegisterActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-
                         }
-
-                        // ...
                     }
                 });
     }

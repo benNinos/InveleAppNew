@@ -1,7 +1,9 @@
 package com.ninositsolution.inveleapp.edit_address;
 
 import android.arch.lifecycle.MutableLiveData;
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.ninositsolution.inveleapp.add_address.AddAddressVM;
 import com.ninositsolution.inveleapp.add_address.pojo.AddAddressRequest;
@@ -28,6 +30,7 @@ public class EditAddressRepo {
 
     private AddressBookVM arrayList;
     AddressList addressList;
+    Context context;
 
 
     private MutableLiveData<EditAddressVM> editAddressVMMutableLiveData = new MutableLiveData<>();
@@ -49,19 +52,28 @@ public class EditAddressRepo {
                     @Override
                     public void onNext(POJOClass pojoClass) {
 
-                        Log.i(TAG, "onNext - > "+pojoClass.msg);
+                        if(pojoClass.status.equalsIgnoreCase("success")) {
+                           // Toast.makeText(context,pojoClass.msg,Toast.LENGTH_SHORT).show();
 
-                        //pojoClassMutableLiveData.setValue(pojoClass);
+                            Log.e(TAG, "onNext - > " + pojoClass.msg);
 
-                        EditAddressVM editAddressVM = new EditAddressVM(pojoClass);
+                            //pojoClassMutableLiveData.setValue(pojoClass);
 
-                        editAddressVMMutableLiveData.setValue(editAddressVM);
+                            EditAddressVM editAddressVM = new EditAddressVM(pojoClass);
+
+                            editAddressVMMutableLiveData.setValue(editAddressVM);
+                        }else if(pojoClass.status.equalsIgnoreCase("error")){
+                            Log.e(TAG, "onNext - > " + pojoClass.msg);
+                          //  Toast.makeText(context,pojoClass.msg,Toast.LENGTH_SHORT).show();
+
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
 
                         Log.e(TAG, "onError - > "+e.getMessage());
+                       // Toast.makeText(context,e.getMessage(),Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -131,19 +143,29 @@ public class EditAddressRepo {
                     @Override
                     public void onNext(POJOClass pojoClass) {
 
-                        Log.e(TAG, "onNext - > "+pojoClass.msg);
+                        if(pojoClass.status.equalsIgnoreCase("success")) {
+                           // Toast.makeText(context, pojoClass.msg, Toast.LENGTH_SHORT).show();
 
-                        //pojoClassMutableLiveData.setValue(pojoClass);
 
-                        EditAddressVM editAddressVM = new EditAddressVM(pojoClass);
+                            Log.e(TAG, "onNext - > " + pojoClass.msg);
 
-                        locateAddessVMMutableLiveData.setValue(editAddressVM);
+                            //pojoClassMutableLiveData.setValue(pojoClass);
+
+                            EditAddressVM editAddressVM = new EditAddressVM(pojoClass);
+
+                            locateAddessVMMutableLiveData.setValue(editAddressVM);
+                        }else if(pojoClass.status.equalsIgnoreCase("error")){
+                            Log.e(TAG, "onNext - > " + pojoClass.msg);
+                            //Toast.makeText(context, pojoClass.msg, Toast.LENGTH_SHORT).show();
+
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
 
                         Log.e(TAG, "onError - > "+e.getMessage());
+                      //  Toast.makeText(context,e.getMessage(),Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -173,40 +195,26 @@ public class EditAddressRepo {
                     @Override
                     public void onNext(POJOClass pojoClass) {
 
-                        Log.e(TAG, "onNext - > "+pojoClass.msg);
+                        if(pojoClass.status.equalsIgnoreCase("success")) {
+                           // Toast.makeText(context,pojoClass.msg,Toast.LENGTH_SHORT).show();
 
-                        //pojoClassMutableLiveData.setValue(pojoClass);
-
-                        //pojoClassMutableLiveData.setValue(pojoClass);
-                      /*  EditAddressVM editAddressVM;
-                        Log.e(TAG,"list_size==>"+pojoClass.user_address);
-
-                        if(pojoClass.user_address!=null){
+                            Log.e(TAG, "onNext - > " + pojoClass.msg);
 
 
-                            addressList = new AddressList(pojoClass.user_address.id,pojoClass.user_address.user_id,
-                                    pojoClass.user_address.address_type,pojoClass.user_address.address,pojoClass.user_address.address1,
-                                    pojoClass.user_address.name,pojoClass.user_address.postal_code,pojoClass.user_address.city,
-                                    pojoClass.user_address.contact_no,pojoClass.user_address.is_billing_address,pojoClass.user_address.is_shipping_address,
-                                    pojoClass.user_address.user_default);
+                            EditAddressVM editAddressVM = new EditAddressVM(pojoClass);
 
-                            editAddressVM = new EditAddressVM(addressList);
-
-                            arrayList.add(addressBookVM);
-
+                            showAddressVMMutableLiveData.setValue(editAddressVM);
+                        }else if(pojoClass.status.equalsIgnoreCase("error")){
+                            Log.e(TAG, "onNext - > " + pojoClass.msg);
+                          //  Toast.makeText(context,pojoClass.msg,Toast.LENGTH_SHORT).show();
                         }
-
-                        addressBookVMMutableLiveData.setValue(arrayList);*/
-
-                        EditAddressVM editAddressVM = new EditAddressVM(pojoClass);
-
-                        showAddressVMMutableLiveData.setValue(editAddressVM);
                     }
 
                     @Override
                     public void onError(Throwable e) {
 
                         Log.e(TAG, "onError - > "+e.getMessage());
+                       // Toast.makeText(context,e.getMessage(),Toast.LENGTH_SHORT).show();
 
                     }
 

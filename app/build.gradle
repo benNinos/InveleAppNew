@@ -75,6 +75,9 @@ dependencies {
     //circle image Viewer
     implementation 'de.hdodenhof:circleimageview:3.0.0'
 
+    implementation 'com.karumi:dexter:5.0.0'
+
+
     //noinspection GradleDynamicVersion
     implementation 'com.nhaarman.supertooltips:library:3.0.+'
 

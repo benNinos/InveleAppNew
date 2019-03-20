@@ -1,5 +1,6 @@
 package com.ninositsolution.inveleapp.api;
 
+import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 import com.ninositsolution.inveleapp.address_book.pojo.AddressBookRequest;
 import com.ninositsolution.inveleapp.address_book.pojo.AddressUpdateRequest;
 import com.ninositsolution.inveleapp.change_password.pojo.ChangePassowrdRequest;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -74,9 +76,6 @@ public interface ApiService {
 
     @Multipart
     @POST("users/profile_update")
-    Observable<POJOClass> profileUpdateApi (@Body UpdateProfileRequest updateProfileRequest);
-
-
     Observable<POJOClass> profileUpdateApi (
                                             @Part("user_id") String user_id,
                                             @Part("first_name") String first_name,
@@ -85,7 +84,8 @@ public interface ApiService {
                                             @Part("email") String email,
                                             @Part("gender") String gender,
                                             @Part("dob") String dob,
-                                            @Part MultipartBody.Part photo);
+                                            @Part MultipartBody.Part body
+                                            );
 
     @POST("users/login")
     Observable<POJOClass> loginApi(@Body LoginRequest loginRequest);

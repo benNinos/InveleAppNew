@@ -2,7 +2,7 @@ package com.ninositsolution.inveleapp.pojo;
 
 import java.util.ArrayList;
 
-class HomeArrayLists {
+public class HomeArrayLists {
 
     public Integer menu_id;
     public String name;
@@ -22,13 +22,13 @@ class HomeArrayLists {
     public String sku;
     public Integer status;
     public Integer approde_status;
-    public Integer min_price;
-    public Integer max_price;
+    public Float min_price;
+    public Float max_price;
     public String created_at;
     public String updated_at;
     public Integer product_id;
     public String usual_price;
-    public Integer invele_price;
+    public Float invele_price;
     public String discount;
     public Integer average_rating;
     public Integer wishlist;

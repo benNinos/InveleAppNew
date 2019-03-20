@@ -26,7 +26,6 @@ public interface ApiService {
     @POST("users/mobile_register")
     Observable<POJOClass> registerApi(@Body RegistartionRequest registartionRequest);
 
-
     //address book
     @POST("users/address/add")
     Observable<POJOClass> addAddressApi(@Body AddAddressRequest addAddressRequest);
@@ -70,13 +69,15 @@ public interface ApiService {
 
 
     @POST("users/profile_update")
-
     Observable<POJOClass> profileUpdateApi (@Body UpdateProfileRequest updateProfileRequest);
-
 
 
     @POST("users/login")
     Observable<POJOClass> loginApi(@Body LoginRequest loginRequest);
+
+    @FormUrlEncoded
+    @POST("home_page")
+    Observable<POJOClass> homePageApi(@Field("user_id") String user_id);
 
   /*  @FormUrlEncoded
     @POST("Users/mobile_register")

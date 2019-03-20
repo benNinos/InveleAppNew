@@ -27,6 +27,7 @@ public class POJOClass {
     public ArrayList<HomeArrayLists> brands;
     public String start_date_time;
     public String end_date_time;
+    public String caption;
     public List<CategoryModel>categories;
     public CategoryModel all_categories;
     public List<CategoryModel>parent_categories;

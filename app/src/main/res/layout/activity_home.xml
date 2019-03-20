@@ -60,7 +60,7 @@
 
                     <ImageView
                         android:id="@+id/search_icon"
-                        android:onClick="@{()->home.onSearchClicked()}"
+                        android:onClick="@{()->presenter.onSearchClicked()}"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_centerVertical="true"
@@ -71,7 +71,7 @@
 
                     <ImageView
                         android:id="@+id/wishlist_icon"
-                        android:onClick="@{()->home.onWishlistClicked()}"
+                        android:onClick="@{()->presenter.onWishlistClicked()}"
                         android:layout_toStartOf="@+id/cart_icon"
                         android:layout_marginEnd="@dimen/_16sdp"
                         android:layout_width="@dimen/_18sdp"
@@ -82,7 +82,7 @@
 
                     <ImageView
                         android:id="@+id/cart_icon"
-                        android:onClick="@{()->home.onCartClicked()}"
+                        android:onClick="@{()->presenter.onCartClicked()}"
                         android:layout_width="@dimen/_18sdp"
                         android:layout_height="@dimen/_18sdp"
                         android:layout_alignParentEnd="true"
@@ -202,7 +202,7 @@
                                     android:textStyle="bold"/>
 
                                 <TextView
-                                    android:onClick="@{()->home.onBrandMoreClicked()}"
+                                    android:onClick="@{()->presenter.onBrandMoreClicked()}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/more"
@@ -503,6 +503,13 @@
             app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
             android:background="?android:attr/windowBackground"
             app:menu="@menu/navigation" />
+
+        <ProgressBar
+            android:id="@+id/home_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
 
     </android.support.design.widget.CoordinatorLayout>
 

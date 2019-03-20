@@ -49,7 +49,7 @@ public class Session {
 
     public static String getUserId(Context context)
     {
-        return context.getSharedPreferences("Session", Context.MODE_PRIVATE).getString(user_id, "");
+        return context.getSharedPreferences("Session", Context.MODE_PRIVATE).getString(user_id, "21");
     }
 
     public static void setUserId(String value, Context context)

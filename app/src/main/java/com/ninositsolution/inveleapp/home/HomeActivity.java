@@ -1,5 +1,7 @@
 package com.ninositsolution.inveleapp.home;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -25,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.account.AccountActivity;
@@ -43,7 +47,7 @@ import com.ninositsolution.inveleapp.wishlist.WishlistActivity;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class HomeActivity extends AppCompatActivity implements IHome{
+public class HomeActivity extends AppCompatActivity {
 
     private static final String TAG = "HomeActivity";
 
@@ -54,6 +58,8 @@ public class HomeActivity extends AppCompatActivity implements IHome{
     private int dotsCount;
     private ImageView[] dots;
     private ViewPagerAdapter viewPagerAdapter;
+    private Context context;
+    private HomeVM homeVM;
 
     int currentPage = 0;
     Timer timer;
@@ -86,13 +92,23 @@ public class HomeActivity extends AppCompatActivity implements IHome{
             return false;
         }
     };
+
     private NetworkUtil networkUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
-        binding.setHome(new HomeVM(getApplicationContext(), this));
+
+        homeVM = ViewModelProviders.of(this).get(HomeVM.class);
+
+        binding.setHome(homeVM);
+        binding.setLifecycleOwner(this);
+
+
+        context = HomeActivity.this;
+
+        showProgressbar();
 
         saveDeviceId();
 
@@ -102,7 +118,6 @@ public class HomeActivity extends AppCompatActivity implements IHome{
 
         putStrikeThrough();
 
-        viewPagerAdapter = new ViewPagerAdapter(this);
         BrandViewPagerAdapter brandViewPagerAdapter = new BrandViewPagerAdapter(this);
         UnderViewPagerAdapter underViewPagerAdapter = new UnderViewPagerAdapter(this);
         GeneralViewPagerAdapter generalViewPagerAdapter = new GeneralViewPagerAdapter(this);
@@ -114,15 +129,130 @@ public class HomeActivity extends AppCompatActivity implements IHome{
         binding.viewpagerWomens.setAdapter(generalViewPagerAdapter);
         binding.viewpagerElectronics.setAdapter(generalViewPagerAdapter);
 
-        binding.viewPager.setAdapter(viewPagerAdapter);
         binding.viewpagerUnder.setAdapter(underViewPagerAdapter);
 
         networkUtil = new NetworkUtil();
 
+        homeVM.performHomePageApi(Session.getUserId(context));
+
+        homeVM.getHomeVMMutableLiveData().observe(this, new Observer<HomeVM>() {
+            @Override
+            public void onChanged(@Nullable HomeVM homeVM) {
+
+                hideProgressbar();
+
+                if (!homeVM.status.get().isEmpty())
+                {
+
+                    Toast.makeText(context, ""+homeVM.msg.get(), Toast.LENGTH_SHORT).show();
+
+                    if (homeVM.status.get().equalsIgnoreCase("success"))
+                    {
+                       // success process
+                        viewPagerAdapter = new ViewPagerAdapter(context, homeVM);
+                        binding.viewPager.setAdapter(viewPagerAdapter);
+                    } else
+                    {
+                       // error process
+                    }
+
+                    homeVM.status.set("");
+
+                } else
+                {
+                   // Toast.makeText(context, "Api Error", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         binding.setPresenter(new IHomeClick() {
             @Override
+            public void onWishlistClicked() {
+
+                if (networkUtil.getNetworkStatus(context))
+                {
+                    startActivity(new Intent(context, WishlistActivity.class));
+                }
+
+                else
+                {
+                    startActivity(new Intent(context, InternetConnectionActivity.class));
+                }
+
+            }
+
+            @Override
             public void onCartClicked() {
-                startActivity(new Intent(HomeActivity.this, CartActivity.class));
+                if (networkUtil.getNetworkStatus(context))
+                {
+                    startActivity(new Intent(context, CartActivity.class));
+                }
+
+                else
+                {
+                    startActivity(new Intent(context, InternetConnectionActivity.class));
+                }
+            }
+
+            @Override
+            public void onSearchClicked() {
+
+                if (networkUtil.getNetworkStatus(context))
+                {
+                    startActivity(new Intent(context, SearchActivity.class));
+                }
+
+                else
+                {
+                    startActivity(new Intent(context, InternetConnectionActivity.class));
+                }
+
+            }
+
+            @Override
+            public void onItemClicked() {
+
+                if (networkUtil.getNetworkStatus(context))
+                {
+                    startActivity(new Intent(context, ProductDetailActivity.class));
+                }
+
+                else
+                {
+                    startActivity(new Intent(context, InternetConnectionActivity.class));
+                }
+
+            }
+
+            @Override
+            public void onUsernameClicked() {
+
+                if (networkUtil.getNetworkStatus(context))
+                {
+                    startActivity(new Intent(context, AccountActivity.class));
+                }
+
+                else
+                {
+                    startActivity(new Intent(context, InternetConnectionActivity.class));
+                }
+
+
+            }
+
+            @Override
+            public void onBrandMoreClicked() {
+
+                if (networkUtil.getNetworkStatus(context))
+                {
+                    startActivity(new Intent(context, AllBrandsActivity.class));
+                }
+
+                else
+                {
+                    startActivity(new Intent(context, InternetConnectionActivity.class));
+                }
+
             }
         });
 
@@ -133,7 +263,7 @@ public class HomeActivity extends AppCompatActivity implements IHome{
             }
         });
 
-        /*After setting the adapter use the timer */
+      /*  *//*After setting the adapter use the timer *//*
         final Handler handler = new Handler();
         final Runnable Update = new Runnable() {
             public void run() {
@@ -151,9 +281,9 @@ public class HomeActivity extends AppCompatActivity implements IHome{
             public void run() {
                 handler.post(Update);
             }
-        }, DELAY_MS, PERIOD_MS);
+        }, DELAY_MS, PERIOD_MS);*/
 
-        loadBaseBanner();
+        //loadBaseBanner();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             binding.homeScrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
@@ -188,7 +318,7 @@ public class HomeActivity extends AppCompatActivity implements IHome{
         }
         binding.homeScrollView.setSmoothScrollingEnabled(true);
 
-
+/*
         binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -211,7 +341,7 @@ public class HomeActivity extends AppCompatActivity implements IHome{
             public void onPageScrollStateChanged(int i) {
 
             }
-        });
+        });*/
 
     }
 
@@ -272,85 +402,16 @@ public class HomeActivity extends AppCompatActivity implements IHome{
         dots[0].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_dots2_24dp));
     }
 
-    @Override
-    public void onWishlistClicked() {
-
-        if (networkUtil.getNetworkStatus(this))
-        {
-            startActivity(new Intent(this, WishlistActivity.class));
-        }
-
-        else
-        {
-            startActivity(new Intent(this, InternetConnectionActivity.class));
-        }
+    private void showProgressbar()
+    {
+        if (binding.homeProgressBar.getVisibility() == View.GONE)
+            binding.homeProgressBar.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void onCartClicked() {
-        if (networkUtil.getNetworkStatus(this))
-        {
-            startActivity(new Intent(this, CartActivity.class));
-        }
-
-        else
-        {
-            startActivity(new Intent(this, InternetConnectionActivity.class));
-        }
+    private void hideProgressbar()
+    {
+        if (binding.homeProgressBar.getVisibility() == View.VISIBLE)
+            binding.homeProgressBar.setVisibility(View.GONE);
     }
 
-    @Override
-    public void onSearchClicked() {
-
-        if (networkUtil.getNetworkStatus(this))
-        {
-            startActivity(new Intent(this, SearchActivity.class));
-        }
-
-        else
-        {
-            startActivity(new Intent(this, InternetConnectionActivity.class));
-        }
-    }
-
-    @Override
-    public void onItemClicked() {
-        if (networkUtil.getNetworkStatus(this))
-        {
-            startActivity(new Intent(this, ProductDetailActivity.class));
-        }
-
-        else
-        {
-            startActivity(new Intent(this, InternetConnectionActivity.class));
-        }
-    }
-
-    @Override
-    public void onUsernameClicked() {
-
-        if (networkUtil.getNetworkStatus(this))
-        {
-            startActivity(new Intent(this, AccountActivity.class));
-        }
-
-        else
-        {
-            startActivity(new Intent(this, InternetConnectionActivity.class));
-        }
-
-    }
-
-    @Override
-    public void onBrandMoreClicked() {
-        if (networkUtil.getNetworkStatus(this))
-        {
-            startActivity(new Intent(this, AllBrandsActivity.class));
-        }
-
-        else
-        {
-            startActivity(new Intent(this, InternetConnectionActivity.class));
-        }
-    }
 }

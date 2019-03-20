@@ -1,6 +1,8 @@
 package com.ninositsolution.inveleapp.pojo;
 
 import java.util.ArrayList;
+import com.ninositsolution.inveleapp.categories.CategoryModel;
+
 import java.util.List;
 
 public class POJOClass {
@@ -25,5 +27,8 @@ public class POJOClass {
     public ArrayList<HomeArrayLists> brands;
     public String start_date_time;
     public String end_date_time;
+    public List<CategoryModel>categories;
+    public CategoryModel all_categories;
+    public List<CategoryModel>parent_categories;
 
 }

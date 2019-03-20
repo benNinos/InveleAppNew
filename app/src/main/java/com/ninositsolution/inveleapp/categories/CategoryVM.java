@@ -1,20 +1,52 @@
 package com.ninositsolution.inveleapp.categories;
 
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.ViewModel;
 import android.content.Context;
+import android.databinding.BindingAdapter;
+import android.databinding.ObservableField;
+import android.widget.ImageView;
 
+import com.ninositsolution.inveleapp.R;
+import com.ninositsolution.inveleapp.address_book.AddressBookRepo;
+import com.ninositsolution.inveleapp.address_book.AddressBookVM;
+import com.ninositsolution.inveleapp.address_book.pojo.AddressBookRequest;
+import com.ninositsolution.inveleapp.pojo.AddressList;
+import com.ninositsolution.inveleapp.pojo.POJOClass;
 import com.ninositsolution.inveleapp.utils.Session;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 /**
  * Created by Parthasarathy D on 1/17/2019.
  * Ninos IT Solution Pvt Ltd
  * ben@ninositsolution.com
  */
-public class CategoryVM {
+public class CategoryVM extends ViewModel {
 
     private CategoryModel categoryModel;
     private Context context;
     private ICategory iCategory;
     private Session session;
+
+    private CategoryRepo categoryRepo;
+    private MutableLiveData<List<CategoryVM>> categoryVMMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<CategoryVM> allcategoryVMMutableLiveData = new MutableLiveData<>();
+   //activity ui fields
+    public ObservableField<String>allCategories = new ObservableField<>("");
+    public ObservableField<String>imageUrl = new ObservableField<>();
+    public ObservableField<String>image = new ObservableField<>();
+
+    //adapter ui fields
+    public ObservableField<String>category_name = new ObservableField<>("");
+
+    //pojo fields
+    public ObservableField<String> status = new ObservableField<>();
+    public ObservableField<String> msg = new ObservableField<>();
+    public ObservableField<CategoryModel>all_categories = new ObservableField<>();
+    public ObservableField <List<CategoryModel>> categories = new ObservableField<>();
+
 
 
     public CategoryVM(Context context, ICategory iCategory) {
@@ -23,6 +55,80 @@ public class CategoryVM {
         categoryModel = new CategoryModel();
         session = new Session(context);
     }
+
+    public CategoryVM(POJOClass pojoClass)
+    {
+        this.status.set(pojoClass.status);
+        this.msg.set(pojoClass.msg);
+        this.all_categories.set(pojoClass.all_categories);
+      //  this.allCategories.set(pojoClass.all_categories.name);
+      //  this.image.set(pojoClass.all_categories.image);
+      //  this.categories.set(pojoClass.categories);
+    }
+    public CategoryVM(CategoryModel categoryModel){
+        this.category_name.set(categoryModel.name);
+        this.imageUrl.set(categoryModel.image_path);
+
+    }
+    /*public ObservableField<String> image(){
+        return image;
+    }
+
+    @BindingAdapter({"bind:image"})
+    public static void loadCategoryImage(ImageView imageView, String image)
+    {
+        Picasso.get().load(image).placeholder(R.drawable.shirt).into(imageView);
+    }*/
+
+
+    public ObservableField<String> imageUrl()
+    {
+        return imageUrl;
+    }
+
+
+    @BindingAdapter({"bind:imageUrl"})
+    public static void loadImage(ImageView imageView, String imageUrl)
+    {
+        Picasso.get().load(imageUrl).placeholder(R.drawable.shirt).into(imageView);
+    }
+
+    public CategoryVM(){
+        categoryRepo  =new CategoryRepo();
+    }
+
+    public void getCategoryList()
+    {
+
+        categoryRepo = new CategoryRepo();
+
+        // pojoClassMutableLiveData = registerRepo.getRegisterVMMutableLiveData(registartionRequest);
+
+        categoryVMMutableLiveData = categoryRepo.getCategoryVMMutableLiveData();
+        allcategoryVMMutableLiveData = categoryRepo.getAllCategoryVMMutableLiveData();
+
+        //String message = registerVMMutableLiveData.getValue().status.get();
+
+        //  stringMutableLiveData.setValue(message);
+    }
+    public void getAllCategory(){
+
+        categoryRepo = new CategoryRepo();
+
+        // pojoClassMutableLiveData = registerRepo.getRegisterVMMutableLiveData(registartionRequest);
+
+        allcategoryVMMutableLiveData = categoryRepo.getAllCategoryVMMutableLiveData();
+
+
+    }
+
+    public MutableLiveData <List<CategoryVM>> getCategoryVMMutableLiveData() {
+        return categoryVMMutableLiveData;
+    }
+    public MutableLiveData <CategoryVM> getAllcategoryVMMutableLiveData() {
+        return allcategoryVMMutableLiveData;
+    }
+
 
     public void AllCategoriesClicked()
     {

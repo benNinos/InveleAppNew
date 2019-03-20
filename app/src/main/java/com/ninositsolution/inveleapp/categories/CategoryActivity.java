@@ -1,19 +1,28 @@
 package com.ninositsolution.inveleapp.categories;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
 import com.nhaarman.supertooltips.ToolTip;
 import com.nhaarman.supertooltips.ToolTipRelativeLayout;
 import com.nhaarman.supertooltips.ToolTipView;
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.account.AccountActivity;
+import com.ninositsolution.inveleapp.address_book.AddressBookActivity;
+import com.ninositsolution.inveleapp.address_book.AddressBookAdapter;
+import com.ninositsolution.inveleapp.address_book.AddressBookVM;
 import com.ninositsolution.inveleapp.cart.CartActivity;
 import com.ninositsolution.inveleapp.categories.fragments.fragment_all_categories.AllCategoriesFragment;
 import com.ninositsolution.inveleapp.categories.fragments.fragment_other_categories.OtherCategoriesFragment;
@@ -24,11 +33,16 @@ import com.ninositsolution.inveleapp.my_order.MyOrderActivity;
 import com.ninositsolution.inveleapp.utils.Session;
 import com.ninositsolution.inveleapp.wishlist.WishlistActivity;
 
+import java.util.List;
+
 public class CategoryActivity extends AppCompatActivity implements ICategory{
 
     private ToolTipView toolTipView;
     private ToolTip toolTip;
     private int count;
+    private CategoryVM categoryVM;
+    CategoryAdapter categoryAdapter;
+    public static final String TAG = CategoryActivity.class.getSimpleName();
 
     private ActivityCategoryBinding binding;
     FragmentManager fragmentManager;
@@ -40,7 +54,62 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_category);
-        binding.setCategory(new CategoryVM(getApplicationContext(), this));
+      //  binding.setCategory(new CategoryVM(getApplicationContext(), this));
+        binding.setCategory(categoryVM);
+        binding.setLifecycleOwner(this);
+
+        binding.categoriesRecyclerview.setHasFixedSize(true);
+        binding.categoriesRecyclerview.setLayoutManager(new LinearLayoutManager(this));
+
+        categoryVM = ViewModelProviders.of(this).get(CategoryVM.class);
+
+        //invoke the api service for category
+
+        categoryVM.getAllCategory();
+
+        categoryVM.getAllcategoryVMMutableLiveData().observe(this, new Observer<CategoryVM>() {
+            @Override
+            public void onChanged(@Nullable CategoryVM categoryVM1) {
+                if(categoryVM1.status.get().equalsIgnoreCase("success")){
+                    if(categoryVM1.all_categories.get()!=null){
+                        Log.e(TAG,"name==>"+categoryVM1.all_categories.get().name);
+                       // categoryVM.allCategories.set(categoryVM1.all_categories.get().name);
+                        if(categoryVM1.all_categories.get().image!=null){
+                            if(!categoryVM1.all_categories.get().image.equalsIgnoreCase("")){
+                                Log.e(TAG,"image==>"+categoryVM1.all_categories.get().image);
+                                //categoryVM.image.set(categoryVM1.all_categories.get().image);
+                              //  categoryVM.image().set(categoryVM1.all_categories.get().image);
+                            }
+                        }
+                    }
+                }else if(categoryVM1.status.get().equalsIgnoreCase("error")){
+                    Toast.makeText(getApplicationContext(),categoryVM1.status.get(),Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+
+        categoryVM.getCategoryList();
+
+        categoryVM.getCategoryVMMutableLiveData().observe(this, new Observer<List<CategoryVM>>() {
+            @Override
+            public void onChanged(@Nullable List<CategoryVM> categoryVMS) {
+
+                Log.e(TAG,"LIST_SIZE==>"+categoryVMS.size());
+                if(!categoryVMS.isEmpty()) {
+
+                    categoryAdapter = new CategoryAdapter(CategoryActivity.this, categoryVMS);
+                    binding.categoriesRecyclerview.setAdapter(categoryAdapter);
+                }else {
+                    Toast.makeText(getApplicationContext(),"List Empty",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+
+
 
         count = 0;
 

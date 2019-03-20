@@ -5,8 +5,15 @@
 
     <data>
         <variable
-            name="addressBook"
-            type="com.ninositsolution.inveleapp.address_book.AddressBookVM"/>
+            name="personalInfo"
+            type="com.ninositsolution.inveleapp.personal_information.PersonalInformationVM"/>
+
+
+        <variable
+            name="ipersonalInfo"
+            type="com.ninositsolution.inveleapp.personal_information.IPersonalInformation"/>
+
+
     </data>
 
     <LinearLayout
@@ -61,10 +68,12 @@
                     tools:ignore="UselessParent">
 
                     <ImageView
+                        android:id="@+id/profileImage"
                         android:layout_width="@dimen/_100sdp"
                         android:layout_height="@dimen/_100sdp"
                         android:layout_margin="@dimen/_8sdp"
                         android:src="@drawable/profile"
+                        android:onClick="@{()->ipersonalInfo.omImageViewClicked()}"
                         tools:ignore="ContentDescription" />
 
                     <android.support.design.widget.TextInputLayout
@@ -72,9 +81,11 @@
                         android:layout_height="wrap_content">
 
                         <EditText
+                            android:id="@+id/personfirstName"
                             android:layout_width="match_parent"
                             android:layout_marginStart="@dimen/_8sdp"
                             android:layout_marginEnd="@dimen/_8sdp"
+                            android:text="@={personalInfo.firstName}"
                             android:hint="@string/first_name"
                             android:layout_height="wrap_content" />
 
@@ -86,14 +97,62 @@
                         android:layout_height="wrap_content">
 
                         <EditText
+                            android:id="@+id/personLastName"
                             android:layout_width="match_parent"
                             android:layout_marginStart="@dimen/_8sdp"
                             android:layout_marginEnd="@dimen/_8sdp"
+                            android:text="@={personalInfo.lastName}"
                             android:hint="@string/last_name"
                             android:layout_height="wrap_content" />
 
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/personMobileNumber"
+                            android:layout_width="match_parent"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:inputType="number"
+                            android:text="@={personalInfo.mobileNumber}"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:hint="@string/mobile"
+                            android:layout_height="wrap_content" />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <ProgressBar
+                        android:id="@+id/update_info_progress"
+                        android:layout_gravity="center"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/personEmail"
+                            android:layout_width="match_parent"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:hint="@string/email"
+                            android:text="@={personalInfo.emailAddress}"
+                            android:inputType="textEmailAddress"
+                            android:layout_height="wrap_content" />
+
+
+
+
 
                     </android.support.design.widget.TextInputLayout>
+
+
 
                     <Space
                         android:layout_width="match_parent"
@@ -121,6 +180,7 @@
                             android:orientation="horizontal">
 
                             <RadioButton
+                                android:id="@+id/personGenderMale"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_8sdp"
@@ -129,6 +189,7 @@
                                 android:text="@string/male"/>
 
                             <RadioButton
+                                android:id="@+id/personGenderFemale"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_8sdp"
@@ -161,81 +222,109 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_12sdp" />
 
-                    <LinearLayout
-                        android:orientation="horizontal"
+
+
+
+
+                    <!--<LinearLayout-->
+                        <!--android:orientation="horizontal"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content">-->
+
+                        <!--<Spinner-->
+                            <!--android:layout_width="@dimen/_64sdp"-->
+                            <!--android:layout_height="@dimen/_32sdp"-->
+                            <!--android:text="Day"-->
+                            <!--android:layout_marginStart="@dimen/_8sdp"-->
+                            <!--android:background="@drawable/margin"-->
+                            <!--android:gravity="center"-->
+                            <!--android:drawableEnd="@drawable/ic_keyboard_arrow_down_black_24dp"-->
+                            <!--tools:ignore="HardcodedText" />-->
+
+                        <!--<Spinner-->
+                            <!--android:layout_width="@dimen/_64sdp"-->
+                            <!--android:layout_height="@dimen/_32sdp"-->
+                            <!--android:text="Month"-->
+                            <!--android:layout_marginStart="@dimen/_8sdp"-->
+                            <!--android:background="@drawable/margin"-->
+                            <!--android:gravity="center"-->
+                            <!--android:drawableEnd="@drawable/ic_keyboard_arrow_down_black_24dp"-->
+                            <!--tools:ignore="HardcodedText" />-->
+
+                        <!--<Spinner-->
+                            <!--android:id="@+id/yearSpinner"-->
+                            <!--android:layout_width="@dimen/_64sdp"-->
+                            <!--android:layout_height="@dimen/_32sdp"-->
+                            <!--android:text="Year"-->
+                            <!--android:layout_marginStart="@dimen/_8sdp"-->
+                            <!--android:background="@drawable/margin"-->
+                            <!--android:gravity="center"-->
+                            <!--android:drawableEnd="@drawable/ic_keyboard_arrow_down_black_24dp"-->
+                            <!--tools:ignore="HardcodedText" />-->
+
+                      <!--&lt;!&ndash;  <android.support.v7.widget.AppCompatSpinner-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:entries="@string/day">-->
+
+                        <!--</android.support.v7.widget.AppCompatSpinner>-->
+
+                        <!--<android.support.v7.widget.AppCompatSpinner-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:entries="@string/day">-->
+
+                        <!--</android.support.v7.widget.AppCompatSpinner>-->
+
+                        <!--<android.support.v7.widget.AppCompatSpinner-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:entries="@string/day">-->
+
+                        <!--</android.support.v7.widget.AppCompatSpinner>&ndash;&gt;-->
+
+
+                    <!--</LinearLayout>-->
+
+
+
+
+                    <EditText
+                        android:id="@+id/dateEdittext"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="@dimen/_64sdp"
-                            android:layout_height="@dimen/_32sdp"
-                            android:text="Day"
-                            android:layout_marginStart="@dimen/_8sdp"
-                            android:background="@drawable/margin"
-                            android:gravity="center"
-                            android:drawableEnd="@drawable/ic_keyboard_arrow_down_black_24dp"
-                            tools:ignore="HardcodedText" />
-
-                        <TextView
-                            android:layout_width="@dimen/_64sdp"
-                            android:layout_height="@dimen/_32sdp"
-                            android:text="Month"
-                            android:layout_marginStart="@dimen/_8sdp"
-                            android:background="@drawable/margin"
-                            android:gravity="center"
-                            android:drawableEnd="@drawable/ic_keyboard_arrow_down_black_24dp"
-                            tools:ignore="HardcodedText" />
-
-                        <TextView
-                            android:layout_width="@dimen/_64sdp"
-                            android:layout_height="@dimen/_32sdp"
-                            android:text="Year"
-                            android:layout_marginStart="@dimen/_8sdp"
-                            android:background="@drawable/margin"
-                            android:gravity="center"
-                            android:drawableEnd="@drawable/ic_keyboard_arrow_down_black_24dp"
-                            tools:ignore="HardcodedText" />
-
-                      <!--  <android.support.v7.widget.AppCompatSpinner
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:entries="@string/day">
-
-                        </android.support.v7.widget.AppCompatSpinner>
-
-                        <android.support.v7.widget.AppCompatSpinner
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:entries="@string/day">
-
-                        </android.support.v7.widget.AppCompatSpinner>
-
-                        <android.support.v7.widget.AppCompatSpinner
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:entries="@string/day">
-
-                        </android.support.v7.widget.AppCompatSpinner>-->
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:ems="10"
+                        android:onClick="@{()->ipersonalInfo.onDateEditTextClicked()}"
+                        android:hint="Select Date"/>
 
 
-                    </LinearLayout>
 
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_36sdp" />
+
+
+
+
+
+
 
                     <Button
                         android:id="@+id/add_address_button"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="@dimen/_4sdp"
                         android:layout_width="@dimen/_180sdp"
                         android:layout_height="@dimen/_42sdp"
                         android:text="@string/update_profile"
                         android:paddingStart="@dimen/_8sdp"
                         android:paddingEnd="@dimen/_8sdp"
+                        android:onClick="@{()->ipersonalInfo.onUpdateProfileClicked()}"                        android:layout_marginTop="@dimen/_20sdp"
                         android:textStyle="bold"
                         android:background="@color/colorPrimary"
                         android:textColor="@android:color/white"/>
+
+
+
+
+
 
 
 
@@ -243,6 +332,10 @@
 
 
         </android.support.v4.widget.NestedScrollView>
+
+
+
+
 
 
 

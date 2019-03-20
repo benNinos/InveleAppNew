@@ -1,8 +1,10 @@
 package com.ninositsolution.inveleapp.add_address;
 
 import android.arch.lifecycle.MutableLiveData;
+import android.content.Context;
 import android.util.Log;
 import android.util.Patterns;
+import android.widget.Toast;
 
 import com.ninositsolution.inveleapp.add_address.pojo.AddAddressRequest;
 import com.ninositsolution.inveleapp.api.ApiService;
@@ -18,6 +20,7 @@ import io.reactivex.schedulers.Schedulers;
 public class AddAddressRepo {
 
     private static final String TAG = "EditAddressRepo";
+    Context context;
 
     private MutableLiveData<AddAddressVM> addAddressVMMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<AddAddressVM> locateAddessVMMutableLiveData = new MutableLiveData<>();
@@ -37,19 +40,28 @@ public class AddAddressRepo {
                     @Override
                     public void onNext(POJOClass pojoClass) {
 
-                        Log.i(TAG, "onNext - > "+pojoClass.msg);
+                        if(pojoClass.status.equalsIgnoreCase("success")) {
 
-                        //pojoClassMutableLiveData.setValue(pojoClass);
+                           // Toast.makeText(context,pojoClass.msg,Toast.LENGTH_SHORT).show();
 
-                        AddAddressVM addAddressVM = new AddAddressVM(pojoClass);
+                            Log.e(TAG, "onNext - > " + pojoClass.msg);
 
-                        addAddressVMMutableLiveData.setValue(addAddressVM);
+                            //pojoClassMutableLiveData.setValue(pojoClass);
+
+                            AddAddressVM addAddressVM = new AddAddressVM(pojoClass);
+
+                            addAddressVMMutableLiveData.setValue(addAddressVM);
+                        }else if(pojoClass.status.equalsIgnoreCase("error")){
+                            Log.e(TAG, "onNext - > " + pojoClass.msg);
+                           // Toast.makeText(context,pojoClass.msg,Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
 
                         Log.e(TAG, "onError - > "+e.getMessage());
+                       // Toast.makeText(context,e.getMessage(),Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -119,19 +131,31 @@ public class AddAddressRepo {
                     @Override
                     public void onNext(POJOClass pojoClass) {
 
-                        Log.e(TAG, "onNext - > "+pojoClass.msg);
+                        if(pojoClass.status.equalsIgnoreCase("success")) {
 
-                        //pojoClassMutableLiveData.setValue(pojoClass);
+                           // Toast.makeText(context,pojoClass.msg,Toast.LENGTH_SHORT).show();
 
-                        AddAddressVM addAddressVM = new AddAddressVM(pojoClass);
 
-                        locateAddessVMMutableLiveData.setValue(addAddressVM);
+                            Log.e(TAG, "onNext - > " + pojoClass.msg);
+
+                            //pojoClassMutableLiveData.setValue(pojoClass);
+
+                            AddAddressVM addAddressVM = new AddAddressVM(pojoClass);
+
+                            locateAddessVMMutableLiveData.setValue(addAddressVM);
+                        }else if(pojoClass.status.equalsIgnoreCase("error")){
+                            Log.e(TAG, "onNext - > " + pojoClass.msg);
+
+                           // Toast.makeText(context,pojoClass.msg,Toast.LENGTH_SHORT).show();
+
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
 
                         Log.e(TAG, "onError - > "+e.getMessage());
+                       // Toast.makeText(context,e.getMessage(),Toast.LENGTH_SHORT).show();
 
                     }
 

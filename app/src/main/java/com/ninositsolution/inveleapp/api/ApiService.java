@@ -8,6 +8,7 @@ import com.ninositsolution.inveleapp.forgot_password.pojo.OTPRequest;
 import com.ninositsolution.inveleapp.forgot_password.pojo.ResetPasswordRequest;
 import com.ninositsolution.inveleapp.login.LoginRequest;
 import com.ninositsolution.inveleapp.add_address.pojo.AddAddressRequest;
+import com.ninositsolution.inveleapp.personal_information.pojo.UpdateProfileRequest;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 import com.ninositsolution.inveleapp.registration.pojo.RegistartionRequest;
 
@@ -17,6 +18,7 @@ import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface ApiService {
@@ -24,6 +26,8 @@ public interface ApiService {
     @POST("users/mobile_register")
     Observable<POJOClass> registerApi(@Body RegistartionRequest registartionRequest);
 
+
+    //address book
     @POST("users/address/add")
     Observable<POJOClass> addAddressApi(@Body AddAddressRequest addAddressRequest);
 
@@ -39,9 +43,15 @@ public interface ApiService {
     @POST("users/address")
     Observable<POJOClass>showAddress(@Body AddressUpdateRequest addressUpdateRequest);
 
-
     @POST("users/address/default")
     Observable<POJOClass> defaultAddressUpdate(@Body AddressUpdateRequest addressUpdateRequest);
+
+    @POST("users/address/delete")
+    Observable<POJOClass> addressDelete(@Body AddressUpdateRequest addressUpdateRequest);
+
+    //categories
+    @GET("mobile/categories")
+    Observable<POJOClass>Categories();
 
     @FormUrlEncoded
     @POST("users/forgot_password")
@@ -57,6 +67,11 @@ public interface ApiService {
     @POST("users/password/update")
 
     Observable<POJOClass> updatePasswordApi (@Body ChangePassowrdRequest changePassowrdRequest);
+
+
+    @POST("users/profile_update")
+
+    Observable<POJOClass> profileUpdateApi (@Body UpdateProfileRequest updateProfileRequest);
 
 
 

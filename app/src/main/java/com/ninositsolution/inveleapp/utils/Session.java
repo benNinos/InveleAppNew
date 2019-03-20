@@ -24,6 +24,7 @@ public class Session {
     private static final String user_uid = "user_uid";
     private static final String user_photo = "user_photo";
     private static final String is_email_registered = "is_email_registered";
+    private static final String image_path = "image_path";
 
     public Session(Context context)
     {
@@ -115,5 +116,15 @@ public class Session {
     public static void setIsEmailRegistered(Boolean value, Context context)
     {
         context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putBoolean(is_email_registered, value).apply();
+    }
+
+    public static String getImagePath(Context context)
+    {
+        return context.getSharedPreferences("Session", Context.MODE_PRIVATE).getString(image_path, null);
+    }
+
+    public static void setImagePath(String value, Context context)
+    {
+        context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(image_path, value).apply();
     }
 }

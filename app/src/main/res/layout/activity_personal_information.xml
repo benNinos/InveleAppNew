@@ -71,6 +71,7 @@
                         android:id="@+id/profileImage"
                         android:layout_width="@dimen/_100sdp"
                         android:layout_height="@dimen/_100sdp"
+                        android:scaleType="fitXY"
                         android:layout_margin="@dimen/_8sdp"
                         android:src="@drawable/profile"
                         android:onClick="@{()->ipersonalInfo.omImageViewClicked()}"
@@ -146,13 +147,7 @@
                             android:inputType="textEmailAddress"
                             android:layout_height="wrap_content" />
 
-
-
-
-
                     </android.support.design.widget.TextInputLayout>
-
-
 
                     <Space
                         android:layout_width="match_parent"
@@ -177,6 +172,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+
                             android:orientation="horizontal">
 
                             <RadioButton
@@ -186,6 +182,7 @@
                                 android:layout_marginStart="@dimen/_8sdp"
                                 android:fontFamily="@font/roboto_font"
                                 android:textSize="@dimen/_14sdp"
+                                android:checked="@={personalInfo.optionMale}"
                                 android:text="@string/male"/>
 
                             <RadioButton
@@ -193,6 +190,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_8sdp"
+                                android:checked="@={personalInfo.optionFemale}"
                                 android:fontFamily="@font/roboto_font"
                                 android:textSize="@dimen/_14sdp"
                                 android:text="@string/female"/>
@@ -286,9 +284,6 @@
 
                     <!--</LinearLayout>-->
 
-
-
-
                     <EditText
                         android:id="@+id/dateEdittext"
                         android:layout_width="match_parent"
@@ -296,16 +291,8 @@
                         android:layout_marginStart="@dimen/_8sdp"
                         android:layout_marginEnd="@dimen/_8sdp"
                         android:ems="10"
-                        android:onClick="@{()->ipersonalInfo.onDateEditTextClicked()}"
+                        android:text="@={personalInfo.dateOfBirth}"                        android:onClick="@{()->ipersonalInfo.onDateEditTextClicked()}"
                         android:hint="Select Date"/>
-
-
-
-
-
-
-
-
 
 
                     <Button

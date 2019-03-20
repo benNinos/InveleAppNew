@@ -15,11 +15,14 @@ import com.ninositsolution.inveleapp.registration.pojo.RegistartionRequest;
 import java.util.ArrayList;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 public interface ApiService {
 
@@ -68,9 +71,21 @@ public interface ApiService {
     Observable<POJOClass> updatePasswordApi (@Body ChangePassowrdRequest changePassowrdRequest);
 
 
+
+    @Multipart
     @POST("users/profile_update")
     Observable<POJOClass> profileUpdateApi (@Body UpdateProfileRequest updateProfileRequest);
 
+
+    Observable<POJOClass> profileUpdateApi (
+                                            @Part("user_id") String user_id,
+                                            @Part("first_name") String first_name,
+                                            @Part("last_name") String last_name,
+                                            @Part("mobile") String mobile,
+                                            @Part("email") String email,
+                                            @Part("gender") String gender,
+                                            @Part("dob") String dob,
+                                            @Part MultipartBody.Part photo);
 
     @POST("users/login")
     Observable<POJOClass> loginApi(@Body LoginRequest loginRequest);

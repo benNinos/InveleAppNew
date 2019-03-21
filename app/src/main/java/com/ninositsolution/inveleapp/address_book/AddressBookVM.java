@@ -55,6 +55,7 @@ public class AddressBookVM extends ViewModel {
     {
         this.status.set(pojoClass.status);
         this.msg.set(pojoClass.msg);
+        this.address_list.set(pojoClass.address_list);
     }
     public AddressBookVM(AddressList addressLists){
         this.id.set(addressLists.getId());

@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.ninositsolution.inveleapp.R;
@@ -38,16 +39,20 @@ public class CategoryVM extends ViewModel {
     public ObservableField<String>imageUrl = new ObservableField<>();
     public ObservableField<String>image = new ObservableField<>();
 
+
+
     //adapter ui fields
     public ObservableField<String>category_name = new ObservableField<>("");
+    public ObservableField<String>menu_id = new ObservableField<>("");
+    public ObservableField<String>banner_image = new ObservableField<>("");
+    public ObservableField<String>slug = new ObservableField<>("");
+  //  public ObservableField<String>menscategory_layout = new ObservableField<>();
 
     //pojo fields
     public ObservableField<String> status = new ObservableField<>();
     public ObservableField<String> msg = new ObservableField<>();
     public ObservableField<CategoryModel>all_categories = new ObservableField<>();
     public ObservableField <List<CategoryModel>> categories = new ObservableField<>();
-
-
 
     public CategoryVM(Context context, ICategory iCategory) {
         this.context = context;
@@ -66,8 +71,11 @@ public class CategoryVM extends ViewModel {
       //  this.categories.set(pojoClass.categories);
     }
     public CategoryVM(CategoryModel categoryModel){
+        this.menu_id.set(categoryModel.menu_id);
         this.category_name.set(categoryModel.name);
         this.imageUrl.set(categoryModel.image_path);
+        this.banner_image.set(categoryModel.banner_image);
+        this.slug.set(categoryModel.slug);
 
     }
     /*public ObservableField<String> image(){
@@ -139,12 +147,13 @@ public class CategoryVM extends ViewModel {
 
     public void MensCategoriesClicked()
     {
+        Log.e("categoryVM","categoryVM_menu_clicked==>");
         iCategory.ChangePreviousCategoryView();
         iCategory.MensCategoriesClicked();
         session.setCategoryPosition(2);
     }
 
-    public void WomensCategoriesClicked()
+  /*  public void WomensCategoriesClicked()
     {
         iCategory.ChangePreviousCategoryView();
         iCategory.WomensCategoriesClicked();
@@ -205,7 +214,7 @@ public class CategoryVM extends ViewModel {
         iCategory.ChangePreviousCategoryView();
         iCategory.BooksCategoriesClicked();
         session.setCategoryPosition(11);
-    }
+    }*/
 
     public void onBackClicked()
     {

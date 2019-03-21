@@ -30,6 +30,7 @@ import com.ninositsolution.inveleapp.databinding.ActivityCategoryBinding;
 import com.ninositsolution.inveleapp.home.HomeActivity;
 import com.ninositsolution.inveleapp.login.LoginActivity;
 import com.ninositsolution.inveleapp.my_order.MyOrderActivity;
+import com.ninositsolution.inveleapp.utils.Constants;
 import com.ninositsolution.inveleapp.utils.Session;
 import com.ninositsolution.inveleapp.wishlist.WishlistActivity;
 
@@ -40,8 +41,10 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
     private ToolTipView toolTipView;
     private ToolTip toolTip;
     private int count;
-    private CategoryVM categoryVM;
+    public ICategory iCategory;
+    public CategoryVM categoryVM;
     CategoryAdapter categoryAdapter;
+    List<CategoryVM>objCategoryVM;
     public static final String TAG = CategoryActivity.class.getSimpleName();
 
     private ActivityCategoryBinding binding;
@@ -54,8 +57,10 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_category);
-      //  binding.setCategory(new CategoryVM(getApplicationContext(), this));
+
+        binding.setCategory(new CategoryVM(getApplicationContext(), this));
         binding.setCategory(categoryVM);
+        binding.setICategory(iCategory);
         binding.setLifecycleOwner(this);
 
         binding.categoriesRecyclerview.setHasFixedSize(true);
@@ -70,37 +75,58 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
         categoryVM.getAllcategoryVMMutableLiveData().observe(this, new Observer<CategoryVM>() {
             @Override
             public void onChanged(@Nullable CategoryVM categoryVM1) {
-                if(categoryVM1.status.get().equalsIgnoreCase("success")){
-                    if(categoryVM1.all_categories.get()!=null){
-                        Log.e(TAG,"name==>"+categoryVM1.all_categories.get().name);
-                       // categoryVM.allCategories.set(categoryVM1.all_categories.get().name);
-                        if(categoryVM1.all_categories.get().image!=null){
-                            if(!categoryVM1.all_categories.get().image.equalsIgnoreCase("")){
-                                Log.e(TAG,"image==>"+categoryVM1.all_categories.get().image);
-                                //categoryVM.image.set(categoryVM1.all_categories.get().image);
-                              //  categoryVM.image().set(categoryVM1.all_categories.get().image);
+                try {
+                    if (categoryVM1.status.get().equalsIgnoreCase("success")) {
+                        if (categoryVM1.all_categories.get() != null) {
+                            Log.e(TAG, "name==>" + categoryVM1.all_categories.get().name);
+                            // categoryVM.allCategories.set(categoryVM1.all_categories.get().name);
+                            if (categoryVM1.all_categories.get().image != null) {
+                                if (!categoryVM1.all_categories.get().image.equalsIgnoreCase("")) {
+                                    Log.e(TAG, "image==>" + categoryVM1.all_categories.get().image);
+                                    //categoryVM.image.set(categoryVM1.all_categories.get().image);
+                                    //  categoryVM.image().set(categoryVM1.all_categories.get().image);
+                                }
                             }
                         }
+                        categoryVM1.status.set("");
+                    } else if (categoryVM1.status.get().equalsIgnoreCase("error")) {
+                        Toast.makeText(getApplicationContext(), categoryVM1.status.get(), Toast.LENGTH_SHORT).show();
                     }
-                }else if(categoryVM1.status.get().equalsIgnoreCase("error")){
-                    Toast.makeText(getApplicationContext(),categoryVM1.status.get(),Toast.LENGTH_SHORT).show();
+                }catch (NullPointerException e){
+                    e.printStackTrace();
                 }
             }
         });
-
-
-
         categoryVM.getCategoryList();
 
         categoryVM.getCategoryVMMutableLiveData().observe(this, new Observer<List<CategoryVM>>() {
             @Override
-            public void onChanged(@Nullable List<CategoryVM> categoryVMS) {
+            public void onChanged(@Nullable final List<CategoryVM> categoryVMS) {
 
                 Log.e(TAG,"LIST_SIZE==>"+categoryVMS.size());
                 if(!categoryVMS.isEmpty()) {
 
-                    categoryAdapter = new CategoryAdapter(CategoryActivity.this, categoryVMS);
+                    objCategoryVM = categoryVMS;
+
+                    categoryAdapter = new CategoryAdapter(CategoryActivity.this, categoryVMS, Constants.select_menu_id);
                     binding.categoriesRecyclerview.setAdapter(categoryAdapter);
+                    categoryAdapter.setClikEvent(new CategoryAdapter.ClickEvent() {
+                        @Override
+                        public void setClickEventItem(int position, String menu_id, String name, String banner) {
+                            Constants.select_menu_id = menu_id;
+                            Constants.select_banner = banner;
+                            Log.e(TAG,"menu_id_selected==>"+menu_id+"\nbanner_image==>"+banner);
+
+                            binding.allCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.grayWhite));
+                            binding.allCategoriesText.setTextColor(getResources().getColor(R.color.textColor));
+
+                            changeFragment();
+
+                        }
+                    });
+                    categoryAdapter.notifyDataSetChanged();
+
+                   // categoryVMS.clear();
                 }else {
                     Toast.makeText(getApplicationContext(),"List Empty",Toast.LENGTH_SHORT).show();
                 }
@@ -125,17 +151,109 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
         allCategoriesFragment = new AllCategoriesFragment();
         fragmentTransaction.add(R.id.container_category, allCategoriesFragment).commit();
 
+        binding.setICategory(new ICategory() {
+            @Override
+            public void AllCategoriesClicked() {
+
+                Log.e(TAG,"objCategoryVM.size==>"+objCategoryVM.size());
+
+                Constants.select_menu_id="";
+
+                binding.allCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.white));
+                binding.allCategoriesText.setTextColor(getResources().getColor(R.color.colorPrimary));
+
+                categoryAdapter = new CategoryAdapter(CategoryActivity.this, objCategoryVM, Constants.select_menu_id);
+                binding.categoriesRecyclerview.setAdapter(categoryAdapter);
+                categoryAdapter.setClikEvent(new CategoryAdapter.ClickEvent() {
+                    @Override
+                    public void setClickEventItem(int position, String menu_id, String name, String banner) {
+                        Constants.select_menu_id = menu_id;
+                        Constants.select_banner = banner;
+                        Log.e(TAG,"menu_id_selected==>"+menu_id+"\nbanner==>"+banner);
+
+                        binding.allCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.grayWhite));
+                        binding.allCategoriesText.setTextColor(getResources().getColor(R.color.textColor));
+
+                    }
+                });
+                changeFragment();
+            }
+
+            @Override
+            public void MensCategoriesClicked() {
+
+            }
+
+            @Override
+            public void onBackClicked() {
+
+                startActivity(new Intent(CategoryActivity.this, HomeActivity.class));
+
+            }
+
+            @Override
+            public void onSearchClicked() {
+
+                startActivity(new Intent(CategoryActivity.this, CartActivity.class));
+
+
+            }
+
+            @Override
+            public void onCartClicked() {
+
+            }
+
+            @Override
+            public void onMenuClicked() {
+
+                if (count %2 == 0)
+                {
+                    createTooltip();
+                    count++;
+                }
+                else
+                {
+                    toolTipView.remove();
+                    count++;
+                }
+
+            }
+
+            @Override
+            public void ChangePreviousCategoryView() {
+
+                Session session = new Session(CategoryActivity.this);
+
+                int position = session.getCategoryPosition();
+
+                switch (position)
+                {
+                    case 1:
+                        binding.allCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.grayWhite));
+                        binding.allCategoriesText.setTextColor(getResources().getColor(R.color.textColor));
+                        break;
+
+
+                }
+            }
+        });
+
+
+
     }
 
     private void changeFragment() {
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         otherCategoriesFragment = new OtherCategoriesFragment();
-        fragmentTransaction.replace(R.id.container_category, otherCategoriesFragment).commit();
+        fragmentTransaction.replace(R.id.container_category, otherCategoriesFragment).addToBackStack(Constants.select_banner);
+        fragmentTransaction.commitAllowingStateLoss();
     }
 
     @Override
     public void AllCategoriesClicked() {
+        Log.e(TAG,"AllCategoriesClicked==>");
 
         binding.allCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.white));
         binding.allCategoriesText.setTextColor(getResources().getColor(R.color.colorPrimary));
@@ -149,12 +267,15 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
     @Override
     public void MensCategoriesClicked() {
 
-        binding.mensCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.white));
-        binding.mensCategoriesText.setTextColor(getResources().getColor(R.color.colorPrimary));
+        Log.e(TAG,"mens_category_clicked==>");
+
+      //  binding.mensCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.white));
+       // binding.mensCategoriesText.setTextColor(getResources().getColor(R.color.colorPrimary));
         changeFragment();
 
     }
 
+/*
 
     @Override
     public void WomensCategoriesClicked() {
@@ -235,6 +356,7 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
         changeFragment();
 
     }
+*/
 
     @Override
     public void onBackClicked() {
@@ -333,67 +455,7 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
     @Override
     public void ChangePreviousCategoryView() {
 
-        Session session = new Session(this);
 
-        int position = session.getCategoryPosition();
-
-        switch (position)
-        {
-            case 1:
-                binding.allCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.grayWhite));
-                binding.allCategoriesText.setTextColor(getResources().getColor(R.color.textColor));
-                break;
-
-            case 2:
-                binding.mensCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.grayWhite));
-                binding.mensCategoriesText.setTextColor(getResources().getColor(R.color.textColor));
-                break;
-
-            case 3:
-                binding.womensCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.grayWhite));
-                binding.womensCategoriesText.setTextColor(getResources().getColor(R.color.textColor));
-                break;
-
-            case 4:
-                binding.boysCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.grayWhite));
-                binding.boysCategoriesText.setTextColor(getResources().getColor(R.color.textColor));
-                break;
-
-            case 5:
-                binding.mobilesCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.grayWhite));
-                binding.mobilesCategoriesText.setTextColor(getResources().getColor(R.color.textColor));
-                break;
-
-            case 6:
-                binding.electronicsCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.grayWhite));
-                binding.electronicsCategoriesText.setTextColor(getResources().getColor(R.color.textColor));
-                break;
-
-            case 7:
-                binding.homeCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.grayWhite));
-                binding.homeCategoriesText.setTextColor(getResources().getColor(R.color.textColor));
-                break;
-
-            case 8:
-                binding.babiesCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.grayWhite));
-                binding.babiesCategoriesText.setTextColor(getResources().getColor(R.color.textColor));
-                break;
-
-            case 9:
-                binding.beautyCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.grayWhite));
-                binding.beautyCategoriesText.setTextColor(getResources().getColor(R.color.textColor));
-                break;
-
-            case 10:
-                binding.healthCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.grayWhite));
-                binding.healthCategoriesText.setTextColor(getResources().getColor(R.color.textColor));
-                break;
-
-            case 11:
-                binding.booksCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.grayWhite));
-                binding.booksCategoriesText.setTextColor(getResources().getColor(R.color.textColor));
-                break;
-        }
 
 
     }

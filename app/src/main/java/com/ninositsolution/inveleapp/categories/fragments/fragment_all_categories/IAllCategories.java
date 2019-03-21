@@ -6,4 +6,7 @@ package com.ninositsolution.inveleapp.categories.fragments.fragment_all_categori
  * ben@ninositsolution.com
  */
 public interface IAllCategories {
+
+    void categoryClicked();
+
 }

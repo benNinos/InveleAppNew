@@ -2,6 +2,8 @@ package com.ninositsolution.inveleapp.categories;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by Parthasarathy D on 1/17/2019.
  * Ninos IT Solution Pvt Ltd
@@ -27,6 +29,19 @@ public class CategoryModel {
     @SerializedName("image")
     public String image;
 
+    @SerializedName("brand_id")
+    public String brand_id;
+
+    @SerializedName("child_categories")
+    public List<CategoryModel> child_categories;
+
+    @SerializedName("brands")
+    public List<CategoryModel> brands;
+
+    public CategoryModel(List<CategoryModel> brands) {
+        this.brands = brands;
+    }
+
     public CategoryModel(String menu_id, String name, String image_path, String slug, String banner_image) {
         this.menu_id = menu_id;
         this.name = name;
@@ -40,6 +55,12 @@ public class CategoryModel {
         this.name = name;
         this.image_path = image_path;
         this.slug = slug;
+    }
+
+    public CategoryModel(String name, String image_path, String brand_id) {
+        this.name = name;
+        this.image_path = image_path;
+        this.brand_id = brand_id;
     }
 
     public CategoryModel(){

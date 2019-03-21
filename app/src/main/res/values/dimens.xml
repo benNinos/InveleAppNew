@@ -83,7 +83,7 @@
 
 
     <dimen name="all_brand_photo_width">@dimen/_62sdp</dimen>
-    <dimen name="all_brand_photo_height">@dimen/_66sdp</dimen>
+    <dimen name="all_brand_photo_height">@dimen/_62sdp</dimen>
     <dimen name="all_brand_photo_text">@dimen/_10sdp</dimen>
 
     <dimen name="cat_left_pane_spacing">0.8dp</dimen>

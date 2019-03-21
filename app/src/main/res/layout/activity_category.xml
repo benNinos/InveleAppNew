@@ -9,6 +9,9 @@
         <variable
             name="category"
             type="com.ninositsolution.inveleapp.categories.CategoryVM"/>
+        <variable
+            name="iCategory"
+            type="com.ninositsolution.inveleapp.categories.ICategory"/>
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -37,9 +40,10 @@
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_marginStart="@dimen/_8sdp"
-                        android:onClick="@{()->category.onBackClicked()}"
+                        android:onClick="@{()->iCategory.onBackClicked()}"
                         android:layout_centerVertical="true"
-                        app:srcCompat="@drawable/ic_arrow_back_24dp"/>
+                        app:srcCompat="@drawable/ic_arrow_back_24dp"
+                        />
 
                     <TextView
                         android:layout_marginStart="@dimen/_36sdp"
@@ -53,7 +57,8 @@
 
                     <Space
                         android:layout_width="@dimen/_24sdp"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="5dp" />
 
                     <LinearLayout
                         android:layout_alignParentEnd="true"
@@ -65,7 +70,7 @@
                         <ImageView
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
-                            android:onClick="@{()->category.onSearchClicked()}"
+                            android:onClick="@{()->iCategory.onSearchClicked()}"
                             android:layout_gravity="center_vertical"
                             app:srcCompat="@drawable/ic_search_colored_24dp"/>
 
@@ -76,7 +81,7 @@
                         <ImageView
                             android:layout_width="@dimen/_18sdp"
                             android:layout_height="@dimen/_18sdp"
-                            android:onClick="@{()->category.onCartClicked()}"
+                            android:onClick="@{()->iCategory.onCartClicked()}"
                             android:layout_gravity="center_vertical"
                             app:srcCompat="@drawable/ic_shopping_cart_colored"/>
 
@@ -88,7 +93,7 @@
                             android:id="@+id/categories_menu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:onClick="@{()->category.onMenuClicked()}"
+                            android:onClick="@{()->iCategory.onMenuClicked()}"
                             android:layout_gravity="center_vertical"
                             app:srcCompat="@drawable/ic_menu"
                             tools:ignore="ContentDescription" />
@@ -122,7 +127,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/grayWhite"
-                    android:onClick="@{()->category.AllCategoriesClicked()}"
+                    android:onClick="@{()->iCategory.AllCategoriesClicked()}"
                     android:orientation="vertical"
                     tools:ignore="UnusedAttribute">
 
@@ -171,437 +176,6 @@
                        android:layout_below="@id/all_categories_layout">
 
                     </android.support.v7.widget.RecyclerView>
-
-
-
-
-                    <LinearLayout
-                        android:layout_width="@dimen/_84sdp"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/_4sdp"
-                        android:orientation="vertical"
-                        android:visibility="gone">
-
-
-
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/cat_left_pane_spacing"
-                            android:background="@color/invelebg" />
-
-                        <LinearLayout
-                            android:id="@+id/mens_categories_layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/grayWhite"
-                            android:onClick="@{()->category.MensCategoriesClicked()}"
-                            android:orientation="vertical"
-                            tools:ignore="UnusedAttribute">
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/categories_space_size" />
-
-                            <ImageView
-                                android:layout_width="@dimen/categories_icon_size"
-                                android:layout_height="@dimen/categories_icon_size"
-                                android:layout_gravity="center_horizontal"
-                                app:srcCompat="@drawable/shirt"
-                                tools:ignore="ContentDescription" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_6sdp" />
-
-                            <TextView
-                                android:id="@+id/mens_categories_text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:text="@string/mens"
-                                android:textSize="@dimen/catChildSize" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/categories_space_size" />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/cat_left_pane_spacing"
-                            android:background="@color/invelebg" />
-
-                        <LinearLayout
-                            android:id="@+id/womens_categories_layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/grayWhite"
-                            android:onClick="@{()->category.WomensCategoriesClicked()}"
-                            android:orientation="vertical"
-                            tools:ignore="UnusedAttribute">
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/categories_space_size" />
-
-                            <ImageView
-                                android:layout_width="@dimen/categories_icon_size"
-                                android:layout_height="@dimen/categories_icon_size"
-                                android:layout_gravity="center_horizontal"
-                                app:srcCompat="@drawable/shirt" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_6sdp" />
-
-                            <TextView
-                                android:id="@+id/womens_categories_text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:gravity="center_horizontal"
-                                android:text="@string/womens"
-                                android:textSize="@dimen/catChildSize" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/categories_space_size" />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/cat_left_pane_spacing"
-                            android:background="@color/invelebg" />
-
-                        <LinearLayout
-                            android:id="@+id/boys_categories_layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/grayWhite"
-                            android:onClick="@{()->category.BoysCategoriesClicked()}"
-                            android:orientation="vertical"
-                            tools:ignore="UnusedAttribute">
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/categories_space_size" />
-
-                            <ImageView
-                                android:layout_width="@dimen/categories_icon_size"
-                                android:layout_height="@dimen/categories_icon_size"
-                                android:layout_gravity="center_horizontal"
-                                app:srcCompat="@drawable/shirt" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_6sdp" />
-
-                            <TextView
-                                android:id="@+id/boys_categories_text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:text="@string/boys"
-                                android:textSize="@dimen/catChildSize" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/categories_space_size" />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/cat_left_pane_spacing"
-                            android:background="@color/invelebg" />
-
-                        <LinearLayout
-                            android:id="@+id/mobiles_categories_layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/grayWhite"
-                            android:onClick="@{()->category.MobilesCategoriesClicked()}"
-                            android:orientation="vertical"
-                            tools:ignore="UnusedAttribute">
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/categories_space_size" />
-
-                            <ImageView
-                                android:layout_width="@dimen/categories_icon_size"
-                                android:layout_height="@dimen/categories_icon_size"
-                                android:layout_gravity="center_horizontal"
-                                app:srcCompat="@drawable/shirt" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_6sdp" />
-
-                            <TextView
-                                android:id="@+id/mobiles_categories_text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:gravity="center_horizontal"
-                                android:text="@string/mobiles"
-                                android:textSize="@dimen/catChildSize" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/categories_space_size" />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/cat_left_pane_spacing"
-                            android:background="@color/invelebg" />
-
-                        <LinearLayout
-                            android:id="@+id/electronics_categories_layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/grayWhite"
-                            android:onClick="@{()->category.ElectronicsCategoriesClicked()}"
-                            android:orientation="vertical"
-                            tools:ignore="UnusedAttribute">
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/categories_space_size" />
-
-                            <ImageView
-                                android:layout_width="@dimen/categories_icon_size"
-                                android:layout_height="@dimen/categories_icon_size"
-                                android:layout_gravity="center_horizontal"
-                                app:srcCompat="@drawable/shirt" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_6sdp" />
-
-                            <TextView
-                                android:id="@+id/electronics_categories_text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:text="@string/electronics_cat"
-                                android:textSize="@dimen/catChildSize" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/categories_space_size" />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/cat_left_pane_spacing"
-                            android:background="@color/invelebg" />
-
-                        <LinearLayout
-                            android:id="@+id/home_categories_layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/grayWhite"
-                            android:onClick="@{()->category.HomeCategoriesClicked()}"
-                            android:orientation="vertical"
-                            tools:ignore="UnusedAttribute">
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/categories_space_size" />
-
-                            <ImageView
-                                android:layout_width="@dimen/categories_icon_size"
-                                android:layout_height="@dimen/categories_icon_size"
-                                android:layout_gravity="center_horizontal"
-                                app:srcCompat="@drawable/shirt" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_6sdp" />
-
-                            <TextView
-                                android:id="@+id/home_categories_text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:text="@string/home"
-                                android:textSize="@dimen/catChildSize" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/categories_space_size" />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/cat_left_pane_spacing"
-                            android:background="@color/invelebg" />
-
-                        <LinearLayout
-                            android:id="@+id/babies_categories_layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/grayWhite"
-                            android:onClick="@{()->category.BabiesCategoriesClicked()}"
-                            android:orientation="vertical"
-                            tools:ignore="UnusedAttribute">
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/categories_space_size" />
-
-                            <ImageView
-                                android:layout_width="@dimen/categories_icon_size"
-                                android:layout_height="@dimen/categories_icon_size"
-                                android:layout_gravity="center_horizontal"
-                                app:srcCompat="@drawable/shirt" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_6sdp" />
-
-                            <TextView
-                                android:id="@+id/babies_categories_text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:text="@string/babies"
-                                android:textSize="@dimen/catChildSize" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/categories_space_size" />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/cat_left_pane_spacing"
-                            android:background="@color/invelebg" />
-
-                        <LinearLayout
-                            android:id="@+id/beauty_categories_layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/grayWhite"
-                            android:onClick="@{()->category.BeautyCategoriesClicked()}"
-                            android:orientation="vertical"
-                            tools:ignore="UnusedAttribute">
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/categories_space_size" />
-
-                            <ImageView
-                                android:layout_width="@dimen/categories_icon_size"
-                                android:layout_height="@dimen/categories_icon_size"
-                                android:layout_gravity="center_horizontal"
-                                app:srcCompat="@drawable/shirt" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_6sdp" />
-
-                            <TextView
-                                android:id="@+id/beauty_categories_text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:text="@string/beauty"
-                                android:textSize="@dimen/catChildSize" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/categories_space_size" />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/cat_left_pane_spacing"
-                            android:background="@color/invelebg" />
-
-                        <LinearLayout
-                            android:id="@+id/health_categories_layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/grayWhite"
-                            android:onClick="@{()->category.HealthCategoriesClicked()}"
-                            android:orientation="vertical"
-                            tools:ignore="UnusedAttribute">
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/categories_space_size" />
-
-                            <ImageView
-                                android:layout_width="@dimen/categories_icon_size"
-                                android:layout_height="@dimen/categories_icon_size"
-                                android:layout_gravity="center_horizontal"
-                                app:srcCompat="@drawable/shirt" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_6sdp" />
-
-                            <TextView
-                                android:id="@+id/health_categories_text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:text="@string/health_cat"
-                                android:textSize="@dimen/catChildSize" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/categories_space_size" />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/cat_left_pane_spacing"
-                            android:background="@color/invelebg" />
-
-                        <LinearLayout
-                            android:id="@+id/books_categories_layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/grayWhite"
-                            android:onClick="@{()->category.BooksCategoriesClicked()}"
-                            android:orientation="vertical"
-                            tools:ignore="UnusedAttribute">
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/categories_space_size" />
-
-                            <ImageView
-                                android:layout_width="@dimen/categories_icon_size"
-                                android:layout_height="@dimen/categories_icon_size"
-                                android:layout_gravity="center_horizontal"
-                                app:srcCompat="@drawable/shirt" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_6sdp" />
-
-                            <TextView
-                                android:id="@+id/books_categories_text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:text="@string/books"
-                                android:textSize="@dimen/catChildSize" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/categories_space_size" />
-                        </LinearLayout>
-
-
-                    </LinearLayout>
-
-
 
             </RelativeLayout>
 

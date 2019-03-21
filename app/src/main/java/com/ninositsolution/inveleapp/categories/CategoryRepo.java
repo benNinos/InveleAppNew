@@ -32,8 +32,6 @@ public class CategoryRepo {
     private MutableLiveData<CategoryVM>allCategoryVMMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<CategoryVM> defaultUpdateVMMutableLiveData = new MutableLiveData<>();
 
-
-
     public MutableLiveData <List<CategoryVM>> getCategoryVMMutableLiveData() {
 
         ApiService apiService = RetrofitClient.getApiService();
@@ -71,6 +69,8 @@ public class CategoryRepo {
                             }
 
                             categoryVMMutableLiveData.setValue(arrayList);
+                            pojoClass.status="";
+                           // arrayList.clear();
                         }else if(pojoClass.status.equalsIgnoreCase("error")){
                             Log.e(TAG, "onNext - > " + pojoClass.msg);
                            // Toast.makeText(context,pojoClass.msg,Toast.LENGTH_SHORT).show();
@@ -132,6 +132,7 @@ public class CategoryRepo {
                             Log.e(TAG, "onNext - > " + pojoClass.msg);
                             //Toast.makeText(context,pojoClass.msg,Toast.LENGTH_SHORT).show();
                         }
+                        pojoClass.status="";
 
 
                     }

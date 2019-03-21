@@ -77,15 +77,14 @@ public interface ApiService {
     @Multipart
     @POST("users/profile_update")
     Observable<POJOClass> profileUpdateApi (
-                                            @Part("user_id") String user_id,
+                                            @Part("user_id") Integer user_id,
                                             @Part("first_name") String first_name,
                                             @Part("last_name") String last_name,
                                             @Part("mobile") String mobile,
                                             @Part("email") String email,
                                             @Part("gender") String gender,
                                             @Part("dob") String dob,
-                                            @Part MultipartBody.Part body
-                                            );
+                                            @Part MultipartBody.Part body);
 
     @POST("users/login")
     Observable<POJOClass> loginApi(@Body LoginRequest loginRequest);

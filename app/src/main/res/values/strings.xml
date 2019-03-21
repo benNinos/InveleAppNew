@@ -512,6 +512,7 @@
 
     <string name="reset_password_otp_text">We send a OTP to your Email</string>
     <string name="static_otp_timer">45 Sec</string>
+    <string name="mobilenumber_not_set">Not Set</string>
     <!--<string name="default_web_client_id">446803575025-rm20k69c00lcgde6410cu0cabg91plqc.apps.googleusercontent.com</string>-->
 
 

@@ -27,7 +27,7 @@ public class Constants {
     public static final Integer PASSWORD_MISMATCH = 19;
     public static final Integer CONFIRM_NEW_PASSWORD_EMPTY = 20;
     public static final Integer NEW_PASSWORD_EMPTY = 21;
-
+    public static final Integer DATE_OF_BIRTH_EMPTY = 22;
 
 
     public static  String user_address_id="";

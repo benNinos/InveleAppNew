@@ -1,5 +1,6 @@
 package com.ninositsolution.inveleapp.account_information;
 
+import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 
 /**
@@ -7,37 +8,13 @@ import android.content.Context;
  * Ninos IT Solution Pvt Ltd
  * ben@ninositsolution.com
  */
-public class AccountInformationVM {
+public class AccountInformationVM extends ViewModel {
 
-    private AccountInformationModel accountInformationModel;
-    private Context context;
-    private IAccountInformation iAccountInformation;
+    private AccountInformationRepo accountInformationRepo;
 
-    public AccountInformationVM(Context context, IAccountInformation iAccountInformation) {
-        this.context = context;
-        this.iAccountInformation = iAccountInformation;
-        accountInformationModel = new AccountInformationModel();
-    }
 
-    //ClickListeners
 
-    public void onBackClicked()
-    {
-        iAccountInformation.onBackClicked();
-    }
-    public void onAddMobileClicked()
-    {
-        iAccountInformation.onAddMobileClicked();
-    }
-    public void onChangeEmailClicked()
-    {
-        iAccountInformation.onChangeEmailClicked();
-    }
 
-    public void onChangePasswordClicked()
-    {
-        iAccountInformation.onChangePasswordClicked();
-    }
 
 
 }

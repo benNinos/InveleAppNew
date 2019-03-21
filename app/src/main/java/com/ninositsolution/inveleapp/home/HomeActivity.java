@@ -121,9 +121,8 @@ public class HomeActivity extends AppCompatActivity {
         BrandViewPagerAdapter brandViewPagerAdapter = new BrandViewPagerAdapter(this);
         UnderViewPagerAdapter underViewPagerAdapter = new UnderViewPagerAdapter(this);
         GeneralViewPagerAdapter generalViewPagerAdapter = new GeneralViewPagerAdapter(this);
-        HomeThreeImageViewPagerAdapter homeThreeImageViewPagerAdapter = new HomeThreeImageViewPagerAdapter(this);
 
-        binding.homeThreeImageViewPager.setAdapter(homeThreeImageViewPagerAdapter);
+
         binding.viewpagerBrands.setAdapter(brandViewPagerAdapter);
         binding.viewpagerMens.setAdapter(generalViewPagerAdapter);
         binding.viewpagerWomens.setAdapter(generalViewPagerAdapter);
@@ -149,8 +148,15 @@ public class HomeActivity extends AppCompatActivity {
                     if (homeVM.status.get().equalsIgnoreCase("success"))
                     {
                        // success process
+
+                        //main banner
                         viewPagerAdapter = new ViewPagerAdapter(context, homeVM);
                         binding.viewPager.setAdapter(viewPagerAdapter);
+
+                        //sub banner
+                        HomeThreeImageViewPagerAdapter homeThreeImageViewPagerAdapter = new HomeThreeImageViewPagerAdapter(context, homeVM);
+                        binding.homeThreeImageViewPager.setAdapter(homeThreeImageViewPagerAdapter);
+
                     } else
                     {
                        // error process

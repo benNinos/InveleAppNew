@@ -8,4 +8,5 @@ package com.ninositsolution.inveleapp.add_mobile;
 public interface IAddMobile {
 
     void onBackClicked();
+    void onVerifyOTPClicked();
 }

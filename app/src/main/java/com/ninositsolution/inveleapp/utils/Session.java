@@ -70,7 +70,7 @@ public class Session {
 
     public static String getUserEmail(Context context)
     {
-        return context.getSharedPreferences("Session", Context.MODE_PRIVATE).getString(user_email, "");
+        return context.getSharedPreferences("Session", Context.MODE_PRIVATE).getString(user_email, "arunprasadh.s@gmail.com");
     }
 
     public static void setUserEmail(String value, Context context)
@@ -80,7 +80,7 @@ public class Session {
 
     public static String getUserPhone(Context context)
     {
-        return context.getSharedPreferences("Session", Context.MODE_PRIVATE).getString(user_phone, "");
+        return context.getSharedPreferences("Session", Context.MODE_PRIVATE).getString(user_phone, "7402191727");
     }
 
     public static void setUserPhone(String value, Context context)

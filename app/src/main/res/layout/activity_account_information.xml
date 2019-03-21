@@ -102,8 +102,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_marginRight="@dimen/_12sdp"
+
                     android:layout_marginTop="@dimen/_6sdp"
-                    android:text="@string/mobilenumber_not_set"
+                    android:text="@={accountInfo.mobileNumber}"
                     android:textSize="@dimen/_10sdp"/>
 
 
@@ -150,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_marginRight="@dimen/_12sdp"
-                    android:text="Not Set"
+                    android:text="@={accountInfo.emailAddress}"
                     android:layout_marginTop="@dimen/_6sdp"
                     android:textSize="@dimen/_10sdp"/>
 

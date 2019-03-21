@@ -41,13 +41,13 @@ public class AccountInformationActivity extends AppCompatActivity {
         {
             if (Session.getUserEmail(context).isEmpty())
             {
-                binding.currentEmailValueTextView.setText("Not Set");
+
 
                 Log.e(TAG, "Stored Email is : -->" + Session.getUserEmail(context));
             }
             else
             {
-                binding.currentEmailValueTextView.setText(Session.getUserEmail(context));
+                accountInformationVM.emailAddress.set(Session.getUserEmail(context));
                 Log.e(TAG, "Stored Email is : -->" + Session.getUserEmail(context));
             }
         }
@@ -56,17 +56,16 @@ public class AccountInformationActivity extends AppCompatActivity {
         {
             if (Session.getUserPhone(context).isEmpty())
             {
-                binding.currentMobileValueTextView.setText("Not Set");
+                accountInformationVM.mobileNumber.set("Not Set");
 
                 Log.e(TAG, "Stored Mobile is : -->" + Session.getUserPhone(context));
             }
             else
             {
-                binding.currentMobileValueTextView.setText(Session.getUserPhone(context));
+                accountInformationVM.mobileNumber.set(Session.getUserPhone(context));
                 Log.e(TAG, "Stored Mobile is : -->" + Session.getUserPhone(context));
             }
         }
-
 
 
 

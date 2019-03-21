@@ -9,7 +9,7 @@ public interface ICategory {
 
     void AllCategoriesClicked();
     void MensCategoriesClicked();
-    void WomensCategoriesClicked();
+   /* void WomensCategoriesClicked();
     void BoysCategoriesClicked();
     void MobilesCategoriesClicked();
     void ElectronicsCategoriesClicked();
@@ -17,7 +17,7 @@ public interface ICategory {
     void BabiesCategoriesClicked();
     void BeautyCategoriesClicked();
     void HealthCategoriesClicked();
-    void BooksCategoriesClicked();
+    void BooksCategoriesClicked();*/
     void onBackClicked();
     void onSearchClicked();
     void onCartClicked();

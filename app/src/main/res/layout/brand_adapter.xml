@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data class = "OtherFragmentBrandAdapterBinding">
+
+        <variable
+            name="adapterbrand"
+            type="com.ninositsolution.inveleapp.categories.fragments.fragment_other_categories.OtherFragmentVM"/>
+        <variable
+            name="iOtherCategory"
+            type="com.ninositsolution.inveleapp.categories.fragments.fragment_other_categories.IOtherCategory"/>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_4sdp"
+        android:padding="@dimen/_4sdp"
+        tools:ignore="UnusedAttribute">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <ImageView
+            android:id="@+id/image_icon"
+            android:layout_width="@dimen/all_brand_photo_width"
+            android:layout_height="@dimen/all_brand_photo_height"
+            bind:brandUrl="@{adapterbrand.brandUrl}"
+            app:srcCompat="@drawable/img1"
+            tools:ignore="ContentDescription" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_2sdp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/all_brand_photo_text"
+            android:hint="@string/formal"
+            android:text="@={adapterbrand.category_name}"/>
+        </LinearLayout>
+
+
+
+    </android.support.v7.widget.CardView>
+    </LinearLayout>
+</layout>

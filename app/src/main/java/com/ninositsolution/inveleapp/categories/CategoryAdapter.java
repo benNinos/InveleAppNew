@@ -12,10 +12,12 @@ import android.widget.RadioButton;
 
 
 import com.ninositsolution.inveleapp.R;
+import com.ninositsolution.inveleapp.address_book.AddressBookAdapter;
 import com.ninositsolution.inveleapp.address_book.AddressBookVM;
 import com.ninositsolution.inveleapp.address_book.IAddressBook;
 import com.ninositsolution.inveleapp.databinding.CategoryAdapterBinding;
 import com.ninositsolution.inveleapp.databinding.MainAdapterBinding;
+import com.ninositsolution.inveleapp.utils.Constants;
 
 import java.util.List;
 
@@ -26,12 +28,25 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MainVi
     private List<CategoryVM> arrayList;
     private LayoutInflater layoutInflater;
     ICategory iCategory;
+    String select_id="";
 
     public static final String TAG = CategoryAdapter.class.getSimpleName();
 
-    public CategoryAdapter(Context context, List<CategoryVM> arrayList) {
+    public interface ClickEvent{
+        void setClickEventItem(int position,String menu_id,String name,String banner);
+
+    }
+    ClickEvent clickEvent;
+
+    public void setClikEvent(ClickEvent clikEvent){
+        this.clickEvent = clikEvent;
+    }
+
+
+    public CategoryAdapter(Context context, List<CategoryVM> arrayList,String selected_id) {
         this.context = context;
         this.arrayList = arrayList;
+        this.select_id = selected_id;
     }
     @NonNull
     @Override
@@ -46,15 +61,37 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MainVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryAdapter.MainViewHolder mainViewHolder, int position) {
+    public void onBindViewHolder(@NonNull final CategoryAdapter.MainViewHolder mainViewHolder, final int position) {
 
         categoryVM = arrayList.get(position);
-        mainViewHolder.binding.setAdapterCategory(categoryVM);
+        mainViewHolder.binding.setCategory(categoryVM);
+        mainViewHolder.binding.setICategory(iCategory);
 
         Log.e(TAG,"LIST_SIZE==>"+arrayList.size());
 
         mainViewHolder.bind(categoryVM,iCategory);
 
+        if(select_id.equalsIgnoreCase(arrayList.get(position).menu_id.get())){
+            mainViewHolder.binding.mensCategoriesLayout.setBackgroundColor(context.getResources().getColor(R.color.white));
+            mainViewHolder.binding.mensCategoriesText.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+        }else {
+            mainViewHolder.binding.mensCategoriesLayout.setBackgroundColor(context.getResources().getColor(R.color.grayWhite));
+            mainViewHolder.binding.mensCategoriesText.setTextColor(context.getResources().getColor(R.color.text_color));
+
+        }
+
+        mainViewHolder.binding.mensCategoriesLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e(TAG,"banner==>"+arrayList.get(position).banner_image.get()+"menu_id==>"+arrayList.get(position).menu_id.get());
+
+                mainViewHolder.binding.mensCategoriesLayout.setBackgroundColor(context.getResources().getColor(R.color.white));
+                mainViewHolder.binding.mensCategoriesText.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+                Constants.select_menu_id = arrayList.get(position).menu_id.get();
+                clickEvent.setClickEventItem(position,arrayList.get(position).menu_id.get(),"mens_fashion", String.valueOf(arrayList.get(position).banner_image.get()));
+
+            }
+        });
 
     }
 
@@ -76,7 +113,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MainVi
         }
         public void bind(final CategoryVM categoryVM, ICategory iCategory)
         {
-            this.binding.setAdapterCategory(categoryVM);
+            this.binding.setCategory(categoryVM);
             this.binding.setICategory(iCategory);
             // this.binding.setIAddressBook(iAddressBook);
             binding.executePendingBindings();

@@ -31,6 +31,8 @@ public class Constants {
 
 
     public static  String user_address_id="";
+    public static String select_menu_id = "";
+    public static String select_banner ="";
 
 
 }

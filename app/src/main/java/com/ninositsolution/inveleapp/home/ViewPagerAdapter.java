@@ -54,7 +54,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
         Log.i(TAG, "Image - > "+homeVM.main_banners.get().get(position).image_path);
 
-        binding.setAdapterMainBanner(new HomeVM(homeVM.main_banners.get().get(position)));
+        binding.setAdapterMainBanner(new HomeVM(homeVM.main_banners.get().get(position).image_path));
 
         //Picasso.get().load(homeVM.main_banners.get().get(position).image_path).placeholder(R.drawable.placeholder).into(binding.sliderImage);
 

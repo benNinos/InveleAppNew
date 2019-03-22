@@ -6,10 +6,12 @@ import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
 import android.view.Menu;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.pojo.HomeArrayLists;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
+import com.ninositsolution.inveleapp.utils.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -43,6 +45,7 @@ public class HomeVM extends ViewModel {
     public ObservableField<ArrayList<HomeArrayLists>> home_managements = new ObservableField<>();
     public ObservableField<ArrayList<HomeArrayLists>> product_trendings = new ObservableField<>();
     public ObservableField<ArrayList<HomeArrayLists>> brands = new ObservableField<>();
+    public ObservableField<String> dealHeading = new ObservableField<>("");
 
     public HomeVM(POJOClass pojoClass)
     {
@@ -76,9 +79,9 @@ public class HomeVM extends ViewModel {
         Picasso.get().load(imageUrl).placeholder(R.drawable.main_banner_placeholder).into(imageView);
     }
 
-    public HomeVM(HomeArrayLists homeArrayLists)
+    public HomeVM(String image)
     {
-        imageUrl.set(homeArrayLists.image_path);
+        imageUrl.set(image);
 
     }
 
@@ -116,6 +119,78 @@ public class HomeVM extends ViewModel {
         subBanner2.set(image2);
         subBanner3.set(image3);
     }
+
+    // Deal Products
+
+    public ObservableField<String> dealProductImage = new ObservableField<>();
+    public ObservableField<String> dealItemName = new ObservableField<>("");
+    public ObservableField<String> dealItemRate = new ObservableField<>("");
+    public ObservableField<String> dealItemDeletedRate = new ObservableField<>("");
+
+    public ObservableField<String> dealProductImage()
+    {
+        return dealProductImage;
+    }
+
+    @BindingAdapter({"android:src"})
+    public static void loadDealImage(ImageView imageView, String dealProductImage)
+    {
+        Picasso.get().load(dealProductImage).placeholder(R.drawable.product_detail_placeholder).into(imageView);
+    }
+
+
+    public HomeVM(HomeArrayLists homeArrayLists)
+    {
+        dealProductImage.set(homeArrayLists.image_path);
+        dealItemName.set(homeArrayLists.name);
+        dealItemRate.set(Constants.CURRENCY+String.valueOf(homeArrayLists.invele_price));
+        dealItemDeletedRate.set(Constants.CURRENCY+homeArrayLists.usual_price);
+    }
+
+    //Product trendings
+
+    public ObservableField<String> trendingProductName = new ObservableField<>("");
+    public ObservableField<String> trendingProductImage = new ObservableField<>("");
+    public ObservableField<String> trendingProductRate = new ObservableField<>("");
+    public ObservableField<String> trendingProductDeletedRate = new ObservableField<>("");
+    public ObservableField<String> trendingProductRating = new ObservableField<>("");
+    public ObservableField<Float> trendingProductRatingFloat = new ObservableField<>();
+
+    public HomeVM(HomeVM homeVM, int position)
+    {
+        trendingProductImage.set(homeVM.product_trendings.get().get(position).image_path);
+        trendingProductName.set(homeVM.product_trendings.get().get(position).name);
+        trendingProductRate.set(Constants.CURRENCY+String.valueOf(homeVM.product_trendings.get().get(position).invele_price));
+        trendingProductDeletedRate.set(Constants.CURRENCY+homeVM.product_trendings.get().get(position).usual_price);
+        trendingProductRating.set(String.valueOf(homeVM.product_trendings.get().get(position).average_rating));
+    }
+
+    public ObservableField<String> trendingProductImage()
+    {
+        return trendingProductImage;
+    }
+
+    public ObservableField<Float> trendingProductRatingFloat()
+    {
+        return trendingProductRatingFloat;
+    }
+
+    @BindingAdapter("bind:image")
+    public static void loadTrendingImage(ImageView imageView, String trendingProductImage)
+    {
+        Picasso.get().load(trendingProductImage).placeholder(R.drawable.product_detail_placeholder).into(imageView);
+    }
+
+    @BindingAdapter("{android:rating}")
+    public static void loadTrendingRating(RatingBar ratingBar, Float trendingProductRating)
+    {
+        if (ratingBar.getRating() != trendingProductRating)
+        {
+            ratingBar.setRating(trendingProductRating);
+        }
+    }
+
+    //Brands
 
     //performing Api call
     public void performHomePageApi(String user_id)

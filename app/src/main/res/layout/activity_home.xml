@@ -161,14 +161,17 @@
                         android:layout_height="@dimen/_12sdp" />
 
                     <include layout="@layout/home_flashsales"
-                        android:id="@+id/clicks"
+                        android:id="@+id/deals"
                         app:clickEvent="@{1}"/>
 
                     <Space
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_12sdp" />
 
-                    <include layout="@layout/home_trending" />
+                    <include layout="@layout/home_trending"
+                        android:id="@+id/trending"
+                        app:trendingProducts="@{1}"
+                        />
 
                     <Space
                         android:layout_width="match_parent"

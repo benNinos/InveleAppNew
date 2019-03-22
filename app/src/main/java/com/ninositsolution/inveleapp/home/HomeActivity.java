@@ -8,15 +8,13 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.telecom.TelecomManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.MenuItem;
@@ -45,7 +43,6 @@ import com.ninositsolution.inveleapp.utils.Session;
 import com.ninositsolution.inveleapp.wishlist.WishlistActivity;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -59,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
     private ImageView[] dots;
     private ViewPagerAdapter viewPagerAdapter;
     private Context context;
-    private HomeVM homeVM;
+    private HomeVM homeVMGlobal;
 
     int currentPage = 0;
     Timer timer;
@@ -100,9 +97,10 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
 
-        homeVM = ViewModelProviders.of(this).get(HomeVM.class);
+        homeVMGlobal = ViewModelProviders.of(this).get(HomeVM.class);
 
-        binding.setHome(homeVM);
+        binding.setHome(homeVMGlobal);
+
         binding.setLifecycleOwner(this);
 
 
@@ -132,9 +130,9 @@ public class HomeActivity extends AppCompatActivity {
 
         networkUtil = new NetworkUtil();
 
-        homeVM.performHomePageApi(Session.getUserId(context));
+        homeVMGlobal.performHomePageApi(Session.getUserId(context));
 
-        homeVM.getHomeVMMutableLiveData().observe(this, new Observer<HomeVM>() {
+        homeVMGlobal.getHomeVMMutableLiveData().observe(this, new Observer<HomeVM>() {
             @Override
             public void onChanged(@Nullable HomeVM homeVM) {
 
@@ -157,9 +155,23 @@ public class HomeActivity extends AppCompatActivity {
                         HomeThreeImageViewPagerAdapter homeThreeImageViewPagerAdapter = new HomeThreeImageViewPagerAdapter(context, homeVM);
                         binding.homeThreeImageViewPager.setAdapter(homeThreeImageViewPagerAdapter);
 
+                        //deal products
+
+                        //homeVMGlobal.dealHeading.set("Flash Sales");
+                        binding.deals.dealHead.setText(homeVM.caption.get());
+                        binding.deals.dealRecyclerView.setHasFixedSize(true);
+                        binding.deals.dealRecyclerView.setLayoutManager(new GridLayoutManager(context, 2));
+                        binding.deals.dealRecyclerView.setAdapter(new DealAdapter(context, homeVM));
+
+                        //Trending Products
+                        binding.trending.trendingRecyclerView.setHasFixedSize(true);
+                        binding.trending.trendingRecyclerView.setLayoutManager(new GridLayoutManager(context, 2));
+                        binding.trending.trendingRecyclerView.setAdapter(new TrendingProductsAdapter(context, homeVM));
+
                     } else
                     {
                        // error process
+
                     }
 
                     homeVM.status.set("");
@@ -262,12 +274,12 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        binding.clicks.onClick.setOnClickListener(new View.OnClickListener() {
+        /*binding.clicks.onClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(HomeActivity.this, ProductDetailActivity.class));
             }
-        });
+        });*/
 
       /*  *//*After setting the adapter use the timer *//*
         final Handler handler = new Handler();
@@ -365,25 +377,25 @@ public class HomeActivity extends AppCompatActivity {
 
     private void putStrikeThrough() {
 
-        TextView flash1 = findViewById(R.id.flash_delete_rate1);
+    /*    TextView flash1 = findViewById(R.id.flash_delete_rate1);
         TextView flash2 = findViewById(R.id.flash_delete_rate2);
         TextView flash3 = findViewById(R.id.flash_delete_rate3);
-        TextView flash4 = findViewById(R.id.flash_delete_rate4);
+        TextView flash4 = findViewById(R.id.flash_delete_rate4);*/
 
         TextView trending1 = findViewById(R.id.trending_delete_rate1);
         TextView trending2 = findViewById(R.id.trending_delete_rate2);
         TextView trending3 = findViewById(R.id.trending_delete_rate3);
         TextView trending4 = findViewById(R.id.trending_delete_rate4);
 
-        flash1.setPaintFlags(flash1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+       /* flash1.setPaintFlags(flash1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         flash2.setPaintFlags(flash2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         flash3.setPaintFlags(flash3.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        flash4.setPaintFlags(flash4.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        flash4.setPaintFlags(flash4.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);*/
 
-        trending1.setPaintFlags(trending1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        /*trending1.setPaintFlags(trending1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         trending2.setPaintFlags(trending2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         trending3.setPaintFlags(trending3.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        trending4.setPaintFlags(trending4.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        trending4.setPaintFlags(trending4.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);*/
 
     }
 

@@ -218,7 +218,9 @@ public class RegisterActivity extends AppCompatActivity {
                                 {
                                     Toast.makeText(RegisterActivity.this, ""+registerVM.msg.get(), Toast.LENGTH_SHORT).show();
                                     Session.setUserId(String.valueOf(registerVM.user.get().id), RegisterActivity.this);
+                                    Session.setUserPhone(String.valueOf(registerVM.user.get().mobile), RegisterActivity.this);
                                     Log.i(TAG, "user_id : "+registerVM.user.get().id);
+                                    Log.i(TAG, "user_phone : "+registerVM.user.get().mobile);
                                     getOtpLayout();
                                     registerVMGlobal.enter_otp.set(String.valueOf(registerVM.otp.get()));
 

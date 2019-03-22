@@ -1,6 +1,6 @@
 package com.ninositsolution.inveleapp.utils;
 
-public class Constants {
+public final class Constants {
 
     public static final Integer SUCCESS = 0;
 
@@ -33,6 +33,10 @@ public class Constants {
     public static  String user_address_id="";
     public static String select_menu_id = "";
     public static String select_banner ="";
+
+    public static final String CURRENCY = "$";
+    public static final String TYPE_MOBILE = "mobile";
+    public static final String TYPE_EMAIL = "email";
 
 
 }

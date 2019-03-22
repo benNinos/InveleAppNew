@@ -79,6 +79,42 @@ public class HomeVM extends ViewModel {
     public HomeVM(HomeArrayLists homeArrayLists)
     {
         imageUrl.set(homeArrayLists.image_path);
+
+    }
+
+    //Sub banners
+
+    public ObservableField<String> subBanner1 = new ObservableField<>();
+    public ObservableField<String> subBanner2 = new ObservableField<>();
+    public ObservableField<String> subBanner3 = new ObservableField<>();
+
+    public ObservableField<String> subBanner1() { return subBanner1; }
+    public ObservableField<String> subBanner2() { return subBanner2; }
+    public ObservableField<String> subBanner3() { return subBanner3; }
+
+    @BindingAdapter({"android:src"})
+    public static void loadSubBanner1(ImageView imageView, String subBanner1)
+    {
+        Picasso.get().load(subBanner1).placeholder(R.drawable.sub_banner_placeholder).into(imageView);
+    }
+
+    @BindingAdapter({"android:src"})
+    public static void loadSubBanner2(ImageView imageView, String subBanner2)
+    {
+        Picasso.get().load(subBanner2).placeholder(R.drawable.sub_banner_placeholder).into(imageView);
+    }
+
+    @BindingAdapter({"android:src"})
+    public static void loadSubBanner3(ImageView imageView, String subBanner3)
+    {
+        Picasso.get().load(subBanner3).placeholder(R.drawable.sub_banner_placeholder).into(imageView);
+    }
+
+    public HomeVM(String image1, String image2, String image3)
+    {
+        subBanner1.set(image1);
+        subBanner2.set(image2);
+        subBanner3.set(image3);
     }
 
     //performing Api call

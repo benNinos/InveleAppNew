@@ -1,112 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:background="@color/invelebg"
-    android:layout_width="match_parent" android:layout_height="wrap_content">
-    
-    <LinearLayout
-    android:weightSum="2"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:columnCount="2">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
 
-        <RelativeLayout
-            android:padding="@dimen/_1sdp"
-            android:layout_margin="@dimen/_8sdp"
-            android:layout_width="0dp"
-            android:background="@drawable/margin"
-            android:layout_weight="1"
-            android:layout_height="@dimen/_60sdp">
+        <variable
+            name="brandViewPager"
+            type="com.ninositsolution.inveleapp.home.HomeVM"/>
 
-            <ImageView
-                android:id="@+id/brand_image_1"
-                android:layout_width="match_parent"
-                android:layout_centerInParent="true"
-                android:scaleType="centerCrop"
-                android:layout_height="match_parent"
-                android:src="@drawable/bag2"
-                tools:ignore="ContentDescription" />
-
-        </RelativeLayout>
-
-
-
-
-        <RelativeLayout
-            android:padding="@dimen/_1sdp"
-            android:layout_margin="@dimen/_8sdp"
-            android:background="@drawable/margin"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="@dimen/_60sdp">
-
-            <ImageView
-                android:id="@+id/brand_image_2"
-                android:layout_width="match_parent"
-                android:layout_centerInParent="true"
-                android:scaleType="centerCrop"
-                android:layout_height="match_parent"
-                android:src="@drawable/bag2"
-                tools:ignore="ContentDescription" />
-
-        </RelativeLayout>
-
-
-</LinearLayout>
+    </data>
 
     <LinearLayout
-        android:weightSum="2"
+        android:orientation="vertical"
+        android:background="@color/invelebg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:columnCount="2">
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:weightSum="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:columnCount="2">
 
 
-        <RelativeLayout
-            android:padding="@dimen/_1sdp"
-            android:layout_margin="@dimen/_8sdp"
-            android:layout_width="0dp"
-            android:background="@drawable/margin"
-            android:layout_weight="1"
-            android:layout_height="@dimen/_60sdp">
+            <RelativeLayout
+                android:padding="@dimen/_1sdp"
+                android:layout_margin="@dimen/_8sdp"
+                android:layout_width="0dp"
+                android:background="@drawable/margin"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_60sdp">
 
-            <ImageView
-                android:id="@+id/brand_image_3"
-                android:layout_width="match_parent"
-                android:layout_centerInParent="true"
-                android:scaleType="centerCrop"
-                android:layout_height="match_parent"
-                android:src="@drawable/bag2"
-                tools:ignore="ContentDescription" />
+                <ImageView
+                    android:id="@+id/brand_image_1"
+                    android:layout_width="match_parent"
+                    android:layout_centerInParent="true"
+                    android:scaleType="fitXY"
+                    android:layout_height="match_parent"
+                    android:src="@{brandViewPager.brandImage1}"
+                    tools:ignore="ContentDescription" />
 
-        </RelativeLayout>
-
-
+            </RelativeLayout>
 
 
-        <RelativeLayout
-            android:padding="@dimen/_1sdp"
-            android:layout_margin="@dimen/_8sdp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/margin"
-            android:layout_height="@dimen/_60sdp">
 
-            <ImageView
-                android:id="@+id/brand_image_4"
-                android:layout_width="match_parent"
-                android:layout_centerInParent="true"
-                android:scaleType="centerCrop"
-                android:layout_height="match_parent"
-                android:src="@drawable/bag2"
-                tools:ignore="ContentDescription" />
 
-        </RelativeLayout>
+            <RelativeLayout
+                android:padding="@dimen/_1sdp"
+                android:layout_margin="@dimen/_8sdp"
+                android:background="@drawable/margin"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_60sdp">
 
+                <ImageView
+                    android:id="@+id/brand_image_2"
+                    android:layout_width="match_parent"
+                    android:layout_centerInParent="true"
+                    android:scaleType="fitXY"
+                    android:layout_height="match_parent"
+                    android:src="@{brandViewPager.brandImage2}"
+                    tools:ignore="ContentDescription" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:weightSum="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:columnCount="2">
+
+
+            <RelativeLayout
+                android:padding="@dimen/_1sdp"
+                android:layout_margin="@dimen/_8sdp"
+                android:layout_width="0dp"
+                android:background="@drawable/margin"
+                android:layout_weight="1"
+                android:layout_height="@dimen/_60sdp">
+
+                <ImageView
+                    android:id="@+id/brand_image_3"
+                    android:layout_width="match_parent"
+                    android:layout_centerInParent="true"
+                    android:scaleType="fitXY"
+                    android:layout_height="match_parent"
+                    android:src="@{brandViewPager.brandImage3}"
+                    tools:ignore="ContentDescription" />
+
+            </RelativeLayout>
+
+
+
+
+            <RelativeLayout
+                android:padding="@dimen/_1sdp"
+                android:layout_margin="@dimen/_8sdp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/margin"
+                android:layout_height="@dimen/_60sdp">
+
+                <ImageView
+                    android:id="@+id/brand_image_4"
+                    android:layout_width="match_parent"
+                    android:layout_centerInParent="true"
+                    android:scaleType="fitXY"
+                    android:layout_height="match_parent"
+                    android:src="@{brandViewPager.brandImage4}"
+                    tools:ignore="ContentDescription" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</layout>
+

@@ -116,12 +116,10 @@ public class HomeActivity extends AppCompatActivity {
 
         putStrikeThrough();
 
-        BrandViewPagerAdapter brandViewPagerAdapter = new BrandViewPagerAdapter(this);
+
         UnderViewPagerAdapter underViewPagerAdapter = new UnderViewPagerAdapter(this);
         GeneralViewPagerAdapter generalViewPagerAdapter = new GeneralViewPagerAdapter(this);
 
-
-        binding.viewpagerBrands.setAdapter(brandViewPagerAdapter);
         binding.viewpagerMens.setAdapter(generalViewPagerAdapter);
         binding.viewpagerWomens.setAdapter(generalViewPagerAdapter);
         binding.viewpagerElectronics.setAdapter(generalViewPagerAdapter);
@@ -156,8 +154,6 @@ public class HomeActivity extends AppCompatActivity {
                         binding.homeThreeImageViewPager.setAdapter(homeThreeImageViewPagerAdapter);
 
                         //deal products
-
-                        //homeVMGlobal.dealHeading.set("Flash Sales");
                         binding.deals.dealHead.setText(homeVM.caption.get());
                         binding.deals.dealRecyclerView.setHasFixedSize(true);
                         binding.deals.dealRecyclerView.setLayoutManager(new GridLayoutManager(context, 2));
@@ -167,6 +163,10 @@ public class HomeActivity extends AppCompatActivity {
                         binding.trending.trendingRecyclerView.setHasFixedSize(true);
                         binding.trending.trendingRecyclerView.setLayoutManager(new GridLayoutManager(context, 2));
                         binding.trending.trendingRecyclerView.setAdapter(new TrendingProductsAdapter(context, homeVM));
+
+                        //Brands
+                        BrandViewPagerAdapter brandViewPagerAdapter = new BrandViewPagerAdapter(context, homeVM);
+                        binding.viewpagerBrands.setAdapter(brandViewPagerAdapter);
 
                     } else
                     {

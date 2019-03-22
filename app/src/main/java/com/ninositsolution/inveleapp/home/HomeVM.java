@@ -191,6 +191,58 @@ public class HomeVM extends ViewModel {
     }
 
     //Brands
+    public ObservableField<String> brandImage1 = new ObservableField<>();
+    public ObservableField<String> brandImage2 = new ObservableField<>();
+    public ObservableField<String> brandImage3 = new ObservableField<>();
+    public ObservableField<String> brandImage4 = new ObservableField<>();
+
+    public HomeVM(String image1, String image2, String image3, String image4)
+    {
+        brandImage1.set(image1);
+        brandImage2.set(image2);
+        brandImage3.set(image3);
+        brandImage4.set(image4);
+    }
+
+    public ObservableField<String> getBrandImage1() {
+        return brandImage1;
+    }
+
+    public ObservableField<String> getBrandImage2() {
+        return brandImage2;
+    }
+
+    public ObservableField<String> getBrandImage3() {
+        return brandImage3;
+    }
+
+    public ObservableField<String> getBrandImage4() {
+        return brandImage4;
+    }
+
+    @BindingAdapter("{android:src}")
+    public static void loadBrand1(ImageView imageView, String image)
+    {
+        Picasso.get().load(image).placeholder(R.drawable.product_detail_placeholder).into(imageView);
+    }
+
+    @BindingAdapter("{android:src}")
+    public static void loadBrand2(ImageView imageView, String image)
+    {
+        Picasso.get().load(image).placeholder(R.drawable.product_detail_placeholder).into(imageView);
+    }
+
+    @BindingAdapter("{android:src}")
+    public static void loadBrand3(ImageView imageView, String image)
+    {
+        Picasso.get().load(image).placeholder(R.drawable.product_detail_placeholder).into(imageView);
+    }
+
+    @BindingAdapter("{android:src}")
+    public static void loadBrand4(ImageView imageView, String image)
+    {
+        Picasso.get().load(image).placeholder(R.drawable.product_detail_placeholder).into(imageView);
+    }
 
     //performing Api call
     public void performHomePageApi(String user_id)

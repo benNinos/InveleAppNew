@@ -8,6 +8,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -41,13 +42,15 @@ public class AddMobileActivity extends AppCompatActivity {
 
 
                 Log.e(TAG, "Mobile number is : -->" + Session.getUserPhone(context));
+                binding.mobileNumber.setInputType(InputType.TYPE_CLASS_NUMBER);
             }
             else
                 {
 
                 addMobileVM.mobileNumber.set(Session.getUserPhone(context));
+                binding.mobileNumber.setClickable(false);
 
-                Log.e(TAG, "Mobile number is : -->" + Session.getUserPhone(context));
+                    Log.e(TAG, "Mobile number is : -->" + Session.getUserPhone(context));
 
                 }
 

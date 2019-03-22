@@ -9,4 +9,7 @@ public interface IAddMobile {
 
     void onBackClicked();
     void onVerifyOTPClicked();
+    void onNewVerifyOTPClicked();
+    void onChangeMobileClicked();
+    void onSubmitButtonClicked();
 }

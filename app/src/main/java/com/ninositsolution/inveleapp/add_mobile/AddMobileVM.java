@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableField;
 
 import com.ninositsolution.inveleapp.add_mobile.pojo.MobileOTPRequest;
+import com.ninositsolution.inveleapp.add_mobile.pojo.VerifyOTPRequest;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 import com.ninositsolution.inveleapp.pojo.Users;
 
@@ -19,10 +20,18 @@ public class AddMobileVM extends ViewModel {
 
     public ObservableField<String> mobileNumber = new ObservableField<>("");
     public ObservableField<String> otpCode = new ObservableField<>("");
+    public ObservableField<String> newMobileNumber = new ObservableField<>("");
+    public ObservableField<String> newOtpCode = new ObservableField<>("");
+
 
 
 
     private MutableLiveData<AddMobileVM> mobileOTPMutableLiveData = new MutableLiveData<>();
+
+
+
+    private MutableLiveData<AddMobileVM> verifyMobileOTPMutableLiveData = new MutableLiveData<>();
+
 
     public ObservableField<String> status = new ObservableField<>();
     public ObservableField<String> msg = new ObservableField<>();
@@ -53,9 +62,44 @@ public class AddMobileVM extends ViewModel {
         mobileOTPMutableLiveData = addMobileRepo.getOtpMobileMutableLiveData(mobileOTPRequest);
     }
 
+    public void newmobileVerifyOTP(String user_id, String type)
+    {
+        MobileOTPRequest mobileOTPRequest = new MobileOTPRequest(user_id,"mobile",newMobileNumber.get());
+        mobileOTPMutableLiveData = addMobileRepo.getOtpMobileMutableLiveData(mobileOTPRequest);
+    }
 
-    public MutableLiveData<AddMobileVM> getMobileOTPMutableLiveData() {
+
+
+
+    public void changeMobileOTP(String user_id, String type)
+    {
+        VerifyOTPRequest verifyOTPRequest = new VerifyOTPRequest(user_id,"mobile",mobileNumber.get(),otpCode.get());
+        verifyMobileOTPMutableLiveData = addMobileRepo.getOtpVerifyMobileMutableLiveData(verifyOTPRequest);
+
+    }
+    public void newMobileOTP(String user_id, String type)
+    {
+        VerifyOTPRequest verifyOTPRequest = new VerifyOTPRequest(user_id,"mobile",newMobileNumber.get(),newOtpCode.get());
+        verifyMobileOTPMutableLiveData = addMobileRepo.getOtpVerifyMobileMutableLiveData(verifyOTPRequest);
+
+    }
+
+
+
+
+
+
+
+    public MutableLiveData<AddMobileVM> getMobileOTPMutableLiveData()
+
+    {
         return mobileOTPMutableLiveData;
+    }
+
+
+    public MutableLiveData<AddMobileVM> getVerifyMobileOTPMutableLiveData()
+    {
+        return verifyMobileOTPMutableLiveData;
     }
 
 

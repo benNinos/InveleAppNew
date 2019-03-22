@@ -4,6 +4,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
 
 import com.ninositsolution.inveleapp.add_mobile.pojo.MobileOTPRequest;
+import com.ninositsolution.inveleapp.add_mobile.pojo.VerifyOTPRequest;
 import com.ninositsolution.inveleapp.api.ApiService;
 import com.ninositsolution.inveleapp.api.RetrofitClient;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
@@ -24,6 +25,10 @@ public class AddMobileRepo {
 
 
     private MutableLiveData<AddMobileVM> otpMobileMutableLiveData = new MutableLiveData<>();
+
+
+    private MutableLiveData<AddMobileVM> otpVerifyMobileMutableLiveData = new MutableLiveData<>();
+
 
 
 
@@ -60,6 +65,48 @@ public class AddMobileRepo {
 
         return otpMobileMutableLiveData;
     }
+
+
+
+
+    public MutableLiveData<AddMobileVM> getOtpVerifyMobileMutableLiveData(VerifyOTPRequest verifyOTPRequest)
+    {
+        ApiService apiService = RetrofitClient.getApiService();
+        apiService.verifyOtpMobileApi(verifyOTPRequest).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<POJOClass>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(POJOClass pojoClass) {
+                        Log.i(TAG, "onNext : "+pojoClass.status);
+
+                        AddMobileVM addMobileVM = new AddMobileVM(pojoClass);
+                        otpVerifyMobileMutableLiveData.setValue(addMobileVM);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+
+
+
+
+        return otpVerifyMobileMutableLiveData;
+    }
+
+
 
 
 }

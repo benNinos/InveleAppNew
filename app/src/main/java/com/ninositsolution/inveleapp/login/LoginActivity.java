@@ -191,7 +191,9 @@ public class LoginActivity extends AppCompatActivity {
                                 {
 
                                     Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
+                                    Session.setUserPhone(loginVMGlobal.mobile.get(), context);
                                     loginVM.status.set("");
+
                                     startActivity(new Intent(context, HomeActivity.class));
                                 } else  {
                                     Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();

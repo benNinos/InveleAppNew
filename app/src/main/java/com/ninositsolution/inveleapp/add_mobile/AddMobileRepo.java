@@ -8,6 +8,7 @@ import com.ninositsolution.inveleapp.add_mobile.pojo.VerifyOTPRequest;
 import com.ninositsolution.inveleapp.api.ApiService;
 import com.ninositsolution.inveleapp.api.RetrofitClient;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
+import com.ninositsolution.inveleapp.utils.Constants;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -45,6 +46,8 @@ public class AddMobileRepo {
                     @Override
                     public void onNext(POJOClass pojoClass) {
                         Log.i(TAG, "onNext : "+pojoClass.status);
+                        Log.i(TAG, "onNext : "+pojoClass.msg);
+                        Log.i(TAG, "onNext : "+pojoClass.otp);
 
                         AddMobileVM addMobileVM = new AddMobileVM(pojoClass);
                         otpMobileMutableLiveData.setValue(addMobileVM);
@@ -107,6 +110,43 @@ public class AddMobileRepo {
     }
 
 
+    public int newMobileValidaiton(String newMobileNo)
+    {
+        if (newMobileNo.isEmpty())
+        {
+            return Constants.MOBILE_NO_EMPTY;
+        }
+        else
+        {
+            return Constants.SUCCESS;
+        }
+    }
+
+    public int verifyCurrentMobileOTPValidation(String otp)
+    {
+        if (otp.isEmpty())
+        {
+            return Constants.OTP_EMPTY;
+        }
+
+        else
+        {
+            return Constants.SUCCESS;
+        }
 
 
+    }
+
+
+    public int updateMobileNumerValidation(String newMobileno, String newOtp) {
+
+
+        if (newMobileno.isEmpty()) {
+            return Constants.MOBILE_NO_EMPTY;
+        } else if (newOtp.isEmpty()) {
+            return Constants.OTP_EMPTY;
+        } else {
+            return Constants.SUCCESS;
+        }
+    }
 }

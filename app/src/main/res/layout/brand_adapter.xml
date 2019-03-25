@@ -7,7 +7,7 @@
     <data class = "OtherFragmentBrandAdapterBinding">
 
         <variable
-            name="adapterbrand"
+            name="otherFragment"
             type="com.ninositsolution.inveleapp.categories.fragments.fragment_other_categories.OtherFragmentVM"/>
         <variable
             name="iOtherCategory"
@@ -17,7 +17,7 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
 
@@ -36,7 +36,7 @@
             android:id="@+id/image_icon"
             android:layout_width="@dimen/all_brand_photo_width"
             android:layout_height="@dimen/all_brand_photo_height"
-            bind:brandUrl="@{adapterbrand.brandUrl}"
+            bind:brandUrl="@{otherFragment.brandUrl}"
             app:srcCompat="@drawable/img1"
             tools:ignore="ContentDescription" />
 
@@ -49,7 +49,8 @@
             android:layout_gravity="center_horizontal"
             android:textSize="@dimen/all_brand_photo_text"
             android:hint="@string/formal"
-            android:text="@={adapterbrand.category_name}"/>
+            android:text="@={otherFragment.category_name}"
+            android:visibility="gone"/>
         </LinearLayout>
 
 

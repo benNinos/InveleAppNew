@@ -31,7 +31,6 @@ public class POJOClass {
     public List<CategoryModel>categories;
     public CategoryModel all_categories;
     public List<CategoryModel>parent_categories;
-   // public List<CategoryModel>brands;
     public List<CategoryModel>child_categories;
 
 }

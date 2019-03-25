@@ -11,17 +11,20 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.ninositsolution.inveleapp.R;
+import com.ninositsolution.inveleapp.categories.CategoryModel;
 import com.ninositsolution.inveleapp.categories.fragments.fragment_all_categories.AllCategoryFragmentVM;
 import com.ninositsolution.inveleapp.databinding.FragmentOtherCategoriesBinding;
 import com.ninositsolution.inveleapp.utils.Constants;
 
 import java.lang.invoke.ConstantCallSite;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,8 +34,13 @@ public class OtherCategoriesFragment extends Fragment {
 
     FragmentOtherCategoriesBinding binding;
     OtherFragmentVM otherFragmentVM;
+    CategoryModel categoryModel;
     IOtherCategory iOtherCategory;
+    List<CategoryModel>all_brands_list,categories_list,childList;
+    List<OtherFragmentVM>brand_list_separate;
     BrandCategoryAdapter brandCategoryAdapter;
+    public static final String TAG = OtherCategoriesFragment.class.getSimpleName();
+    int position=0;
 
     private RecyclerView recyclerView;
     private ExpandableCategoriesAdapter expandableCategoriesAdapter;
@@ -40,6 +48,7 @@ public class OtherCategoriesFragment extends Fragment {
             R.drawable.mb1, R.drawable.mb1, R.drawable.mb2};
     private String header = "Women's Fashion";
     private List<ExpandableCategoriesPOJO> expandableCategoriesPOJOList;
+    private List<OtherFragmentVM>expandableVM;
     ExpandableCategoriesPOJO expandableCategoriesPOJO;
 
 
@@ -65,36 +74,108 @@ public class OtherCategoriesFragment extends Fragment {
 
        // otherFragmentVM.brandUrl.set(String.valueOf(new OtherFragmentVM(Constants.select_banner)));
 
-
-
-
-       // otherFragmentVM.brandUrl.set(Constants.select_banner);
         binding.setOtherFragment(new OtherFragmentVM(Constants.select_banner));
-       // otherFragmentVM.bannerImage().set(Constants.select_banner);
+       otherFragmentVM.bannerImage().set(Constants.select_banner);
+
+      // if(!Constants.category_position.equalsIgnoreCase("")) {
+
+         //  if (Constants.category_position.equalsIgnoreCase("0")) {
+
+               otherFragmentVM.getBrandCategoryList();
+               otherFragmentVM.getBrandVMMutableLiveData().observe(this, new Observer<OtherFragmentVM>() {
+                   @Override
+                   public void onChanged(@Nullable OtherFragmentVM otherFragmentVMS) {
+                       try {
+
+                           if (otherFragmentVMS.status.get().equalsIgnoreCase("success")) {
+
+                               if (!otherFragmentVMS.categories.get().isEmpty()) {
+                                   // for(int c = 0;c<otherFragmentVMS.categories.get().size();c++) {
+                                   position = Integer.parseInt(Constants.category_position);
+                                   categories_list = otherFragmentVMS.categories.get();
+
+                                   all_brands_list = otherFragmentVMS.categories.get().get(position).brands;
+                                   Log.e(TAG, "all_brands_list==>" + all_brands_list.size());
+                                   brand_list_separate = new ArrayList<>();
+                                   categoryModel = new CategoryModel();
+                                   for (int i = 0; i < all_brands_list.size(); i++) {
+                                       Log.e(TAG, "id==>" + all_brands_list.get(i).id);
+
+                                       categoryModel = new CategoryModel(String.valueOf(position), all_brands_list.get(i).id, all_brands_list.get(i).seller_id,
+                                               all_brands_list.get(i).name, all_brands_list.get(i).status, all_brands_list.get(i).approde_status, all_brands_list.get(i).image_path);
+
+                                       otherFragmentVM = new OtherFragmentVM(categoryModel);
+                                       brand_list_separate.add(otherFragmentVM);
+
+                                   }
+                                   brandCategoryAdapter = new BrandCategoryAdapter(view.getContext(), brand_list_separate);
+                                   binding.brandRecyclerview.setAdapter(brandCategoryAdapter);
+                                   // }
+                                   //  brandCategoryAdapter.notifyDataSetChanged();
+                               }
+
+                               if(!categories_list.isEmpty()){
+                                   Log.e(TAG, "child_list_size==>" + categories_list.get(position).child_categories.size());
+                                   childList = new ArrayList<>();
+                                   childList = otherFragmentVMS.categories.get().get(position).child_categories;
+                                   for(int i=0;i<childList.size();i++) {
+
+                                       expandableCategoriesPOJO = new ExpandableCategoriesPOJO(childList.get(i).name, "","");
+                                       otherFragmentVM = new OtherFragmentVM(expandableCategoriesPOJO);
+                                       expandableVM.add(otherFragmentVM);
+                                      expandableCategoriesAdapter = new ExpandableCategoriesAdapter(expandableVM, getContext());
+                                       binding.categoryRecycler.setAdapter(expandableCategoriesAdapter);
+                                   }
+                               }
+
+                           } else if (otherFragmentVMS.status.get().equalsIgnoreCase("error")) {
+                               Toast.makeText(getActivity(), otherFragmentVMS.msg.get(), Toast.LENGTH_SHORT).show();
+                           }
+                       } catch (NullPointerException e) {
+                           e.printStackTrace();
+                       }
+                   }
+               });
+
+               // Log.e(TAG,"child_list_size==>"+otherFragmentVM.child_categories.get().size());
+          /* } else {
+               try {
+                   Log.e(TAG,"categories_size_now==>"+otherFragmentVM.categories.get().size());
+
+                   if (categories_list.size() > 0) {
+                       if (!Constants.category_position.equalsIgnoreCase("")) {
+                           position = Integer.parseInt(Constants.category_position);
+                       }
+                       all_brands_list = new ArrayList<>();
+                       all_brands_list = categories_list.get(position).brands;
+                       Log.e(TAG, "next_brand_list==>" + all_brands_list.size());
+                       brand_list_separate = new ArrayList<>();
+                       categoryModel = new CategoryModel();
+                       for (int i = 0; i < all_brands_list.size(); i++) {
+                           Log.e(TAG, "id==>" + all_brands_list.get(i).id);
+
+                           categoryModel = new CategoryModel(String.valueOf(position), all_brands_list.get(i).id, all_brands_list.get(i).seller_id,
+                                   all_brands_list.get(i).name, all_brands_list.get(i).status, all_brands_list.get(i).approde_status, all_brands_list.get(i).image_path);
+
+                           otherFragmentVM = new OtherFragmentVM(categoryModel);
+                           brand_list_separate.add(otherFragmentVM);
 
 
+                       }
+                       brandCategoryAdapter = new BrandCategoryAdapter(view.getContext(), brand_list_separate);
+                       binding.brandRecyclerview.setAdapter(brandCategoryAdapter);
+                       //  brandCategoryAdapter.notifyDataSetChanged();
+                   } else {
+                       Log.e(TAG, "list_empty==>");
+                       Toast.makeText(getActivity(), "List Empty", Toast.LENGTH_SHORT).show();
+                   }
+               }catch (NullPointerException e){
+                   e.printStackTrace();
+               }
 
-        otherFragmentVM.getBrandCategoryList();
-        otherFragmentVM.getBrandVMMutableLiveData().observe(this, new Observer<List<OtherFragmentVM>>() {
-            @Override
-            public void onChanged(@Nullable List<OtherFragmentVM> otherFragmentVMS) {
-                try {
+           }
+       }*/
 
-                    if (!otherFragmentVMS.isEmpty()) {
-
-                        brandCategoryAdapter = new BrandCategoryAdapter(view.getContext(), otherFragmentVMS);
-                        binding.brandRecyclerview.setAdapter(brandCategoryAdapter);
-
-                    } else {
-                        Toast.makeText(getActivity(), "List Empty", Toast.LENGTH_SHORT).show();
-                    }
-                }catch (NullPointerException e){
-                    e.printStackTrace();
-                }
-
-
-            }
-        });
 
         // loadExpandableRecycler();
 
@@ -103,7 +184,7 @@ public class OtherCategoriesFragment extends Fragment {
 
     private void loadExpandableRecycler() {
 
-        expandableCategoriesPOJO = new ExpandableCategoriesPOJO(header, images);
+      /*  expandableCategoriesPOJO = new ExpandableCategoriesPOJO(header, images);
         expandableCategoriesPOJO = new ExpandableCategoriesPOJO(header, images);
         expandableCategoriesPOJO = new ExpandableCategoriesPOJO(header, images);
         expandableCategoriesPOJO = new ExpandableCategoriesPOJO(header, images);
@@ -113,7 +194,7 @@ public class OtherCategoriesFragment extends Fragment {
 
 
         expandableCategoriesAdapter = new ExpandableCategoriesAdapter(expandableCategoriesPOJOList, getContext());
-        recyclerView.setAdapter(expandableCategoriesAdapter);
+       // recyclerView.setAdapter(expandableCategoriesAdapter);*/
     }
 
 }

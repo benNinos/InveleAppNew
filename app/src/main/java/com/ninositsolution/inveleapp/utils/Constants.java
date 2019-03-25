@@ -28,11 +28,12 @@ public class Constants {
     public static final Integer CONFIRM_NEW_PASSWORD_EMPTY = 20;
     public static final Integer NEW_PASSWORD_EMPTY = 21;
 
-
-
     public static  String user_address_id="";
     public static String select_menu_id = "";
     public static String select_banner ="";
+    public static String category_position="";
+    public static String all_category_clicked="false";
+
 
 
 }

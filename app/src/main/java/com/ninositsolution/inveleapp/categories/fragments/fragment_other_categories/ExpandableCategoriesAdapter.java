@@ -1,6 +1,7 @@
 package com.ninositsolution.inveleapp.categories.fragments.fragment_other_categories;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ninositsolution.inveleapp.R;
+import com.ninositsolution.inveleapp.databinding.AdapterCategoryRecyclerBinding;
 
 import java.util.List;
 
@@ -28,8 +30,15 @@ public class ExpandableCategoriesAdapter extends RecyclerView.Adapter<Expandable
     private static int currentPosition = -1;
     private static int previousPosition = -1;
 
-    public ExpandableCategoriesAdapter(List<ExpandableCategoriesPOJO> expandableCategoriesPOJOList, Context context) {
-        this.expandableCategoriesPOJOList = expandableCategoriesPOJOList;
+    private OtherFragmentVM otherFragmentVM;
+    private List<OtherFragmentVM> arrayList;
+    private LayoutInflater layoutInflater;
+    IOtherCategory iOtherCategory;
+
+    public static final String TAG = BrandCategoryAdapter.class.getSimpleName();
+
+    public ExpandableCategoriesAdapter(List<OtherFragmentVM> expandableCategoriesPOJOList, Context context) {
+        this.arrayList = expandableCategoriesPOJOList;
         this.context = context;
         notifyDataSetChanged();
     }
@@ -37,59 +46,62 @@ public class ExpandableCategoriesAdapter extends RecyclerView.Adapter<Expandable
     @NonNull
     @Override
     public ExpandableCategoriesViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_category_recycler, viewGroup, false);
-        return new ExpandableCategoriesViewHolder(view);
+
+        if(layoutInflater ==null){
+            layoutInflater = LayoutInflater.from(viewGroup.getContext());
+        }
+
+        AdapterCategoryRecyclerBinding binding  = DataBindingUtil.inflate(layoutInflater,R.layout.adapter_category_recycler,viewGroup,false);
+        return new ExpandableCategoriesViewHolder(binding,iOtherCategory);
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ExpandableCategoriesViewHolder expandableCategoriesViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final ExpandableCategoriesViewHolder expandableCategoriesViewHolder, final int position) {
+
+        otherFragmentVM = arrayList.get(position);
+        expandableCategoriesViewHolder.binding.setOtherFragment(otherFragmentVM);
+        expandableCategoriesViewHolder.binding.setIOtherCategory(iOtherCategory);
 
 
-        if (expandableCategoriesViewHolder.childlayout.getVisibility() == View.VISIBLE)
+        if (expandableCategoriesViewHolder.binding.categoriesChildlayout.getVisibility() == View.VISIBLE)
         {
             Animation slideUp = AnimationUtils.loadAnimation(context, R.anim.slide_up);
-            expandableCategoriesViewHolder.childlayout.startAnimation(slideUp);
-            expandableCategoriesViewHolder.downArrow.setVisibility(View.VISIBLE);
-            expandableCategoriesViewHolder.upArrow.setVisibility(View.GONE);
-            expandableCategoriesViewHolder.childlayout.setVisibility(View.GONE);
+            expandableCategoriesViewHolder.binding.categoriesChildlayout.startAnimation(slideUp);
+            expandableCategoriesViewHolder.binding.downArrow.setVisibility(View.VISIBLE);
+            expandableCategoriesViewHolder.binding.upArrow.setVisibility(View.GONE);
+            expandableCategoriesViewHolder.binding.categoriesChildlayout.setVisibility(View.GONE);
         }
 
-        expandableCategoriesViewHolder.categoriesHeader.setText("Women's Fashion");
+        expandableCategoriesViewHolder.binding.categoriesHeader.setText("Women's Fashion");
 
-        expandableCategoriesViewHolder.categoriesImg1.setImageResource(R.drawable.img1);
-        expandableCategoriesViewHolder.categoriesImg2.setImageResource(R.drawable.img2);
-        expandableCategoriesViewHolder.categoriesImg3.setImageResource(R.drawable.img3);
-        expandableCategoriesViewHolder.categoriesImg4.setImageResource(R.drawable.img4);
-        expandableCategoriesViewHolder.categoriesImg5.setImageResource(R.drawable.img1);
-        expandableCategoriesViewHolder.categoriesImg6.setImageResource(R.drawable.img2);
 
-        if (currentPosition == i)
+        if (currentPosition == position)
         {
-            if (expandableCategoriesViewHolder.childlayout.getVisibility() == View.VISIBLE)
+            if (expandableCategoriesViewHolder.binding.categoriesChildlayout.getVisibility() == View.VISIBLE)
             {
                 Animation slideUp = AnimationUtils.loadAnimation(context, R.anim.slide_up);
-                expandableCategoriesViewHolder.childlayout.startAnimation(slideUp);
-                expandableCategoriesViewHolder.downArrow.setVisibility(View.VISIBLE);
-                expandableCategoriesViewHolder.upArrow.setVisibility(View.GONE);
-                expandableCategoriesViewHolder.childlayout.setVisibility(View.GONE);
+                expandableCategoriesViewHolder.binding.categoriesChildlayout.startAnimation(slideUp);
+                expandableCategoriesViewHolder.binding.downArrow.setVisibility(View.VISIBLE);
+                expandableCategoriesViewHolder.binding.upArrow.setVisibility(View.GONE);
+                expandableCategoriesViewHolder.binding.categoriesChildlayout.setVisibility(View.GONE);
             }
 
             else {
                 Animation slideDown = AnimationUtils.loadAnimation(context, R.anim.slide_down);
-                expandableCategoriesViewHolder.childlayout.setVisibility(View.VISIBLE);
-                expandableCategoriesViewHolder.childlayout.startAnimation(slideDown);
-                expandableCategoriesViewHolder.downArrow.setVisibility(View.GONE);
-                expandableCategoriesViewHolder.upArrow.setVisibility(View.VISIBLE);
-                expandableCategoriesViewHolder.childlayout.requestFocus();
+                expandableCategoriesViewHolder.binding.categoriesChildlayout.setVisibility(View.VISIBLE);
+                expandableCategoriesViewHolder.binding.categoriesChildlayout.startAnimation(slideDown);
+                expandableCategoriesViewHolder.binding.downArrow.setVisibility(View.GONE);
+                expandableCategoriesViewHolder.binding.upArrow.setVisibility(View.VISIBLE);
+                expandableCategoriesViewHolder.binding.categoriesChildlayout.requestFocus();
 
             }
-
         }
 
-        expandableCategoriesViewHolder.categoriesHeader.setOnClickListener(new View.OnClickListener() {
+        expandableCategoriesViewHolder.binding.categoriesHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentPosition = i;
+                currentPosition = position;
                 notifyDataSetChanged();
             }
         });
@@ -98,33 +110,32 @@ public class ExpandableCategoriesAdapter extends RecyclerView.Adapter<Expandable
 
     @Override
     public int getItemCount() {
-        return 5;
+        return arrayList.size();
     }
 
     public class ExpandableCategoriesViewHolder extends RecyclerView.ViewHolder {
 
-            public TextView categoriesHeader;
-            public ImageView categoriesImg1, categoriesImg2, categoriesImg3, categoriesImg4, categoriesImg5, categoriesImg6;
-            public LinearLayout childlayout;
-            public ImageView downArrow, upArrow;
+        private AdapterCategoryRecyclerBinding binding;
+        public IOtherCategory iOtherCategory;
 
+        public ExpandableCategoriesViewHolder(@NonNull AdapterCategoryRecyclerBinding binding, IOtherCategory iOtherCategory) {
+            super(binding.getRoot());
+            this.binding = binding;
+            this.iOtherCategory = iOtherCategory;
+        }
+        public void bind(final OtherFragmentVM otherFragmentVM, IOtherCategory iOtherCategory)
+        {
+            this.binding.setOtherFragment(otherFragmentVM);
+            this.binding.setIOtherCategory(iOtherCategory);
+            binding.executePendingBindings();
+        }
 
-        public ExpandableCategoriesViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            categoriesHeader = itemView.findViewById(R.id.categories_header);
-
-            categoriesImg1 = itemView.findViewById(R.id.categories_img1);
-            categoriesImg2 = itemView.findViewById(R.id.categories_img2);
-            categoriesImg3 = itemView.findViewById(R.id.categories_img3);
-            categoriesImg4 = itemView.findViewById(R.id.categories_img4);
-            categoriesImg5 = itemView.findViewById(R.id.categories_img5);
-            categoriesImg6 = itemView.findViewById(R.id.categories_img6);
-
-            childlayout = itemView.findViewById(R.id.categories_childlayout);
-
-            downArrow = itemView.findViewById(R.id.down_arrow);
-            upArrow = itemView.findViewById(R.id.up_arrow);
+        public AdapterCategoryRecyclerBinding getBinding()
+        {
+            return binding;
         }
     }
+
+
+
 }

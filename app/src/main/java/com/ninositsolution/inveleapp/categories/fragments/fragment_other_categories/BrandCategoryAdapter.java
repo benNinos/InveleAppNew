@@ -55,7 +55,7 @@ public class BrandCategoryAdapter extends RecyclerView.Adapter<BrandCategoryAdap
     public void onBindViewHolder(@NonNull BrandCategoryAdapter.MainViewHolder mainViewHolder, int position) {
 
         otherFragmentVM = arrayList.get(position);
-        mainViewHolder.binding.setAdapterbrand(otherFragmentVM);
+        mainViewHolder.binding.setOtherFragment(otherFragmentVM);
         mainViewHolder.binding.setIOtherCategory(iOtherCategory);
 
         Log.e(TAG,"LIST_SIZE==>"+arrayList.size());
@@ -81,7 +81,7 @@ public class BrandCategoryAdapter extends RecyclerView.Adapter<BrandCategoryAdap
         }
         public void bind(final OtherFragmentVM otherFragmentVM, IOtherCategory iOtherCategory)
         {
-            this.binding.setAdapterbrand(otherFragmentVM);
+            this.binding.setOtherFragment(otherFragmentVM);
             this.binding.setIOtherCategory(iOtherCategory);
             binding.executePendingBindings();
         }

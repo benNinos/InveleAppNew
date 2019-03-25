@@ -14,6 +14,7 @@ import com.ninositsolution.inveleapp.categories.CategoryModel;
 import com.ninositsolution.inveleapp.categories.CategoryRepo;
 import com.ninositsolution.inveleapp.categories.CategoryVM;
 import com.ninositsolution.inveleapp.categories.fragments.fragment_all_categories.IAllCategories;
+import com.ninositsolution.inveleapp.pojo.CategoryPojoClass;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 import com.ninositsolution.inveleapp.utils.Session;
 import com.squareup.picasso.Picasso;
@@ -36,7 +37,7 @@ public class AllCategoryFragmentVM extends ViewModel {
     public ObservableField<String> msg = new ObservableField<>();
     public ObservableField <List<CategoryModel>> parent_categories = new ObservableField<>();
 
-    public AllCategoryFragmentVM(POJOClass pojoClass,CategoryModel categoryModel){
+    public AllCategoryFragmentVM(CategoryPojoClass pojoClass, CategoryModel categoryModel){
         this.status.set(pojoClass.status);
         this.msg.set(pojoClass.msg);
         this.parent_categories.set(pojoClass.parent_categories);

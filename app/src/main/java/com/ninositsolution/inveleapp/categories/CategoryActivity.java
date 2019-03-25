@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
@@ -42,7 +43,7 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
     private ToolTip toolTip;
     private int count;
     public ICategory iCategory;
-    public CategoryVM categoryVM;
+    public CategoryVM categoryVM,categoryVM1;
     CategoryAdapter categoryAdapter;
     List<CategoryVM>objCategoryVM;
     public static final String TAG = CategoryActivity.class.getSimpleName();
@@ -77,6 +78,7 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
             public void onChanged(@Nullable CategoryVM categoryVM1) {
                 try {
                     if (categoryVM1.status.get().equalsIgnoreCase("success")) {
+
                         if (categoryVM1.all_categories.get() != null) {
                             Log.e(TAG, "name==>" + categoryVM1.all_categories.get().name);
                             // categoryVM.allCategories.set(categoryVM1.all_categories.get().name);
@@ -108,11 +110,16 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
 
                     objCategoryVM = categoryVMS;
 
-                    categoryAdapter = new CategoryAdapter(CategoryActivity.this, categoryVMS, Constants.select_menu_id);
+
+                    categoryAdapter = new CategoryAdapter(CategoryActivity.this, categoryVMS,Constants.category_position);
                     binding.categoriesRecyclerview.setAdapter(categoryAdapter);
                     categoryAdapter.setClikEvent(new CategoryAdapter.ClickEvent() {
                         @Override
                         public void setClickEventItem(int position, String menu_id, String name, String banner) {
+
+                            Constants.all_category_clicked="false";
+
+                            Constants.category_position = String.valueOf(position);
                             Constants.select_menu_id = menu_id;
                             Constants.select_banner = banner;
                             Log.e(TAG,"menu_id_selected==>"+menu_id+"\nbanner_image==>"+banner);
@@ -130,12 +137,8 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
                 }else {
                     Toast.makeText(getApplicationContext(),"List Empty",Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
-
-
-
 
         count = 0;
 
@@ -143,6 +146,7 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
         setSupportActionBar(toolbar);*/
 
         //All Categories selected as default
+        Constants.all_category_clicked = "true";
         binding.allCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.white));
         binding.allCategoriesText.setTextColor(getResources().getColor(R.color.colorPrimary));
 
@@ -154,19 +158,33 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
         binding.setICategory(new ICategory() {
             @Override
             public void AllCategoriesClicked() {
+                Constants.all_category_clicked = "true";
+                //Constants.category_position="";
 
                 Log.e(TAG,"objCategoryVM.size==>"+objCategoryVM.size());
 
-                Constants.select_menu_id="";
 
                 binding.allCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.white));
                 binding.allCategoriesText.setTextColor(getResources().getColor(R.color.colorPrimary));
 
-                categoryAdapter = new CategoryAdapter(CategoryActivity.this, objCategoryVM, Constants.select_menu_id);
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                allCategoriesFragment = new AllCategoriesFragment();
+                fragmentTransaction.add(R.id.container_category, allCategoriesFragment).commit();
+
+
+              //  changeFragment();
+
+/*
+               categoryAdapter = new CategoryAdapter(CategoryActivity.this, objCategoryVM, Constants.category_position);
                 binding.categoriesRecyclerview.setAdapter(categoryAdapter);
                 categoryAdapter.setClikEvent(new CategoryAdapter.ClickEvent() {
                     @Override
                     public void setClickEventItem(int position, String menu_id, String name, String banner) {
+
+                        Constants.all_category_clicked="false";
+
+                        Constants.category_position = String.valueOf(position);
                         Constants.select_menu_id = menu_id;
                         Constants.select_banner = banner;
                         Log.e(TAG,"menu_id_selected==>"+menu_id+"\nbanner==>"+banner);
@@ -174,34 +192,30 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
                         binding.allCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.grayWhite));
                         binding.allCategoriesText.setTextColor(getResources().getColor(R.color.textColor));
 
+                        changeFragment();
                     }
                 });
-                changeFragment();
+                categoryAdapter.notifyDataSetChanged();*/
             }
 
             @Override
             public void MensCategoriesClicked() {
-
             }
 
             @Override
             public void onBackClicked() {
 
                 startActivity(new Intent(CategoryActivity.this, HomeActivity.class));
-
             }
 
             @Override
             public void onSearchClicked() {
 
                 startActivity(new Intent(CategoryActivity.this, CartActivity.class));
-
-
             }
 
             @Override
             public void onCartClicked() {
-
             }
 
             @Override
@@ -238,10 +252,8 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
                 }
             }
         });
-
-
-
     }
+
 
     private void changeFragment() {
         fragmentManager = getSupportFragmentManager();
@@ -467,5 +479,13 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
         session.setCategoryPosition(1);
 
         super.onStart();
+    }
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Log.e("back key pressed","Back key pressed");
+            Constants.category_position="";
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

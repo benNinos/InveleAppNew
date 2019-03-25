@@ -16,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -356,7 +357,6 @@ public class HomeActivity extends AppCompatActivity {
         }
         binding.homeScrollView.setSmoothScrollingEnabled(true);
 
-/*
         binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -379,7 +379,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onPageScrollStateChanged(int i) {
 
             }
-        });*/
+        });
 
     }
 
@@ -489,5 +489,4 @@ public class HomeActivity extends AppCompatActivity {
         if (binding.homeProgressBar.getVisibility() == View.VISIBLE)
             binding.homeProgressBar.setVisibility(View.GONE);
     }
-
 }

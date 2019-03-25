@@ -1,25 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data class ="AdapterCategoryRecyclerBinding">
+
+        <variable
+            name="otherFragment"
+            type="com.ninositsolution.inveleapp.categories.fragments.fragment_other_categories.OtherFragmentVM"/>
+        <variable
+            name="iOtherCategory"
+            type="com.ninositsolution.inveleapp.categories.fragments.fragment_other_categories.IOtherCategory"/>
+
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_4sdp"
+        android:orientation="vertical">
+
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_4sdp"
+        android:padding="@dimen/_4sdp"
+        tools:ignore="UnusedAttribute">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/_4sdp"
-            android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/header_layout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_32sdp"
-                >
+                android:layout_height="@dimen/_32sdp">
 
                 <TextView
                     android:id="@+id/categories_header"
@@ -29,7 +44,8 @@
                     android:paddingStart="@dimen/_8sdp"
                     android:paddingEnd="@dimen/_8sdp"
                     android:textSize="@dimen/_12sdp"
-                    android:text="@string/womens"
+                    android:hint="@string/womens"
+                    android:text="@={otherFragment.child_header}"
 
                     />
 
@@ -61,6 +77,7 @@
                     android:layout_height="@dimen/_16sdp"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="@dimen/_12sdp"
+                    bind:childImage="@{otherFragment.childImage}"
                     android:visibility="visible"
                     android:layout_centerVertical="true"
                     app:srcCompat="@drawable/ic_keyboard_arrow_up_black_24dp"
@@ -76,29 +93,25 @@
             <LinearLayout
                 android:animateLayoutChanges="true"
                 android:id="@+id/categories_childlayout"
-                android:visibility="gone"
-                android:layout_width="match_parent"
+                android:visibility="visible"
+                android:onClick="@{()->iOtherCategory.childlayout()}"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_25sdp"
                 android:orientation="vertical">
 
-
-                <GridLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:columnCount="3"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
+                <LinearLayout
                         android:layout_width="wrap_content"
                         android:orientation="vertical"
-                        android:layout_margin="@dimen/_4sdp"
+                        android:layout_margin="@dimen/_3sdp"
                         android:padding="@dimen/_4sdp"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content">
 
                         <ImageView
                             android:id="@+id/categories_img1"
                             android:layout_width="@dimen/all_brand_photo_width"
                             android:layout_height="@dimen/all_brand_photo_height"
+                            bind:childImage="@{otherFragment.childImage}"
                             android:scaleType="fitXY"
                             app:srcCompat="@drawable/img1"
                             tools:ignore="ContentDescription" />
@@ -107,154 +120,20 @@
                             android:layout_height="@dimen/_2sdp" />
 
                         <TextView
+                            android:id="@+id/child_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/all_brand_photo_text"
                             android:layout_gravity="center_horizontal"
-                            android:text="@string/formal"/>
+                            android:hint="@string/formal"
+                            android:text="@={otherFragment.child_name}"/>
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_margin="@dimen/_4sdp"
-                        android:padding="@dimen/_4sdp"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:id="@+id/categories_img2"
-                            android:layout_width="@dimen/all_brand_photo_width"
-                            android:layout_height="@dimen/all_brand_photo_height"
-                            app:srcCompat="@drawable/img2"
-                            android:scaleType="fitXY"
-                            tools:ignore="ContentDescription" />
-                        <Space
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_2sdp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/all_brand_photo_text"
-                            android:layout_gravity="center_horizontal"
-                            android:text="@string/formal"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_margin="@dimen/_4sdp"
-                        android:padding="@dimen/_4sdp"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:id="@+id/categories_img3"
-                            android:layout_width="@dimen/all_brand_photo_width"
-                            android:layout_height="@dimen/all_brand_photo_height"
-                            app:srcCompat="@drawable/img3"
-                            android:scaleType="fitXY"
-                            tools:ignore="ContentDescription" />
-                        <Space
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_2sdp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/all_brand_photo_text"
-                            android:layout_gravity="center_horizontal"
-                            android:text="@string/formal"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_margin="@dimen/_4sdp"
-                        android:padding="@dimen/_4sdp"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:id="@+id/categories_img4"
-                            android:layout_width="@dimen/all_brand_photo_width"
-                            android:layout_height="@dimen/all_brand_photo_height"
-                            app:srcCompat="@drawable/img4"
-                            android:scaleType="fitXY"
-                            tools:ignore="ContentDescription" />
-                        <Space
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_2sdp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/all_brand_photo_text"
-                            android:layout_gravity="center_horizontal"
-                            android:text="@string/formal"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_margin="@dimen/_4sdp"
-                        android:padding="@dimen/_4sdp"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:id="@+id/categories_img5"
-                            android:layout_width="@dimen/all_brand_photo_width"
-                            android:layout_height="@dimen/all_brand_photo_height"
-                            app:srcCompat="@drawable/img1"
-                            android:scaleType="fitXY"
-                            tools:ignore="ContentDescription" />
-                        <Space
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_2sdp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/all_brand_photo_text"
-                            android:layout_gravity="center_horizontal"
-                            android:text="@string/formal"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_margin="@dimen/_4sdp"
-                        android:padding="@dimen/_4sdp"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:id="@+id/categories_img6"
-                            android:layout_width="@dimen/all_brand_photo_width"
-                            android:layout_height="@dimen/all_brand_photo_height"
-                            app:srcCompat="@drawable/img2"
-                            android:scaleType="fitXY"
-                            tools:ignore="ContentDescription" />
-                        <Space
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_2sdp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/all_brand_photo_text"
-                            android:layout_gravity="center_horizontal"
-                            android:text="@string/formal"/>
-
-                    </LinearLayout>
-
-                </GridLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
 
     </android.support.v7.widget.CardView>
-</RelativeLayout>
+    </LinearLayout>
+</layout>

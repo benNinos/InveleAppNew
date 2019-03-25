@@ -30,11 +30,12 @@ public final class Constants {
     public static final Integer DATE_OF_BIRTH_EMPTY = 22;
 
 
-
-
     public static  String user_address_id="";
     public static String select_menu_id = "";
     public static String select_banner ="";
+    public static String category_position="";
+    public static String all_category_clicked="false";
+
 
     public static final String CURRENCY = "$";
     public static final String TYPE_MOBILE = "mobile";

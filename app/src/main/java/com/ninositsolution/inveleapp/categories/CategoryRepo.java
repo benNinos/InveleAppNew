@@ -10,6 +10,7 @@ import com.ninositsolution.inveleapp.address_book.pojo.AddressBookRequest;
 import com.ninositsolution.inveleapp.api.ApiService;
 import com.ninositsolution.inveleapp.api.RetrofitClient;
 import com.ninositsolution.inveleapp.pojo.AddressList;
+import com.ninositsolution.inveleapp.pojo.CategoryPojoClass;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 
 import java.util.ArrayList;
@@ -32,21 +33,21 @@ public class CategoryRepo {
     private MutableLiveData<CategoryVM>allCategoryVMMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<CategoryVM> defaultUpdateVMMutableLiveData = new MutableLiveData<>();
 
-    public MutableLiveData <List<CategoryVM>> getCategoryVMMutableLiveData() {
+    public MutableLiveData<List<CategoryVM>> getCategoryVMMutableLiveData() {
 
         ApiService apiService = RetrofitClient.getApiService();
 
         apiService.Categories()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<POJOClass>() {
+                .subscribe(new Observer<CategoryPojoClass>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(POJOClass pojoClass) {
+                    public void onNext(CategoryPojoClass pojoClass) {
 
                         //pojoClassMutableLiveData.setValue(pojoClass);
                         CategoryVM categoryVM;
@@ -113,14 +114,14 @@ public class CategoryRepo {
         apiService.Categories()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<POJOClass>() {
+                .subscribe(new Observer<CategoryPojoClass>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(POJOClass pojoClass) {
+                    public void onNext(CategoryPojoClass pojoClass) {
 
                         if(pojoClass.status.equalsIgnoreCase("success")) {
 

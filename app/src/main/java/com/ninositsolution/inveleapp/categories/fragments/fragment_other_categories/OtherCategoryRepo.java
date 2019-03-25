@@ -8,6 +8,7 @@ import com.ninositsolution.inveleapp.api.ApiService;
 import com.ninositsolution.inveleapp.api.RetrofitClient;
 import com.ninositsolution.inveleapp.categories.CategoryModel;
 import com.ninositsolution.inveleapp.categories.fragments.fragment_all_categories.AllCategoryFragmentVM;
+import com.ninositsolution.inveleapp.pojo.CategoryPojoClass;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 
 import java.util.ArrayList;
@@ -22,95 +23,48 @@ public class OtherCategoryRepo {
 
     private static final String TAG = "OtherCategoryRepo";
 
-    private List<OtherFragmentVM> arrayList;
-    private CategoryModel categoryModel;
+    private List<OtherFragmentVM> arrayList,arraylist1;
+    private CategoryModel categoryModel,categoryModelChild;
+    private  List<CategoryModel>categoryModelList;
     Context context;
 
-    private MutableLiveData<List<OtherFragmentVM>> brandVMMutableLiveData = new MutableLiveData<>();
-    private MutableLiveData<OtherFragmentVM>allCategoryVMMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<OtherFragmentVM> brandVMMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<OtherFragmentVM>> childLevel1VMMutableLiveData = new MutableLiveData<>();
 
-    public MutableLiveData <List<OtherFragmentVM>> getBrandVMMutableLiveData() {
+    public MutableLiveData<OtherFragmentVM> getBrandVMMutableLiveData() {
 
         ApiService apiService = RetrofitClient.getApiService();
 
         apiService.Categories()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<POJOClass>() {
+                .subscribe(new Observer<CategoryPojoClass>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(POJOClass pojoClass) {
+                    public void onNext(CategoryPojoClass pojoClass) {
 
                         //pojoClassMutableLiveData.setValue(pojoClass);
-                        OtherFragmentVM otherFragmentVM;
+                        OtherFragmentVM otherFragmentVM,otherFragmentVM1;
+                        categoryModel = new CategoryModel();
+                        categoryModelChild=new CategoryModel();
 
                         if(pojoClass.status.equalsIgnoreCase("success")) {
 
-                          /*  if(pojoClass.categories!=null) {
-                                if (!pojoClass.categories.isEmpty()) {
-
-                                    for (int i = 0; i < pojoClass.categories.size(); i++) {
-
-                                        Log.e(TAG, "banner_image==>" + pojoClass.categories.get(i).banner_image);
-                                    }
-                                }
-                            }
-*/
                             Log.e(TAG, "onNext - > " + pojoClass.msg);
 
-                            arrayList = new ArrayList<>();
-                            if (pojoClass.categories!= null) {
-                                if (!pojoClass.categories.isEmpty()) {
+                            otherFragmentVM = new OtherFragmentVM(pojoClass);
+                            brandVMMutableLiveData.setValue(otherFragmentVM);
 
-                                    Log.e(TAG, "list_size==>" + pojoClass.categories.size());
-                                    try {
-
-                                        for (int i = 0; i < pojoClass.categories.size(); i++) {
-
-                                            // otherFragmentVM = new OtherFragmentVM(pojoClass, categoryModel);
-                                            Log.e(TAG, "brand_size==>" + pojoClass.categories.get(0).brands.size());
-                                            for (int j = 0; j < pojoClass.categories.get(0).brands.size(); j++) {
-
-                                                categoryModel = new CategoryModel(pojoClass.categories.get(i).brands.get(j).name, pojoClass.categories.get(i).brands.get(j).image_path, pojoClass.categories.get(i).brands.get(j).menu_id);
-
-                                                otherFragmentVM = new OtherFragmentVM(pojoClass, categoryModel);
-
-                                                arrayList.add(otherFragmentVM);
-
-                                            }
-                                        }
-                                        brandVMMutableLiveData.setValue(arrayList);
-                                    }catch (IndexOutOfBoundsException e){
-                                        e.printStackTrace();
-                                    }
-
-                                }
-                            }
-                           /* if(pojoClass.child_categories!= null){
-                                if(!pojoClass.child_categories.isEmpty()){
-                                    Log.e(TAG, "child_categories==>" + pojoClass.child_categories.size());
-
-
-                                    for(int i = 0;i<pojoClass.child_categories.size();i++){
-                                        Log.e(TAG,"id==>"+pojoClass.child_categories.get(i).menu_id);
-                                    }
-                                }
-
-                            }*/
-                           pojoClass.status="";
 
                         }else if(pojoClass.status.equalsIgnoreCase("error")){
                             Log.e(TAG, "onNext - > " + pojoClass.msg);
                             // Toast.makeText(context,pojoClass.msg,Toast.LENGTH_SHORT).show();
                         }
-
                     }
-
-
                     @Override
                     public void onError(Throwable e) {
 
@@ -126,6 +80,6 @@ public class OtherCategoryRepo {
                 });
 
 
-        return brandVMMutableLiveData;
+        return brandVMMutableLiveData ;
     }
 }

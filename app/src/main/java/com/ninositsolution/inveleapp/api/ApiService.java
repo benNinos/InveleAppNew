@@ -16,6 +16,7 @@ import com.ninositsolution.inveleapp.forgot_password.pojo.ResetPasswordRequest;
 import com.ninositsolution.inveleapp.login.LoginRequest;
 import com.ninositsolution.inveleapp.add_address.pojo.AddAddressRequest;
 import com.ninositsolution.inveleapp.personal_information.pojo.UpdateProfileRequest;
+import com.ninositsolution.inveleapp.pojo.CategoryPojoClass;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 import com.ninositsolution.inveleapp.registration.pojo.RegistartionRequest;
 
@@ -61,7 +62,7 @@ public interface ApiService {
 
     //categories
     @GET("mobile/categories")
-    Observable<POJOClass>Categories();
+    Observable<CategoryPojoClass>Categories();
 
     @FormUrlEncoded
     @POST("users/forgot_password")

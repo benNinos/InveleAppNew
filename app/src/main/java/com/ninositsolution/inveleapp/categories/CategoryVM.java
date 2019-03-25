@@ -13,6 +13,7 @@ import com.ninositsolution.inveleapp.address_book.AddressBookRepo;
 import com.ninositsolution.inveleapp.address_book.AddressBookVM;
 import com.ninositsolution.inveleapp.address_book.pojo.AddressBookRequest;
 import com.ninositsolution.inveleapp.pojo.AddressList;
+import com.ninositsolution.inveleapp.pojo.CategoryPojoClass;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 import com.ninositsolution.inveleapp.utils.Session;
 import com.squareup.picasso.Picasso;
@@ -61,11 +62,12 @@ public class CategoryVM extends ViewModel {
         session = new Session(context);
     }
 
-    public CategoryVM(POJOClass pojoClass)
+    public CategoryVM(CategoryPojoClass pojoClass)
     {
         this.status.set(pojoClass.status);
         this.msg.set(pojoClass.msg);
         this.all_categories.set(pojoClass.all_categories);
+        this.categories.set(pojoClass.categories);
       //  this.allCategories.set(pojoClass.all_categories.name);
       //  this.image.set(pojoClass.all_categories.image);
       //  this.categories.set(pojoClass.categories);

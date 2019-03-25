@@ -28,7 +28,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MainVi
     private List<CategoryVM> arrayList;
     private LayoutInflater layoutInflater;
     ICategory iCategory;
-    String select_id="";
+    String selected_position="";
+    int  selectedPosition=0;
 
     public static final String TAG = CategoryAdapter.class.getSimpleName();
 
@@ -43,10 +44,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MainVi
     }
 
 
-    public CategoryAdapter(Context context, List<CategoryVM> arrayList,String selected_id) {
+    public CategoryAdapter(Context context, List<CategoryVM> arrayList,String selected_position) {
         this.context = context;
         this.arrayList = arrayList;
-        this.select_id = selected_id;
+        Constants.category_position = selected_position;
     }
     @NonNull
     @Override
@@ -67,28 +68,34 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MainVi
         mainViewHolder.binding.setCategory(categoryVM);
         mainViewHolder.binding.setICategory(iCategory);
 
-        Log.e(TAG,"LIST_SIZE==>"+arrayList.size());
+        Log.e(TAG, "LIST_SIZE==>" + arrayList.size());
 
-        mainViewHolder.bind(categoryVM,iCategory);
 
-        if(select_id.equalsIgnoreCase(arrayList.get(position).menu_id.get())){
-            mainViewHolder.binding.mensCategoriesLayout.setBackgroundColor(context.getResources().getColor(R.color.white));
-            mainViewHolder.binding.mensCategoriesText.setTextColor(context.getResources().getColor(R.color.colorPrimary));
-        }else {
-            mainViewHolder.binding.mensCategoriesLayout.setBackgroundColor(context.getResources().getColor(R.color.grayWhite));
-            mainViewHolder.binding.mensCategoriesText.setTextColor(context.getResources().getColor(R.color.text_color));
+        mainViewHolder.bind(categoryVM, iCategory);
+        if (!Constants.category_position.equalsIgnoreCase("")){
 
-        }
 
+            if (Integer.parseInt(Constants.category_position) == position) {
+                mainViewHolder.binding.mensCategoriesLayout.setBackgroundColor(context.getResources().getColor(R.color.white));
+                mainViewHolder.binding.mensCategoriesText.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+            } else {
+                mainViewHolder.binding.mensCategoriesLayout.setBackgroundColor(context.getResources().getColor(R.color.grayWhite));
+                mainViewHolder.binding.mensCategoriesText.setTextColor(context.getResources().getColor(R.color.text_color));
+
+            }
+    }
         mainViewHolder.binding.mensCategoriesLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                selectedPosition = position;
+                Constants.category_position = String.valueOf(position);
                 Log.e(TAG,"banner==>"+arrayList.get(position).banner_image.get()+"menu_id==>"+arrayList.get(position).menu_id.get());
 
                 mainViewHolder.binding.mensCategoriesLayout.setBackgroundColor(context.getResources().getColor(R.color.white));
                 mainViewHolder.binding.mensCategoriesText.setTextColor(context.getResources().getColor(R.color.colorPrimary));
                 Constants.select_menu_id = arrayList.get(position).menu_id.get();
                 clickEvent.setClickEventItem(position,arrayList.get(position).menu_id.get(),"mens_fashion", String.valueOf(arrayList.get(position).banner_image.get()));
+                notifyDataSetChanged();
 
             }
         });

@@ -8,6 +8,7 @@ import com.ninositsolution.inveleapp.api.ApiService;
 import com.ninositsolution.inveleapp.api.RetrofitClient;
 import com.ninositsolution.inveleapp.categories.CategoryModel;
 import com.ninositsolution.inveleapp.categories.CategoryVM;
+import com.ninositsolution.inveleapp.pojo.CategoryPojoClass;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 
 import java.util.ArrayList;
@@ -36,14 +37,14 @@ public class AllCategoryRepo {
         apiService.Categories()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<POJOClass>() {
+                .subscribe(new Observer<CategoryPojoClass>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(POJOClass pojoClass) {
+                    public void onNext(CategoryPojoClass pojoClass) {
 
                         //pojoClassMutableLiveData.setValue(pojoClass);
                         AllCategoryFragmentVM allCategoryFragmentVM;

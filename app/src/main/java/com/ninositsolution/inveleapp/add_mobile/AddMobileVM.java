@@ -23,13 +23,8 @@ public class AddMobileVM extends ViewModel {
     public ObservableField<String> newMobileNumber = new ObservableField<>("");
     public ObservableField<String> newOtpCode = new ObservableField<>("");
 
-
-
-
     private MutableLiveData<AddMobileVM> mobileOTPMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<AddMobileVM> newMobileOTPMutableLiveData = new MutableLiveData<>();
-
-
 
     private MutableLiveData<AddMobileVM> verifyMobileOTPMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<AddMobileVM> newVerifyMobileOTPMutableLiveData = new MutableLiveData<>();
@@ -98,13 +93,6 @@ public class AddMobileVM extends ViewModel {
     {
         return addMobileRepo.updateMobileNumerValidation(newMobileNumber.get(),newOtpCode.get());
     }
-
-
-
-
-
-
-
 
     public MutableLiveData<AddMobileVM> getMobileOTPMutableLiveData()
     {

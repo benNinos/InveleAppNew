@@ -66,8 +66,8 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/currentMobileLayout"
-            android:visibility="gone"
+            android:id="@+id/currentEmailLayout"
+            android:visibility="visible"
             android:orientation="vertical">
 
             <Space
@@ -116,7 +116,7 @@
                         android:inputType="none"
                         android:fontFamily="@font/roboto_regular"
                         android:text="@={email.currentEmailAddress}"
-                        android:hint="Enter your E-mail ID"
+                        android:hint="@string/current_email_ID_hint"
                         android:editable="false"
                         tools:ignore="Autofill"/>
 
@@ -157,7 +157,7 @@
                         android:layout_marginStart="@dimen/_16sdp"
                         android:layout_marginEnd="@dimen/_16sdp"
                         android:fontFamily="@font/roboto_regular"
-                        android:text="@={email.CurrentOtpCode}"
+                        android:text="@={email.currentOtpCode}"
                         android:inputType="numberPassword"
                         android:hint="@string/sms_code"
                         tools:ignore="Autofill" />
@@ -228,7 +228,7 @@
                 android:layout_marginEnd="@dimen/_16sdp"
                 android:background="@color/colorPrimary"
                 android:fontFamily="@font/roboto_regular"
-                android:text="@string/change_mobile"
+                android:text="@string/change_e_mail_address_btntext"
                 android:onClick="@{()->iEmail.onChangeEmailClicked()}"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_12sdp" />
@@ -239,9 +239,9 @@
         <LinearLayout
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
-            android:id="@+id/newMobileLayout"
+            android:id="@+id/newEmailLayout"
             android:layout_height="match_parent"
-            android:visibility="visible"
+            android:visibility="gone"
             android:orientation="vertical">
 
             <Space
@@ -288,7 +288,6 @@
                         android:layout_marginStart="@dimen/_16sdp"
                         android:layout_marginEnd="@dimen/_16sdp"
                         android:inputType="textEmailAddress"
-                        android:maxLength="8"
                         android:fontFamily="@font/roboto_regular"
                         android:text="@={email.newEmail}"
                         android:hint="@string/new_email_enter_hint"
@@ -402,7 +401,7 @@
 
 
         <ProgressBar
-            android:id="@+id/add_mobile_otp_progress"
+            android:id="@+id/add_email_otp_progress"
             android:layout_gravity="center"
             android:visibility="gone"
             android:layout_width="wrap_content"

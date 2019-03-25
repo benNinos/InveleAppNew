@@ -1,10 +1,14 @@
 package com.ninositsolution.inveleapp.api;
 
+import android.databinding.ObservableField;
+
 import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 import com.ninositsolution.inveleapp.add_mobile.pojo.MobileOTPRequest;
 import com.ninositsolution.inveleapp.add_mobile.pojo.VerifyOTPRequest;
 import com.ninositsolution.inveleapp.address_book.pojo.AddressBookRequest;
 import com.ninositsolution.inveleapp.address_book.pojo.AddressUpdateRequest;
+import com.ninositsolution.inveleapp.change_email.pojo.EmailOTPRequest;
+import com.ninositsolution.inveleapp.change_email.pojo.VerifyemailOTPRequest;
 import com.ninositsolution.inveleapp.change_password.pojo.ChangePassowrdRequest;
 import com.ninositsolution.inveleapp.edit_address.pojo.EditAddressRequest;
 import com.ninositsolution.inveleapp.forgot_password.pojo.OTPRequest;
@@ -98,6 +102,15 @@ public interface ApiService {
 
     @POST("users/otp_profile_verify")
     Observable<POJOClass> verifyOtpMobileApi (@Body VerifyOTPRequest verifyOTPRequest);
+
+
+
+    @POST("user/profile_change")
+    Observable<POJOClass> emailChangeAPi (@Body EmailOTPRequest emailOTPRequest);
+
+    @POST("users/otp_profile_verify")
+
+    Observable<POJOClass> verifyOtpEmailApi(@Body VerifyemailOTPRequest verifyemailOTPRequest);
 
 
 

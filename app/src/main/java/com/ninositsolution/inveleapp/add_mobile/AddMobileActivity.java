@@ -190,7 +190,8 @@ public class AddMobileActivity extends AppCompatActivity {
                                         binding.newMobileLayout.setVisibility(View.VISIBLE);
                                     }
 
-                                } else if (addMobileVM.status.get().equalsIgnoreCase("error")) {
+                                } else if (addMobileVM.status.get().equalsIgnoreCase("error"))
+                                {
                                     hideProgressBar();
                                     Toast.makeText(getApplicationContext(), "" + addMobileVM.msg.get(), Toast.LENGTH_LONG).show();
                                     Toast.makeText(getApplicationContext(), "Verification failed.", Toast.LENGTH_LONG).show();
@@ -254,7 +255,8 @@ public class AddMobileActivity extends AppCompatActivity {
                         @Override
                         public void onChanged(@Nullable AddMobileVM addMobileVM) {
                             if (!addMobileVM.status.get().isEmpty()) {
-                                if (addMobileVM.status.get().equalsIgnoreCase("success")) {
+                                if (addMobileVM.status.get().equalsIgnoreCase("success"))
+                                {
                                     hideProgressBar();
 
                                     addMobileVmGlobal.newOtpCode.set(String.valueOf(addMobileVM.otp.get()));

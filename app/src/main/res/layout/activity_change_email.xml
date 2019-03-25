@@ -13,6 +13,7 @@
             type="com.ninositsolution.inveleapp.change_email.IChangeEmail"/>
     </data>
 
+
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -65,6 +66,8 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/currentEmailLayout"
+            android:visibility="visible"
             android:orientation="vertical">
 
             <Space
@@ -77,7 +80,7 @@
                 android:layout_marginStart="@dimen/_19sdp"
                 android:textStyle="bold"
                 android:textSize="@dimen/toolBarFont"
-                android:text="@string/change_email_text"
+                android:text="@string/verify_your_current_e_mail_text"
                 android:fontFamily="@font/roboto_regular"
                 android:textColor="@android:color/black"/>
 
@@ -92,26 +95,46 @@
                 android:layout_height="0px"
                 tools:ignore="UselessLeaf" />
 
-            <android.support.design.widget.TextInputLayout
+
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/toolBarFont"
-                    android:paddingBottom="@dimen/_12sdp"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:fontFamily="@font/roboto_regular"
-                    android:inputType="text"
-                    android:hint="@string/email_enter"
-                    tools:ignore="Autofill" />
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/currentEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/toolBarFont"
+                        android:paddingBottom="@dimen/_12sdp"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:inputType="none"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="@={email.currentEmailAddress}"
+                        android:hint="@string/current_email_ID_hint"
+                        android:editable="false"
+                        tools:ignore="Autofill"/>
+
+                </android.support.design.widget.TextInputLayout>
 
 
-            </android.support.design.widget.TextInputLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_14sdp"
+                    android:text="Send OTP"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_10sdp"
+                    android:onClick="@{()->iEmail.onVerifyCurrentOTPClicked()}"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_alignParentEnd="true"/>
 
-
+            </RelativeLayout>
 
             <Space
                 android:layout_width="match_parent"
@@ -126,6 +149,7 @@
                     android:layout_height="wrap_content">
 
                     <EditText
+                        android:id="@+id/currentEmailOTP"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/toolBarFont"
@@ -133,18 +157,21 @@
                         android:layout_marginStart="@dimen/_16sdp"
                         android:layout_marginEnd="@dimen/_16sdp"
                         android:fontFamily="@font/roboto_regular"
-                        android:inputType="text"
+                        android:text="@={email.currentOtpCode}"
+                        android:inputType="numberPassword"
                         android:hint="@string/sms_code"
                         tools:ignore="Autofill" />
-
 
                 </android.support.design.widget.TextInputLayout>
 
 
+
                 <TextView
+                    android:id="@+id/countDownTimerTextView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/timer"
+                    android:visibility="gone"
                     android:textColor="@color/colorPrimary"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="@dimen/_20sdp"
@@ -155,11 +182,26 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/currentEmailDisabledResend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/resend"
                 android:layout_gravity="end"
+                android:visibility="visible"
                 android:textColor="@android:color/black"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                tools:ignore="RelativeOverlap" />
+
+            <TextView
+                android:id="@+id/currentEmailEnabledResend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/resend"
+                android:layout_gravity="end"
+                android:visibility="gone"
+                android:onClick="@{()->iEmail.onCurrentEnabledResendClicked()}"
+                android:textColor="@color/colorPrimary"
                 android:layout_marginEnd="@dimen/_16sdp"
                 android:layout_marginTop="@dimen/_8sdp"
                 tools:ignore="RelativeOverlap" />
@@ -169,20 +211,205 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_172sdp" />
 
+
+            <ProgressBar
+                android:id="@+id/new_mobile_otp_progress"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_28sdp"
-                android:text="@string/change_email"
-                android:textSize="@dimen/_12sdp"
                 android:layout_marginStart="@dimen/_16sdp"
                 android:layout_marginEnd="@dimen/_16sdp"
+                android:background="@color/colorPrimary"
                 android:fontFamily="@font/roboto_regular"
+                android:text="@string/change_e_mail_address_btntext"
+                android:onClick="@{()->iEmail.onChangeEmailClicked()}"
                 android:textColor="@android:color/white"
-                android:background="@color/colorPrimary" />
+                android:textSize="@dimen/_12sdp" />
 
         </LinearLayout>
 
+
+        <LinearLayout
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:id="@+id/newEmailLayout"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_19sdp"
+                android:textStyle="bold"
+                android:textSize="@dimen/toolBarFont"
+                android:text="You can change your E-mail Here"
+                android:fontFamily="@font/roboto_regular"
+                android:textColor="@android:color/black"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+
+            <LinearLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_width="0px"
+                android:layout_height="0px"
+                tools:ignore="UselessLeaf" />
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/newEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/toolBarFont"
+                        android:paddingBottom="@dimen/_12sdp"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:inputType="textEmailAddress"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="@={email.newEmail}"
+                        android:hint="@string/new_email_enter_hint"
+                        android:editable="false"
+                        tools:ignore="Autofill"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_14sdp"
+                    android:text="@string/send_otp_btn_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_10sdp"
+                    android:onClick="@{()->iEmail.onVerifyNewOTPClicked()}"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_alignParentEnd="true"/>
+
+            </RelativeLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/newEmailOtp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/toolBarFont"
+                        android:paddingBottom="@dimen/_12sdp"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="@={email.newOtpCode}"
+                        android:inputType="numberPassword"
+                        android:hint="@string/sms_code"
+                        tools:ignore="Autofill" />
+
+                </android.support.design.widget.TextInputLayout>
+
+
+
+                <TextView
+                    android:id="@+id/countDownTimerTextView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/timer"
+                    android:visibility="gone"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    tools:ignore="RelativeOverlap" />
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/newEmailDisabledResend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/resend"
+                android:layout_gravity="end"
+                android:visibility="visible"
+                android:textColor="@android:color/black"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                tools:ignore="RelativeOverlap" />
+            <TextView
+                android:id="@+id/newEmailEnabledResend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/resend"
+                android:layout_gravity="end"
+                android:visibility="gone"
+                android:onClick="@{()->iEmail.onNewEnabledResendClicked()}"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                tools:ignore="RelativeOverlap" />
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_172sdp" />
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_28sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:background="@color/colorPrimary"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/submit_button_text"
+                android:onClick="@{()->iEmail.onSubmitEmailButtonClicked()}"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_12sdp" />
+
+        </LinearLayout>
+
+
+        <ProgressBar
+            android:id="@+id/add_email_otp_progress"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
     </android.support.design.widget.CoordinatorLayout>
+
 
 </layout>
 

@@ -8,4 +8,14 @@ package com.ninositsolution.inveleapp.change_email;
 public interface IChangeEmail {
 
     void onBackClicked();
+    void onVerifyCurrentOTPClicked();
+    void onCurrentEnabledResendClicked();
+    void onChangeEmailClicked();
+    void onVerifyNewOTPClicked();
+    void onNewEnabledResendClicked();
+    void onSubmitEmailButtonClicked();
+
+
+
+
 }

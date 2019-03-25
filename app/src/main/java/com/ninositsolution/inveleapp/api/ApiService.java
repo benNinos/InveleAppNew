@@ -1,8 +1,14 @@
 package com.ninositsolution.inveleapp.api;
 
+import android.databinding.ObservableField;
+
 import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
+import com.ninositsolution.inveleapp.add_mobile.pojo.MobileOTPRequest;
+import com.ninositsolution.inveleapp.add_mobile.pojo.VerifyOTPRequest;
 import com.ninositsolution.inveleapp.address_book.pojo.AddressBookRequest;
 import com.ninositsolution.inveleapp.address_book.pojo.AddressUpdateRequest;
+import com.ninositsolution.inveleapp.change_email.pojo.EmailOTPRequest;
+import com.ninositsolution.inveleapp.change_email.pojo.VerifyemailOTPRequest;
 import com.ninositsolution.inveleapp.change_password.pojo.ChangePassowrdRequest;
 import com.ninositsolution.inveleapp.edit_address.pojo.EditAddressRequest;
 import com.ninositsolution.inveleapp.forgot_password.pojo.OTPRequest;
@@ -78,18 +84,40 @@ public interface ApiService {
     @Multipart
     @POST("users/profile_update")
     Observable<POJOClass> profileUpdateApi (
-                                            @Part("user_id") String user_id,
+                                            @Part("user_id") Integer user_id,
                                             @Part("first_name") String first_name,
                                             @Part("last_name") String last_name,
                                             @Part("mobile") String mobile,
                                             @Part("email") String email,
                                             @Part("gender") String gender,
                                             @Part("dob") String dob,
-                                            @Part MultipartBody.Part body
-                                            );
+                                            @Part MultipartBody.Part body);
 
     @POST("users/login")
     Observable<POJOClass> loginApi(@Body LoginRequest loginRequest);
+
+    @POST("user/profile_change")
+
+    Observable<POJOClass> mobileChangeApi (@Body MobileOTPRequest mobileOTPRequest);
+
+
+    @POST("users/otp_profile_verify")
+    Observable<POJOClass> verifyOtpMobileApi (@Body VerifyOTPRequest verifyOTPRequest);
+
+
+
+    @POST("user/profile_change")
+    Observable<POJOClass> emailChangeAPi (@Body EmailOTPRequest emailOTPRequest);
+
+    @POST("users/otp_profile_verify")
+
+    Observable<POJOClass> verifyOtpEmailApi(@Body VerifyemailOTPRequest verifyemailOTPRequest);
+
+
+
+
+
+
 
     @FormUrlEncoded
     @POST("home_page")

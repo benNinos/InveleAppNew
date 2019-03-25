@@ -10,27 +10,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ninositsolution.inveleapp.R;
-import com.ninositsolution.inveleapp.databinding.AdapterHomeThreeImageBinding;
-import com.squareup.picasso.Picasso;
+import com.ninositsolution.inveleapp.databinding.PagerHomeManagementBinding;
+import com.ninositsolution.inveleapp.pojo.HomeArrayLists;
 
-public class HomeThreeImageViewPagerAdapter extends PagerAdapter {
-
-    private static final String TAG = "SubBannerAdapter";
+public class HomeManagementViewPagerAdapter extends PagerAdapter {
 
     private Context context;
+    private HomeArrayLists homeArrayLists;
     private LayoutInflater layoutInflater;
-    private HomeVM homeVM;
 
-
-    public HomeThreeImageViewPagerAdapter(Context context, HomeVM homeVM) {
+    public HomeManagementViewPagerAdapter(Context context, HomeArrayLists homeArrayLists) {
         layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
-        this.homeVM = homeVM;
+        this.homeArrayLists = homeArrayLists;
     }
 
     @Override
     public int getCount() {
-        return 1;
+        return homeArrayLists.home_management_products.size()/2;
     }
 
     @Override
@@ -42,23 +39,18 @@ public class HomeThreeImageViewPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
 
-        AdapterHomeThreeImageBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.adapter_home_three_image, container, false);
+        PagerHomeManagementBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.pager_home_management, container, false);
         container.addView(binding.getRoot());
 
-        HomeVM homeVM = new HomeVM(
-                this.homeVM.sub_banners.get().get(position).image_path,
-                this.homeVM.sub_banners.get().get(position+1).image_path,
-                this.homeVM.sub_banners.get().get(position+2).image_path);
+        int i = 2*position;
 
-        binding.setAdapterSubBanner(homeVM);
-
-
+        HomeVM homeVM = new HomeVM(homeArrayLists.home_management_products.get(i), homeArrayLists.home_management_products.get(i+1));
+        binding.setPagerHomeManagement(homeVM);
         return binding.getRoot();
     }
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-
         ViewPager viewPager = (ViewPager) container;
         View view = (View) object;
         viewPager.removeView(view);

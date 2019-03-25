@@ -1,6 +1,7 @@
 package com.ninositsolution.inveleapp.home;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ninositsolution.inveleapp.R;
+import com.ninositsolution.inveleapp.databinding.ViewpagerBrandsBinding;
 
 /**
  * Created by Parthasarathy D on 1/18/2019.
@@ -20,20 +22,23 @@ public class BrandViewPagerAdapter extends PagerAdapter {
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private int [] images = {R.drawable.b1, R.drawable.b2, R.drawable.b3,
+    private HomeVM homeVM;
+    /*private int [] images = {R.drawable.b1, R.drawable.b2, R.drawable.b3,
             R.drawable.b2, R.drawable.b5, R.drawable.b6, R.drawable.b7,
             R.drawable.b8, R.drawable.b9, R.drawable.b10, R.drawable.b11,
             R.drawable.b12,R.drawable.b13, R.drawable.b14, R.drawable.b15,
-            R.drawable.b16 };
+            R.drawable.b16 };*/
 
-    public BrandViewPagerAdapter(Context context) {
+    public BrandViewPagerAdapter(Context context, HomeVM homeVM) {
+        layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
+        this.homeVM = homeVM;
     }
 
 
     @Override
     public int getCount() {
-        return 3;
+        return homeVM.brands.get().size()/4;
     }
 
     @Override
@@ -45,45 +50,22 @@ public class BrandViewPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
 
-        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = layoutInflater.inflate(R.layout.viewpager_brands, null);
-        int i = 0;
+        ViewpagerBrandsBinding brandsBinding = DataBindingUtil.inflate(layoutInflater, R.layout.viewpager_brands, container, false);
+        container.addView(brandsBinding.getRoot());
 
-        if (position<4)
-        {
-            if (position == 0)
-            {
-                i = position;
+        int i = 4*position;
 
-                ImageView brand_image_1 = view.findViewById(R.id.brand_image_1);
-                ImageView brand_image_2 = view.findViewById(R.id.brand_image_2);
-                ImageView brand_image_3 = view.findViewById(R.id.brand_image_3);
-                ImageView brand_image_4 = view.findViewById(R.id.brand_image_4);
-                brand_image_1.setImageResource(images[i]);
-                brand_image_2.setImageResource(images[i+1]);
-                brand_image_3.setImageResource(images[i+2]);
-                brand_image_4.setImageResource(images[i+3]);
-            }
-            else
-            {
-                i = position*4;
-
-                ImageView brand_image_1 = view.findViewById(R.id.brand_image_1);
-                ImageView brand_image_2 = view.findViewById(R.id.brand_image_2);
-                ImageView brand_image_3 = view.findViewById(R.id.brand_image_3);
-                ImageView brand_image_4 = view.findViewById(R.id.brand_image_4);
-                brand_image_1.setImageResource(images[i]);
-                brand_image_2.setImageResource(images[i+1]);
-                brand_image_3.setImageResource(images[i+2]);
-                brand_image_4.setImageResource(images[i+3]);
-            }
-        }
+        HomeVM homeVM = new HomeVM(
+                                this.homeVM.brands.get().get(i).image_path,
+                                this.homeVM.brands.get().get(i+1).image_path,
+                                this.homeVM.brands.get().get(i+2).image_path,
+                                this.homeVM.brands.get().get(i+3).image_path
+        );
 
 
-        ViewPager viewPager = (ViewPager) container;
-        viewPager.addView(view, 0);
+        brandsBinding.setBrandViewPager(homeVM);
 
-        return view;
+        return brandsBinding.getRoot();
 
     }
 

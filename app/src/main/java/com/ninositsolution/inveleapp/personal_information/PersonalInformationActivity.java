@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.ActivityPersonalInformationBinding;
+import com.ninositsolution.inveleapp.utils.Constants;
 import com.ninositsolution.inveleapp.utils.Session;
 
 import java.io.ByteArrayOutputStream;
@@ -53,48 +54,66 @@ public class PersonalInformationActivity extends AppCompatActivity {
         binding.setPersonalInfo(personalInformationVM);
         binding.setLifecycleOwner(this);
         binding.dateEdittext.setInputType(InputType.TYPE_NULL);
+        Session.setImagePath("",this);
 
         requestMultiplePermissions();
 
         binding.setIpersonalInfo(new IPersonalInformation() {
             @Override
             public void onUpdateProfileClicked() {
-                showProgressBar();
-                personalInformationVM.profileUpdateApi(Session.getUserId(PersonalInformationActivity.this), Session.getImagePath(PersonalInformationActivity.this));
-                personalInformationVM.getPersonalInformationMutableLiveData().observe(PersonalInformationActivity.this, new Observer<PersonalInformationVM>() {
-                    @Override
-                    public void onChanged(@Nullable PersonalInformationVM personalInformationVM) {
-                        if (!personalInformationVM.status.get().isEmpty())
-                        {
-                            if (personalInformationVM.status.get().equalsIgnoreCase("success"))
-                            {
-                                hideProgressBar();
-                                Toast.makeText(PersonalInformationActivity.this,""+personalInformationVM.msg.get(),Toast.LENGTH_LONG).show();
-                                personalInformationVM.status.get();
-                                finish();
-                                Log.d(TAG, "status: ->" +personalInformationVM.status.get());
-                                personalInformationVM.status.set("");
 
-                            } else
-                            {
-                                if (personalInformationVM.status.get().equalsIgnoreCase("error"))
+//                int status = personalInformationVM.personalValidation();
+//                if (status == Constants.NAME_EMPTY) {
+//                    binding.personfirstName.setError("Required");
+//                    binding.personfirstName.requestFocus();
+//                }
+//
+//                if (status == Constants.EMAIL_EMPTY) {
+//                    binding.personEmail.setError("Required");
+//                    binding.personEmail.requestFocus();
+//                }
+//                if (status == Constants.MOBILE_NO_EMPTY) {
+//                    binding.personMobileNumber.setError("Required");
+//                    binding.personMobileNumber.requestFocus();
+//                }
+//                if (status == Constants.DATE_OF_BIRTH_EMPTY)
+//                {
+//                    binding.dateEdittext.setError("Required");
+//                    binding.dateEdittext.requestFocus();
+//                }
+
+
+
+                    showProgressBar();
+                    personalInformationVM.profileUpdateApi(Integer.parseInt(Session.getUserId(PersonalInformationActivity.this)), Session.getImagePath(PersonalInformationActivity.this));
+                    personalInformationVM.getPersonalInformationMutableLiveData().observe(PersonalInformationActivity.this, new Observer<PersonalInformationVM>() {
+                        @Override
+                        public void onChanged(@Nullable PersonalInformationVM personalInformationVM) {
+                            if (!personalInformationVM.status.get().isEmpty()) {
+                                if (personalInformationVM.status.get().equalsIgnoreCase("success"))
                                 {
                                     hideProgressBar();
-                                    Toast.makeText(getApplicationContext(),"API Error",Toast.LENGTH_LONG).show();
-                                    Log.d(TAG, "status: ->" +personalInformationVM.status.get());
+                                    Toast.makeText(PersonalInformationActivity.this, "" + personalInformationVM.msg.get(), Toast.LENGTH_LONG).show();
+                                    personalInformationVM.status.get();
+                                    finish();
+                                    Log.d(TAG, "status: ->" + personalInformationVM.status.get());
                                     personalInformationVM.status.set("");
 
+                                } else {
+                                    if (personalInformationVM.status.get().equalsIgnoreCase("error")) {
+                                        hideProgressBar();
+                                        Toast.makeText(getApplicationContext(), "API Error", Toast.LENGTH_LONG).show();
+                                        Log.d(TAG, "status: ->" + personalInformationVM.status.get());
+                                        personalInformationVM.status.set("");
+
+                                    }
                                 }
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Something went Wrong", Toast.LENGTH_LONG).show();
                             }
-                        }
-                        else
-                        {
-                            Toast.makeText(getApplicationContext(),"Something went Wrong",Toast.LENGTH_LONG).show();
-                        }
 
-                    }
-                });
-
+                        }
+                    });
             }
 
             @Override
@@ -112,6 +131,8 @@ public class PersonalInformationActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 
     private void showPictureDialog()

@@ -7,6 +7,12 @@
         <variable
             name="accountInfo"
             type="com.ninositsolution.inveleapp.account_information.AccountInformationVM"/>
+
+        <variable
+            name="iaccountInfo"
+            type="com.ninositsolution.inveleapp.account_information.IAccountInformation"/>
+
+
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -31,7 +37,7 @@
                         android:id="@+id/account_header_back"
                         android:layout_width="@dimen/back_arrow_size"
                         android:layout_height="@dimen/back_arrow_size"
-                        android:onClick="@{()->accountInfo.onBackClicked()}"
+                        android:onClick="@{()->iaccountInfo.onBackClicked()}"
                         android:layout_marginStart="@dimen/_8sdp"
                         android:layout_centerVertical="true"
                         app:srcCompat="@drawable/ic_arrow_back_24dp"
@@ -66,7 +72,7 @@
             <RelativeLayout
                 android:id="@+id/add_mobile"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:onClick="@{()->accountInfo.onAddMobileClicked()}"
+                android:onClick="@{()->iaccountInfo.onAddMobileClicked()}"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_44sdp"
                 android:padding="@dimen/_8sdp">
@@ -89,6 +95,21 @@
                     android:src="@drawable/mobile_icon"
                     tools:ignore="ContentDescription" />
 
+
+                <TextView
+                    android:id="@+id/currentMobileValueTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/_12sdp"
+
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:text="@={accountInfo.mobileNumber}"
+                    android:textSize="@dimen/_10sdp"/>
+
+
+
+
             </RelativeLayout>
 
             <View
@@ -101,7 +122,7 @@
             <RelativeLayout
                 android:layout_marginStart="@dimen/_8sdp"
                 android:id="@+id/change_email"
-                android:onClick="@{()->accountInfo.onChangeEmailClicked()}"
+                android:onClick="@{()->iaccountInfo.onChangeEmailClicked()}"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_44sdp"
                 android:padding="@dimen/_8sdp">
@@ -124,6 +145,20 @@
                     android:src="@drawable/message"
                     tools:ignore="ContentDescription" />
 
+                <TextView
+                    android:id="@+id/currentEmailValueTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/_12sdp"
+                    android:text="@={accountInfo.emailAddress}"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:textSize="@dimen/_10sdp"/>
+
+
+
+
+
             </RelativeLayout>
 
             <View
@@ -136,7 +171,7 @@
             <RelativeLayout
                 android:layout_marginStart="@dimen/_8sdp"
                 android:id="@+id/change_password"
-                android:onClick="@{()->accountInfo.onChangePasswordClicked()}"
+                android:onClick="@{()->iaccountInfo.onChangePasswordClicked()}"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_44sdp"
                 android:padding="@dimen/_8sdp">

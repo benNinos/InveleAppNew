@@ -65,6 +65,8 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/currentMobileLayout"
+            android:visibility="visible"
             android:orientation="vertical">
 
             <Space
@@ -77,7 +79,7 @@
                 android:layout_marginStart="@dimen/_19sdp"
                 android:textStyle="bold"
                 android:textSize="@dimen/toolBarFont"
-                android:text="@string/change_mobile_text"
+                android:text="@string/verify_current_no"
                 android:fontFamily="@font/roboto_regular"
                 android:textColor="@android:color/black"/>
 
@@ -92,26 +94,46 @@
                 android:layout_height="0px"
                 tools:ignore="UselessLeaf" />
 
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:id="@+id/mobileNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/toolBarFont"
                     android:paddingBottom="@dimen/_12sdp"
                     android:layout_marginStart="@dimen/_16sdp"
                     android:layout_marginEnd="@dimen/_16sdp"
+                    android:inputType="none"
                     android:fontFamily="@font/roboto_regular"
-                    android:inputType="text"
+                    android:text="@={addMobile.mobileNumber}"
                     android:hint="@string/phone_no_hint"
+                    android:editable="false"
                     tools:ignore="Autofill"/>
-
 
             </android.support.design.widget.TextInputLayout>
 
 
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="@dimen/_20sdp"
+               android:layout_marginRight="@dimen/_14sdp"
+               android:text="Send OTP"
+               android:textColor="@color/colorPrimary"
+               android:textSize="@dimen/_10sdp"
+               android:onClick="@{()->iAddMobile.onVerifyOTPClicked()}"
+               android:layout_marginTop="@dimen/_12sdp"
+               android:layout_alignParentEnd="true"/>
+
+            </RelativeLayout>
 
             <Space
                 android:layout_width="match_parent"
@@ -126,6 +148,7 @@
                     android:layout_height="wrap_content">
 
                     <EditText
+                        android:id="@+id/currentOTP"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/toolBarFont"
@@ -133,7 +156,8 @@
                         android:layout_marginStart="@dimen/_16sdp"
                         android:layout_marginEnd="@dimen/_16sdp"
                         android:fontFamily="@font/roboto_regular"
-                        android:inputType="text"
+                        android:text="@={addMobile.otpCode}"
+                        android:inputType="numberPassword"
                         android:hint="@string/sms_code"
                         tools:ignore="Autofill" />
 
@@ -142,9 +166,11 @@
 
 
                 <TextView
+                    android:id="@+id/countDownTimerTextView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/timer"
+                    android:visibility="gone"
                     android:textColor="@color/colorPrimary"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="@dimen/_20sdp"
@@ -155,11 +181,26 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/currentDisabledResend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/resend"
                 android:layout_gravity="end"
+                android:visibility="visible"
                 android:textColor="@android:color/black"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                tools:ignore="RelativeOverlap" />
+
+            <TextView
+                android:id="@+id/currentEnabledResend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/resend"
+                android:layout_gravity="end"
+                android:visibility="gone"
+                android:onClick="@{()->iAddMobile.onCurrentEnabledResendClicked()}"
+                android:textColor="@color/colorPrimary"
                 android:layout_marginEnd="@dimen/_16sdp"
                 android:layout_marginTop="@dimen/_8sdp"
                 tools:ignore="RelativeOverlap" />
@@ -169,6 +210,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_172sdp" />
 
+
+            <ProgressBar
+                android:id="@+id/new_mobile_otp_progress"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_28sdp"
@@ -177,10 +228,184 @@
                 android:background="@color/colorPrimary"
                 android:fontFamily="@font/roboto_regular"
                 android:text="@string/change_mobile"
+                android:onClick="@{()->iAddMobile.onChangeMobileClicked()}"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_12sdp" />
 
         </LinearLayout>
+
+
+        <LinearLayout
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:id="@+id/newMobileLayout"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_19sdp"
+                android:textStyle="bold"
+                android:textSize="@dimen/toolBarFont"
+                android:text="@string/change_mobile_number"
+                android:fontFamily="@font/roboto_regular"
+                android:textColor="@android:color/black"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+
+            <LinearLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_width="0px"
+                android:layout_height="0px"
+                tools:ignore="UselessLeaf" />
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/newMobileNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/toolBarFont"
+                        android:paddingBottom="@dimen/_12sdp"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:inputType="number"
+                        android:maxLength="8"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="@={addMobile.newMobileNumber}"
+                        android:hint="@string/new_mobile_number_hint"
+                        android:editable="false"
+                        tools:ignore="Autofill"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_14sdp"
+                    android:text="@string/send_otp_btn_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_10sdp"
+                    android:onClick="@{()->iAddMobile.onNewVerifyOTPClicked()}"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_alignParentEnd="true"/>
+
+            </RelativeLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/newOtp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/toolBarFont"
+                        android:paddingBottom="@dimen/_12sdp"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="@={addMobile.newOtpCode}"
+                        android:inputType="numberPassword"
+                        android:hint="@string/sms_code"
+                        tools:ignore="Autofill" />
+
+                </android.support.design.widget.TextInputLayout>
+
+
+
+                <TextView
+                    android:id="@+id/countDownTimerTextView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/timer"
+                    android:visibility="gone"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    tools:ignore="RelativeOverlap" />
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/newDisabledResend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/resend"
+                android:layout_gravity="end"
+                android:visibility="visible"
+                android:textColor="@android:color/black"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                tools:ignore="RelativeOverlap" />
+            <TextView
+                android:id="@+id/newEnabledResend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/resend"
+                android:layout_gravity="end"
+                android:visibility="gone"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                tools:ignore="RelativeOverlap" />
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_172sdp" />
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_28sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:background="@color/colorPrimary"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/submit_button_text"
+                android:onClick="@{()->iAddMobile.onSubmitButtonClicked()}"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_12sdp" />
+
+        </LinearLayout>
+
+
+        <ProgressBar
+            android:id="@+id/add_mobile_otp_progress"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
 
     </android.support.design.widget.CoordinatorLayout>
 

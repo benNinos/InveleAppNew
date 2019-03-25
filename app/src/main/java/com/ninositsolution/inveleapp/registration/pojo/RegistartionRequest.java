@@ -28,7 +28,7 @@ public class RegistartionRequest {
     @SerializedName("device_type")
     public String device_type;
 
-    @SerializedName("Is_registration")
+    @SerializedName("is_registration")
     public String Is_registration;
 
     public RegistartionRequest(String first_name, String mobile, String email, String password, String login_type, String uid, String device_id, String device_type, String Is_registration) {

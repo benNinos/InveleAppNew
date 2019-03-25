@@ -51,12 +51,18 @@ public class PersonalInformationVM extends ViewModel {
     }
 
 
+    public int personalValidation()
+    {
+        return personalInformationRepo.personalInfoValidation(firstName.get(),emailAddress.get(),dateOfBirth.get(),mobileNumber.get());
+    }
+
+
     public MutableLiveData<PersonalInformationVM> getPersonalInformationMutableLiveData()
     {
         return personalInformationMutableLiveData;
     }
 
-    public void profileUpdateApi(String user_id, String image_path)
+    public void profileUpdateApi(Integer user_id, String image_path)
     {
         File file = new File(image_path);
         RequestBody requestBody  = RequestBody.create(MediaType.parse("multipart/form-data"), file);

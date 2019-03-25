@@ -79,7 +79,7 @@ public class PasswordRepo {
 
                     @Override
                     public void onNext(POJOClass pojoClass) {
-                        Log.i(TAG, "onNext : "+pojoClass.status);
+                            Log.i(TAG, "onNext : "+pojoClass.status);
 
                         PasswordVM passwordVM = new PasswordVM(pojoClass);
                         otpMutableLiveData.setValue(passwordVM);
@@ -138,7 +138,9 @@ public class PasswordRepo {
         return resetPasswordMutableLiveData;
     }
 
-    public int forgotEmailValidation(String forgotemail) {
+    public int forgotEmailValidation(String forgotemail)
+
+    {
         if (forgotemail.isEmpty())
         {
             return Constants.EMAIL_EMPTY;

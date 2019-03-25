@@ -154,21 +154,26 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <include layout="@layout/home_categories" />
+                    <include layout="@layout/home_categories"
+                        android:id="@+id/category_layout"
+                        app:categoryClick="@{1}"/>
 
                     <Space
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_12sdp" />
 
                     <include layout="@layout/home_flashsales"
-                        android:id="@+id/clicks"
+                        android:id="@+id/deals"
                         app:clickEvent="@{1}"/>
 
                     <Space
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_12sdp" />
 
-                    <include layout="@layout/home_trending" />
+                    <include layout="@layout/home_trending"
+                        android:id="@+id/trending"
+                        app:trendingProducts="@{1}"
+                        />
 
                     <Space
                         android:layout_width="match_parent"
@@ -301,185 +306,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_12sdp" />
 
-                    <android.support.v7.widget.CardView
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/home_management_recycler_view"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardElevation="@dimen/card_elevation_size">
+                        android:layout_height="wrap_content">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/invelebg"
-                            android:orientation="vertical">
+                    </android.support.v7.widget.RecyclerView>
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/_8sdp"
-                                android:layout_marginStart="@dimen/_8sdp"
-                                android:layout_marginTop="@dimen/_8sdp">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/mens"
-                                    android:fontFamily="@font/roboto_regular"
-                                    android:textSize="@dimen/_12sdp"
-                                    android:textStyle="bold"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/more"
-                                    android:layout_alignParentEnd="true"
-                                    android:fontFamily="@font/roboto_regular"
-                                    android:textSize="@dimen/more_text_size"
-                                    tools:ignore="RelativeOverlap" />
-
-                            </RelativeLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_2sdp"
-                                android:layout_margin="@dimen/_8sdp"
-                                android:background="@color/ash_color"/>
-
-                            <android.support.v4.view.ViewPager
-                                android:background="@color/invelebg"
-                                android:id="@+id/viewpager_mens"
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_232sdp">
-
-                            </android.support.v4.view.ViewPager>
-
-                        </LinearLayout>
-
-
-                    </android.support.v7.widget.CardView>
-
-
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_12sdp" />
-
-                    <android.support.v7.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardElevation="@dimen/card_elevation_size">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/invelebg"
-                            android:orientation="vertical"
-                            >
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/_8sdp"
-                                android:layout_marginStart="@dimen/_8sdp"
-                                android:layout_marginTop="@dimen/_8sdp">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/womens"
-                                    android:fontFamily="@font/roboto_regular"
-                                    android:textSize="@dimen/_12sdp"
-                                    android:textStyle="bold"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/more"
-                                    android:layout_alignParentEnd="true"
-                                    android:fontFamily="@font/roboto_regular"
-                                    android:textSize="@dimen/more_text_size" />
-
-                            </RelativeLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_2sdp"
-                                android:layout_margin="@dimen/_8sdp"
-                                android:background="@color/ash_color"/>
-
-                            <android.support.v4.view.ViewPager
-                                android:background="@color/invelebg"
-                                android:id="@+id/viewpager_womens"
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_232sdp">
-
-                            </android.support.v4.view.ViewPager>
-
-                        </LinearLayout>
-
-
-                    </android.support.v7.widget.CardView>
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_12sdp" />
-
-                    <android.support.v7.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardElevation="@dimen/card_elevation_size">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/invelebg"
-                            android:orientation="vertical">
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/_8sdp"
-                                android:layout_marginStart="@dimen/_8sdp"
-                                android:layout_marginTop="@dimen/_8sdp">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/electronics"
-                                    android:fontFamily="@font/roboto_regular"
-                                    android:textSize="@dimen/_12sdp"
-                                    android:textStyle="bold"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/more"
-                                    android:layout_alignParentEnd="true"
-                                    android:fontFamily="@font/roboto_regular"
-                                    android:textSize="@dimen/more_text_size" />
-
-                            </RelativeLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_2sdp"
-                                android:layout_margin="@dimen/_8sdp"
-                                android:background="@color/ash_color"/>
-
-                            <android.support.v4.view.ViewPager
-                                android:background="@color/invelebg"
-                                android:id="@+id/viewpager_electronics"
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_232sdp">
-
-                            </android.support.v4.view.ViewPager>
-
-                        </LinearLayout>
-
-
-                    </android.support.v7.widget.CardView>
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_12sdp" />
 
                 </LinearLayout>
 

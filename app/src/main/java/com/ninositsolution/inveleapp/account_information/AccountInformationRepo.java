@@ -5,8 +5,8 @@ package com.ninositsolution.inveleapp.account_information;
  * Ninos IT Solution Pvt Ltd
  * ben@ninositsolution.com
  */
-public class AccountInformationModel {
+public class AccountInformationRepo {
 
-    public AccountInformationModel() {
+    public AccountInformationRepo() {
     }
 }

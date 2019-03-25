@@ -512,6 +512,18 @@
 
     <string name="reset_password_otp_text">We send a OTP to your Email</string>
     <string name="static_otp_timer">45 Sec</string>
+    <string name="mobilenumber_not_set">Not Set</string>
+    <string name="send_otp_btn_text">Send OTP</string>
+    <string name="verify_no_btn">Verify No</string>
+    <string name="verify_current_no">Verify Current Mobile NUmber</string>
+    <string name="change_mobile_number">You can Change your mobile number Here</string>
+    <string name="new_mobile_number_hint">Enter your new mobile number</string>
+    <string name="submit_button_text">Submit</string>
+    <string name="verify_new_no_btn_text">Verify New No</string>
+    <string name="verify_your_current_e_mail_text">Verify your Current E-mail</string>
+    <string name="new_email_enter_hint">Enter your new E-mail ID</string>
+    <string name="change_e_mail_address_btntext">Change E-mail Address</string>
+    <string name="current_email_ID_hint">Enter your E-mail ID</string>
     <!--<string name="default_web_client_id">446803575025-rm20k69c00lcgde6410cu0cabg91plqc.apps.googleusercontent.com</string>-->
 
 

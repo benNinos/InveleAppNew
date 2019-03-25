@@ -1,52 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <data>
-        <variable
-            name="flashsales"
-            type="com.ninositsolution.inveleapp.home.HomeVM"/>
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class = "HomeManagementRecyclerBinding">
 
         <variable
-            name="clickEvent"
-            type="int"/>
+            name="adapterHomeManagement"
+            type="com.ninositsolution.inveleapp.home.HomeVM"/>
+
     </data>
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="@dimen/card_elevation_size">
+        app:elevation="@dimen/card_elevation_size">
 
         <LinearLayout
-            android:orientation="vertical"
-            android:background="@color/invelebg"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:background="@color/invelebg"
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_8sdp">
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp">
 
                 <TextView
-                    android:id="@+id/deal_head"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{flashsales.dealHeading}"
+                    android:text="@{adapterHomeManagement.homeProductHead}"
                     android:fontFamily="@font/roboto_regular"
                     android:textSize="@dimen/_12sdp"
                     android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/deal_timer"
-                    android:layout_toEndOf="@+id/deal_head"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:text="@{flashsales.dealTimer}"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/_12sdp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -59,14 +49,22 @@
 
             </RelativeLayout>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/deal_recycler_view"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="@dimen/_2sdp"
+                android:layout_margin="@dimen/_8sdp"
+                android:background="@color/ash_color"/>
 
-            </android.support.v7.widget.RecyclerView>
+            <android.support.v4.view.ViewPager
+                android:background="@color/invelebg"
+                android:id="@+id/home_management_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_232sdp">
+
+            </android.support.v4.view.ViewPager>
 
         </LinearLayout>
+
 
     </android.support.v7.widget.CardView>
 

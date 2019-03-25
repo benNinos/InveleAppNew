@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.account_information.AccountInformationActivity;
 import com.ninositsolution.inveleapp.databinding.ActivityChangeEmailBinding;
+import com.ninositsolution.inveleapp.utils.Constants;
 import com.ninositsolution.inveleapp.utils.Session;
 
 public class ChangeEmailActivity extends AppCompatActivity {
@@ -101,8 +102,6 @@ public class ChangeEmailActivity extends AppCompatActivity {
                     }
                 });
 
-
-
             }
 
             @Override
@@ -111,75 +110,68 @@ public class ChangeEmailActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onChangeEmailClicked()
+            public void onChangeEmailClicked() {
 
-            {
-                showProgressBar();
-                changeEmailVMGlobal.changeEmailOTP(Session.getUserId(context),"email");
-                changeEmailVMGlobal.getVerifyEmailOTPMutableLiveData().observe(ChangeEmailActivity.this, new Observer<ChangeEmailVM>() {
-                    @Override
-                    public void onChanged(@Nullable ChangeEmailVM changeEmailVM) {
-                        if (!changeEmailVM.status.get().isEmpty())
-                        {
-                            if (changeEmailVM.status.get().equalsIgnoreCase("success"))
-                            {
-                                hideProgressBar();
-                                Toast.makeText(getApplicationContext(),"" +changeEmailVM.msg.get(),Toast.LENGTH_LONG).show();
-                                Log.e(TAG,"onChangeEmailClicked:->" +changeEmailVM.msg.get());
-                                Log.e(TAG,"Current Email has been verified successfully.Please proceed and update with your new email address in the next screen");
+                    showProgressBar();
+                    changeEmailVMGlobal.changeEmailOTP(Session.getUserId(context), "email");
+                    changeEmailVMGlobal.getVerifyEmailOTPMutableLiveData().observe(ChangeEmailActivity.this, new Observer<ChangeEmailVM>() {
+                        @Override
+                        public void onChanged(@Nullable ChangeEmailVM changeEmailVM) {
+                            if (!changeEmailVM.status.get().isEmpty()) {
+                                if (changeEmailVM.status.get().equalsIgnoreCase("success")) {
+                                    hideProgressBar();
+                                    Toast.makeText(getApplicationContext(), "" + changeEmailVM.msg.get(), Toast.LENGTH_LONG).show();
+                                    Log.e(TAG, "onChangeEmailClicked:->" + changeEmailVM.msg.get());
+                                    Log.e(TAG, "Current Email has been verified successfully.Please proceed and update with your new email address in the next screen");
 
-                                if (binding.currentEmailLayout.getVisibility()==View.VISIBLE)
-                                {
-                                    binding.currentEmailLayout.setVisibility(View.GONE);
+                                    if (binding.currentEmailLayout.getVisibility() == View.VISIBLE) {
+                                        binding.currentEmailLayout.setVisibility(View.GONE);
+                                    }
+
+                                    if (binding.newEmailLayout.getVisibility() == View.GONE) {
+                                        binding.newEmailLayout.setVisibility(View.VISIBLE);
+                                    }
+                                } else if (changeEmailVM.status.get().equalsIgnoreCase("error")) {
+                                    hideProgressBar();
+
+                                    Toast.makeText(getApplicationContext(), "" + changeEmailVM.status.get(), Toast.LENGTH_LONG).show();
                                 }
+                                changeEmailVM.status.set("");
 
-                                if (binding.newEmailLayout.getVisibility()==View.GONE)
-                                {
-                                    binding.newEmailLayout.setVisibility(View.VISIBLE);
-                                }
                             }
-                            else if (changeEmailVM.status.get().equalsIgnoreCase("error"))
-                            {
-                                hideProgressBar();
 
-                                Toast.makeText(getApplicationContext(),""+changeEmailVM.status.get(),Toast.LENGTH_LONG).show();
-                            }
-                            changeEmailVM.status.set("");
-
+                            changeEmailVMGlobal.getVerifyEmailOTPMutableLiveData().removeObservers(ChangeEmailActivity.this);
                         }
+                    });
 
-                        changeEmailVMGlobal.getVerifyEmailOTPMutableLiveData().removeObservers(ChangeEmailActivity.this);
-                    }
-                });
+                }
 
-            }
 
             @Override
             public void onVerifyNewOTPClicked()
             {
+
+
                 showProgressBar();
-                changeEmailVMGlobal.newEmailVerifyOTP(Session.getUserId(context),"email");
-                changeEmailVMGlobal.getNewEmailOTPMutableLiveData().observe(ChangeEmailActivity.this, new Observer<ChangeEmailVM>() {
-                    @Override
-                    public void onChanged(@Nullable ChangeEmailVM changeEmailVM)
-                    {
-                        if (!changeEmailVM.status.get().isEmpty())
-                        {
-                            if (changeEmailVM.status.get().equalsIgnoreCase("success"))
-                            {
-                                hideProgressBar();
-                                changeEmailVMGlobal.newOtpCode.set(String.valueOf(changeEmailVM.otp.get()));
-                                Log.e(TAG,"onVerifyNewOTPClicked()->:" +changeEmailVM.otp.get());
+                    changeEmailVMGlobal.newEmailVerifyOTP(Session.getUserId(context), "email");
+                    changeEmailVMGlobal.getNewEmailOTPMutableLiveData().observe(ChangeEmailActivity.this, new Observer<ChangeEmailVM>() {
+                        @Override
+                        public void onChanged(@Nullable ChangeEmailVM changeEmailVM) {
+                            if (!changeEmailVM.status.get().isEmpty()) {
+                                if (changeEmailVM.status.get().equalsIgnoreCase("success")) {
+                                    hideProgressBar();
+                                    changeEmailVMGlobal.newOtpCode.set(String.valueOf(changeEmailVM.otp.get()));
+                                    Log.e(TAG, "onVerifyNewOTPClicked()->:" + changeEmailVM.otp.get());
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "" + changeEmailVM.msg.get(), Toast.LENGTH_LONG).show();
+                                }
+                                changeEmailVM.status.set("");
                             }
 
-                            else
-                            {
-                                Toast.makeText(getApplicationContext(),""+changeEmailVM.msg.get(),Toast.LENGTH_LONG).show();
-                            }
-                              changeEmailVM.status.set("");
                         }
-                    }
-                });
+                    });
+
+
             }
 
             @Override
@@ -190,45 +182,40 @@ public class ChangeEmailActivity extends AppCompatActivity {
             @Override
             public void onSubmitEmailButtonClicked()
             {
-                showProgressBar();
 
+
+                    showProgressBar();
                 changeEmailVMGlobal.newEmailOTP(Session.getUserId(context),"email");
                 changeEmailVMGlobal.getNewVerifyEmailOTPMutableLiveData().observe(ChangeEmailActivity.this, new Observer<ChangeEmailVM>() {
                     @Override
                     public void onChanged(@Nullable ChangeEmailVM changeEmailVM) {
-                        if (!changeEmailVM.status.get().isEmpty())
-                        {
-                            if (changeEmailVM.status.get().equalsIgnoreCase("success"))
-                            {
+                        if (!changeEmailVM.status.get().isEmpty()) {
+                            if (changeEmailVM.status.get().equalsIgnoreCase("success")) {
                                 hideProgressBar();
-                                Toast.makeText(getApplicationContext(),""+changeEmailVM.msg.get(),Toast.LENGTH_LONG).show();
-                                Log.e(TAG,"onSubmitButtonClicked()->:" +changeEmailVM.msg.get());
-                                Session.setUserEmail(changeEmailVMGlobal.newEmail.get(),context);
+                                Toast.makeText(getApplicationContext(), "" + changeEmailVM.msg.get(), Toast.LENGTH_LONG).show();
+                                Log.e(TAG, "onSubmitButtonClicked()->:" + changeEmailVM.msg.get());
+                                Session.setUserEmail(changeEmailVMGlobal.newEmail.get(), context);
                                 Intent intent = new Intent(ChangeEmailActivity.this, AccountInformationActivity.class);
                                 startActivity(intent);
 
+                            } else if (changeEmailVM.status.get().equalsIgnoreCase("error")) {
+                                hideProgressBar();
+                                Toast.makeText(getApplicationContext(), "" + changeEmailVM.msg.get(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Email updating failed.", Toast.LENGTH_LONG).show();
                             }
-                            else
-                                if (changeEmailVM.status.get().equalsIgnoreCase("error"))
-                                {
-                                    hideProgressBar();
-                                    Toast.makeText(getApplicationContext(),""+changeEmailVM.msg.get(),Toast.LENGTH_LONG).show();
-                                    Toast.makeText(getApplicationContext(), "Email updating failed.", Toast.LENGTH_LONG).show();
-                                }
                         }
 
                         changeEmailVM.status.set("");
-
                     }
-                });
+
+                    });
+                }
 
 
-            }
+
         });
-
-
-
     }
+
 
     private void showProgressBar()
     {
@@ -241,10 +228,4 @@ public class ChangeEmailActivity extends AppCompatActivity {
         if (binding.addEmailOtpProgress.getVisibility() == View.VISIBLE)
             binding.addEmailOtpProgress.setVisibility(View.GONE);
     }
-
-
-
-
-
-
 }

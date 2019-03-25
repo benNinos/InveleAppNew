@@ -221,7 +221,8 @@ public class AddMobileActivity extends AppCompatActivity {
                     binding.newMobileNumber.requestFocus();
                 }
 
-                else if (newMobileValidation == Constants.SUCCESS) {
+                else if (newMobileValidation == Constants.SUCCESS)
+                {
 
 
                     if (binding.countDownTimerTextView2.getVisibility() == View.GONE) {

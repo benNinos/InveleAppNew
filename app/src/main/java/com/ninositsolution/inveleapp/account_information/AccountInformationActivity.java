@@ -10,11 +10,9 @@ import android.util.Log;
 
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.add_mobile.AddMobileActivity;
-import com.ninositsolution.inveleapp.add_mobile.AddMobileVM;
 import com.ninositsolution.inveleapp.change_email.ChangeEmailActivity;
 import com.ninositsolution.inveleapp.change_password.ChangePasswordActivity;
 import com.ninositsolution.inveleapp.databinding.ActivityAccountInformationBinding;
-import com.ninositsolution.inveleapp.settings.SettingsActivity;
 import com.ninositsolution.inveleapp.utils.Session;
 
 public class AccountInformationActivity extends AppCompatActivity {
@@ -41,16 +39,20 @@ public class AccountInformationActivity extends AppCompatActivity {
         {
             if (Session.getUserEmail(context).isEmpty())
             {
+                accountInformationVM.emailAddress.set("Not Set");
 
 
                 Log.e(TAG, "Stored Email is : -->" + Session.getUserEmail(context));
             }
+
             else
             {
                 accountInformationVM.emailAddress.set(Session.getUserEmail(context));
                 Log.e(TAG, "Stored Email is : -->" + Session.getUserEmail(context));
             }
         }
+
+
 
         if (Session.getUserPhone(context) != null)
         {
@@ -66,9 +68,6 @@ public class AccountInformationActivity extends AppCompatActivity {
                 Log.e(TAG, "Stored Mobile is : -->" + Session.getUserPhone(context));
             }
         }
-
-
-
 
         binding.setIaccountInfo(new IAccountInformation() {
             @Override

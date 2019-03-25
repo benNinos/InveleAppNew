@@ -12,4 +12,5 @@ public interface IAddMobile {
     void onNewVerifyOTPClicked();
     void onChangeMobileClicked();
     void onSubmitButtonClicked();
+    void onCurrentEnabledResendClicked();
 }

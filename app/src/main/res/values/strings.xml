@@ -520,6 +520,8 @@
     <string name="new_mobile_number_hint">Enter your new mobile number</string>
     <string name="submit_button_text">Submit</string>
     <string name="verify_new_no_btn_text">Verify New No</string>
+    <string name="verify_your_current_e_mail_text">Verify your Current E-mail</string>
+    <string name="new_email_enter_hint">Enter your new E-mail ID</string>
     <!--<string name="default_web_client_id">446803575025-rm20k69c00lcgde6410cu0cabg91plqc.apps.googleusercontent.com</string>-->
 
 

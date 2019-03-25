@@ -27,10 +27,12 @@ public class AddMobileVM extends ViewModel {
 
 
     private MutableLiveData<AddMobileVM> mobileOTPMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<AddMobileVM> newMobileOTPMutableLiveData = new MutableLiveData<>();
 
 
 
     private MutableLiveData<AddMobileVM> verifyMobileOTPMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<AddMobileVM> newVerifyMobileOTPMutableLiveData = new MutableLiveData<>();
 
 
     public ObservableField<String> status = new ObservableField<>();
@@ -64,12 +66,9 @@ public class AddMobileVM extends ViewModel {
 
     public void newmobileVerifyOTP(String user_id, String type)
     {
-        MobileOTPRequest mobileOTPRequest = new MobileOTPRequest(user_id,"mobile",newMobileNumber.get());
-        mobileOTPMutableLiveData = addMobileRepo.getOtpMobileMutableLiveData(mobileOTPRequest);
+        MobileOTPRequest mobileOTPRequest = new MobileOTPRequest(user_id,type,newMobileNumber.get());
+        newMobileOTPMutableLiveData = addMobileRepo.getOtpMobileMutableLiveData(mobileOTPRequest);
     }
-
-
-
 
     public void changeMobileOTP(String user_id, String type)
     {
@@ -80,9 +79,26 @@ public class AddMobileVM extends ViewModel {
     public void newMobileOTP(String user_id, String type)
     {
         VerifyOTPRequest verifyOTPRequest = new VerifyOTPRequest(user_id,"mobile",newMobileNumber.get(),newOtpCode.get());
-        verifyMobileOTPMutableLiveData = addMobileRepo.getOtpVerifyMobileMutableLiveData(verifyOTPRequest);
+        newVerifyMobileOTPMutableLiveData = addMobileRepo.getOtpVerifyMobileMutableLiveData(verifyOTPRequest);
 
     }
+
+    public int newMobileNumberValidation()
+
+    {
+       return addMobileRepo.newMobileValidaiton(newMobileNumber.get());
+    }
+
+    public int currentOTPValidation()
+    {
+        return addMobileRepo.verifyCurrentMobileOTPValidation(otpCode.get());
+    }
+
+    public int submitValidation()
+    {
+        return addMobileRepo.updateMobileNumerValidation(newMobileNumber.get(),newOtpCode.get());
+    }
+
 
 
 
@@ -91,19 +107,20 @@ public class AddMobileVM extends ViewModel {
 
 
     public MutableLiveData<AddMobileVM> getMobileOTPMutableLiveData()
-
     {
         return mobileOTPMutableLiveData;
     }
-
 
     public MutableLiveData<AddMobileVM> getVerifyMobileOTPMutableLiveData()
     {
         return verifyMobileOTPMutableLiveData;
     }
 
+    public MutableLiveData<AddMobileVM> getNewMobileOTPMutableLiveData() {
+        return newMobileOTPMutableLiveData;
+    }
 
-
+    public MutableLiveData<AddMobileVM> getNewVerifyMobileOTPMutableLiveData() {
+        return newVerifyMobileOTPMutableLiveData;
+    }
 }
-
-

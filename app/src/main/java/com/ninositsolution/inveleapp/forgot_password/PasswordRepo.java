@@ -138,7 +138,9 @@ public class PasswordRepo {
         return resetPasswordMutableLiveData;
     }
 
-    public int forgotEmailValidation(String forgotemail) {
+    public int forgotEmailValidation(String forgotemail)
+
+    {
         if (forgotemail.isEmpty())
         {
             return Constants.EMAIL_EMPTY;

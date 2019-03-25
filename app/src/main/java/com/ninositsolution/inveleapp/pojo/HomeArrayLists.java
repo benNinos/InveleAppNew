@@ -20,14 +20,21 @@ public class HomeArrayLists {
     public String position;
     public String seller_id;
     public String sku;
+    public String store_location_name;
+    //public String attribute_id;
+    public String is_color;
     public Integer status;
+    public Integer seller_store_location_id;
     public Integer approde_status;
     public Float min_price;
     public Float max_price;
     public String created_at;
     public String updated_at;
     public Integer product_id;
+    public Integer category_id;
+    public Integer attribute_id;
     public String usual_price;
+    public String value;
     public Float invele_price;
     public String discount;
     public Integer average_rating;
@@ -42,4 +49,5 @@ public class HomeArrayLists {
     public String end_date_time;
     public ArrayList<HomeArrayLists> home_management_products;
     public ArrayList<HomeArrayLists> home_management_images;
+    public ArrayList<HomeArrayLists> attribute_values;
 }

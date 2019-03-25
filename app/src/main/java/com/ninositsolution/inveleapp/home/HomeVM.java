@@ -1,5 +1,6 @@
 package com.ninositsolution.inveleapp.home;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.BindingAdapter;
@@ -25,7 +26,9 @@ public class HomeVM extends ViewModel {
 
     private HomeRepo homeRepo;
 
-    private MutableLiveData<HomeVM> homeVMMutableLiveData = new MutableLiveData<>();
+    public MutableLiveData<HomeVM> homeVMMutableLiveData = new MutableLiveData<>();
+    public ObservableField<String> dealTimer = new ObservableField<>("");
+    public ObservableField<String> dealHeading = new ObservableField<>("");
 
     public HomeVM() {
 
@@ -45,7 +48,7 @@ public class HomeVM extends ViewModel {
     public ObservableField<ArrayList<HomeArrayLists>> home_managements = new ObservableField<>();
     public ObservableField<ArrayList<HomeArrayLists>> product_trendings = new ObservableField<>();
     public ObservableField<ArrayList<HomeArrayLists>> brands = new ObservableField<>();
-    public ObservableField<String> dealHeading = new ObservableField<>("");
+
 
     public HomeVM(POJOClass pojoClass)
     {
@@ -120,6 +123,25 @@ public class HomeVM extends ViewModel {
         subBanner3.set(image3);
     }
 
+    // categories
+
+    public ObservableField<String> categoryImage = new ObservableField<>();
+    public ObservableField<String> categoryName = new ObservableField<>("");
+
+    public ObservableField<String> getCategoryImage() { return categoryImage; }
+
+    @BindingAdapter({"android:src"})
+    public static void loadCategoryImage(ImageView imageView, String image)
+    {
+        Picasso.get().load(image).placeholder(R.drawable.product_detail_placeholder).into(imageView);
+    }
+
+    public HomeVM(HomeArrayLists homeArrayLists, int flag)
+    {
+        categoryImage.set(homeArrayLists.image_path);
+        categoryName.set(homeArrayLists.name);
+    }
+
     // Deal Products
 
     public ObservableField<String> dealProductImage = new ObservableField<>();
@@ -163,6 +185,7 @@ public class HomeVM extends ViewModel {
         trendingProductRate.set(Constants.CURRENCY+String.valueOf(homeVM.product_trendings.get().get(position).invele_price));
         trendingProductDeletedRate.set(Constants.CURRENCY+homeVM.product_trendings.get().get(position).usual_price);
         trendingProductRating.set(String.valueOf(homeVM.product_trendings.get().get(position).average_rating));
+        trendingProductRatingFloat.set(Float.valueOf(homeVM.product_trendings.get().get(position).average_rating));
     }
 
     public ObservableField<String> trendingProductImage()
@@ -243,6 +266,59 @@ public class HomeVM extends ViewModel {
     {
         Picasso.get().load(image).placeholder(R.drawable.product_detail_placeholder).into(imageView);
     }
+
+    // Home Management
+    public ObservableField<String> homeImage1 = new ObservableField<>();
+    public ObservableField<String> homeImage2 = new ObservableField<>();
+    public ObservableField<String> homeItemName1 = new ObservableField<>("");
+    public ObservableField<String> homeItemName2 = new ObservableField<>("");
+    public ObservableField<String> homeItemRate1 = new ObservableField<>("");
+    public ObservableField<String> homeItemRate2 = new ObservableField<>("");
+    public ObservableField<String> homeItemDeleteRate1 = new ObservableField<>("");
+    public ObservableField<String> homeItemDeleteRate2 = new ObservableField<>("");
+    public ObservableField<String> homeProductHead = new ObservableField<>("");
+    public ObservableField<String> homeRating1 = new ObservableField<>("");
+    public ObservableField<Float> homeRatingFloat1 = new ObservableField<>();
+    public ObservableField<Float> homeRatingFloat2 = new ObservableField<>();
+    public ObservableField<String> homeRating2 = new ObservableField<>("");
+
+    public ObservableField<String> getHomeImage1() {return homeImage1;}
+    public ObservableField<String> getHomeImage2() {return homeImage2;}
+
+    @BindingAdapter("{android:src}")
+    public static void loadHomeImage1(ImageView imageView, String image)
+    {
+        Picasso.get().load(image).placeholder(R.drawable.product_detail_placeholder).into(imageView);
+    }
+
+    @BindingAdapter("{android:src}")
+    public static void loadHomeImage2(ImageView imageView, String image)
+    {
+        Picasso.get().load(image).placeholder(R.drawable.product_detail_placeholder).into(imageView);
+    }
+
+    public HomeVM(String name, int flag)
+    {
+        homeProductHead.set(name);
+    }
+
+    public HomeVM(HomeArrayLists lists1, HomeArrayLists lists2)
+    {
+        homeImage1.set(lists1.image_path);
+        homeItemName1.set(lists1.name);
+        homeItemRate1.set(Constants.CURRENCY+String.valueOf(lists1.invele_price));
+        homeItemDeleteRate1.set(Constants.CURRENCY+lists1.usual_price);
+        homeRatingFloat1.set(Float.valueOf(lists1.average_rating));
+        homeRating1.set(String.valueOf(lists1.average_rating));
+
+        homeImage2.set(lists2.image_path);
+        homeItemName2.set(lists2.name);
+        homeItemRate2.set(Constants.CURRENCY+String.valueOf(lists2.invele_price));
+        homeItemDeleteRate2.set(Constants.CURRENCY+lists2.usual_price);
+        homeRatingFloat2.set(Float.valueOf(lists2.average_rating));
+        homeRating2.set(String.valueOf(lists2.average_rating));
+    }
+
 
     //performing Api call
     public void performHomePageApi(String user_id)

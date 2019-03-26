@@ -80,8 +80,29 @@ public class ChangeEmailVM extends ViewModel {
         newVerifyEmailOTPMutableLiveData = changeEmailRepo.getOtpVerifyEmailMutableLiveData(verifyemailOTPRequest);
     }
 
+
+    public int newEmailvalidation()
+    {
+        return changeEmailRepo.newEmailValidation(newEmail.get());
+    }
+
+
+    public int currentEmailOTPValidation()
+
+    {
+        return changeEmailRepo.verifyCurrentEmailValidation(currentOtpCode.get());
+    }
+
+    public int submitEmailValidation()
+    {
+        return changeEmailRepo.submitEmailValidation(newEmail.get(),newOtpCode.get());
+    }
+
+
+
     public MutableLiveData<ChangeEmailVM> getEmailOTPMutableLiveData()
     {
+
         return emailOTPMutableLiveData;
     }
 

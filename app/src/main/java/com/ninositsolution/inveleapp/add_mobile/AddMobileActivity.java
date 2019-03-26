@@ -224,7 +224,6 @@ public class AddMobileActivity extends AppCompatActivity {
                 else if (newMobileValidation == Constants.SUCCESS)
                 {
 
-
                     if (binding.countDownTimerTextView2.getVisibility() == View.GONE) {
                         binding.countDownTimerTextView2.setVisibility(View.VISIBLE);
                     }

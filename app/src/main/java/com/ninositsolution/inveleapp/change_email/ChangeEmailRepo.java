@@ -102,7 +102,44 @@ public class ChangeEmailRepo {
         return otpVerifyEmailMutableLiveData;
     }
 
+    public int newEmailValidation(String email)
+    {
+        if (email.isEmpty())
+        {
+            return Constants.EMAIL_EMPTY;
+        }
+        else
+        {
+            return Constants.SUCCESS;
+        }
+    }
+
+    public int verifyCurrentEmailValidation(String otp)
+    {
+        if (otp.isEmpty())
+        {
+            return Constants.OTP_EMPTY;
+        }
+        else
+        {
+            return Constants.SUCCESS;
+        }
+    }
 
 
-
+    public int submitEmailValidation(String newEmailAddress,String newOTPForNewEmail)
+    {
+        if (newEmailAddress.isEmpty())
+        {
+            return Constants.EMAIL_EMPTY;
+        }
+        else if (newOTPForNewEmail.isEmpty())
+        {
+            return Constants.OTP_EMPTY;
+        }
+        else
+        {
+            return Constants.SUCCESS;
+        }
+    }
 }

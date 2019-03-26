@@ -52,8 +52,6 @@ public class AccountInformationActivity extends AppCompatActivity {
             }
         }
 
-
-
         if (Session.getUserPhone(context) != null)
         {
             if (Session.getUserPhone(context).isEmpty())

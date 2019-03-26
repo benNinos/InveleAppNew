@@ -1,40 +1,84 @@
 package com.ninositsolution.inveleapp.search_everywhere;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.ActivitySearchEverywhereBinding;
 import com.ninositsolution.inveleapp.recently_viewed.RecentlyViewedAdapter;
+import com.ninositsolution.inveleapp.utils.Session;
 
 public class SearchEverywhereActivity extends AppCompatActivity {
 
     ActivitySearchEverywhereBinding binding;
     SearchEverywhereVM searchEverywhereVM;
+    Context context;
+    private static final String TAG = "SearchEverywherActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search_everywhere);
-
-        binding.setSearchEverywhere(searchEverywhereVM);
-
         searchEverywhereVM = ViewModelProviders.of(this).get(SearchEverywhereVM.class);
+        binding.setSearchEverywhere(searchEverywhereVM);
+        binding.setLifecycleOwner(this);
 
-        RecentlyViewedAdapter adapter = new RecentlyViewedAdapter(this);
-        binding.recentlyViewedRecyclerview.setHasFixedSize(true);
-        binding.recentlyViewedRecyclerview.setLayoutManager(new LinearLayoutManager(this));
-        binding.recentlyViewedRecyclerview.setAdapter(adapter);
+        context = SearchEverywhereActivity.this;
+
+        showProgressBar();
+
+        searchEverywhereVM.getBySearchApi(Session.getUserId(context), "shirts", "new");
+
+        searchEverywhereVM.getSearchEverywhereVMMutableLiveData().observe(this, new Observer<SearchEverywhereVM>() {
+            @Override
+            public void onChanged(@Nullable SearchEverywhereVM searchEverywhereVM) {
+
+                hideProgressBar();
+                String status = searchEverywhereVM.status.get();
+                String msg = searchEverywhereVM.msg.get();
+
+                if (!status.isEmpty())
+                {
+                    if (status.equalsIgnoreCase("success"))
+                    {
+                        Toast.makeText(SearchEverywhereActivity.this, ""+msg, Toast.LENGTH_SHORT).show();
+                        // handle success process
+
+                        SearchEveryWhereAdapter adapter = new SearchEveryWhereAdapter(context, searchEverywhereVM);
+                        binding.recentlyViewedRecyclerview.setHasFixedSize(true);
+                        binding.recentlyViewedRecyclerview.setLayoutManager(new GridLayoutManager(context, 2));
+                        binding.recentlyViewedRecyclerview.setAdapter(adapter);
+
+                    } else  {
+
+                        Toast.makeText(SearchEverywhereActivity.this, ""+msg, Toast.LENGTH_SHORT).show();
+                        // handle failure process
+
+                    }
+                } else
+                {
+                    Log.e(TAG, "getBySearchApiError : Api Error");
+                }
+
+            }
+        });
+
+
 
         binding.priceFilterLayout.setVisibility(View.GONE);
 
@@ -100,5 +144,17 @@ public class SearchEverywhereActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    private void showProgressBar()
+    {
+        if (binding.searchEverywhereProgress.getVisibility() == View.GONE)
+            binding.searchEverywhereProgress.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgressBar()
+    {
+        if (binding.searchEverywhereProgress.getVisibility() == View.VISIBLE)
+            binding.searchEverywhereProgress.setVisibility(View.GONE);
     }
 }

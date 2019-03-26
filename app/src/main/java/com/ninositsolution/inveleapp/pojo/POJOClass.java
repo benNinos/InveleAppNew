@@ -28,6 +28,8 @@ public class POJOClass {
     public ArrayList<HomeArrayLists> brands;
     public ArrayList<HomeArrayLists> products;
     public ArrayList<HomeArrayLists> categories;
+    public ArrayList<HomeArrayLists> locations;
+    public ArrayList<HomeArrayLists> attributes;
     public String start_date_time;
     public String end_date_time;
     public String caption;

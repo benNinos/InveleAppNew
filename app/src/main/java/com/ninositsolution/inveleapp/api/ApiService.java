@@ -19,6 +19,7 @@ import com.ninositsolution.inveleapp.personal_information.pojo.UpdateProfileRequ
 import com.ninositsolution.inveleapp.pojo.CategoryPojoClass;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 import com.ninositsolution.inveleapp.registration.pojo.RegistartionRequest;
+import com.ninositsolution.inveleapp.search_everywhere.SearchEverywhereRequest;
 
 import java.util.ArrayList;
 
@@ -97,7 +98,6 @@ public interface ApiService {
     Observable<POJOClass> loginApi(@Body LoginRequest loginRequest);
 
     @POST("user/profile_change")
-
     Observable<POJOClass> mobileChangeApi (@Body MobileOTPRequest mobileOTPRequest);
 
 
@@ -114,25 +114,13 @@ public interface ApiService {
     Observable<POJOClass> verifyOtpEmailApi(@Body VerifyemailOTPRequest verifyemailOTPRequest);
 
 
-
-
-
-
-
     @FormUrlEncoded
     @POST("home_page")
     Observable<POJOClass> homePageApi(@Field("user_id") String user_id);
 
-  /*  @FormUrlEncoded
-    @POST("Users/mobile_register")
-    Observable<RegistrationPOJO> registerApi(
-            @Field("first_name") String first_name,
-            @Field("mobile") String mobile,
-            @Field("email") String email,
-            @Field("password") String password,
-            @Field("login_type") String login_type,
-            @Field("uid") String uid,
-            @Field("device_id") String device_id,
-            @Field("device_type") String device_type
-    );*/
+    // Search Everywhere Api
+    @POST("products/search")
+    Observable<POJOClass> searchEverywhereApi(@Body SearchEverywhereRequest request);
+
+
 }

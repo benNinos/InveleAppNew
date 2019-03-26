@@ -8,9 +8,9 @@ import com.ninositsolution.inveleapp.api.RetrofitClient;
 import com.ninositsolution.inveleapp.change_email.pojo.EmailOTPRequest;
 import com.ninositsolution.inveleapp.change_email.pojo.VerifyemailOTPRequest;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
+import com.ninositsolution.inveleapp.utils.Constants;
 
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -102,5 +102,44 @@ public class ChangeEmailRepo {
         return otpVerifyEmailMutableLiveData;
     }
 
+    public int newEmailValidation(String email)
+    {
+        if (email.isEmpty())
+        {
+            return Constants.EMAIL_EMPTY;
+        }
+        else
+        {
+            return Constants.SUCCESS;
+        }
+    }
 
+    public int verifyCurrentEmailValidation(String otp)
+    {
+        if (otp.isEmpty())
+        {
+            return Constants.OTP_EMPTY;
+        }
+        else
+        {
+            return Constants.SUCCESS;
+        }
+    }
+
+
+    public int submitEmailValidation(String newEmailAddress,String newOTPForNewEmail)
+    {
+        if (newEmailAddress.isEmpty())
+        {
+            return Constants.EMAIL_EMPTY;
+        }
+        else if (newOTPForNewEmail.isEmpty())
+        {
+            return Constants.OTP_EMPTY;
+        }
+        else
+        {
+            return Constants.SUCCESS;
+        }
+    }
 }

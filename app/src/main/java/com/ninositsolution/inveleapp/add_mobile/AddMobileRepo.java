@@ -102,10 +102,6 @@ public class AddMobileRepo {
                     }
                 });
 
-
-
-
-
         return otpVerifyMobileMutableLiveData;
     }
 
@@ -138,7 +134,8 @@ public class AddMobileRepo {
     }
 
 
-    public int updateMobileNumerValidation(String newMobileno, String newOtp) {
+    public int updateMobileNumerValidation(String newMobileno, String newOtp)
+    {
 
 
         if (newMobileno.isEmpty()) {
@@ -149,4 +146,7 @@ public class AddMobileRepo {
             return Constants.SUCCESS;
         }
     }
+
+
+
 }

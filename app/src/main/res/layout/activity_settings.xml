@@ -7,6 +7,12 @@
         <variable
             name="settings"
             type="com.ninositsolution.inveleapp.settings.SettingsVM"/>
+
+        <variable
+            name="iSettings"
+            type="com.ninositsolution.inveleapp.settings.ISettings"/>
+
+
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -31,7 +37,7 @@
                         android:id="@+id/account_header_back"
                         android:layout_width="@dimen/back_arrow_size"
                         android:layout_height="@dimen/back_arrow_size"
-                        android:onClick="@{()->settings.onBackClicked()}"
+                        android:onClick="@{()->iSettings.onBackClicked()}"
                         android:layout_marginStart="@dimen/_8sdp"
                         android:layout_centerVertical="true"
                         app:srcCompat="@drawable/ic_arrow_back_24dp"
@@ -64,7 +70,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:onClick="@{()->settings.AccountInfoClicked()}"
+                android:onClick="@{()->iSettings.AccountInfoClicked()}"
                 android:layout_height="@dimen/_44sdp"
                 android:padding="@dimen/_8sdp">
 
@@ -90,7 +96,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:onClick="@{()->settings.AddressBookClicked()}"
+                android:onClick="@{()->iSettings.AddressBookClicked()}"
                 android:layout_height="@dimen/_44sdp"
                 android:padding="@dimen/_8sdp">
 
@@ -115,7 +121,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:onClick="@{()->settings.PersonalInfoClicked()}"
+                android:onClick="@{()->iSettings.PersonalInfoClicked()}"
                 android:layout_height="@dimen/_44sdp"
                 android:padding="@dimen/_8sdp">
 
@@ -141,7 +147,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:onClick="@{()->settings.onSocialMediaClicked()}"
+                android:onClick="@{()->iSettings.onSocialMediaClicked()}"
                 android:layout_height="@dimen/_44sdp"
                 android:padding="@dimen/_8sdp">
 
@@ -166,7 +172,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:onClick="@{()->settings.onPopupsClicked()}"
+                android:onClick="@{()->iSettings.onPopupsClicked()}"
                 android:layout_height="@dimen/_44sdp"
                 android:padding="@dimen/_8sdp">
 
@@ -191,7 +197,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:onClick="@{()->settings.onRequestAccountDeletionClicked()}"
+                android:onClick="@{()->iSettings.onRequestAccountDeletionClicked()}"
                 android:layout_height="@dimen/_44sdp"
                 android:padding="@dimen/_8sdp">
 
@@ -226,6 +232,7 @@
                 android:textColor="@android:color/white"
                 android:backgroundTint="@color/colorPrimary"
                 android:layout_gravity="center"
+                android:onClick="@{()->iSettings.onLogoutButtonClicked()}"
                 tools:ignore="UnusedAttribute" />
 
         </LinearLayout>

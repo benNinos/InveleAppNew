@@ -62,36 +62,33 @@ public class PersonalInformationActivity extends AppCompatActivity {
             @Override
             public void onUpdateProfileClicked() {
 
-//                int status = personalInformationVM.personalValidation();
-//                if (status == Constants.NAME_EMPTY) {
-//                    binding.personfirstName.setError("Required");
-//                    binding.personfirstName.requestFocus();
-//                }
-//
-//                if (status == Constants.EMAIL_EMPTY) {
-//                    binding.personEmail.setError("Required");
-//                    binding.personEmail.requestFocus();
-//                }
-//                if (status == Constants.MOBILE_NO_EMPTY) {
-//                    binding.personMobileNumber.setError("Required");
-//                    binding.personMobileNumber.requestFocus();
-//                }
-//                if (status == Constants.DATE_OF_BIRTH_EMPTY)
-//                {
-//                    binding.dateEdittext.setError("Required");
-//                    binding.dateEdittext.requestFocus();
-//                }
+                int status = personalInformationVM.personalValidation();
+                if (status == Constants.NAME_EMPTY) {
+                    binding.personfirstName.setError("Required");
+                    binding.personfirstName.requestFocus();
+                }
 
+                if (status == Constants.EMAIL_EMPTY) {
+                    binding.personEmail.setError("Required");
+                    binding.personEmail.requestFocus();
+                }
+                if (status == Constants.MOBILE_NO_EMPTY) {
+                    binding.personMobileNumber.setError("Required");
+                    binding.personMobileNumber.requestFocus();
+                }
+                if (status == Constants.DATE_OF_BIRTH_EMPTY) {
+                    binding.dateEdittext.setError("Required");
+                    binding.dateEdittext.requestFocus();
+                } else if (status == Constants.SUCCESS)
 
-
+                {
                     showProgressBar();
                     personalInformationVM.profileUpdateApi(Integer.parseInt(Session.getUserId(PersonalInformationActivity.this)), Session.getImagePath(PersonalInformationActivity.this));
                     personalInformationVM.getPersonalInformationMutableLiveData().observe(PersonalInformationActivity.this, new Observer<PersonalInformationVM>() {
                         @Override
                         public void onChanged(@Nullable PersonalInformationVM personalInformationVM) {
                             if (!personalInformationVM.status.get().isEmpty()) {
-                                if (personalInformationVM.status.get().equalsIgnoreCase("success"))
-                                {
+                                if (personalInformationVM.status.get().equalsIgnoreCase("success")) {
                                     hideProgressBar();
                                     Toast.makeText(PersonalInformationActivity.this, "" + personalInformationVM.msg.get(), Toast.LENGTH_LONG).show();
                                     personalInformationVM.status.get();
@@ -114,6 +111,7 @@ public class PersonalInformationActivity extends AppCompatActivity {
 
                         }
                     });
+                }
             }
 
             @Override
@@ -130,7 +128,9 @@ public class PersonalInformationActivity extends AppCompatActivity {
                 showDatePickerDialog();
 
             }
-        });
+
+
+            });
 
 
     }

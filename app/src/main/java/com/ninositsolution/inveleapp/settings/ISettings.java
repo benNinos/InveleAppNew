@@ -15,4 +15,5 @@ public interface ISettings {
     void onSocialMediaClicked();
     void onPopupsClicked();
     void onRequestAccountDeletionClicked();
+    void onLogoutButtonClicked();
 }

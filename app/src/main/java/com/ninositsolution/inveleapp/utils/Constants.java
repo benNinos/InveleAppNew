@@ -1,5 +1,7 @@
 package com.ninositsolution.inveleapp.utils;
 
+import android.content.Intent;
+
 public final class Constants {
 
     public static final Integer SUCCESS = 0;
@@ -40,6 +42,12 @@ public final class Constants {
     public static final String CURRENCY = "$";
     public static final String TYPE_MOBILE = "mobile";
     public static final String TYPE_EMAIL = "email";
+
+    public static final Integer SEARCH_EVERYWHERE_PRODUCTS = 23;
+    public static final Integer SEARCH_EVERYWHERE_CATEGORIES = 24;
+    public static final Integer SEARCH_EVERYWHERE_BRANDS = 25;
+    public static final Integer SEARCH_EVERYWHERE_LOCATIONS = 26;
+    public static final Integer SEARCH_EVERYWHERE_ATTRIBUTES = 27;
 
 
 }

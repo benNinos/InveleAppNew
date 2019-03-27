@@ -19,8 +19,7 @@ import com.ninositsolution.inveleapp.databinding.ActivityChangeEmailBinding;
 import com.ninositsolution.inveleapp.utils.Constants;
 import com.ninositsolution.inveleapp.utils.Session;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
+
 
 public class ChangeEmailActivity extends AppCompatActivity {
 
@@ -51,9 +50,9 @@ public class ChangeEmailActivity extends AppCompatActivity {
 
                 if (binding.currentEmailLayout.getVisibility()==View.VISIBLE)
                 {
-                    binding.currentEmailLayout.setVisibility(GONE);
+                    binding.currentEmailLayout.setVisibility(View.GONE);
                 }
-                if (binding.newEmailLayout.getVisibility()== GONE)
+                if (binding.newEmailLayout.getVisibility()== View.GONE)
                 {
                     binding.newEmailLayout.setVisibility(View.VISIBLE);
                 }
@@ -67,9 +66,6 @@ public class ChangeEmailActivity extends AppCompatActivity {
             }
         }
 
-
-
-
         binding.setIEmail(new IChangeEmail() {
             @Override
             public void onBackClicked() {
@@ -82,8 +78,7 @@ public class ChangeEmailActivity extends AppCompatActivity {
             public void onVerifyCurrentOTPClicked()
 
             {
-
-                if (binding.countDownTimerTextView1.getVisibility()== GONE)
+                if (binding.countDownTimerTextView1.getVisibility()== View.GONE)
                 {
                     binding.countDownTimerTextView1.setVisibility(View.VISIBLE);
                 }
@@ -99,16 +94,16 @@ public class ChangeEmailActivity extends AppCompatActivity {
                     {
                         if (binding.currentEmailDisabledResend.getVisibility() == View.VISIBLE)
                         {
-                            binding.currentEmailDisabledResend.setVisibility(GONE);
+                            binding.currentEmailDisabledResend.setVisibility(View.GONE);
                         }
-                        if (binding.currentEmailEnabledResend.getVisibility() == GONE)
+                        if (binding.currentEmailEnabledResend.getVisibility() == View.GONE)
                         {
                             binding.currentEmailEnabledResend.setVisibility(View.VISIBLE);
                         }
 
                         if (binding.countDownTimerTextView1.getVisibility() ==View.VISIBLE)
                         {
-                            binding.countDownTimerTextView1.setVisibility(GONE);
+                            binding.countDownTimerTextView1.setVisibility(View.GONE);
                         }
                     }
 
@@ -168,10 +163,10 @@ public class ChangeEmailActivity extends AppCompatActivity {
                                     Log.e(TAG, "Current Email has been verified successfully.Please proceed and update with your new email address in the next screen");
 
                                     if (binding.currentEmailLayout.getVisibility() == View.VISIBLE) {
-                                        binding.currentEmailLayout.setVisibility(GONE);
+                                        binding.currentEmailLayout.setVisibility(View.GONE);
                                     }
 
-                                    if (binding.newEmailLayout.getVisibility() == GONE) {
+                                    if (binding.newEmailLayout.getVisibility() == View.GONE) {
                                         binding.newEmailLayout.setVisibility(View.VISIBLE);
                                     }
                                 } else if (changeEmailVM.status.get().equalsIgnoreCase("error")) {
@@ -201,7 +196,7 @@ public class ChangeEmailActivity extends AppCompatActivity {
                 } else if (newOTPValidation == Constants.SUCCESS)
 
                 {
-                    if (binding.countDownTimerTextView2.getVisibility()== GONE)
+                    if (binding.countDownTimerTextView2.getVisibility()== View.GONE)
                     {
                         binding.countDownTimerTextView2.setVisibility(View.VISIBLE);
                     }
@@ -309,13 +304,13 @@ public class ChangeEmailActivity extends AppCompatActivity {
 
     private void showProgressBar()
     {
-        if (binding.addEmailOtpProgress.getVisibility() == GONE)
+        if (binding.addEmailOtpProgress.getVisibility() == View.GONE)
             binding.addEmailOtpProgress.setVisibility(View.VISIBLE);
     }
 
     private void hideProgressBar()
     {
         if (binding.addEmailOtpProgress.getVisibility() == View.VISIBLE)
-            binding.addEmailOtpProgress.setVisibility(GONE);
+            binding.addEmailOtpProgress.setVisibility(View.GONE);
     }
 }

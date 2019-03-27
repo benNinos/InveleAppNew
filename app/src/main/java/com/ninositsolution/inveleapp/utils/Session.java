@@ -28,6 +28,7 @@ public class Session {
     private static final String user_photo = "user_photo";
     private static final String is_email_registered = "is_email_registered";
     private static final String image_path = "image_path";
+    private static final String is_logged = "is_logged";
 
     public Session(Context context)
     {
@@ -160,4 +161,16 @@ public class Session {
     {
         context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(image_path, value).apply();
     }
+
+    public static Boolean getIsLogged(Context context)
+    {
+        return context.getSharedPreferences("Session", Context.MODE_PRIVATE).getBoolean(is_logged, false);
+    }
+
+    public static void setIsLogged(Boolean value, Context context)
+    {
+        context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putBoolean(is_logged, value).apply();
+    }
+
+
 }

@@ -135,6 +135,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                     Session.setUserId(String.valueOf(loginVM.user.get().id),LoginActivity.this);
                                     Session.setUserEmail(loginVMGlobal.username.get(), context);
+                                    Session.setIsLogged(true,context);
                                     Log.i(TAG, "User_id : "+loginVM.user.get().id);
                                     loginVM.status.set("");
                                     startActivity(new Intent(context, HomeActivity.class));
@@ -192,6 +193,7 @@ public class LoginActivity extends AppCompatActivity {
                                 {
 
                                     Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
+                                    Session.setIsLogged(true,context);
                                     Session.setUserPhone(loginVMGlobal.mobile.get(), context);
                                     loginVM.status.set("");
 

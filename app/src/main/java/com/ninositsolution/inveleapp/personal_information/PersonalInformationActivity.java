@@ -1,10 +1,9 @@
 package com.ninositsolution.inveleapp.personal_information;
-
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -23,6 +22,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.ninositsolution.inveleapp.R;
@@ -41,50 +41,102 @@ public class PersonalInformationActivity extends AppCompatActivity {
     private static final String TAG = "PersonalActivity";
 
     ActivityPersonalInformationBinding binding;
-    PersonalInformationVM personalInformationVM;
+    PersonalInformationVM personalInformationVMGlobal;
     private static final String IMAGE_DIRECTORY = "/invele";
     private int GALLERY = 1, CAMERA = 2;
+    public String gender;
+    Context context;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_personal_information);
-        personalInformationVM = ViewModelProviders.of(this).get(PersonalInformationVM.class);
-        binding.setPersonalInfo(personalInformationVM);
+        personalInformationVMGlobal = ViewModelProviders.of(this).get(PersonalInformationVM.class);
+        binding.setPersonalInfo(personalInformationVMGlobal);
         binding.setLifecycleOwner(this);
+        context = PersonalInformationActivity.this;
         binding.dateEdittext.setInputType(InputType.TYPE_NULL);
         Session.setImagePath("",this);
-
         requestMultiplePermissions();
+
+
+        personalInformationVMGlobal.getPersonalInfoApi(Session.getUserId(context));
+        personalInformationVMGlobal.getPersonalInfoDetailsMutableLiveData().observe(PersonalInformationActivity.this, new Observer<PersonalInformationVM>() {
+            @Override
+            public void onChanged(@Nullable PersonalInformationVM personalInformationVM)
+            {
+                if (!personalInformationVM.status.get().isEmpty())
+                {
+                    if (personalInformationVM.status.get().equalsIgnoreCase("success"))
+                    {
+
+                        binding.setPersonalInfo(new PersonalInformationVM(personalInformationVM.user.get()));
+//                       personalInformationVMGlobal.firstName.set(personalInformationVM.user.get().first_name);
+//                       personalInformationVMGlobal.lastName.set(personalInformationVM.user.get().last_name);
+//                       personalInformationVMGlobal.mobileNumber.set(personalInformationVM.user.get().mobile);
+//                       personalInformationVMGlobal.emailAddress.set(personalInformationVM.user.get().email);
+//                       personalInformationVMGlobal.dateOfBirth.set(personalInformationVM.user.get().dob);
+
+//                       binding.genderRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//                            @Override
+//                            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                                switch (checkedId)
+//                                {
+//                                    case R.id.personGenderMale:
+//                                        gender = "Male";
+//                                        break;
+//
+//                                    case R.id.personGenderFemale:
+//                                        gender = "Female";
+//                                        break;
+//
+//
+//                                }
+//                            }
+//                        });
+
+
+                    }
+                }
+            }
+        });
+
+
 
         binding.setIpersonalInfo(new IPersonalInformation() {
             @Override
             public void onUpdateProfileClicked() {
 
-                int status = personalInformationVM.personalValidation();
-                if (status == Constants.NAME_EMPTY) {
+                int status = personalInformationVMGlobal.personalValidation();
+                if (status == Constants.NAME_EMPTY)
+                {
                     binding.personfirstName.setError("Required");
                     binding.personfirstName.requestFocus();
                 }
 
-                if (status == Constants.EMAIL_EMPTY) {
+                if (status == Constants.EMAIL_EMPTY)
+                {
                     binding.personEmail.setError("Required");
                     binding.personEmail.requestFocus();
                 }
-                if (status == Constants.MOBILE_NO_EMPTY) {
+                if (status == Constants.MOBILE_NO_EMPTY)
+                {
                     binding.personMobileNumber.setError("Required");
                     binding.personMobileNumber.requestFocus();
                 }
-                if (status == Constants.DATE_OF_BIRTH_EMPTY) {
+                if (status == Constants.DATE_OF_BIRTH_EMPTY)
+                {
                     binding.dateEdittext.setError("Required");
                     binding.dateEdittext.requestFocus();
-                } else if (status == Constants.SUCCESS)
+                }
+
+                else if (status == Constants.SUCCESS)
 
                 {
                     showProgressBar();
-                    personalInformationVM.profileUpdateApi(Integer.parseInt(Session.getUserId(PersonalInformationActivity.this)), Session.getImagePath(PersonalInformationActivity.this));
-                    personalInformationVM.getPersonalInformationMutableLiveData().observe(PersonalInformationActivity.this, new Observer<PersonalInformationVM>() {
+                    personalInformationVMGlobal.profileUpdateApi(Integer.parseInt(Session.getUserId(PersonalInformationActivity.this)),Session.getImagePath(PersonalInformationActivity.this),gender);
+                    personalInformationVMGlobal.getPersonalInformationMutableLiveData().observe(PersonalInformationActivity.this, new Observer<PersonalInformationVM>() {
                         @Override
                         public void onChanged(@Nullable PersonalInformationVM personalInformationVM) {
                             if (!personalInformationVM.status.get().isEmpty()) {
@@ -128,15 +180,14 @@ public class PersonalInformationActivity extends AppCompatActivity {
                 showDatePickerDialog();
 
             }
-
-
-            });
+        });
 
 
     }
 
     private void showPictureDialog()
-    { AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
+    {
+        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
         pictureDialog.setTitle("Select Action");
         String[] pictureDialogItems = {
                 "Select photo from gallery",
@@ -201,7 +252,6 @@ public class PersonalInformationActivity extends AppCompatActivity {
             Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
             binding.profileImage.setImageBitmap(thumbnail);
             saveImage(thumbnail);
-            Toast.makeText(PersonalInformationActivity.this, "Image Saved!", Toast.LENGTH_SHORT).show();
         }
     }
 

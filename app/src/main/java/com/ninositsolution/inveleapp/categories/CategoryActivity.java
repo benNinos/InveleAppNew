@@ -484,6 +484,7 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             Log.e("back key pressed","Back key pressed");
             Constants.category_position="";
+            finish();
             return true;
         }
         return super.onKeyDown(keyCode, event);

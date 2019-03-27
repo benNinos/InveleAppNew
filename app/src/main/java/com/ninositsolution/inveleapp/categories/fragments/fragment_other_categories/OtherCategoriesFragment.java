@@ -36,7 +36,7 @@ public class OtherCategoriesFragment extends Fragment {
     OtherFragmentVM otherFragmentVM;
     CategoryModel categoryModel;
     IOtherCategory iOtherCategory;
-    List<CategoryModel>all_brands_list,categories_list,childList;
+    List<CategoryModel>all_brands_list,categories_list,childList,innerChildList;
     List<OtherFragmentVM>brand_list_separate;
     BrandCategoryAdapter brandCategoryAdapter;
     public static final String TAG = OtherCategoriesFragment.class.getSimpleName();
@@ -113,6 +113,7 @@ public class OtherCategoriesFragment extends Fragment {
                                    // }
                                    //  brandCategoryAdapter.notifyDataSetChanged();
                                }
+                               //child list loading
 
                                if(!categories_list.isEmpty()){
                                    Log.e(TAG, "child_list_size==>" + categories_list.get(position).child_categories.size());
@@ -126,6 +127,21 @@ public class OtherCategoriesFragment extends Fragment {
                                       expandableCategoriesAdapter = new ExpandableCategoriesAdapter(expandableVM, getContext());
                                        binding.categoryRecycler.setAdapter(expandableCategoriesAdapter);
                                    }
+                                   Log.e(TAG,"inner_child_list==>"+otherFragmentVMS.categories.get().get(position).child_categories);
+                                  /* innerChildList = new ArrayList<>();
+                                   innerChildList = otherFragmentVMS.categories.get().get(position).child_categories;
+                                   for(int c = 0;c < childList.size();c++) {
+                                       for (int i = 0; i < innerChildList.size(); i++) {
+
+                                           expandableCategoriesPOJO = new ExpandableCategoriesPOJO(childList.get(c).name, innerChildList.get(i).image_path, innerChildList.get(i).name);
+                                           otherFragmentVM = new OtherFragmentVM(expandableCategoriesPOJO);
+                                           expandableVM.add(otherFragmentVM);
+                                           expandableCategoriesAdapter = new ExpandableCategoriesAdapter(expandableVM, getContext());
+                                           binding.categoryRecycler.setAdapter(expandableCategoriesAdapter);
+
+                                       }
+                                   }*/
+
                                }
 
                            } else if (otherFragmentVMS.status.get().equalsIgnoreCase("error")) {

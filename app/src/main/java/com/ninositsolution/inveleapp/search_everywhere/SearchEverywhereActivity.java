@@ -1,13 +1,17 @@
 package com.ninositsolution.inveleapp.search_everywhere;
 
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -20,18 +24,24 @@ import android.widget.Toast;
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.ActivitySearchEverywhereBinding;
 import com.ninositsolution.inveleapp.recently_viewed.RecentlyViewedAdapter;
+import com.ninositsolution.inveleapp.utils.OnSwipeTouchListener;
 import com.ninositsolution.inveleapp.utils.Session;
+
+import java.io.Serializable;
+import java.util.Objects;
 
 public class SearchEverywhereActivity extends AppCompatActivity {
 
     ActivitySearchEverywhereBinding binding;
-    SearchEverywhereVM searchEverywhereVM;
+    SearchEverywhereVM searchEverywhereVM, vmInstance;
     Context context;
     private static final String TAG = "SearchEverywherActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        vmInstance = new SearchEverywhereVM();
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search_everywhere);
         searchEverywhereVM = ViewModelProviders.of(this).get(SearchEverywhereVM.class);
@@ -56,6 +66,7 @@ public class SearchEverywhereActivity extends AppCompatActivity {
                 {
                     if (status.equalsIgnoreCase("success"))
                     {
+
                         Toast.makeText(SearchEverywhereActivity.this, ""+msg, Toast.LENGTH_SHORT).show();
                         // handle success process
 
@@ -63,6 +74,8 @@ public class SearchEverywhereActivity extends AppCompatActivity {
                         binding.recentlyViewedRecyclerview.setHasFixedSize(true);
                         binding.recentlyViewedRecyclerview.setLayoutManager(new GridLayoutManager(context, 2));
                         binding.recentlyViewedRecyclerview.setAdapter(adapter);
+
+                        vmInstance = searchEverywhereVM;
 
                     } else  {
 
@@ -102,6 +115,17 @@ public class SearchEverywhereActivity extends AppCompatActivity {
                 binding.low.setTextColor(getResources().getColor(R.color.colorPrimary));
 
                 binding.high.setTextColor(getResources().getColor(R.color.textColor));
+
+                showProgressBar();
+
+                searchEverywhereVM.getBySearchApi(Session.getUserId(context), "shirts", "low");
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        binding.priceFilterLayout.setVisibility(View.GONE);
+                    }
+                },400);
             }
 
             @Override
@@ -109,22 +133,37 @@ public class SearchEverywhereActivity extends AppCompatActivity {
                 binding.high.setTextColor(getResources().getColor(R.color.colorPrimary));
 
                 binding.low.setTextColor(getResources().getColor(R.color.textColor));
+
+                showProgressBar();
+
+                searchEverywhereVM.getBySearchApi(Session.getUserId(context), "shirts", "high");
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        binding.priceFilterLayout.setVisibility(View.GONE);
+                    }
+                },400);
             }
 
-            @RequiresApi(api = Build.VERSION_CODES.M)
+
             @Override
             public void onFilterClicked() {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                FilterFragment filterFragment = new FilterFragment();
+                //FilterFragment filterFragment = new FilterFragment();
+                Fragment filterFragment = FilterFragment.fragmentInstance(vmInstance);
                 fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
                 fragmentTransaction.add(R.id.filter_container, filterFragment);
                 fragmentTransaction.commit();
 
-                binding.searchAppbarLayout.setForeground(getResources().getDrawable(R.drawable.window_dim));
-                binding.searchBodyLayout.setForeground(getResources().getDrawable(R.drawable.window_dim));
-                binding.searchAppbarLayout.getForeground().setAlpha(180);
-                binding.searchBodyLayout.getForeground().setAlpha(180);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.searchAppbarLayout.setForeground(getResources().getDrawable(R.drawable.window_dim));
+                    binding.searchBodyLayout.setForeground(getResources().getDrawable(R.drawable.window_dim));
+                    binding.searchAppbarLayout.getForeground().setAlpha(180);
+                    binding.searchBodyLayout.getForeground().setAlpha(180);
+                }
+
 
             }
 
@@ -139,6 +178,16 @@ public class SearchEverywhereActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    public void clearAlpha()
+    {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            binding.searchBodyLayout.setForeground(null);
+            binding.searchAppbarLayout.setForeground(null);
+        }
     }
 
     @Override

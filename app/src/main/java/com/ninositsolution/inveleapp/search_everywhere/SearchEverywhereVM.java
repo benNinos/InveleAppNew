@@ -11,6 +11,7 @@ import com.ninositsolution.inveleapp.recently_viewed.RecentlyViewedAdapter;
 import com.ninositsolution.inveleapp.search.SearchModel;
 import com.ninositsolution.inveleapp.utils.Constants;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -18,7 +19,7 @@ import java.util.ArrayList;
  * Ninos IT Solution Pvt Ltd
  * ben@ninositsolution.com
  */
-public class SearchEverywhereVM extends ViewModel {
+public class SearchEverywhereVM extends ViewModel implements Serializable {
 
     private SearchEveryWhereRepo searchEveryWhereRepo;
 
@@ -36,6 +37,7 @@ public class SearchEverywhereVM extends ViewModel {
     public ObservableField<ArrayList<HomeArrayLists>> brands = new ObservableField<>();
     public ObservableField<ArrayList<HomeArrayLists>> locations = new ObservableField<>();
     public ObservableField<ArrayList<HomeArrayLists>> attributes = new ObservableField<>();
+    public ObservableField<ArrayList<HomeArrayLists>> shippings = new ObservableField<>();
     public ObservableField<Float> filter_min_price = new ObservableField<>();
     public ObservableField<Float> filter_max_price = new ObservableField<>();
 
@@ -49,6 +51,7 @@ public class SearchEverywhereVM extends ViewModel {
         attributes.set(pojoClass.attributes);
         filter_min_price.set(pojoClass.filter_min_price);
         filter_max_price.set(pojoClass.filter_max_price);
+        shippings.set(pojoClass.shippings);
     }
 
     public void getBySearchApi(String user_id, String search_keyword, String order_by)
@@ -71,6 +74,14 @@ public class SearchEverywhereVM extends ViewModel {
     public ObservableField<String> product_rating = new ObservableField<>("");
     public ObservableField<Float> product_rating_float = new ObservableField<>();
 
+
+
+    //filter Screen
+
+    public ObservableField<String> dynamic_head = new ObservableField<>("");
+    public ObservableField<String> two_view_text = new ObservableField<>("");
+    public ObservableField<String> four_view_text = new ObservableField<>("");
+
     public SearchEverywhereVM(HomeArrayLists homeArrayLists, int flag)
     {
         if (flag == Constants.SEARCH_EVERYWHERE_PRODUCTS)
@@ -82,6 +93,13 @@ public class SearchEverywhereVM extends ViewModel {
             product_rating.set(homeArrayLists.average_rating.toString());
             product_rating_float.set(Float.valueOf(homeArrayLists.average_rating));
         }
+
+        if (flag == Constants.SEARCH_EVERYWHERE_CATEGORIES)
+        {
+            two_view_text.set(homeArrayLists.name);
+        }
     }
+
+
 
 }

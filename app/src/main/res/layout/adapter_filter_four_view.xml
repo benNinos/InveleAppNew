@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class = "AdapterFilterFourViewBinding">
+
+        <variable
+            name="adapterFourView"
+            type="com.ninositsolution.inveleapp.search_everywhere.SearchEverywhereVM"/>
+
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_10sdp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:orientation="horizontal"
+                android:weightSum="4"
+                android:baselineAligned="false"
+                tools:ignore="UselessParent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="@dimen/_2sdp"
+                    android:layout_height="wrap_content"
+                    tools:ignore="InefficientWeight,UselessParent">
+
+                    <Button
+                        android:id="@+id/four_view_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/filter_height"
+                        android:background="@drawable/altered_button_bground"
+                        android:text="@{adapterFourView.four_view_text}"
+                        android:textSize="@dimen/filter_textview_size"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</layout>
+

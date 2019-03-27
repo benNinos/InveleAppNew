@@ -450,7 +450,7 @@ public class RegisterActivity extends AppCompatActivity {
         if (firebaseUser.getDisplayName() != null)
         {
             Log.i(TAG, "fb_name : "+firebaseUser.getDisplayName());
-            Session.setUsername(firebaseUser.getDisplayName(), RegisterActivity.this);
+            Session.setUserFirstName(firebaseUser.getDisplayName(), RegisterActivity.this);
         }
 
         if (firebaseUser.getPhoneNumber() != null)
@@ -478,7 +478,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         registerVMGlobal.fbLoginApi(
-                Session.getUserName(RegisterActivity.this),
+                Session.getUserFirstName(RegisterActivity.this),
                 Session.getUserPhone(RegisterActivity.this),
                 Session.getUserEmail(RegisterActivity.this),
                 Session.getUserUid(RegisterActivity.this),
@@ -595,7 +595,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                             if (user.getDisplayName() != null)
                             {
-                                Session.setUsername(user.getDisplayName(), RegisterActivity.this);
+                                Session.setUserFirstName(user.getDisplayName(), RegisterActivity.this);
                             }
 
                             if (user.getEmail() != null)
@@ -619,7 +619,7 @@ public class RegisterActivity extends AppCompatActivity {
                             }
 
                             registerVMGlobal.googleLoginApi(
-                                    Session.getUserName(RegisterActivity.this),
+                                    Session.getUserFirstName(RegisterActivity.this),
                                     Session.getUserPhone(RegisterActivity.this),
                                     Session.getUserEmail(RegisterActivity.this),
                                     Session.getUserUid(RegisterActivity.this),

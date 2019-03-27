@@ -18,9 +18,12 @@ public class Session {
 
     private static final String device_id = "device_id";
     private static final String user_id = "user_id";
-    private static final String user_name = "user_name";
+    private static final String user_first_name = "user_first_name";
+    private static final String user_last_name = "user_last_name";
     private static final String user_email = "user_email";
     private static final String user_phone = "user_phone";
+    private static final String user_dob = "user_dob";
+    private static final String user_gender = "user_gender";
     private static final String user_uid = "user_uid";
     private static final String user_photo = "user_photo";
     private static final String is_email_registered = "is_email_registered";
@@ -58,14 +61,24 @@ public class Session {
         context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(user_id, value).apply();
     }
 
-    public static String getUserName(Context context)
+    public static String getUserFirstName(Context context)
     {
-        return context.getSharedPreferences("Session", Context.MODE_PRIVATE).getString(user_name, "");
+        return context.getSharedPreferences("Session", Context.MODE_PRIVATE).getString(user_first_name, "");
     }
 
-    public static void setUsername(String value, Context context)
+    public static void setUserFirstName(String value, Context context)
     {
-        context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(user_name, value).apply();
+        context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(user_first_name, value).apply();
+    }
+
+    public static String getUserLastName(Context context)
+    {
+        return context.getSharedPreferences("Session", Context.MODE_PRIVATE).getString(user_last_name, "");
+    }
+
+    public static void setUserLastName(String value, Context context)
+    {
+        context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(user_last_name, value).apply();
     }
 
     public static String getUserEmail(Context context)
@@ -86,6 +99,26 @@ public class Session {
     public static void setUserPhone(String value, Context context)
     {
         context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(user_phone, value).apply();
+    }
+
+    public static String getUserDob(Context context)
+    {
+        return context.getSharedPreferences("Session", Context.MODE_PRIVATE).getString(user_dob, "");
+    }
+
+    public static void setUserDob(String value, Context context)
+    {
+        context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(user_dob, value).apply();
+    }
+
+    public static String getUserGender(Context context)
+    {
+        return context.getSharedPreferences("Session", Context.MODE_PRIVATE).getString(user_gender, "");
+    }
+
+    public static void setUserGender(String value, Context context)
+    {
+        context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(user_gender, value).apply();
     }
 
     public static String getUserUid(Context context)

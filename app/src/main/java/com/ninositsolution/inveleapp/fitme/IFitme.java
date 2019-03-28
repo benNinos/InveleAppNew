@@ -6,4 +6,10 @@ package com.ninositsolution.inveleapp.fitme;
  * ben@ninositsolution.com
  */
 public interface IFitme {
+    void onDisabledMenClicked();
+    void onDisabledWomenClicked();
+    void onDisabledCMClicked();
+    void onEnabledInchesClicked();
+
+
 }

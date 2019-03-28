@@ -51,6 +51,7 @@ public class SearchEverywhereVM extends ViewModel implements Serializable {
         attributes.set(pojoClass.attributes);
         filter_min_price.set(pojoClass.filter_min_price);
         filter_max_price.set(pojoClass.filter_max_price);
+        brands.set(pojoClass.brands);
         shippings.set(pojoClass.shippings);
     }
 
@@ -95,6 +96,16 @@ public class SearchEverywhereVM extends ViewModel implements Serializable {
         }
 
         if (flag == Constants.SEARCH_EVERYWHERE_CATEGORIES)
+        {
+            two_view_text.set(homeArrayLists.name);
+        }
+
+        if (flag == Constants.SEARCH_EVERYWHERE_BRANDS)
+        {
+            two_view_text.set(homeArrayLists.name);
+        }
+
+        if (flag == Constants.SEARCH_EVERYWHERE_SHIPPING)
         {
             two_view_text.set(homeArrayLists.name);
         }

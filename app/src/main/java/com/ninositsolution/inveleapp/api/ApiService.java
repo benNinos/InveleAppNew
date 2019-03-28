@@ -91,8 +91,9 @@ public interface ApiService {
                                             @Part("mobile") String mobile,
                                             @Part("email") String email,
                                             @Part("gender") String gender,
-                                            @Part("dob") String dob,
-                                            @Part MultipartBody.Part body);
+                                            @Part("dob") String dob
+                                           // @Part MultipartBody.Part body
+    );
 
 
 

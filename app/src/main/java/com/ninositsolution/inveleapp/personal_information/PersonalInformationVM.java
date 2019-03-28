@@ -5,17 +5,21 @@ import android.arch.lifecycle.ViewModel;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.net.Uri;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.change_password.ChangePasswordVM;
 import com.ninositsolution.inveleapp.forgot_password.PasswordVM;
 import com.ninositsolution.inveleapp.personal_information.pojo.UpdateProfileRequest;
+import com.ninositsolution.inveleapp.pojo.HomeArrayLists;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 import com.ninositsolution.inveleapp.pojo.Users;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.InputStream;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -28,6 +32,7 @@ import okhttp3.RequestBody;
  */
 public class PersonalInformationVM extends ViewModel {
 
+    private static final String TAG = "PersonalInformationVM";
     public PersonalInformationRepo personalInformationRepo;
 
 
@@ -75,17 +80,6 @@ public class PersonalInformationVM extends ViewModel {
         Picasso.get().load(url).placeholder(R.drawable.profile).into(imageView);
     }
 
-    public PersonalInformationVM(Users users)
-    {
-        this.firstName.set(users.first_name);
-        this.lastName.set(users.last_name);
-        this.emailAddress.set(users.email);
-        this.dateOfBirth.set(users.dob);
-        this.mobileNumber.set(users.mobile);
-        this.user_image.set(users.image_path);
-    }
-
-
 
     public int personalValidation()
     {
@@ -100,16 +94,15 @@ public class PersonalInformationVM extends ViewModel {
 
     public void profileUpdateApi(Integer user_id, String image_path, String gender)
     {
-        File file = new File(image_path);
-        RequestBody requestBody  = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), requestBody);
+            File file = new File(image_path);
+            RequestBody requestBody  = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), requestBody);
 
+            personalInformationMutableLiveData = personalInformationRepo
+                    .getPersonalInformationMutableLiveData(user_id,firstName.get(),lastName.get(),
+                            mobileNumber.get(),emailAddress.get(),gender,dateOfBirth.get());
 
-
-//        personalInformationMutableLiveData = personalInformationRepo.getPersonalInformationMutableLiveData("25", "Arun", "prasad",
-//                "male", "7402191727", "arunprasadh.s@gmail.com", "1993-12-11", body );
-
-        personalInformationMutableLiveData = personalInformationRepo.getPersonalInformationMutableLiveData(user_id,firstName.get(),lastName.get(),mobileNumber.get(),emailAddress.get(),gender,dateOfBirth.get(),body);
+        Log.i(TAG, "body -> " + body);
     }
 
     public void getPersonalInfoApi(String user_id)
@@ -122,7 +115,15 @@ public class PersonalInformationVM extends ViewModel {
         return personalInfoDetailsMutableLiveData;
     }
 
-
+    public void setPersonalInfo(Users users)
+    {
+        this.firstName.set(users.first_name);
+        this.lastName.set(users.last_name);
+        this.emailAddress.set(users.email);
+        this.dateOfBirth.set(users.dob);
+        this.mobileNumber.set(users.mobile);
+        this.user_image.set(users.image_path);
+    }
 
 
 

@@ -70,8 +70,7 @@ public class PersonalInformationActivity extends AppCompatActivity {
                 {
                     if (personalInformationVM.status.get().equalsIgnoreCase("success"))
                     {
-
-                        binding.setPersonalInfo(new PersonalInformationVM(personalInformationVM.user.get()));
+                        personalInformationVMGlobal.setPersonalInfo(personalInformationVM.user.get());
 //                       personalInformationVMGlobal.firstName.set(personalInformationVM.user.get().first_name);
 //                       personalInformationVMGlobal.lastName.set(personalInformationVM.user.get().last_name);
 //                       personalInformationVMGlobal.mobileNumber.set(personalInformationVM.user.get().mobile);
@@ -134,25 +133,49 @@ public class PersonalInformationActivity extends AppCompatActivity {
                 else if (status == Constants.SUCCESS)
 
                 {
+                    Log.e(TAG,"onUpdateProfileClicked()->: Yes Clicked");
                     showProgressBar();
+                    Log.e(TAG,"Flow Passed");
+
+
+
                     personalInformationVMGlobal.profileUpdateApi(Integer.parseInt(Session.getUserId(PersonalInformationActivity.this)),Session.getImagePath(PersonalInformationActivity.this),gender);
+                    Log.e(TAG,"Crossed Line 1");
                     personalInformationVMGlobal.getPersonalInformationMutableLiveData().observe(PersonalInformationActivity.this, new Observer<PersonalInformationVM>() {
                         @Override
                         public void onChanged(@Nullable PersonalInformationVM personalInformationVM) {
+
+                            Log.e(TAG,"Checking Whether Empty or Not Empty");
                             if (!personalInformationVM.status.get().isEmpty()) {
-                                if (personalInformationVM.status.get().equalsIgnoreCase("success")) {
+                                if (personalInformationVM.status.get().equalsIgnoreCase("success"))
+                                {
+                                    Log.e(TAG,"Entered On Success");
+
+
                                     hideProgressBar();
                                     Toast.makeText(PersonalInformationActivity.this, "" + personalInformationVM.msg.get(), Toast.LENGTH_LONG).show();
                                     personalInformationVM.status.get();
                                     finish();
-                                    Log.d(TAG, "status: ->" + personalInformationVM.status.get());
+                                    Log.e(TAG, "status: ->" + personalInformationVM.status.get());
                                     personalInformationVM.status.set("");
+                                    Session.setImagePath("",context);
+                                    Session.setUserFirstName("",context);
+                                    Session.setUserLastName("",context);
+                                    Session.setUserEmail("",context);
+                                    Session.setUserPhone("",context);
+                                    Session.setUserDob("",context);
+                                    Session.setUserGender("",context);
 
-                                } else {
+
+                                } else
+
+                                    {
                                     if (personalInformationVM.status.get().equalsIgnoreCase("error")) {
+                                        Log.e(TAG,"Entered On Error");
+
                                         hideProgressBar();
                                         Toast.makeText(getApplicationContext(), "API Error", Toast.LENGTH_LONG).show();
-                                        Log.d(TAG, "status: ->" + personalInformationVM.status.get());
+                                        Log.e(TAG, "status: ->" + personalInformationVM.status.get());
                                         personalInformationVM.status.set("");
 
                                     }
@@ -211,6 +234,7 @@ public class PersonalInformationActivity extends AppCompatActivity {
     }
 
     private void takePhotoFromCamera()
+
     {
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, CAMERA);

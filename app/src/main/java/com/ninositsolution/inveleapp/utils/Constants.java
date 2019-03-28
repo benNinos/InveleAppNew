@@ -49,8 +49,11 @@ public final class Constants {
     public static final Integer SEARCH_EVERYWHERE_LOCATIONS = 26;
     public static final Integer SEARCH_EVERYWHERE_ATTRIBUTES = 27;
 
+
     public static final Integer FILTER_SHOW_LESS = 28;
     public static final Integer FILTER_SHOW_MORE = 29;
+
+    public static final Integer SEARCH_EVERYWHERE_SHIPPING = 30;
 
 
 }

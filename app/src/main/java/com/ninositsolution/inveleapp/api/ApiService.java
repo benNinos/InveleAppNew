@@ -94,6 +94,14 @@ public interface ApiService {
                                             @Part("dob") String dob,
                                             @Part MultipartBody.Part body);
 
+
+
+    @FormUrlEncoded
+    @POST("users/profile")
+
+    Observable<POJOClass> getProfileDetailsApi(@Field("user_id") String user_id);
+
+
     @POST("users/login")
     Observable<POJOClass> loginApi(@Body LoginRequest loginRequest);
 

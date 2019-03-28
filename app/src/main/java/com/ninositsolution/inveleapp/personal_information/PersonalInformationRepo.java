@@ -25,10 +25,14 @@ public class PersonalInformationRepo {
 
     private MutableLiveData<PersonalInformationVM> personalInformationMutableLiveData = new MutableLiveData<>();
 
-    public MutableLiveData<PersonalInformationVM> getPersonalInformationMutableLiveData(final Integer user_id, String first_name, String last_name, String gender, String mobile, String email, String dob, MultipartBody.Part body) {
+    private MutableLiveData<PersonalInformationVM> profileDetailsMutableLiveData =new MutableLiveData<>();
+
+    public MutableLiveData<PersonalInformationVM> getPersonalInformationMutableLiveData(final Integer user_id, String first_name, String last_name, String mobile, String email, String gender, String dob, MultipartBody.Part body)
+
+    {
         Log.d(TAG, "user ID is: " + user_id);
         ApiService apiService = RetrofitClient.getApiService();
-        apiService.profileUpdateApi(user_id, first_name, last_name, email, gender, dob, mobile, body).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        apiService.profileUpdateApi(user_id, first_name, last_name, mobile, email, gender, dob, body).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<POJOClass>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -58,6 +62,44 @@ public class PersonalInformationRepo {
                 });
         return personalInformationMutableLiveData;
     }
+
+    public MutableLiveData<PersonalInformationVM> getProfileDetailsMutableLiveData(String user_id)
+
+    {
+        ApiService apiService = RetrofitClient.getApiService();
+        apiService.getProfileDetailsApi(user_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<POJOClass>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(POJOClass pojoClass) {
+
+                Log.i(TAG, "onNext : "+pojoClass.status);
+                PersonalInformationVM personalInformationVM = new PersonalInformationVM(pojoClass);
+                profileDetailsMutableLiveData.setValue(personalInformationVM);
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+                Log.i(TAG, "onError : "+e.getMessage());
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+
+        return profileDetailsMutableLiveData;
+    }
+
+
+
 
     public int personalInfoValidation(String firstName, String mobile, String emailAddress, String dateOfBirth) {
         if (firstName.isEmpty()) {

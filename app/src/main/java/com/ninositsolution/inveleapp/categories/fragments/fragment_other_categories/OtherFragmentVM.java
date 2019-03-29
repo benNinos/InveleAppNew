@@ -15,6 +15,7 @@ import com.ninositsolution.inveleapp.pojo.POJOClass;
 import com.ninositsolution.inveleapp.utils.Constants;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OtherFragmentVM extends ViewModel {
@@ -35,8 +36,9 @@ public class OtherFragmentVM extends ViewModel {
 
     //child adapter UI fields
     public ObservableField<String>child_header = new ObservableField<>("");
-    public ObservableField<String>child_name = new ObservableField<>("");
-    public ObservableField<String>childImage = new ObservableField<>("");
+    public ObservableField<String>child_name = new ObservableField<>();
+    public ObservableField<String>childImage = new ObservableField<>();
+    public ObservableField<ArrayList<String>>child_category_name = new ObservableField<>();
 
     //pojo fields
     public ObservableField<String> status = new ObservableField<>("");
@@ -44,6 +46,7 @@ public class OtherFragmentVM extends ViewModel {
     public ObservableField <List<CategoryModel>>categories = new ObservableField<>();
     public ObservableField<List<CategoryModel>>child_categories = new ObservableField<>();
     public ObservableField<List<ExpandableCategoriesPOJO>> expandable_list = new ObservableField<>();
+    public ObservableField<List<ChildCategoriesPOJO>>child_category_list = new ObservableField<>();
 
     public OtherFragmentVM(CategoryPojoClass pojoClass){
         this.status.set(pojoClass.status);
@@ -55,9 +58,14 @@ public class OtherFragmentVM extends ViewModel {
     }
     public OtherFragmentVM(ExpandableCategoriesPOJO categoriesPOJO){
         this.child_header.set(categoriesPOJO.getHeader());
-        this.child_name.set(categoriesPOJO.getCategory_name());
-        this.childImage.set(categoriesPOJO.getImages());
+        this.child_category_list.set(categoriesPOJO.getChildCategoriesPOJOS());
+     // this.child_name.set(childCategoriesPOJO.getCategory_name());
+       //this.childImage.set(childCategoriesPOJO.getImages());
 
+    }
+    public OtherFragmentVM(ChildCategoriesPOJO childCategoriesPOJO){
+        this.child_name.set(childCategoriesPOJO.getCategory_name());
+        this.childImage.set(childCategoriesPOJO.getImages());
     }
 
     public OtherFragmentVM(CategoryModel categoryModel){
@@ -167,11 +175,17 @@ public class OtherFragmentVM extends ViewModel {
         Picasso.get().load(bannerImage).placeholder(R.drawable.img1).into(imageView);
     }
 
-    //set Child image
+    public ObservableField<String> getChild_name() {
+        return child_name;
+    }
+
+    //set banner image
     public ObservableField<String> childImage()
     {
         return childImage;
     }
+
+
     @BindingAdapter({"bind:childImage"})
     public static void loadImageChild(ImageView imageView, String childImage)
     {

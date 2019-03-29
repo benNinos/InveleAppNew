@@ -1,5 +1,8 @@
 package com.ninositsolution.inveleapp.categories.fragments.fragment_other_categories;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Parthasarathy D on 1/21/2019.
  * Ninos IT Solution Pvt Ltd
@@ -10,26 +13,29 @@ public class ExpandableCategoriesPOJO {
     private String header;
     private String images ;
     private String category_name;
+    private List<ChildCategoriesPOJO>childCategoriesPOJOS=new ArrayList<>();
 
-    public ExpandableCategoriesPOJO(String header,String images,String category_name) {
+
+    public ExpandableCategoriesPOJO(String header,List<ChildCategoriesPOJO>childCategoriesPOJOS){
         this.header = header;
-        this.images = images;
-        this.category_name = category_name;
+       this.childCategoriesPOJOS = childCategoriesPOJOS;
+    }
+    public ExpandableCategoriesPOJO(){
+        this.header = null;
+
+    }
+
+    public List<ChildCategoriesPOJO> getChildCategoriesPOJOS() {
+        return childCategoriesPOJOS;
+    }
+
+    public void setChildCategoriesPOJOS(List<ChildCategoriesPOJO> childCategoriesPOJOS) {
+        this.childCategoriesPOJOS = childCategoriesPOJOS;
     }
 
     public String getHeader() {
         return header;
     }
 
-    public String getImages() {
-        return images;
-    }
 
-    public String getCategory_name() {
-        return category_name;
-    }
-
-    public void setCategory_name(String category_name) {
-        this.category_name = category_name;
-    }
 }

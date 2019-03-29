@@ -25,7 +25,7 @@ public final class Constants {
     public static final Integer EMAIL_VALID = 16;
     public static final Integer EMAIL_INVALID = 17;
     public static final Integer INVALID_OTP_LENGTH = 18;
-    public static final Integer PASSWORD_MATCH = 18;
+    public static final Integer PASSWORD_MATCH = 1018;
     public static final Integer PASSWORD_MISMATCH = 19;
     public static final Integer CONFIRM_NEW_PASSWORD_EMPTY = 20;
     public static final Integer NEW_PASSWORD_EMPTY = 21;
@@ -48,6 +48,12 @@ public final class Constants {
     public static final Integer SEARCH_EVERYWHERE_BRANDS = 25;
     public static final Integer SEARCH_EVERYWHERE_LOCATIONS = 26;
     public static final Integer SEARCH_EVERYWHERE_ATTRIBUTES = 27;
+
+
+    public static final Integer FILTER_SHOW_LESS = 28;
+    public static final Integer FILTER_SHOW_MORE = 29;
+
+    public static final Integer SEARCH_EVERYWHERE_SHIPPING = 30;
 
 
 }

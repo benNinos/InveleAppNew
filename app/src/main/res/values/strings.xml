@@ -397,7 +397,8 @@
     <string name="filter_heading_pricerange">Price Range</string>
     <string name="filter_heading_categories">Categories</string>
     <string name="filter_heading_size">Size</string>
-    <string name="show_less_textview">Show Less</string>
+    <string name="show_less">Show Less</string>
+    <string name="show_more">Show More</string>
     <string name="offer_details_textView">15% OFF Products</string>
     <string name="review_product_name">Apple iPhone</string>
     <string name="shopping_cart_textView">Shopping Cart</string>

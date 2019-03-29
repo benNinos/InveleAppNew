@@ -1,8 +1,5 @@
 package com.ninositsolution.inveleapp.api;
 
-import android.databinding.ObservableField;
-
-import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 import com.ninositsolution.inveleapp.add_mobile.pojo.MobileOTPRequest;
 import com.ninositsolution.inveleapp.add_mobile.pojo.VerifyOTPRequest;
 import com.ninositsolution.inveleapp.address_book.pojo.AddressBookRequest;
@@ -15,17 +12,13 @@ import com.ninositsolution.inveleapp.forgot_password.pojo.OTPRequest;
 import com.ninositsolution.inveleapp.forgot_password.pojo.ResetPasswordRequest;
 import com.ninositsolution.inveleapp.login.LoginRequest;
 import com.ninositsolution.inveleapp.add_address.pojo.AddAddressRequest;
-import com.ninositsolution.inveleapp.personal_information.pojo.UpdateProfileRequest;
 import com.ninositsolution.inveleapp.pojo.CategoryPojoClass;
+import com.ninositsolution.inveleapp.pojo.HomeArrayLists;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 import com.ninositsolution.inveleapp.registration.pojo.RegistartionRequest;
 import com.ninositsolution.inveleapp.search_everywhere.SearchEverywhereRequest;
 
-import java.util.ArrayList;
-
 import io.reactivex.Observable;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -65,6 +58,13 @@ public interface ApiService {
     @GET("mobile/categories")
     Observable<CategoryPojoClass>Categories();
 
+
+    @GET("fitme/details")
+
+    Observable<POJOClass> FitMeDetails();
+
+
+
     @FormUrlEncoded
     @POST("users/forgot_password")
     Observable<POJOClass> forgotPasswordApi (@Field("forgot_name")String forgotName);
@@ -91,8 +91,17 @@ public interface ApiService {
                                             @Part("mobile") String mobile,
                                             @Part("email") String email,
                                             @Part("gender") String gender,
-                                            @Part("dob") String dob,
-                                            @Part MultipartBody.Part body);
+                                            @Part("dob") String dob
+                                           // @Part MultipartBody.Part body
+    );
+
+
+
+    @FormUrlEncoded
+    @POST("users/profile")
+
+    Observable<POJOClass> getProfileDetailsApi(@Field("user_id") String user_id);
+
 
     @POST("users/login")
     Observable<POJOClass> loginApi(@Body LoginRequest loginRequest);

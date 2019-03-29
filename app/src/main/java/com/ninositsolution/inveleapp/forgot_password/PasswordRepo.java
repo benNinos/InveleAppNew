@@ -55,7 +55,8 @@ public class PasswordRepo {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(Throwable e)
+                    {
                         Log.i(TAG, "onError : "+e.getMessage());
                     }
 

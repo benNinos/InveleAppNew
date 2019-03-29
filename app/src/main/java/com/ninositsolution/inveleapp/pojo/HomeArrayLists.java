@@ -47,6 +47,9 @@ public class HomeArrayLists {
     public String banner_type;
     public String start_date_time;
     public String end_date_time;
+    public String label;
+    public String description;
+    public Integer fitme_label_id;
     public ArrayList<HomeArrayLists> home_management_products;
     public ArrayList<HomeArrayLists> home_management_images;
     public ArrayList<HomeArrayLists> attribute_values;

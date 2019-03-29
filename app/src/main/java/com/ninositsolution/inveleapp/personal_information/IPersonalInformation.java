@@ -10,4 +10,5 @@ public interface IPersonalInformation {
      void onUpdateProfileClicked();
      void omImageViewClicked();
      void onDateEditTextClicked();
+
 }

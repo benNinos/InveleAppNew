@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class = "AdapterFilterTwoViewBinding">
+
+        <variable
+            name="adapterTwoView"
+            type="com.ninositsolution.inveleapp.search_everywhere.SearchEverywhereVM"/>
+
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/two_view_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:ignore="InefficientWeight,UselessParent">
+
+                <Button
+                    android:id="@+id/two_view_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/filter_height"
+                    android:alpha="10"
+                    android:textSize="@dimen/filter_textview_size"
+                    android:text="@{adapterTwoView.two_view_text}"
+                    android:background="@drawable/altered_button_bground" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</layout>

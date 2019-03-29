@@ -30,6 +30,9 @@ public class POJOClass {
     public ArrayList<HomeArrayLists> categories;
     public ArrayList<HomeArrayLists> locations;
     public ArrayList<HomeArrayLists> attributes;
+    public ArrayList<HomeArrayLists> shippings;
+    public ArrayList<HomeArrayLists> men;
+    public ArrayList<HomeArrayLists> women;
     public String start_date_time;
     public String end_date_time;
     public String caption;

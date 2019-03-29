@@ -5,5 +5,5 @@ package com.ninositsolution.inveleapp.fitme;
  * Ninos IT Solution Pvt Ltd
  * ben@ninositsolution.com
  */
-public class FitmeModel {
+public class FitmeRepo {
 }

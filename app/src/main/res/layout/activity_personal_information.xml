@@ -73,7 +73,7 @@
                         android:layout_height="@dimen/_100sdp"
                         android:scaleType="fitXY"
                         android:layout_margin="@dimen/_8sdp"
-                        android:src="@drawable/profile"
+                        android:src="@{personalInfo.user_image}"
                         android:onClick="@{()->ipersonalInfo.omImageViewClicked()}"
                         tools:ignore="ContentDescription" />
 
@@ -172,7 +172,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-
+                            android:id="@+id/genderRadioGroup"
                             android:orientation="horizontal">
 
                             <RadioButton

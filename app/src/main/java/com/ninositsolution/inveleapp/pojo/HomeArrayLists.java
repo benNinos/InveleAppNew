@@ -53,4 +53,22 @@ public class HomeArrayLists {
     public ArrayList<HomeArrayLists> home_management_products;
     public ArrayList<HomeArrayLists> home_management_images;
     public ArrayList<HomeArrayLists> attribute_values;
+
+
+    public HomeArrayLists  (Integer fitme_label_id,String label)
+    {
+        this.label = label;
+        this.fitme_label_id = fitme_label_id;
+    }
+
+    public HomeArrayLists(String label) {
+        this.label = label;
+    }
+
+
+    public String getLabel()
+    {
+        return label;
+    }
+
 }

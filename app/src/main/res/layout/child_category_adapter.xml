@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data class ="ChildCategoryAdapterBinding">
+
+        <variable
+            name="otherFragment"
+            type="com.ninositsolution.inveleapp.categories.fragments.fragment_other_categories.OtherFragmentVM"/>
+        <variable
+            name="iOtherCategory"
+            type="com.ninositsolution.inveleapp.categories.fragments.fragment_other_categories.IOtherCategory"/>
+
+
+    </data>
+
+<LinearLayout android:layout_width="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/_3sdp"
+    android:padding="@dimen/_4sdp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/categories_img1"
+        android:layout_width="@dimen/all_brand_photo_width"
+        android:layout_height="@dimen/all_brand_photo_height"
+        bind:childImage="@{otherFragment.childImage}"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/img1"
+        tools:ignore="ContentDescription" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_2sdp" />
+
+    <TextView
+        android:id="@+id/child_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/all_brand_photo_text"
+        android:layout_gravity="center_horizontal"
+        android:hint="@string/formal"
+        android:text="@={otherFragment.child_name}"/>
+
+</LinearLayout>
+</layout>

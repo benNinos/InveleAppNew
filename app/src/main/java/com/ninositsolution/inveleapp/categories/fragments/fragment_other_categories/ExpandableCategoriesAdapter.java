@@ -3,7 +3,9 @@ package com.ninositsolution.inveleapp.categories.fragments.fragment_other_catego
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,13 +36,14 @@ public class ExpandableCategoriesAdapter extends RecyclerView.Adapter<Expandable
     private List<OtherFragmentVM> arrayList;
     private LayoutInflater layoutInflater;
     IOtherCategory iOtherCategory;
+    ChildCategoryAdapter childCategoryAdapter;
 
     public static final String TAG = BrandCategoryAdapter.class.getSimpleName();
 
     public ExpandableCategoriesAdapter(List<OtherFragmentVM> expandableCategoriesPOJOList, Context context) {
         this.arrayList = expandableCategoriesPOJOList;
         this.context = context;
-        notifyDataSetChanged();
+       // notifyDataSetChanged();
     }
 
     @NonNull
@@ -62,6 +65,8 @@ public class ExpandableCategoriesAdapter extends RecyclerView.Adapter<Expandable
         otherFragmentVM = arrayList.get(position);
         expandableCategoriesViewHolder.binding.setOtherFragment(otherFragmentVM);
         expandableCategoriesViewHolder.binding.setIOtherCategory(iOtherCategory);
+//        expandableCategoriesViewHolder.binding.executePendingBindings();
+
 
 
         if (expandableCategoriesViewHolder.binding.categoriesChildlayout.getVisibility() == View.VISIBLE)
@@ -73,7 +78,7 @@ public class ExpandableCategoriesAdapter extends RecyclerView.Adapter<Expandable
             expandableCategoriesViewHolder.binding.categoriesChildlayout.setVisibility(View.GONE);
         }
 
-        expandableCategoriesViewHolder.binding.categoriesHeader.setText("Women's Fashion");
+       // expandableCategoriesViewHolder.binding.categoriesHeader.setText("Women's Fashion");
 
 
         if (currentPosition == position)
@@ -85,6 +90,11 @@ public class ExpandableCategoriesAdapter extends RecyclerView.Adapter<Expandable
                 expandableCategoriesViewHolder.binding.downArrow.setVisibility(View.VISIBLE);
                 expandableCategoriesViewHolder.binding.upArrow.setVisibility(View.GONE);
                 expandableCategoriesViewHolder.binding.categoriesChildlayout.setVisibility(View.GONE);
+                //set the child recyclerview list
+              //  expandableCategoriesViewHolder.binding.childRecyclerview.setHasFixedSize(true);
+              //  expandableCategoriesViewHolder.binding.childRecyclerview.setLayoutManager(new GridLayoutManager(context,3));
+              //  childCategoryAdapter = new ChildCategoryAdapter(arrayList.get(position).child_category_list.get(),context);
+
             }
 
             else {
@@ -101,6 +111,7 @@ public class ExpandableCategoriesAdapter extends RecyclerView.Adapter<Expandable
         expandableCategoriesViewHolder.binding.categoriesHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.e(TAG,"position_selected_list==>"+arrayList.get(position).child_category_list.get());
                 currentPosition = position;
                 notifyDataSetChanged();
             }

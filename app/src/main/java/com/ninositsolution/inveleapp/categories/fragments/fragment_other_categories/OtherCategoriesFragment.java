@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.ninositsolution.inveleapp.R;
@@ -39,17 +40,20 @@ public class OtherCategoriesFragment extends Fragment {
     List<CategoryModel>all_brands_list,categories_list,childList,innerChildList;
     List<OtherFragmentVM>brand_list_separate;
     BrandCategoryAdapter brandCategoryAdapter;
+    ChildCategoryAdapter childCategoryAdapter;
     public static final String TAG = OtherCategoriesFragment.class.getSimpleName();
     int position=0;
 
     private RecyclerView recyclerView;
     private ExpandableCategoriesAdapter expandableCategoriesAdapter;
-    private int [] images = {R.drawable.mb1, R.drawable.mb2, R.drawable.mb3,
+    /*private int [] images = {R.drawable.mb1, R.drawable.mb2, R.drawable.mb3,
             R.drawable.mb1, R.drawable.mb1, R.drawable.mb2};
-    private String header = "Women's Fashion";
-    private List<ExpandableCategoriesPOJO> expandableCategoriesPOJOList;
+    private String header = "Women's Fashion";*/
     private List<OtherFragmentVM>expandableVM;
+    public List<OtherFragmentVM>chilCategoryVM;
     ExpandableCategoriesPOJO expandableCategoriesPOJO;
+    ChildCategoriesPOJO childCategoriesPOJO;
+    public List<ChildCategoriesPOJO>child_categories;
 
 
     public OtherCategoriesFragment() {
@@ -69,6 +73,11 @@ public class OtherCategoriesFragment extends Fragment {
 
         binding.brandRecyclerview.setHasFixedSize(true);
         binding.brandRecyclerview.setLayoutManager(new GridLayoutManager(view.getContext(),3));
+
+        binding.categoryRecycler.setHasFixedSize(true);
+        binding.categoryRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
+
 
         otherFragmentVM = ViewModelProviders.of(this).get(OtherFragmentVM.class);
 
@@ -119,28 +128,33 @@ public class OtherCategoriesFragment extends Fragment {
                                    Log.e(TAG, "child_list_size==>" + categories_list.get(position).child_categories.size());
                                    childList = new ArrayList<>();
                                    childList = otherFragmentVMS.categories.get().get(position).child_categories;
-                                   for(int i=0;i<childList.size();i++) {
+                                   expandableVM = new ArrayList<>();
 
-                                       expandableCategoriesPOJO = new ExpandableCategoriesPOJO(childList.get(i).name, "","");
-                                       otherFragmentVM = new OtherFragmentVM(expandableCategoriesPOJO);
-                                       expandableVM.add(otherFragmentVM);
-                                      expandableCategoriesAdapter = new ExpandableCategoriesAdapter(expandableVM, getContext());
-                                       binding.categoryRecycler.setAdapter(expandableCategoriesAdapter);
-                                   }
-                                   Log.e(TAG,"inner_child_list==>"+otherFragmentVMS.categories.get().get(position).child_categories);
-                                  /* innerChildList = new ArrayList<>();
-                                   innerChildList = otherFragmentVMS.categories.get().get(position).child_categories;
+                                   innerChildList = new ArrayList<>();
+                                   chilCategoryVM = new ArrayList<>();
                                    for(int c = 0;c < childList.size();c++) {
+                                       innerChildList = otherFragmentVMS.categories.get().get(position).child_categories.get(c).child_categories;
+                                       child_categories = new ArrayList<>();
                                        for (int i = 0; i < innerChildList.size(); i++) {
 
-                                           expandableCategoriesPOJO = new ExpandableCategoriesPOJO(childList.get(c).name, innerChildList.get(i).image_path, innerChildList.get(i).name);
-                                           otherFragmentVM = new OtherFragmentVM(expandableCategoriesPOJO);
-                                           expandableVM.add(otherFragmentVM);
-                                           expandableCategoriesAdapter = new ExpandableCategoriesAdapter(expandableVM, getContext());
-                                           binding.categoryRecycler.setAdapter(expandableCategoriesAdapter);
-
+                                           child_categories.add(new ChildCategoriesPOJO(innerChildList.get(i).image_path,innerChildList.get(i).name));
+                                           childCategoriesPOJO = new ChildCategoriesPOJO(innerChildList.get(i).image_path,innerChildList.get(i).name);
+                                           otherFragmentVM = new OtherFragmentVM(childCategoriesPOJO);
+                                           chilCategoryVM.add(otherFragmentVM);
                                        }
-                                   }*/
+                                      // childCategoryAdapter = new ChildCategoryAdapter(chilCategoryVM,getContext());
+
+                                       expandableCategoriesPOJO = new ExpandableCategoriesPOJO(childList.get(c).name,child_categories);
+                                       otherFragmentVM = new OtherFragmentVM(expandableCategoriesPOJO);
+                                     //  otherFragmentVM = new OtherFragmentVM(childCategoriesPOJO);
+                                       expandableVM.add(otherFragmentVM);
+                                   }
+                                   expandableCategoriesAdapter = new ExpandableCategoriesAdapter(expandableVM, getContext());
+                                   binding.categoryRecycler.setAdapter(expandableCategoriesAdapter);
+
+
+                               }else {
+                                   Log.e(TAG,"child_categories_empty==>");
 
                                }
 
@@ -153,47 +167,7 @@ public class OtherCategoriesFragment extends Fragment {
                    }
                });
 
-               // Log.e(TAG,"child_list_size==>"+otherFragmentVM.child_categories.get().size());
-          /* } else {
-               try {
-                   Log.e(TAG,"categories_size_now==>"+otherFragmentVM.categories.get().size());
 
-                   if (categories_list.size() > 0) {
-                       if (!Constants.category_position.equalsIgnoreCase("")) {
-                           position = Integer.parseInt(Constants.category_position);
-                       }
-                       all_brands_list = new ArrayList<>();
-                       all_brands_list = categories_list.get(position).brands;
-                       Log.e(TAG, "next_brand_list==>" + all_brands_list.size());
-                       brand_list_separate = new ArrayList<>();
-                       categoryModel = new CategoryModel();
-                       for (int i = 0; i < all_brands_list.size(); i++) {
-                           Log.e(TAG, "id==>" + all_brands_list.get(i).id);
-
-                           categoryModel = new CategoryModel(String.valueOf(position), all_brands_list.get(i).id, all_brands_list.get(i).seller_id,
-                                   all_brands_list.get(i).name, all_brands_list.get(i).status, all_brands_list.get(i).approde_status, all_brands_list.get(i).image_path);
-
-                           otherFragmentVM = new OtherFragmentVM(categoryModel);
-                           brand_list_separate.add(otherFragmentVM);
-
-
-                       }
-                       brandCategoryAdapter = new BrandCategoryAdapter(view.getContext(), brand_list_separate);
-                       binding.brandRecyclerview.setAdapter(brandCategoryAdapter);
-                       //  brandCategoryAdapter.notifyDataSetChanged();
-                   } else {
-                       Log.e(TAG, "list_empty==>");
-                       Toast.makeText(getActivity(), "List Empty", Toast.LENGTH_SHORT).show();
-                   }
-               }catch (NullPointerException e){
-                   e.printStackTrace();
-               }
-
-           }
-       }*/
-
-
-        // loadExpandableRecycler();
 
         return view;
     }

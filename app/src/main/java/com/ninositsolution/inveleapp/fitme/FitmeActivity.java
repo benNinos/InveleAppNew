@@ -15,8 +15,6 @@ import android.widget.Toast;
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.ActivityFitmeBinding;
 
-import java.util.ArrayList;
-
 import static com.ninositsolution.inveleapp.utils.Constants.FITME_MEN;
 import static com.ninositsolution.inveleapp.utils.Constants.FITME_WOMEN;
 
@@ -35,8 +33,7 @@ public class FitmeActivity extends AppCompatActivity {
         fitmeVMGlobal = ViewModelProviders.of(this).get(FitmeVM.class);
         binding.setFitme(fitmeVMGlobal);
         binding.setLifecycleOwner(this);
-
-
+        fitmeVMGlobal.currentSize.set("0");
         context = FitmeActivity.this;
         Log.e(TAG, "Flow will show progress dialog");
 
@@ -123,6 +120,39 @@ public class FitmeActivity extends AppCompatActivity {
                 binding.cmTextView.setTextColor(getResources().getColor(R.color.black));
                 binding.inchesTextView.setTextColor(getResources().getColor(R.color.white));
 
+            }
+
+            @Override
+            public void onDecreasedSizeClicked()
+            {
+                if (fitmeVMGlobal.currentSize .toString()== "0")
+                {
+                    Toast.makeText(getApplicationContext(),"Size cannot be less than 0 or negative",Toast.LENGTH_LONG).show();
+                }
+
+                else {
+                    try {
+                        int i = Integer.parseInt(fitmeVMGlobal.currentSize.get());
+                        i--;
+                        fitmeVMGlobal.currentSize.set(String.valueOf(i));
+
+                    } catch (Exception e) {
+                        Log.i(TAG, "Integer exception");
+                    }
+
+                }
+            }
+
+            @Override
+            public void onIncreasedSizeClicked() {
+                try {
+                    int i = Integer.parseInt(fitmeVMGlobal.currentSize.get());
+                    i++;
+                    fitmeVMGlobal.currentSize.set(String.valueOf(i));
+
+                } catch (Exception e) {
+                    Log.i(TAG, "Integer exception");
+                }
             }
         });
 

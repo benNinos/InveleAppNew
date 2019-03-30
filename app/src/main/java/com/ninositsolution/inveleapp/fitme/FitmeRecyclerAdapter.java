@@ -55,6 +55,7 @@ FitmeRecyclerAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.
             FitmeVM fitmeVM = new FitmeVM(this.fitmeVM.men.get().get(i));
 
             myViewHolder.setBinding(fitmeVM);
+
         }
 
         if (gender == FITME_WOMEN)

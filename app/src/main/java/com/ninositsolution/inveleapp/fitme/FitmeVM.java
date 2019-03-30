@@ -2,7 +2,9 @@ package com.ninositsolution.inveleapp.fitme;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.content.Context;
 import android.databinding.ObservableField;
+import android.widget.Toast;
 
 import com.ninositsolution.inveleapp.pojo.HomeArrayLists;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
  */
 public class FitmeVM extends ViewModel {
     public ObservableField<String> label = new ObservableField<>();
+    public ObservableField<String> currentSize = new ObservableField<>();
 
     public MutableLiveData<FitmeVM> fitmeVMMutableLiveData = new MutableLiveData<>();
 
@@ -28,10 +31,11 @@ public class FitmeVM extends ViewModel {
 
     public ObservableField<String> status = new ObservableField<>("");
     public ObservableField<String> msg = new ObservableField<>("");
+
     public ObservableField<ArrayList<HomeArrayLists>> men = new ObservableField<>();
     public ObservableField<ArrayList<HomeArrayLists>> women = new ObservableField<>();
 
-    public FitmeVM(POJOClass pojoClass)
+    public FitmeVM(POJOClass pojoClass )
     {
         this.status.set(pojoClass.status);
         this.msg.set(pojoClass.msg);
@@ -43,6 +47,9 @@ public class FitmeVM extends ViewModel {
     public FitmeVM(HomeArrayLists homeArrayLists1) {
 
         this.label.set(homeArrayLists1.getLabel());
+        this.currentSize.set("0");
+
+
     }
 
     public MutableLiveData<FitmeVM> getFitmeVMMutableLiveData() {

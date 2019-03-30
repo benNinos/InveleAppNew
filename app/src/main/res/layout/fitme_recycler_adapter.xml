@@ -9,6 +9,10 @@
             name="adapterFitme"
             type="com.ninositsolution.inveleapp.fitme.FitmeVM"/>
 
+        <variable
+            name="iadapterFitme"
+            type="com.ninositsolution.inveleapp.fitme.IFitme"/>
+
     </data>
 
     <LinearLayout android:layout_width="match_parent"
@@ -38,25 +42,38 @@
 
 
         <EditText
+            android:id="@+id/sizeValueEditText"
             android:background="@color/ash_color"
             android:layout_centerHorizontal="true"
             android:layout_width="@dimen/_36sdp"
+            android:inputType="none"
+            android:editable="false"
+            android:text="@={adapterFitme.currentSize}"
+            android:gravity="center"
+            android:textSize="@dimen/_20sdp"
             android:layout_height="match_parent"/>
 
 
         <Button
+            android:id="@+id/decreaseSizeButton"
             android:layout_width="@dimen/_36sdp"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:text="-"/>
+            android:onClick="@{()->iadapterFitme.onDecreasedSizeClicked()}"
+            android:text="@string/size_decreasing"
+            android:textSize="@dimen/_20sdp"/>
 
 
         <Button
+            android:id="@+id/increaseSizeButton"
             android:layout_width="@dimen/_36sdp"
             android:layout_height="match_parent"
             android:background="@color/white"
             android:layout_alignParentEnd="true"
-            android:text="+"/>
+            android:onClick="@{()->iadapterFitme.onIncreasedSizeClicked()}"
+
+            android:textSize="@dimen/_20sdp"
+            android:text="@string/size_increasing"/>
 
     </RelativeLayout>
 

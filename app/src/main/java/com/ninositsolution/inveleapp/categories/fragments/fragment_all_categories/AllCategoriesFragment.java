@@ -58,15 +58,17 @@ public class AllCategoriesFragment extends Fragment implements IAllCategories{
 
         allCategoryFragmentVM = ViewModelProviders.of(this).get(AllCategoryFragmentVM.class);
 
-
+      //  showProgressBar();
         allCategoryFragmentVM.getAllCategoryList();
        // allCategoryFragmentVM.parent_categories.get().clear();
 
         allCategoryFragmentVM.getAllcategoryVMMutableLiveData().observe(this, new Observer<List<AllCategoryFragmentVM>>() {
             @Override
             public void onChanged(@Nullable List<AllCategoryFragmentVM> allCategoryFragmentVMS) {
+                hideProgressBar();
 
                 if(!allCategoryFragmentVMS.isEmpty()) {
+                    hideProgressBar();
 
                     Log.e(TAG,"LIST_SIZE==>"+allCategoryFragmentVMS.size());
 
@@ -85,5 +87,19 @@ public class AllCategoriesFragment extends Fragment implements IAllCategories{
     @Override
     public void categoryClicked() {
 
+    }
+
+    private void showProgressBar()
+    {
+        if (binding.progressBar.getVisibility() == View.GONE)
+            binding.progressBar.setVisibility(View.VISIBLE);
+    }
+
+
+
+    private void hideProgressBar()
+    {
+        if (binding.progressBar.getVisibility() == View.VISIBLE)
+            binding.progressBar.setVisibility(View.GONE);
     }
 }

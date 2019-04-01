@@ -14,10 +14,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.AdapterCategoryRecyclerBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,16 +35,18 @@ public class ExpandableCategoriesAdapter extends RecyclerView.Adapter<Expandable
     private static int previousPosition = -1;
 
     private OtherFragmentVM otherFragmentVM;
-    private List<OtherFragmentVM> arrayList;
+    private List<OtherFragmentVM> arrayList,childList;
     private LayoutInflater layoutInflater;
     IOtherCategory iOtherCategory;
     ChildCategoryAdapter childCategoryAdapter;
+    int category_position=0;
 
     public static final String TAG = BrandCategoryAdapter.class.getSimpleName();
 
-    public ExpandableCategoriesAdapter(List<OtherFragmentVM> expandableCategoriesPOJOList, Context context) {
-        this.arrayList = expandableCategoriesPOJOList;
+    public ExpandableCategoriesAdapter(List<OtherFragmentVM>otherFragmentVM, Context context,int category_position) {
+        this.arrayList = otherFragmentVM;
         this.context = context;
+        this.category_position = category_position;
        // notifyDataSetChanged();
     }
 
@@ -62,10 +66,17 @@ public class ExpandableCategoriesAdapter extends RecyclerView.Adapter<Expandable
     @Override
     public void onBindViewHolder(@NonNull final ExpandableCategoriesViewHolder expandableCategoriesViewHolder, final int position) {
 
-        otherFragmentVM = arrayList.get(position);
-        expandableCategoriesViewHolder.binding.setOtherFragment(otherFragmentVM);
-        expandableCategoriesViewHolder.binding.setIOtherCategory(iOtherCategory);
+        if(arrayList.size()>0) {
+
+            otherFragmentVM = arrayList.get(position);
+            expandableCategoriesViewHolder.bind(otherFragmentVM, iOtherCategory);
+        }else {
+            Toast.makeText(context,"No Child",Toast.LENGTH_SHORT).show();
+        }
+      //  expandableCategoriesViewHolder.binding.setOtherFragment(otherFragmentVM);
+      //  expandableCategoriesViewHolder.binding.setIOtherCategory(iOtherCategory);
 //        expandableCategoriesViewHolder.binding.executePendingBindings();
+
 
 
 
@@ -76,7 +87,10 @@ public class ExpandableCategoriesAdapter extends RecyclerView.Adapter<Expandable
             expandableCategoriesViewHolder.binding.downArrow.setVisibility(View.VISIBLE);
             expandableCategoriesViewHolder.binding.upArrow.setVisibility(View.GONE);
             expandableCategoriesViewHolder.binding.categoriesChildlayout.setVisibility(View.GONE);
+
+
         }
+
 
        // expandableCategoriesViewHolder.binding.categoriesHeader.setText("Women's Fashion");
 
@@ -90,10 +104,7 @@ public class ExpandableCategoriesAdapter extends RecyclerView.Adapter<Expandable
                 expandableCategoriesViewHolder.binding.downArrow.setVisibility(View.VISIBLE);
                 expandableCategoriesViewHolder.binding.upArrow.setVisibility(View.GONE);
                 expandableCategoriesViewHolder.binding.categoriesChildlayout.setVisibility(View.GONE);
-                //set the child recyclerview list
-              //  expandableCategoriesViewHolder.binding.childRecyclerview.setHasFixedSize(true);
-              //  expandableCategoriesViewHolder.binding.childRecyclerview.setLayoutManager(new GridLayoutManager(context,3));
-              //  childCategoryAdapter = new ChildCategoryAdapter(arrayList.get(position).child_category_list.get(),context);
+
 
             }
 
@@ -105,15 +116,42 @@ public class ExpandableCategoriesAdapter extends RecyclerView.Adapter<Expandable
                 expandableCategoriesViewHolder.binding.upArrow.setVisibility(View.VISIBLE);
                 expandableCategoriesViewHolder.binding.categoriesChildlayout.requestFocus();
 
+                //set the child recyclerview list
+                expandableCategoriesViewHolder.binding.childRecyclerview.setHasFixedSize(true);
+                expandableCategoriesViewHolder.binding.childRecyclerview.setLayoutManager(new GridLayoutManager(context,3));
+                if(arrayList.get(position).child_categories.get().size()>0) {
+                childList = new ArrayList<>();
+                otherFragmentVM = new OtherFragmentVM(arrayList.get(position).child_categories.get());
+                childList.add(otherFragmentVM);
+                childCategoryAdapter = new ChildCategoryAdapter(childList,context);
+                expandableCategoriesViewHolder.binding.childRecyclerview.setAdapter(childCategoryAdapter);
+                }else {
+                    Toast.makeText(context,"No Child",Toast.LENGTH_SHORT).show();
+                }
+
             }
         }
 
         expandableCategoriesViewHolder.binding.categoriesHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e(TAG,"position_selected_list==>"+arrayList.get(position).child_category_list.get());
+
+                Log.e(TAG,"position_selected_list_size==>"+arrayList.get(position).child_categories.get().size()+"\nsize==>"+
+                        otherFragmentVM.child_categories.get().size());
                 currentPosition = position;
                 notifyDataSetChanged();
+
+                //set the child recyclerview list
+                if(arrayList.get(position).child_categories.get().size()>0) {
+                    childList = new ArrayList<>();
+                    otherFragmentVM = new OtherFragmentVM(arrayList.get(position).child_categories.get());
+                    childList.add(otherFragmentVM);
+                    childCategoryAdapter = new ChildCategoryAdapter(childList, context);
+                    expandableCategoriesViewHolder.binding.childRecyclerview.setAdapter(childCategoryAdapter);
+                }else {
+                    Toast.makeText(context,"No Child",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 

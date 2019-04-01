@@ -16,7 +16,8 @@
 
     </data>
 
-<LinearLayout android:layout_width="wrap_content"
+<LinearLayout
+    android:layout_width="wrap_content"
     android:orientation="vertical"
     android:layout_margin="@dimen/_3sdp"
     android:padding="@dimen/_4sdp"

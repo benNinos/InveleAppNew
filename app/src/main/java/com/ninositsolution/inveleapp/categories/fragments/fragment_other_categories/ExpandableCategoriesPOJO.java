@@ -13,25 +13,32 @@ public class ExpandableCategoriesPOJO {
     private String header;
     private String images ;
     private String category_name;
-    private List<ChildCategoriesPOJO>childCategoriesPOJOS=new ArrayList<>();
+    private List<ChildCategoriesPOJO> otherFragmentVM;
 
 
-    public ExpandableCategoriesPOJO(String header,List<ChildCategoriesPOJO>childCategoriesPOJOS){
+    public ExpandableCategoriesPOJO(String header,  List<ChildCategoriesPOJO>otherFragmentVM){
         this.header = header;
-       this.childCategoriesPOJOS = childCategoriesPOJOS;
+       this.otherFragmentVM = otherFragmentVM;
     }
+
+    public void setHeader(String header) {
+        this.header = header;
+    }
+
+    public  List<ChildCategoriesPOJO> getOtherFragmentVM() {
+        return otherFragmentVM;
+    }
+
+    public void setOtherFragmentVM( List<ChildCategoriesPOJO> otherFragmentVM) {
+        this.otherFragmentVM = otherFragmentVM;
+    }
+
     public ExpandableCategoriesPOJO(){
         this.header = null;
 
     }
 
-    public List<ChildCategoriesPOJO> getChildCategoriesPOJOS() {
-        return childCategoriesPOJOS;
-    }
 
-    public void setChildCategoriesPOJOS(List<ChildCategoriesPOJO> childCategoriesPOJOS) {
-        this.childCategoriesPOJOS = childCategoriesPOJOS;
-    }
 
     public String getHeader() {
         return header;

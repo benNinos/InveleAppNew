@@ -71,13 +71,15 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
 
         //invoke the api service for category
 
-        categoryVM.getAllCategory();
+
+       /* categoryVM.getAllCategory();
 
         categoryVM.getAllcategoryVMMutableLiveData().observe(this, new Observer<CategoryVM>() {
             @Override
             public void onChanged(@Nullable CategoryVM categoryVM1) {
                 try {
                     if (categoryVM1.status.get().equalsIgnoreCase("success")) {
+                        hideProgressBar();
 
                         if (categoryVM1.all_categories.get() != null) {
                             Log.e(TAG, "name==>" + categoryVM1.all_categories.get().name);
@@ -92,21 +94,25 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
                         }
                         categoryVM1.status.set("");
                     } else if (categoryVM1.status.get().equalsIgnoreCase("error")) {
+                        hideProgressBar();
                         Toast.makeText(getApplicationContext(), categoryVM1.status.get(), Toast.LENGTH_SHORT).show();
                     }
                 }catch (NullPointerException e){
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
+        showProgressBar();
         categoryVM.getCategoryList();
 
         categoryVM.getCategoryVMMutableLiveData().observe(this, new Observer<List<CategoryVM>>() {
             @Override
             public void onChanged(@Nullable final List<CategoryVM> categoryVMS) {
+                hideProgressBar();
 
                 Log.e(TAG,"LIST_SIZE==>"+categoryVMS.size());
                 if(!categoryVMS.isEmpty()) {
+                    hideProgressBar();
 
                     objCategoryVM = categoryVMS;
 
@@ -135,6 +141,7 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
 
                    // categoryVMS.clear();
                 }else {
+                    hideProgressBar();
                     Toast.makeText(getApplicationContext(),"List Empty",Toast.LENGTH_SHORT).show();
                 }
             }
@@ -173,29 +180,6 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
                 fragmentTransaction.add(R.id.container_category, allCategoriesFragment).commit();
 
 
-              //  changeFragment();
-
-/*
-               categoryAdapter = new CategoryAdapter(CategoryActivity.this, objCategoryVM, Constants.category_position);
-                binding.categoriesRecyclerview.setAdapter(categoryAdapter);
-                categoryAdapter.setClikEvent(new CategoryAdapter.ClickEvent() {
-                    @Override
-                    public void setClickEventItem(int position, String menu_id, String name, String banner) {
-
-                        Constants.all_category_clicked="false";
-
-                        Constants.category_position = String.valueOf(position);
-                        Constants.select_menu_id = menu_id;
-                        Constants.select_banner = banner;
-                        Log.e(TAG,"menu_id_selected==>"+menu_id+"\nbanner==>"+banner);
-
-                        binding.allCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.grayWhite));
-                        binding.allCategoriesText.setTextColor(getResources().getColor(R.color.textColor));
-
-                        changeFragment();
-                    }
-                });
-                categoryAdapter.notifyDataSetChanged();*/
             }
 
             @Override
@@ -286,90 +270,6 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
         changeFragment();
 
     }
-
-/*
-
-    @Override
-    public void WomensCategoriesClicked() {
-
-        binding.womensCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.white));
-        binding.womensCategoriesText.setTextColor(getResources().getColor(R.color.colorPrimary));
-        changeFragment();
-
-    }
-
-    @Override
-    public void BoysCategoriesClicked() {
-
-        binding.boysCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.white));
-        binding.boysCategoriesText.setTextColor(getResources().getColor(R.color.colorPrimary));
-        changeFragment();
-
-    }
-
-    @Override
-    public void MobilesCategoriesClicked() {
-
-        binding.mobilesCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.white));
-        binding.mobilesCategoriesText.setTextColor(getResources().getColor(R.color.colorPrimary));
-        changeFragment();
-
-    }
-
-    @Override
-    public void ElectronicsCategoriesClicked() {
-
-        binding.electronicsCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.white));
-        binding.electronicsCategoriesText.setTextColor(getResources().getColor(R.color.colorPrimary));
-        changeFragment();
-    }
-
-    @Override
-    public void HomeCategoriesClicked() {
-
-        binding.homeCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.white));
-        binding.homeCategoriesText.setTextColor(getResources().getColor(R.color.colorPrimary));
-        changeFragment();
-
-    }
-
-    @Override
-    public void BabiesCategoriesClicked() {
-
-        binding.babiesCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.white));
-        binding.babiesCategoriesText.setTextColor(getResources().getColor(R.color.colorPrimary));
-        changeFragment();
-
-    }
-
-    @Override
-    public void BeautyCategoriesClicked() {
-
-        binding.beautyCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.white));
-        binding.beautyCategoriesText.setTextColor(getResources().getColor(R.color.colorPrimary));
-        changeFragment();
-
-    }
-
-    @Override
-    public void HealthCategoriesClicked() {
-
-        binding.healthCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.white));
-        binding.healthCategoriesText.setTextColor(getResources().getColor(R.color.colorPrimary));
-        changeFragment();
-
-    }
-
-    @Override
-    public void BooksCategoriesClicked() {
-
-        binding.booksCategoriesLayout.setBackgroundColor(getResources().getColor(R.color.white));
-        binding.booksCategoriesText.setTextColor(getResources().getColor(R.color.colorPrimary));
-        changeFragment();
-
-    }
-*/
-
     @Override
     public void onBackClicked() {
 
@@ -467,9 +367,6 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
     @Override
     public void ChangePreviousCategoryView() {
 
-
-
-
     }
 
     @Override
@@ -488,5 +385,19 @@ public class CategoryActivity extends AppCompatActivity implements ICategory{
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void showProgressBar()
+    {
+        if (binding.progressBarCategory.getVisibility() == View.GONE)
+            binding.progressBarCategory.setVisibility(View.VISIBLE);
+    }
+
+
+
+    private void hideProgressBar()
+    {
+        if (binding.progressBarCategory.getVisibility() == View.VISIBLE)
+            binding.progressBarCategory.setVisibility(View.GONE);
     }
 }

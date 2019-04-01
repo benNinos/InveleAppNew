@@ -10,8 +10,6 @@ public interface IFitme {
     void onDisabledWomenClicked();
     void onDisabledCMClicked();
     void onEnabledInchesClicked();
-    void onDecreasedSizeClicked();
-    void onIncreasedSizeClicked();
 
 
 }

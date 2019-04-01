@@ -12,28 +12,41 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.gson.JsonArray;
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.ActivityFitmeBinding;
+
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 import static com.ninositsolution.inveleapp.utils.Constants.FITME_MEN;
 import static com.ninositsolution.inveleapp.utils.Constants.FITME_WOMEN;
 
-public class FitmeActivity extends AppCompatActivity {
+public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAdapter.FitmeDetailsListener {
     ActivityFitmeBinding binding;
 
     public static final String TAG = "FitmeActivity";
     FitmeVM fitmeVMGlobal, fitmeInstance;
     Context context;
     FitmeRecyclerAdapter adapter;
+    FitmeRecyclerAdapter.FitmeDetailsListener fitmeDetailsListener;
+    private HashMap<Integer, String> fitme_details;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        fitmeDetailsListener = this;
+
         binding = DataBindingUtil.setContentView(this,R.layout.activity_fitme);
         fitmeVMGlobal = ViewModelProviders.of(this).get(FitmeVM.class);
         binding.setFitme(fitmeVMGlobal);
         binding.setLifecycleOwner(this);
-        fitmeVMGlobal.currentSize.set("0");
+        //fitmeVMGlobal.currentSize.set("0");
         context = FitmeActivity.this;
         Log.e(TAG, "Flow will show progress dialog");
 
@@ -42,6 +55,9 @@ public class FitmeActivity extends AppCompatActivity {
 
         binding.fitMeRecyclerView.setHasFixedSize(true);
         binding.fitMeRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+        fitme_details = new HashMap<Integer, String>();
+
 
         fitmeVMGlobal.getFitmeVMMutableLiveData().observe(this, new Observer<FitmeVM>() {
             @Override
@@ -60,7 +76,7 @@ public class FitmeActivity extends AppCompatActivity {
 
                         fitmeInstance = fitmeVM;
 
-                        adapter = new FitmeRecyclerAdapter(context,fitmeVM, FITME_MEN);
+                        adapter = new FitmeRecyclerAdapter(context,fitmeVM, FITME_MEN, fitmeDetailsListener);
                         binding.fitMeRecyclerView.setAdapter(adapter);
 
                     } else
@@ -83,7 +99,9 @@ public class FitmeActivity extends AppCompatActivity {
                 binding.enabledMen.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 binding.menTextView.setTextColor(getResources().getColor(R.color.white));
 
-                adapter = new FitmeRecyclerAdapter(context,fitmeInstance, FITME_MEN);
+                fitme_details.clear();
+
+                adapter = new FitmeRecyclerAdapter(context,fitmeInstance, FITME_MEN, fitmeDetailsListener);
                 binding.fitMeRecyclerView.setAdapter(adapter);
 
             }
@@ -96,7 +114,9 @@ public class FitmeActivity extends AppCompatActivity {
                 binding.disabledWomen.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 binding.womenTextView.setTextColor(getResources().getColor(R.color.white));
 
-                adapter = new FitmeRecyclerAdapter(context,fitmeInstance, FITME_WOMEN);
+                fitme_details.clear();
+
+                adapter = new FitmeRecyclerAdapter(context,fitmeInstance, FITME_WOMEN, fitmeDetailsListener);
                 binding.fitMeRecyclerView.setAdapter(adapter);
 
             }
@@ -121,42 +141,7 @@ public class FitmeActivity extends AppCompatActivity {
                 binding.inchesTextView.setTextColor(getResources().getColor(R.color.white));
 
             }
-
-            @Override
-            public void onDecreasedSizeClicked()
-            {
-                if (fitmeVMGlobal.currentSize .toString()== "0")
-                {
-                    Toast.makeText(getApplicationContext(),"Size cannot be less than 0 or negative",Toast.LENGTH_LONG).show();
-                }
-
-                else {
-                    try {
-                        int i = Integer.parseInt(fitmeVMGlobal.currentSize.get());
-                        i--;
-                        fitmeVMGlobal.currentSize.set(String.valueOf(i));
-
-                    } catch (Exception e) {
-                        Log.i(TAG, "Integer exception");
-                    }
-
-                }
-            }
-
-            @Override
-            public void onIncreasedSizeClicked() {
-                try {
-                    int i = Integer.parseInt(fitmeVMGlobal.currentSize.get());
-                    i++;
-                    fitmeVMGlobal.currentSize.set(String.valueOf(i));
-
-                } catch (Exception e) {
-                    Log.i(TAG, "Integer exception");
-                }
-            }
         });
-
-
     }
 
 
@@ -172,4 +157,64 @@ public class FitmeActivity extends AppCompatActivity {
             binding.fitmeProgress.setVisibility(View.GONE);
     }
 
+    @Override
+    public void onDecreasedSizeClicked(int key, String value)
+    {
+        fitme_details.put(key, value);
+    }
+
+    @Override
+    public void onIncreasedSizeClicked(int key, String value)
+    {
+        fitme_details.put(key, value);
+
+        if (fitme_details.size() >5)
+        {
+            getFitmeDetails(fitme_details);
+        }
+    }
+
+    private String getFitmeDetails(HashMap<Integer, String> fitme_details)
+    {
+        ArrayList<FitmeDetailModel> fitmeDetailModelArrayList = new ArrayList<>();
+        FitmeDetailModel fitmeDetailModel = new FitmeDetailModel();
+
+
+
+       for (Integer key : fitme_details.keySet())
+       {
+           fitmeDetailModel.setLabel_id(key);
+           fitmeDetailModel.setValue(fitme_details.get(key));
+
+           fitmeDetailModelArrayList.add(fitmeDetailModel);
+       }
+
+        JSONArray jsonArray = new JSONArray(Arrays.asList(fitmeDetailModelArrayList));
+
+       Log.i(TAG, "fitme_details -> "+ jsonArray.toString());
+
+       return jsonArray.toString();
+    }
+
+    public class FitmeDetailModel
+    {
+        private Integer label_id;
+        private String value;
+
+        public Integer getLabel_id() {
+            return label_id;
+        }
+
+        public void setLabel_id(Integer label_id) {
+            this.label_id = label_id;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+    }
 }

@@ -11,7 +11,7 @@
 
         <variable
             name="iadapterFitme"
-            type="com.ninositsolution.inveleapp.fitme.IFitme"/>
+            type="com.ninositsolution.inveleapp.fitme.FitmeClickListener"/>
 
     </data>
 
@@ -59,7 +59,7 @@
             android:layout_width="@dimen/_36sdp"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:onClick="@{()->iadapterFitme.onDecreasedSizeClicked()}"
+            android:onClick="@{()->iadapterFitme.onDecreasedClicked()}"
             android:text="@string/size_decreasing"
             android:textSize="@dimen/_20sdp"/>
 
@@ -70,7 +70,7 @@
             android:layout_height="match_parent"
             android:background="@color/white"
             android:layout_alignParentEnd="true"
-            android:onClick="@{()->iadapterFitme.onIncreasedSizeClicked()}"
+            android:onClick="@{()->iadapterFitme.onIncreseClicked()}"
 
             android:textSize="@dimen/_20sdp"
             android:text="@string/size_increasing"/>

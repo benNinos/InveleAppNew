@@ -1,16 +1,20 @@
 package com.ninositsolution.inveleapp.fitme;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.FitmeRecyclerAdapterBinding;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static com.ninositsolution.inveleapp.utils.Constants.FITME_MEN;
 import static com.ninositsolution.inveleapp.utils.Constants.FITME_WOMEN;
@@ -20,13 +24,15 @@ public class FitmeRecyclerAdapter extends RecyclerView.Adapter<FitmeRecyclerAdap
     private FitmeVM fitmeVM;
     private LayoutInflater layoutInflater;
     private int gender;
+    private FitmeDetailsListener fitmeDetailsListener;
 
 
-    public FitmeRecyclerAdapter(Context context, FitmeVM fitmeVM, int gender)
+    public FitmeRecyclerAdapter(Context context, FitmeVM fitmeVM, int gender, FitmeDetailsListener fitmeDetailsListener)
     {
         this.fitmeVM = fitmeVM;
         this.context = context;
         this.gender = gender;
+        this.fitmeDetailsListener = fitmeDetailsListener;
     }
 
 
@@ -38,13 +44,12 @@ public class FitmeRecyclerAdapter extends RecyclerView.Adapter<FitmeRecyclerAdap
         if (layoutInflater == null)
         {
             layoutInflater = LayoutInflater.from(viewGroup.getContext());
-
         }
 
 FitmeRecyclerAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.fitme_recycler_adapter,viewGroup,false);
 
 
-        return new MyViewHolder(binding);
+        return new MyViewHolder(binding, fitmeDetailsListener);
     }
 
     @Override
@@ -64,6 +69,8 @@ FitmeRecyclerAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.
 
             myViewHolder.setBinding(fitmeVM1);
         }
+
+
 
 
 
@@ -90,20 +97,75 @@ FitmeRecyclerAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.
     {
         FitmeRecyclerAdapterBinding binding;
 
-        public MyViewHolder(@NonNull FitmeRecyclerAdapterBinding binding) {
+        private FitmeDetailsListener fitmeDetailsListener;
+
+
+        public MyViewHolder(@NonNull FitmeRecyclerAdapterBinding binding, FitmeDetailsListener fitmeDetailsListener) {
             super(binding.getRoot());
             this.binding = binding;
+            this.fitmeDetailsListener = fitmeDetailsListener;
+
         }
 
-        public void setBinding(FitmeVM fitmeVM)
+
+        public void setBinding(final FitmeVM fitmeVM)
         {
             binding.setAdapterFitme(fitmeVM);
             binding.executePendingBindings();
+
+            fitmeVM.currentSize.set("0");
+
+            binding.setIadapterFitme(new FitmeClickListener() {
+                @Override
+                public void onIncreseClicked() {
+
+                    try {
+                        int i = Integer.parseInt(fitmeVM.currentSize.get());
+                        i++;
+                        fitmeVM.currentSize.set(String.valueOf(i));
+
+                        fitmeDetailsListener.onIncreasedSizeClicked(fitmeVM.men.get().get(getAdapterPosition()).fitme_label_id, fitmeVM.currentSize.get());
+
+                    } catch (Exception e) {
+                        //Log.i(TAG, "Integer exception");
+                    }
+                }
+
+                @Override
+                public void onDecreasedClicked() {
+
+                    if (fitmeVM.currentSize.get().equalsIgnoreCase("0"))
+                    {
+                        Toast.makeText(context, "Cannot be decreased below zero", Toast.LENGTH_SHORT).show();
+                    } else
+                    {
+                        try {
+                            int i = Integer.parseInt(fitmeVM.currentSize.get());
+                            i--;
+                            fitmeVM.currentSize.set(String.valueOf(i));
+
+                            fitmeDetailsListener.onDecreasedSizeClicked(getAdapterPosition(), fitmeVM.currentSize.get());
+
+
+                        } catch (Exception e) {
+                            // Log.i(TAG, "Integer exception");
+                        }
+
+                    }
+
+                }
+            });
         }
 
         public FitmeRecyclerAdapterBinding getBinding()
         {
             return binding;
         }
+    }
+
+    public interface FitmeDetailsListener
+    {
+        void onDecreasedSizeClicked(int key, String value);
+        void onIncreasedSizeClicked(int key, String value);
     }
 }

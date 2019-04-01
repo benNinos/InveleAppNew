@@ -61,7 +61,7 @@ public interface ApiService {
 
     @GET("fitme/details")
 
-    Observable<POJOClass> FitMeDetails();
+    Observable<POJOClass> getFitMeDetails();
 
 
 

@@ -525,6 +525,9 @@
     <string name="new_email_enter_hint">Enter your new E-mail ID</string>
     <string name="change_e_mail_address_btntext">Change E-mail Address</string>
     <string name="current_email_ID_hint">Enter your E-mail ID</string>
+    <string name="firme_default_value">0</string>
+    <string name="size_decreasing">-</string>
+    <string name="size_increasing">+</string>
     <!--<string name="default_web_client_id">446803575025-rm20k69c00lcgde6410cu0cabg91plqc.apps.googleusercontent.com</string>-->
 
 

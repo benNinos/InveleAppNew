@@ -32,6 +32,7 @@ public final class Constants {
     public static final Integer DATE_OF_BIRTH_EMPTY = 22;
 
 
+
     public static  String user_address_id="";
     public static String select_menu_id = "";
     public static String select_banner ="";
@@ -54,6 +55,8 @@ public final class Constants {
     public static final Integer FILTER_SHOW_MORE = 29;
 
     public static final Integer SEARCH_EVERYWHERE_SHIPPING = 30;
+    public static final Integer FITME_MEN = 31;
+    public static final Integer FITME_WOMEN = 32;
 
 
 }

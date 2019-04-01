@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,11 @@ public class ChildCategoryAdapter extends RecyclerView.Adapter<ChildCategoryAdap
     @Override
     public ChildCategoryAdapter.MainViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
+        if(layoutInflater ==null){
+            layoutInflater = LayoutInflater.from(viewGroup.getContext());
+        }
+
+
         ChildCategoryAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.child_category_adapter,viewGroup,false);
         return new ChildCategoryAdapter.MainViewHolder(binding,iOtherCategory);
 
@@ -44,15 +50,18 @@ public class ChildCategoryAdapter extends RecyclerView.Adapter<ChildCategoryAdap
     @Override
     public void onBindViewHolder(@NonNull ChildCategoryAdapter.MainViewHolder mainViewHolder, int position) {
 
-        otherFragmentVM = arrayList.get(position);
-        mainViewHolder.binding.setOtherFragment(otherFragmentVM);
-        mainViewHolder.binding.setIOtherCategory(iOtherCategory);
+//        Log.e(TAG,"size==>"+arrayList.get(position).child_categories.get());
+
+        otherFragmentVM = new OtherFragmentVM(arrayList.get(0).child_categories.get().get(position));
+        mainViewHolder.bind(otherFragmentVM,iOtherCategory);
+      //  mainViewHolder.binding.setOtherFragment(otherFragmentVM);
+       // mainViewHolder.binding.setIOtherCategory(iOtherCategory);
 
     }
 
     @Override
     public int getItemCount() {
-        return arrayList.size();
+        return arrayList.get(0).child_categories.get().size();
     }
 
     public class MainViewHolder extends RecyclerView.ViewHolder{

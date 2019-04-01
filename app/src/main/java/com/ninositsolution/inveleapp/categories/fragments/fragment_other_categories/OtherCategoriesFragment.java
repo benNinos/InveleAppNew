@@ -90,20 +90,26 @@ public class OtherCategoriesFragment extends Fragment {
 
          //  if (Constants.category_position.equalsIgnoreCase("0")) {
 
-               otherFragmentVM.getBrandCategoryList();
+             showProgressBar();
+             otherFragmentVM.getBrandCategoryList();
                otherFragmentVM.getBrandVMMutableLiveData().observe(this, new Observer<OtherFragmentVM>() {
                    @Override
                    public void onChanged(@Nullable OtherFragmentVM otherFragmentVMS) {
                        try {
 
                            if (otherFragmentVMS.status.get().equalsIgnoreCase("success")) {
+                               hideProgressBar();
 
                                if (!otherFragmentVMS.categories.get().isEmpty()) {
+                                   hideProgressBar();
                                    // for(int c = 0;c<otherFragmentVMS.categories.get().size();c++) {
                                    position = Integer.parseInt(Constants.category_position);
                                    categories_list = otherFragmentVMS.categories.get();
 
-                                   all_brands_list = otherFragmentVMS.categories.get().get(position).brands;
+                                   if(otherFragmentVMS.categories.get().get(position).brands!=null){
+                                       if(!otherFragmentVMS.categories.get().get(position).brands.isEmpty()){
+
+                                           all_brands_list = otherFragmentVMS.categories.get().get(position).brands;
                                    Log.e(TAG, "all_brands_list==>" + all_brands_list.size());
                                    brand_list_separate = new ArrayList<>();
                                    categoryModel = new CategoryModel();
@@ -119,46 +125,72 @@ public class OtherCategoriesFragment extends Fragment {
                                    }
                                    brandCategoryAdapter = new BrandCategoryAdapter(view.getContext(), brand_list_separate);
                                    binding.brandRecyclerview.setAdapter(brandCategoryAdapter);
+
+                                       }
+                                   }else {
+                                       Toast.makeText(getActivity(),"No Brands!",Toast.LENGTH_SHORT).show();
+                                   }
                                    // }
                                    //  brandCategoryAdapter.notifyDataSetChanged();
                                }
                                //child list loading
 
                                if(!categories_list.isEmpty()){
-                                   Log.e(TAG, "child_list_size==>" + categories_list.get(position).child_categories.size());
+
+                                   if(otherFragmentVMS.categories.get().get(position).child_categories!=null){
+                                       if(!otherFragmentVMS.categories.get().get(position).child_categories.isEmpty()){
+
+                                           Log.e(TAG, "child_list_size==>" + categories_list.get(position).child_categories.size());
                                    childList = new ArrayList<>();
                                    childList = otherFragmentVMS.categories.get().get(position).child_categories;
                                    expandableVM = new ArrayList<>();
+                                   expandableCategoriesPOJO = new ExpandableCategoriesPOJO();
+                                   if(childList.size()>0) {
 
-                                   innerChildList = new ArrayList<>();
-                                   chilCategoryVM = new ArrayList<>();
-                                   for(int c = 0;c < childList.size();c++) {
-                                       innerChildList = otherFragmentVMS.categories.get().get(position).child_categories.get(c).child_categories;
-                                       child_categories = new ArrayList<>();
-                                       for (int i = 0; i < innerChildList.size(); i++) {
+                                       for (int i = 0; i < childList.size(); i++) {
+                                           if (otherFragmentVMS.categories.get().get(position).child_categories.get(i).child_categories != null) {
+                                               if (!otherFragmentVMS.categories.get().get(position).child_categories.get(i).child_categories.isEmpty()) {
 
-                                           child_categories.add(new ChildCategoriesPOJO(innerChildList.get(i).image_path,innerChildList.get(i).name));
-                                           childCategoriesPOJO = new ChildCategoriesPOJO(innerChildList.get(i).image_path,innerChildList.get(i).name);
-                                           otherFragmentVM = new OtherFragmentVM(childCategoriesPOJO);
-                                           chilCategoryVM.add(otherFragmentVM);
+                                                   innerChildList = otherFragmentVMS.categories.get().get(position).child_categories.get(i).child_categories;
+                                                   chilCategoryVM = new ArrayList<>();
+                                                   childCategoriesPOJO = new ChildCategoriesPOJO();
+                                                   child_categories = new ArrayList<>();
+                                                   if (innerChildList.size() > 0) {
+                                                       for (int c = 0; c < innerChildList.size(); c++) {
+
+                                                           child_categories.add(new ChildCategoriesPOJO(innerChildList.get(c).image_path, innerChildList.get(c).name));
+                                                           childCategoriesPOJO = new ChildCategoriesPOJO(innerChildList.get(c).image_path, innerChildList.get(c).name);
+                                                           otherFragmentVM = new OtherFragmentVM(childCategoriesPOJO);
+                                                           chilCategoryVM.add(otherFragmentVM);
+
+                                                       }
+                                                   }
+                                               }
+                                           } else {
+                                               Log.e(TAG, "inner_child_list_empty==>");
+                                           }
+                                           expandableCategoriesPOJO = new ExpandableCategoriesPOJO(childList.get(i).name, child_categories);
+                                           otherFragmentVM = new OtherFragmentVM(expandableCategoriesPOJO, child_categories);
+                                           expandableVM.add(otherFragmentVM);
                                        }
-                                      // childCategoryAdapter = new ChildCategoryAdapter(chilCategoryVM,getContext());
-
-                                       expandableCategoriesPOJO = new ExpandableCategoriesPOJO(childList.get(c).name,child_categories);
-                                       otherFragmentVM = new OtherFragmentVM(expandableCategoriesPOJO);
-                                     //  otherFragmentVM = new OtherFragmentVM(childCategoriesPOJO);
-                                       expandableVM.add(otherFragmentVM);
                                    }
-                                   expandableCategoriesAdapter = new ExpandableCategoriesAdapter(expandableVM, getContext());
+                                   expandableCategoriesAdapter = new ExpandableCategoriesAdapter(expandableVM, getContext(),position);
                                    binding.categoryRecycler.setAdapter(expandableCategoriesAdapter);
+
+                                       }
+                                   }else {
+                                       Toast.makeText(getActivity(),"No Child!",Toast.LENGTH_SHORT).show();
+                                   }
 
 
                                }else {
-                                   Log.e(TAG,"child_categories_empty==>");
+                                   Log.e(TAG,"categories_empty==>");
 
                                }
 
+
                            } else if (otherFragmentVMS.status.get().equalsIgnoreCase("error")) {
+                               hideProgressBar();
                                Toast.makeText(getActivity(), otherFragmentVMS.msg.get(), Toast.LENGTH_SHORT).show();
                            }
                        } catch (NullPointerException e) {
@@ -170,6 +202,20 @@ public class OtherCategoriesFragment extends Fragment {
 
 
         return view;
+    }
+
+    private void showProgressBar()
+    {
+        if (binding.progressBarOthercategory.getVisibility() == View.GONE)
+            binding.progressBarOthercategory.setVisibility(View.VISIBLE);
+    }
+
+
+
+    private void hideProgressBar()
+    {
+        if (binding.progressBarOthercategory.getVisibility() == View.VISIBLE)
+            binding.progressBarOthercategory.setVisibility(View.GONE);
     }
 
     private void loadExpandableRecycler() {

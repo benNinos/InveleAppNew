@@ -9,6 +9,10 @@ public class ChildCategoriesPOJO {
         this.images = images;
         this.category_name = category_name;
     }
+    public ChildCategoriesPOJO(){
+        this.images=null;
+        this.category_name=null;
+    }
 
     public String getImages() {
         return images;

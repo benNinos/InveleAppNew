@@ -44,7 +44,7 @@ public class OtherFragmentVM extends ViewModel {
     public ObservableField<String> status = new ObservableField<>("");
     public ObservableField<String> msg = new ObservableField<>("");
     public ObservableField <List<CategoryModel>>categories = new ObservableField<>();
-    public ObservableField<List<CategoryModel>>child_categories = new ObservableField<>();
+    public ObservableField<List<ChildCategoriesPOJO>>child_categories = new ObservableField<>();
     public ObservableField<List<ExpandableCategoriesPOJO>> expandable_list = new ObservableField<>();
     public ObservableField<List<ChildCategoriesPOJO>>child_category_list = new ObservableField<>();
 
@@ -56,12 +56,14 @@ public class OtherFragmentVM extends ViewModel {
        // this.child_categories.set(pojoClass.child_categories);
 
     }
-    public OtherFragmentVM(ExpandableCategoriesPOJO categoriesPOJO){
+    public OtherFragmentVM(ExpandableCategoriesPOJO categoriesPOJO,List<ChildCategoriesPOJO>childCategoriesPOJOS){
         this.child_header.set(categoriesPOJO.getHeader());
-        this.child_category_list.set(categoriesPOJO.getChildCategoriesPOJOS());
-     // this.child_name.set(childCategoriesPOJO.getCategory_name());
-       //this.childImage.set(childCategoriesPOJO.getImages());
+        this.child_categories.set(childCategoriesPOJOS);
 
+
+    }
+    public OtherFragmentVM(List<ChildCategoriesPOJO>categoriesPOJOS){
+        this.child_categories.set(categoriesPOJOS);
     }
     public OtherFragmentVM(ChildCategoriesPOJO childCategoriesPOJO){
         this.child_name.set(childCategoriesPOJO.getCategory_name());

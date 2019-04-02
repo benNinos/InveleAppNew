@@ -253,7 +253,7 @@
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/fitMeRecyclerView"
-                    android:layout_width="match_parent"
+                    android:layout_width ="match_parent"
                     android:layout_height="wrap_content">
 
                 </android.support.v7.widget.RecyclerView>
@@ -262,34 +262,6 @@
 
         </android.support.v4.widget.NestedScrollView>
 
-
-        <LinearLayout
-            android:layout_gravity="bottom"
-            android:layout_width="match_parent"
-            android:layout_height = "wrap_content"
-            android:weightSum = "2"
-            android:orientation = "horizontal">
-
-
-
-            <LinearLayout
-                android:layout_height="match_parent"
-                android:layout_width = "0dp"
-                android:layout_weight="1">
-
-
-
-
-
-
-
-
-
-            </LinearLayout>
-
-
-
-        </LinearLayout>
 
 
 

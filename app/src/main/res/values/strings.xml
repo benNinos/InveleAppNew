@@ -528,6 +528,7 @@
     <string name="firme_default_value">0</string>
     <string name="size_decreasing">-</string>
     <string name="size_increasing">+</string>
+    <string name="sample_fitme_text">This is the sample text for the app Invele and the module Fitme measurement</string>
     <!--<string name="default_web_client_id">446803575025-rm20k69c00lcgde6410cu0cabg91plqc.apps.googleusercontent.com</string>-->
 
 

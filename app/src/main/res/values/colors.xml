@@ -51,8 +51,8 @@
 
 
     <color name="icon_colors">#282C3F</color>
-
-
+    <color name="fitme_save_button_color">#364255</color>
+    <color name="fitme_update_button">#D94255</color>
 
 
 </resources>

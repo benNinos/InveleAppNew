@@ -27,6 +27,7 @@ public class FitmeRepo {
 
     private static final String TAG = "FitmeRepo";
     private MutableLiveData<FitmeVM> fitmeVMMutableLiveData = new MutableLiveData<>();
+
     public ArrayList<FitmeVM> arrayList;
 
     public FitmeRepo() {

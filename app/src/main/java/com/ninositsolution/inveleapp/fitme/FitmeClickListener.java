@@ -4,4 +4,5 @@ public interface FitmeClickListener
 {
     void onIncreseClicked();
     void onDecreasedClicked();
+    void onQuestionImageClicked();
 }

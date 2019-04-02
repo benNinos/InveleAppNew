@@ -91,6 +91,8 @@
                         android:layout_height="@dimen/_36sdp"
                         android:paddingStart="@dimen/_8sdp"
                         android:paddingEnd="@dimen/_8sdp"
+                        android:focusable="false"
+                        android:focusableInTouchMode="true"
                         android:background="@drawable/margin"
                         android:layout_marginTop="@dimen/_4sdp"
                         android:layout_marginStart="@dimen/_8sdp"
@@ -191,7 +193,6 @@
                             android:layout_weight="1"
                             android:background="@color/ash_color"
                             android:onClick="@{()->iFitme.onDisabledCMClicked()}"
-
                             android:layout_height="match_parent"
                             tools:ignore="UselessParent">
 
@@ -230,7 +231,6 @@
 
                         </RelativeLayout>
 
-
                     </LinearLayout>
 
                 </RelativeLayout>
@@ -240,8 +240,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:background="#e0e0e0"/>
-
-
 
                 <ProgressBar
                     android:id="@+id/fitme_progress"
@@ -263,9 +261,50 @@
         </android.support.v4.widget.NestedScrollView>
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/_2sdp">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/save"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10sdp"
+                    android:background="@color/fitme_save_button_color"/>
 
 
 
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/update"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10sdp"
+                    android:background="@color/fitme_update_button"/>
+
+
+
+            </LinearLayout>
+        </LinearLayout>
 
 
     </android.support.design.widget.CoordinatorLayout>

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.nhaarman.supertooltips.ToolTip;
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.FitmeRecyclerAdapterBinding;
 
@@ -24,6 +25,7 @@ public class FitmeRecyclerAdapter extends RecyclerView.Adapter<FitmeRecyclerAdap
     private FitmeVM fitmeVM;
     private LayoutInflater layoutInflater;
     private int gender;
+    private ToolTip toolTip;
     private FitmeDetailsListener fitmeDetailsListener;
 
 
@@ -152,6 +154,17 @@ FitmeRecyclerAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.
                         }
 
                     }
+
+                }
+
+                @Override
+                public void onQuestionImageClicked() {
+
+                    toolTip = new ToolTip()
+                            .withContentView(LayoutInflater.from(context).inflate(R.layout.fitme_adapter_popup,null)).withShadow();
+
+
+
 
                 }
             });

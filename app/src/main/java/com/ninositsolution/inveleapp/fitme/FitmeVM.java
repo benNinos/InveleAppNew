@@ -19,11 +19,19 @@ import java.util.ArrayList;
 public class FitmeVM extends ViewModel {
     public ObservableField<String> label = new ObservableField<>();
     public ObservableField<String> currentSize = new ObservableField<>();
+    public  ObservableField<String> name = new ObservableField<>();
+    public ObservableField<String> measurement = new ObservableField<>();
+    public ObservableField<String> gender = new ObservableField<>();
+    public ObservableField<String> fitme_details = new ObservableField<>();
+
 
     public MutableLiveData<FitmeVM> fitmeVMMutableLiveData = new MutableLiveData<>();
 
+    public MutableLiveData<FitmeVM> postFitmeDetailsMutableLiveData = new MutableLiveData<>();
 
-    public FitmeVM() {
+
+    public FitmeVM()
+    {
 
         FitmeRepo fitmeRepo = new FitmeRepo();
         fitmeVMMutableLiveData = fitmeRepo.getFitmeVMMutableLiveData();

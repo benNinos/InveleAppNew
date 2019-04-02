@@ -8,6 +8,7 @@ import com.ninositsolution.inveleapp.change_email.pojo.EmailOTPRequest;
 import com.ninositsolution.inveleapp.change_email.pojo.VerifyemailOTPRequest;
 import com.ninositsolution.inveleapp.change_password.pojo.ChangePassowrdRequest;
 import com.ninositsolution.inveleapp.edit_address.pojo.EditAddressRequest;
+import com.ninositsolution.inveleapp.fitme.pojo.FitmeRequest;
 import com.ninositsolution.inveleapp.forgot_password.pojo.OTPRequest;
 import com.ninositsolution.inveleapp.forgot_password.pojo.ResetPasswordRequest;
 import com.ninositsolution.inveleapp.login.LoginRequest;
@@ -60,8 +61,12 @@ public interface ApiService {
 
 
     @GET("fitme/details")
-
     Observable<POJOClass> getFitMeDetails();
+
+    @POST("fitme/add")
+
+    Observable<POJOClass> addfitmeApi (@Body FitmeRequest fitmeRequest);
+
 
 
 

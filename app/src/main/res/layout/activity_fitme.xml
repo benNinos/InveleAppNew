@@ -12,51 +12,58 @@
             name="iFitme"
             type="com.ninositsolution.inveleapp.fitme.IFitme"/>
 
-
-
     </data>
 
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-    <RelativeLayout
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolBar_height">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/account_header_back"
-            android:layout_width="36dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_centerVertical="true"
-            app:srcCompat="@drawable/ic_arrow_back_24dp"
-            tools:ignore="ContentDescription" />
-
-
-        <TextView
-            android:layout_toEndOf="@+id/account_header_back"
-            android:layout_marginStart="@dimen/_12sdp"
-            android:id="@+id/search_header"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/fitme_toolbar"
-            android:textSize="@dimen/_16sdp"
-            tools:ignore="RelativeOverlap" />
-
-
-    </RelativeLayout>
-
-    <View
+    <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#e0e0e0"/>
+        android:layout_height="@dimen/toolBar_height"
+        app:contentInsetStart="0dp"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolBar_height">
+
+            <ImageView
+                android:id="@+id/account_header_back"
+                android:layout_width="36dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_arrow_back_24dp"
+                tools:ignore="ContentDescription" />
+
+
+            <TextView
+                android:layout_toEndOf="@+id/account_header_back"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:id="@+id/search_header"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fitme_toolbar"
+                android:textSize="@dimen/_16sdp"
+                tools:ignore="RelativeOverlap" />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+
+    </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -251,6 +258,28 @@
 
                 </android.support.v7.widget.RecyclerView>
 
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+
+        <LinearLayout
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height = "wrap_content"
+            android:weightSum = "2"
+            android:orientation = "horizontal">
+
+
+
+            <LinearLayout
+                android:layout_height="match_parent"
+                android:layout_width = "0dp"
+                android:layout_weight="1">
+
+
+
+
 
 
 
@@ -258,10 +287,12 @@
 
             </LinearLayout>
 
-        </android.support.v4.widget.NestedScrollView>
+
+
+        </LinearLayout>
 
 
 
-    </LinearLayout>
 
+    </android.support.design.widget.CoordinatorLayout>
 </layout>

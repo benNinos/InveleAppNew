@@ -177,9 +177,7 @@ public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAda
     @Override
     public void onQuestionDescClicked()
     {
-//        Toast.makeText(context,"Yes the question click is now working",Toast.LENGTH_LONG).show();
-//        Log.e(TAG,"Yes.., the click arrived ");
-
+        Toast.makeText(context, "Hello ! Clicked", Toast.LENGTH_SHORT).show();
     }
 
     private String getFitmeDetails(HashMap<Integer, String> fitme_details)

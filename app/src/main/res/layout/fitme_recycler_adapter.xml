@@ -15,106 +15,112 @@
 
     </data>
 
-    <LinearLayout android:layout_width="match_parent"
-    android:orientation="horizontal"
-    android:weightSum="10"
-    android:layout_height="@dimen/_54sdp">
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/label"
-        android:layout_width="0dp"
-        android:layout_weight="3"
-        android:layout_gravity="center_vertical"
-        android:layout_height="wrap_content"
-        android:text="@{adapterFitme.label}"
-        android:textColor="@color/colorPrimary"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:textSize="@dimen/_14sdp"/>
-
-    <RelativeLayout
-        android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginBottom="@dimen/_8sdp"
-        android:padding="@dimen/_1sdp"
-        android:layout_width="0dp"
-        android:layout_weight="4"
-        android:background="@drawable/margin"
-        android:layout_height="match_parent">
+        <LinearLayout android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            android:layout_height="@dimen/_54sdp">
 
 
-        <EditText
-            android:id="@+id/sizeValueEditText"
-            android:background="@color/ash_color"
-            android:layout_centerHorizontal="true"
-            android:layout_width="@dimen/_36sdp"
-            android:inputType="none"
-            android:editable="false"
-            android:text="@={adapterFitme.currentSize}"
-            android:gravity="center"
-            android:textSize="@dimen/_20sdp"
-            android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/label"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:text="@{adapterFitme.label}"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:textSize="@dimen/_14sdp"/>
+
+            <RelativeLayout
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:padding="@dimen/_1sdp"
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:background="@drawable/margin"
+                android:layout_height="match_parent">
 
 
-        <Button
-            android:id="@+id/decreaseSizeButton"
-            android:layout_width="@dimen/_36sdp"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:onClick="@{()->iadapterFitme.onDecreasedClicked()}"
-            android:text="@string/size_decreasing"
-            android:textSize="@dimen/_20sdp"/>
+                <EditText
+                    android:id="@+id/sizeValueEditText"
+                    android:background="@color/ash_color"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="@dimen/_36sdp"
+                    android:inputType="none"
+                    android:editable="false"
+                    android:text="@={adapterFitme.currentSize}"
+                    android:gravity="center"
+                    android:textSize="@dimen/_20sdp"
+                    android:layout_height="match_parent"/>
 
 
-        <Button
-            android:id="@+id/increaseSizeButton"
-            android:layout_width="@dimen/_36sdp"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:layout_alignParentEnd="true"
-            android:onClick="@{()->iadapterFitme.onIncreseClicked()}"
-
-            android:textSize="@dimen/_20sdp"
-            android:text="@string/size_increasing"/>
-
-    </RelativeLayout>
+                <Button
+                    android:id="@+id/decreaseSizeButton"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:onClick="@{()->iadapterFitme.onDecreasedClicked()}"
+                    android:text="@string/size_decreasing"
+                    android:textSize="@dimen/_20sdp"/>
 
 
-    <RelativeLayout
-        android:id="@+id/questionLayout"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:onClick="@{()->iadapterFitme.onQuestionImageClicked()}"
-        android:layout_weight="3" >
+                <Button
+                    android:id="@+id/increaseSizeButton"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:layout_alignParentEnd="true"
+                    android:onClick="@{()->iadapterFitme.onIncreseClicked()}"
+
+                    android:textSize="@dimen/_20sdp"
+                    android:text="@string/size_increasing"/>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/questionLayout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:onClick="@{()->iadapterFitme.onQuestionImageClicked()}"
+                android:layout_weight="3" >
+
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/toolTipQuestionBtn"
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="@dimen/_32sdp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/circle_ash"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:layout_centerInParent="true"
+                    android:textSize="@dimen/_20sdp"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
 
         <com.nhaarman.supertooltips.ToolTipRelativeLayout
             android:id="@+id/fitme_tooltip_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
         </com.nhaarman.supertooltips.ToolTipRelativeLayout>
 
+    </android.support.design.widget.CoordinatorLayout>
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/toolTipQuestionBtn"
-            android:layout_width="@dimen/_32sdp"
-            android:layout_height="@dimen/_32sdp"
-            android:layout_centerInParent="true"
-            android:background="@drawable/circle_ash"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/question"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:layout_centerInParent="true"
-            android:textSize="@dimen/_20sdp"/>
-    </RelativeLayout>
-
-
-
-
-
-
-</LinearLayout>
 </layout>

@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.nhaarman.supertooltips.ToolTip;
 import com.nhaarman.supertooltips.ToolTipRelativeLayout;
+import com.nhaarman.supertooltips.ToolTipView;
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.FitmeRecyclerAdapterBinding;
 
@@ -21,6 +22,7 @@ public class FitmeRecyclerAdapter extends RecyclerView.Adapter<FitmeRecyclerAdap
     private LayoutInflater layoutInflater;
     private int gender;
     private ToolTip toolTip;
+    private ToolTipView toolTipView;
     private FitmeDetailsListener fitmeDetailsListener;
 
 
@@ -155,10 +157,9 @@ FitmeRecyclerAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.
                             .withShadow()
                             .withAnimationType(ToolTip.AnimationType.FROM_TOP);
 
-                    binding.fitmeTooltipLayout.showToolTipForView(toolTip,itemView);
+                    ToolTipRelativeLayout toolTipRelativeLayout = itemView.findViewById(R.id.fitme_tooltip_layout);
 
-
-                    fitmeDetailsListener.onQuestionDescClicked();
+                    toolTipView = toolTipRelativeLayout.showToolTipForView(toolTip, itemView.findViewById(R.id.questionLayout));
                 }
             });
         }

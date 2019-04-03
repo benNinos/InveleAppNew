@@ -153,6 +153,14 @@ FitmeRecyclerAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.
 
                 @Override
                 public void onQuestionImageClicked() {
+
+                    try {
+                        toolTipView.remove();
+                    } catch (NullPointerException e)
+                    {
+                        e.printStackTrace();
+                    }
+
                     toolTip = new ToolTip().withContentView(LayoutInflater.from(context).inflate(R.layout.fitme_adapter_popup,null ))
                             .withShadow()
                             .withAnimationType(ToolTip.AnimationType.FROM_TOP);

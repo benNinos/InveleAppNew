@@ -1,23 +1,17 @@
 package com.ninositsolution.inveleapp.search_everywhere;
-
-
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.ninositsolution.inveleapp.R;
@@ -82,7 +76,6 @@ public class FilterFragment extends Fragment {
             binding.filterCategoriesRecyclerViewMore.setHasFixedSize(true);
             binding.filterCategoriesRecyclerViewMore.setLayoutManager(new GridLayoutManager(getContext(), 2));
             binding.filterCategoriesRecyclerViewMore.setAdapter(new FilterTwoViewAdapterMore(getContext(), getArraylistMore(vm.categories.get()), Constants.SEARCH_EVERYWHERE_CATEGORIES));
-
         }
 
         Log.i(TAG, "brandlist size -> "+ vm.brands.get().size());
@@ -122,7 +115,6 @@ public class FilterFragment extends Fragment {
                                 .findFragmentById(R.id.filter_container)))
                         .commit();
             }
-
         });
 
         binding.filterScrollView.setOnTouchListener(new OnSwipeTouchListener(view.getContext()) {
@@ -138,8 +130,6 @@ public class FilterFragment extends Fragment {
                                 .findFragmentById(R.id.filter_container)))
                         .commit();
             }
-
-
         });
 
         binding.setIFilter(new IFilter() {
@@ -173,14 +163,11 @@ public class FilterFragment extends Fragment {
 
                     binding.categoriesShowText.setText(R.string.show_more);
                     binding.categoriesShowText.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_expand_more_black_24dp,0);
-
                 }
-
             }
 
             @Override
             public void onBrandsShowClicked() {
-
                 if (binding.brandsShowText.getText().toString().equalsIgnoreCase("show more"))
                 {
                     if (binding.filterBrandRecyclerViewMore.getVisibility() == View.GONE)
@@ -196,9 +183,7 @@ public class FilterFragment extends Fragment {
 
                     binding.brandsShowText.setText(R.string.show_more);
                     binding.brandsShowText.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_expand_more_black_24dp,0);
-
                 }
-
             }
 
             @Override
@@ -219,9 +204,7 @@ public class FilterFragment extends Fragment {
 
                     binding.shippingShowText.setText(R.string.show_more);
                     binding.shippingShowText.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_expand_more_black_24dp,0);
-
                 }
-
             }
         });
 
@@ -237,10 +220,8 @@ public class FilterFragment extends Fragment {
             arrayLists.add(lists.get(1));
             arrayLists.add(lists.get(2));
             arrayLists.add(lists.get(3));
-
             return arrayLists;
         }
-
         else
         {
             return lists;

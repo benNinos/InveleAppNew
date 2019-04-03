@@ -1,5 +1,6 @@
 package com.ninositsolution.inveleapp.api;
 
+import com.ninositsolution.inveleapp.add_address.pojo.AddAddressRequest;
 import com.ninositsolution.inveleapp.add_mobile.pojo.MobileOTPRequest;
 import com.ninositsolution.inveleapp.add_mobile.pojo.VerifyOTPRequest;
 import com.ninositsolution.inveleapp.address_book.pojo.AddressBookRequest;
@@ -12,9 +13,7 @@ import com.ninositsolution.inveleapp.fitme.pojo.FitmeRequest;
 import com.ninositsolution.inveleapp.forgot_password.pojo.OTPRequest;
 import com.ninositsolution.inveleapp.forgot_password.pojo.ResetPasswordRequest;
 import com.ninositsolution.inveleapp.login.LoginRequest;
-import com.ninositsolution.inveleapp.add_address.pojo.AddAddressRequest;
 import com.ninositsolution.inveleapp.pojo.CategoryPojoClass;
-import com.ninositsolution.inveleapp.pojo.HomeArrayLists;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 import com.ninositsolution.inveleapp.registration.pojo.RegistartionRequest;
 import com.ninositsolution.inveleapp.search_everywhere.SearchEverywhereRequest;
@@ -23,8 +22,8 @@ import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.Multipart;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 
@@ -59,33 +58,24 @@ public interface ApiService {
     @GET("mobile/categories")
     Observable<CategoryPojoClass>Categories();
 
-
     @GET("fitme/details")
     Observable<POJOClass> getFitMeDetails();
 
     @POST("fitme/add")
-
     Observable<POJOClass> addfitmeApi (@Body FitmeRequest fitmeRequest);
-
-
-
 
     @FormUrlEncoded
     @POST("users/forgot_password")
     Observable<POJOClass> forgotPasswordApi (@Field("forgot_name")String forgotName);
 
     @POST("users/otp_verify")
-
     Observable<POJOClass> otpVerifyApi (@Body OTPRequest otpRequest);
 
     @POST("users/reset_password")
     Observable<POJOClass> resetPasswordApi (@Body ResetPasswordRequest resetPasswordRequest);
 
     @POST("users/password/update")
-
     Observable<POJOClass> updatePasswordApi (@Body ChangePassowrdRequest changePassowrdRequest);
-
-
 
     @Multipart
     @POST("users/profile_update")
@@ -100,13 +90,9 @@ public interface ApiService {
                                            // @Part MultipartBody.Part body
     );
 
-
-
     @FormUrlEncoded
     @POST("users/profile")
-
     Observable<POJOClass> getProfileDetailsApi(@Field("user_id") String user_id);
-
 
     @POST("users/login")
     Observable<POJOClass> loginApi(@Body LoginRequest loginRequest);
@@ -114,19 +100,14 @@ public interface ApiService {
     @POST("user/profile_change")
     Observable<POJOClass> mobileChangeApi (@Body MobileOTPRequest mobileOTPRequest);
 
-
     @POST("users/otp_profile_verify")
     Observable<POJOClass> verifyOtpMobileApi (@Body VerifyOTPRequest verifyOTPRequest);
-
-
 
     @POST("user/profile_change")
     Observable<POJOClass> emailChangeAPi (@Body EmailOTPRequest emailOTPRequest);
 
     @POST("users/otp_profile_verify")
-
     Observable<POJOClass> verifyOtpEmailApi(@Body VerifyemailOTPRequest verifyemailOTPRequest);
-
 
     @FormUrlEncoded
     @POST("home_page")
@@ -135,6 +116,4 @@ public interface ApiService {
     // Search Everywhere Api
     @POST("products/search")
     Observable<POJOClass> searchEverywhereApi(@Body SearchEverywhereRequest request);
-
-
 }

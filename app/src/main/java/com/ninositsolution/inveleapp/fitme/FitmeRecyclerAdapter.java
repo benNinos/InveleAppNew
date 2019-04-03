@@ -1,21 +1,16 @@
 package com.ninositsolution.inveleapp.fitme;
 import android.content.Context;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.nhaarman.supertooltips.ToolTip;
+import com.nhaarman.supertooltips.ToolTipRelativeLayout;
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.FitmeRecyclerAdapterBinding;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import static com.ninositsolution.inveleapp.utils.Constants.FITME_MEN;
 import static com.ninositsolution.inveleapp.utils.Constants.FITME_WOMEN;
@@ -71,11 +66,6 @@ FitmeRecyclerAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.
 
             myViewHolder.setBinding(fitmeVM1);
         }
-
-
-
-
-
     }
 
     @Override
@@ -140,8 +130,10 @@ FitmeRecyclerAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.
                     {
                         Toast.makeText(context, "Cannot be decreased below zero", Toast.LENGTH_SHORT).show();
                     } else
-                    {
-                        try {
+
+                        {
+                        try
+                        {
                             int i = Integer.parseInt(fitmeVM.currentSize.get());
                             i--;
                             fitmeVM.currentSize.set(String.valueOf(i));
@@ -159,13 +151,14 @@ FitmeRecyclerAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.
 
                 @Override
                 public void onQuestionImageClicked() {
+                    toolTip = new ToolTip().withContentView(LayoutInflater.from(context).inflate(R.layout.fitme_adapter_popup,null ))
+                            .withShadow()
+                            .withAnimationType(ToolTip.AnimationType.FROM_TOP);
 
-                    toolTip = new ToolTip()
-                            .withContentView(LayoutInflater.from(context).inflate(R.layout.fitme_adapter_popup,null)).withShadow();
+                    binding.fitmeTooltipLayout.showToolTipForView(toolTip,itemView);
 
 
-
-
+                    fitmeDetailsListener.onQuestionDescClicked();
                 }
             });
         }
@@ -180,5 +173,6 @@ FitmeRecyclerAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.
     {
         void onDecreasedSizeClicked(int key, String value);
         void onIncreasedSizeClicked(int key, String value);
+        void onQuestionDescClicked();
     }
 }

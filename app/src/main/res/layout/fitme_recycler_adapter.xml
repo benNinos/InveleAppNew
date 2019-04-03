@@ -79,15 +79,26 @@
 
 
     <RelativeLayout
+        android:id="@+id/questionLayout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:onClick="@{()->iadapterFitme.onQuestionImageClicked()}"
         android:layout_weight="3" >
 
+        <com.nhaarman.supertooltips.ToolTipRelativeLayout
+            android:id="@+id/fitme_tooltip_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        </com.nhaarman.supertooltips.ToolTipRelativeLayout>
+
+
+
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/toolTipQuestionBtn"
             android:layout_width="@dimen/_32sdp"
             android:layout_height="@dimen/_32sdp"
             android:layout_centerInParent="true"
-            android:onClick="@{()->iadapterFitme.onQuestionImageClicked()}"
             android:background="@drawable/circle_ash"/>
 
         <TextView
@@ -98,8 +109,11 @@
             android:textColor="@android:color/black"
             android:layout_centerInParent="true"
             android:textSize="@dimen/_20sdp"/>
-
     </RelativeLayout>
+
+
+
+
 
 
 </LinearLayout>

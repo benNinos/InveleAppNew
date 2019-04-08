@@ -25,6 +25,8 @@ public class HomeArrayLists {
     public String is_color;
     public Integer status;
     public Integer seller_store_location_id;
+    public Integer is_fitme;
+    public Integer brand_id;
     public Integer approde_status;
     public Float min_price;
     public Float max_price;

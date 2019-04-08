@@ -2,7 +2,7 @@ package com.ninositsolution.inveleapp.forgot_password.pojo;
 
 public class ResetPasswordRequest {
 
-    public Integer user_id;
+        public Integer user_id;
     public String password;
     public String password_confirmation;
 

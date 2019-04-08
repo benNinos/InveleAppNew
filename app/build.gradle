@@ -19,6 +19,19 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
 
+        /* Invele Signing configurations
+
+      keystore path : <project_path>/app/build/inveleApp.jks
+
+      Alias : invele
+      Password : ninos@2019
+      First Name and Last Name : Ninos
+      Organizational Unit : Information Technology
+      Organization : Ninos IT Solutions Pvt Ltd.
+      City or Locality : Chennai
+      State or Province : Tamil Nadu
+      Country Code (XX) : IN */
+
     }
     buildTypes {
         release {

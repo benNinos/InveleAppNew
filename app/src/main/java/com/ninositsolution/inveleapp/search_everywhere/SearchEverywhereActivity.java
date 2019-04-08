@@ -91,6 +91,13 @@ public class SearchEverywhereActivity extends AppCompatActivity {
             }
         });
 
+        searchEverywhereVM.getSearchFilterUpdateLiveData().observe(this, new Observer<SearchEverywhereVM>() {
+            @Override
+            public void onChanged(@Nullable SearchEverywhereVM searchEverywhereVM) {
+                Toast.makeText(SearchEverywhereActivity.this, "Filter updated", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
 
         binding.priceFilterLayout.setVisibility(View.GONE);
@@ -195,13 +202,13 @@ public class SearchEverywhereActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    private void showProgressBar()
+    public void showProgressBar()
     {
         if (binding.searchEverywhereProgress.getVisibility() == View.GONE)
             binding.searchEverywhereProgress.setVisibility(View.VISIBLE);
     }
 
-    private void hideProgressBar()
+    public void hideProgressBar()
     {
         if (binding.searchEverywhereProgress.getVisibility() == View.VISIBLE)
             binding.searchEverywhereProgress.setVisibility(View.GONE);

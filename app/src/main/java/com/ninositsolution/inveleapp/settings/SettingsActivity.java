@@ -88,22 +88,10 @@ public class SettingsActivity extends AppCompatActivity{
             @Override
             public void onLogoutButtonClicked() {
 
+                Session.clear(context);
+
                 Intent intent  =new Intent(SettingsActivity.this, LoginActivity.class);
                 startActivity(intent);
-
-                if (Session.getIsLogged(context) == true)
-                {
-                    Session.setIsLogged(false,context);
-                }
-
-                if (Session.getIsLogged(context) == false)
-                {
-                    Session.setUserEmail("",context);
-                    Session.setUserPhone("",context);
-                    Session.setUserId("", context);
-                }
-
-
 
             }
         });

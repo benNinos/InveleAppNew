@@ -9,6 +9,10 @@
             name="adapterTwoView"
             type="com.ninositsolution.inveleapp.search_everywhere.SearchEverywhereVM"/>
 
+        <variable
+            name="iAdapterTwoView"
+            type="com.ninositsolution.inveleapp.search_everywhere.FilterTwoViewAdapter.FilterTwoViewListener"/>
+
     </data>
 
     <android.support.v7.widget.CardView
@@ -35,6 +39,7 @@
                 tools:ignore="InefficientWeight,UselessParent">
 
                 <Button
+                    android:onClick="@{()->iAdapterTwoView.onButtonClicked()}"
                     android:id="@+id/two_view_button"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/filter_height"

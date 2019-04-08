@@ -22,12 +22,14 @@ public class FilterTwoViewAdapterMore extends RecyclerView.Adapter<FilterTwoView
     private ArrayList<HomeArrayLists> homeArrayLists;
     private LayoutInflater layoutInflater;
     private int mode;
+    private IFilter iFilter;
 
-    public FilterTwoViewAdapterMore(Context context, ArrayList<HomeArrayLists> homeArrayLists, int mode) {
+    public FilterTwoViewAdapterMore(Context context, ArrayList<HomeArrayLists> homeArrayLists, int mode, IFilter iFilter) {
         this.context = context;
         this.homeArrayLists = homeArrayLists;
         this.mode = mode;
-        notifyDataSetChanged();
+        this.iFilter = iFilter;
+        //notifyDataSetChanged();
     }
 
     @NonNull
@@ -42,7 +44,7 @@ public class FilterTwoViewAdapterMore extends RecyclerView.Adapter<FilterTwoView
 
         AdapterFilterTwoViewBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.adapter_filter_two_view, viewGroup, false);
 
-        return new FilterTwoViewViewHolderMore(binding);
+        return new FilterTwoViewViewHolderMore(binding, iFilter);
     }
 
     @Override
@@ -63,16 +65,44 @@ public class FilterTwoViewAdapterMore extends RecyclerView.Adapter<FilterTwoView
     public class FilterTwoViewViewHolderMore extends RecyclerView.ViewHolder{
 
         AdapterFilterTwoViewBinding binding;
+        IFilter iFilter;
 
-        public FilterTwoViewViewHolderMore(@NonNull AdapterFilterTwoViewBinding binding) {
+        public FilterTwoViewViewHolderMore(@NonNull AdapterFilterTwoViewBinding binding, IFilter iFilter) {
             super(binding.getRoot());
             this.binding = binding;
+            this.iFilter = iFilter;
         }
 
         public void setBinding(SearchEverywhereVM searchEverywhereVM)
         {
             this.binding.setAdapterTwoView(searchEverywhereVM);
             binding.executePendingBindings();
+
+            binding.setIAdapterTwoView(new FilterTwoViewAdapter.FilterTwoViewListener() {
+
+                @Override
+                public void onButtonClicked() {
+
+                    if (binding.twoViewButton.getCurrentTextColor() == context.getResources().getColor(R.color.text_color))
+                    {
+                        binding.twoViewButton.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+                        binding.twoViewButton.setTextColor(context.getResources().getColor(R.color.white));
+
+                    } else {
+                        binding.twoViewButton.setBackground(context.getResources().getDrawable(R.drawable.altered_button_bground));
+                        binding.twoViewButton.setTextColor(context.getResources().getColor(R.color.text_color));
+                    }
+
+                    if (mode == Constants.SEARCH_EVERYWHERE_CATEGORIES)
+                        iFilter.onFilterTwoViewClicked(mode, homeArrayLists.get(getAdapterPosition()).category_id);
+
+                    if (mode == Constants.SEARCH_EVERYWHERE_BRANDS || mode == Constants.SEARCH_EVERYWHERE_SHIPPING)
+                        iFilter.onFilterTwoViewClicked(mode, homeArrayLists.get(getAdapterPosition()).id);
+
+                    if (mode == Constants.SEARCH_EVERYWHERE_LOCATIONS)
+                        iFilter.onFilterTwoViewClicked(mode, homeArrayLists.get(getAdapterPosition()).seller_store_location_id);
+                }
+            });
         }
 
         public AdapterFilterTwoViewBinding getBinding()

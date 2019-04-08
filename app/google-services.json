@@ -23,8 +23,20 @@
           }
         },
         {
-          "client_id": "446803575025-rm20k69c00lcgde6410cu0cabg91plqc.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "446803575025-r37itv2og68l73m3r0v1dvi042dbr0so.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ninositsolution.inveleapp",
+            "certificate_hash": "c655396ec4a53dd36b2ad8daff3c58aff91b4bc9"
+          }
+        },
+        {
+          "client_id": "446803575025-c7ir14egu1f12elhouo23haa37anmu3u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ninositsolution.inveleapp",
+            "certificate_hash": "6033f689f85925385df9f98345f691ce64a54e61"
+          }
         }
       ],
       "api_key": [
@@ -33,20 +45,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "446803575025-rm20k69c00lcgde6410cu0cabg91plqc.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }

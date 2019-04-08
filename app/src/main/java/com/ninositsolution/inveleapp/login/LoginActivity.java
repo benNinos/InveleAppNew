@@ -44,6 +44,7 @@ import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.ActivityLoginBinding;
 import com.ninositsolution.inveleapp.forgot_password.PasswordActivity;
 import com.ninositsolution.inveleapp.home.HomeActivity;
+import com.ninositsolution.inveleapp.pojo.Users;
 import com.ninositsolution.inveleapp.registration.RegisterActivity;
 import com.ninositsolution.inveleapp.utils.Constants;
 import com.ninositsolution.inveleapp.utils.Session;
@@ -68,7 +69,12 @@ public class LoginActivity extends AppCompatActivity {
 
     CallbackManager callbackManager;
     private FirebaseAuth auth;
+    private Users user;
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(context, HomeActivity.class));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,10 +138,13 @@ public class LoginActivity extends AppCompatActivity {
                                     hideProgressBar();
 
                                     Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
-
-                                    Session.setUserId(String.valueOf(loginVM.user.get().id),LoginActivity.this);
-                                    Session.setUserEmail(loginVMGlobal.username.get(), context);
                                     Session.setIsLogged(true,context);
+
+                                   if (loginVM.user.get() != null)
+                                   {
+                                       Constants.setSession(loginVM.user.get(), context);
+                                   }
+
                                     Log.i(TAG, "User_id : "+loginVM.user.get().id);
                                     loginVM.status.set("");
                                     startActivity(new Intent(context, HomeActivity.class));
@@ -196,6 +205,10 @@ public class LoginActivity extends AppCompatActivity {
                                     Session.setIsLogged(true,context);
                                     Session.setUserPhone(loginVMGlobal.mobile.get(), context);
                                     loginVM.status.set("");
+
+                                    Constants.setSession(user, context);
+
+                                    Session.setIsLogged(true, context);
 
                                     startActivity(new Intent(context, HomeActivity.class));
                                 } else  {
@@ -305,7 +318,7 @@ public class LoginActivity extends AppCompatActivity {
                             {
                                 if (loginVM.status.get().equalsIgnoreCase("success"))
                                 {
-
+                                    user = loginVM.user.get();
                                     Toast.makeText(LoginActivity.this, ""+loginVM.otp.get(), Toast.LENGTH_SHORT).show();
                                     Session.setUserId(String.valueOf(loginVM.user.get().id), LoginActivity.this);
                                     loginVM.status.set("");
@@ -411,6 +424,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
                         Session.setUserId(String.valueOf(loginVM.user.get().id), LoginActivity.this);
                         loginVM.status.set("");
+                        Session.setIsLogged(true, context);
                         startActivity(new Intent(context, HomeActivity.class));
                     } else
                     {
@@ -474,6 +488,7 @@ public class LoginActivity extends AppCompatActivity {
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 hideProgressBar();
+                Log.e(TAG, "google error - > "+e);
                 Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         } else
@@ -553,6 +568,7 @@ public class LoginActivity extends AppCompatActivity {
                                             hideProgressBar();
                                             Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
                                             loginVM.status.set("");
+                                            Session.setIsLogged(true, context);
                                             startActivity(new Intent(context, HomeActivity.class));
                                         } else
                                         {
@@ -586,7 +602,8 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken("446803575025-c7ir14egu1f12elhouo23haa37anmu3u.apps.googleusercontent.com")
+                //.requestIdToken(get   String(R.string.default_web_id))
                 .requestEmail()
                 .build();
 

@@ -89,11 +89,19 @@ public class HomeActivity extends AppCompatActivity {
                     return false;
 
                 case R.id.navigation_cart:
-                    startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                    startActivity(new Intent(HomeActivity.this, CartActivity.class));
                     return false;
 
                 case R.id.navigation_account:
-                    startActivity(new Intent(HomeActivity.this, AccountActivity.class));
+
+                    if (Session.getIsLogged(context))
+                    {
+                        startActivity(new Intent(HomeActivity.this, AccountActivity.class));
+                    }
+                    else
+                    {
+                        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                    }
                     return false;
             }
             return false;

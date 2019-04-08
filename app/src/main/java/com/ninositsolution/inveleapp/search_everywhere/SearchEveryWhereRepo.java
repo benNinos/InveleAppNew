@@ -8,6 +8,7 @@ import com.ninositsolution.inveleapp.api.RetrofitClient;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 
 import io.reactivex.Observer;
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -16,6 +17,7 @@ public class SearchEveryWhereRepo {
 
     private static final String TAG = "SearchEveryWhereRepo";
     private MutableLiveData<SearchEverywhereVM> searchEverywhereVMMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<SearchEverywhereVM> searchFilterUpdateLiveData = new MutableLiveData<>();
 
     public SearchEveryWhereRepo() {
     }
@@ -58,5 +60,46 @@ public class SearchEveryWhereRepo {
                 });
 
         return searchEverywhereVMMutableLiveData;
+    }
+
+    public MutableLiveData<SearchEverywhereVM> getSearchFilterUpdateLiveData(String jsonRequest) {
+
+        ApiService apiService = RetrofitClient.getApiService();
+
+        apiService.getSearchFilterUpdate(jsonRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<POJOClass>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(POJOClass pojoClass) {
+
+                        Log.i(TAG, "onNext : "+pojoClass.status);
+                        Log.i(TAG, "onNext : "+pojoClass.msg);
+
+                        SearchEverywhereVM searchEverywhereVM = new SearchEverywhereVM(pojoClass);
+                        searchFilterUpdateLiveData.setValue(searchEverywhereVM);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Log.e(TAG, "onError : "+e.getMessage());
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+
+        return searchFilterUpdateLiveData;
     }
 }

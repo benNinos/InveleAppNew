@@ -27,7 +27,8 @@ public class PasswordActivity extends AppCompatActivity{
 
     private static final String TAG = "PasswordActivity";
     ActivityPasswordBinding binding;
-    PasswordVM passwordVM;
+    PasswordVM passwordVMGlobal;
+    private Context context;
 
 
 
@@ -35,9 +36,11 @@ public class PasswordActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_password);
-        passwordVM = ViewModelProviders.of(this).get(PasswordVM.class);
-        binding.setPassword(passwordVM);
+        passwordVMGlobal = ViewModelProviders.of(this).get(PasswordVM.class);
+        binding.setPassword(passwordVMGlobal);
         binding.setLifecycleOwner(this);
+
+        context = PasswordActivity.this;
 
         InputFilter[] filters = new InputFilter[1];
         filters[0] = new InputFilter.LengthFilter(6);
@@ -83,7 +86,7 @@ public class PasswordActivity extends AppCompatActivity{
             @Override
             public void afterTextChanged(Editable s) {
 
-                int passmatch = passwordVM.passwordMatchValidation();
+                int passmatch = passwordVMGlobal.passwordMatchValidation();
                 if (passmatch == Constants.PASSWORD_MATCH)
                 {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -103,9 +106,7 @@ public class PasswordActivity extends AppCompatActivity{
                 imm.hideSoftInputFromWindow(binding.forgotPasswordEmail.getWindowToken(), 0);
 
 
-
-
-                int status = passwordVM.forgotPasswordEmailValidation();
+                int status = passwordVMGlobal.forgotPasswordEmailValidation();
 
                 if (status == Constants.EMAIL_EMPTY)
                 {
@@ -113,7 +114,7 @@ public class PasswordActivity extends AppCompatActivity{
                     binding.forgotPasswordEmail.requestFocus();
                 }
 
-                int emailpattern = passwordVM.emailPatternValidation();
+                int emailpattern = passwordVMGlobal.emailPatternValidation();
 
                 if (emailpattern == Constants.EMAIL_INVALID)
                 {
@@ -124,17 +125,26 @@ public class PasswordActivity extends AppCompatActivity{
                 else if (status == Constants.SUCCESS)
                 {
                     showProgressBar();
-                    passwordVM.forgotPasswordApi();
+                    passwordVMGlobal.forgotPasswordApi();
 
-                    passwordVM.getPasswordVMMutableLiveData().observe(PasswordActivity.this, new Observer<PasswordVM>() {
+                    passwordVMGlobal.getPasswordVMMutableLiveData().observe(PasswordActivity.this, new Observer<PasswordVM>() {
                         @Override
                         public void onChanged(@Nullable PasswordVM passwordVM) {
 
                             if (!passwordVM.status.get().isEmpty())
                             {
+                                hideProgressBar();
 
                                 if (passwordVM.status.get().equalsIgnoreCase("success")) {
-                                    hideProgressBar();
+
+                                    try {
+                                        Session.setUserId(passwordVM.user.get().id.toString(), context);
+
+                                    } catch (Exception e) {
+                                        Log.e(TAG, "Error -> "+e);
+                                    }
+
+                                    passwordVMGlobal.otpEmail.set(passwordVMGlobal.email.get());
 
                                     if (binding.passEmailLayout.getVisibility() == View.VISIBLE) {
                                         binding.passEmailLayout.setVisibility(View.GONE);
@@ -190,7 +200,7 @@ public class PasswordActivity extends AppCompatActivity{
             @Override
             public void onSubmitClicked() {
 
-                int status = passwordVM.resetPasswordValidation();
+                int status = passwordVMGlobal.resetPasswordValidation();
                 if (status == Constants.PASSWORD_EMPTY)
                 {
                     binding.resetPassword.setError("required");
@@ -202,7 +212,7 @@ public class PasswordActivity extends AppCompatActivity{
                     binding.confirmResetPassword.requestFocus();
                 }
 
-               int passwordMatch = passwordVM.passwordMatchValidation();
+               int passwordMatch = passwordVMGlobal.passwordMatchValidation();
                 if (passwordMatch == Constants.PASSWORD_MISMATCH)
                 {
                     binding.confirmResetPassword.setError("Passwords do not Match");
@@ -211,34 +221,48 @@ public class PasswordActivity extends AppCompatActivity{
                 else if (status == Constants.SUCCESS)
                 {
                     showProgressBar();
-                    passwordVM.resetPasswordApi(Integer.parseInt(Session.getUserId(PasswordActivity.this)));
-                    passwordVM.getResetPasswordMutableLiveData().observe(PasswordActivity.this, new Observer<PasswordVM>() {
+                    passwordVMGlobal.resetPasswordApi(Integer.parseInt(Session.getUserId(PasswordActivity.this)));
+                    passwordVMGlobal.getResetPasswordMutableLiveData().observe(PasswordActivity.this, new Observer<PasswordVM>() {
                         @Override
                         public void onChanged(@Nullable PasswordVM passwordVM) {
-                            if (!passwordVM.status.get().isEmpty())
+
+                            if (passwordVM != null)
                             {
-                                if (passwordVM.status.get().equalsIgnoreCase("success"))
+                                if (!passwordVM.status.get().isEmpty())
                                 {
                                     hideProgressBar();
-                                    Intent intent = new Intent(PasswordActivity.this, LoginActivity.class);
-                                    startActivity(intent);
 
-                                    Toast.makeText(PasswordActivity.this, ""+passwordVM.msg.get(), Toast.LENGTH_SHORT).show();
-                                    Log.i(TAG, "message : "+passwordVM.msg.get());
-                                    passwordVM.status.set("");
+                                    if (passwordVM.status.get().equalsIgnoreCase("success"))
+                                    {
+                                        Intent intent = new Intent(PasswordActivity.this, LoginActivity.class);
+                                        startActivity(intent);
+
+                                        Toast.makeText(PasswordActivity.this, ""+passwordVM.msg.get(), Toast.LENGTH_SHORT).show();
+                                        Log.i(TAG, "message : "+passwordVM.msg.get());
+                                        passwordVM.status.set("");
 
 
-                                } else
+
+                                        if (passwordVM.user.get() != null)
+                                        {
+                                            Constants.setSession(passwordVM.user.get(), context);
+                                            startActivity(new Intent(context, LoginActivity.class));
+                                        }
+
+                                    } else
                                     if (passwordVM.status.get().equalsIgnoreCase("error"))
                                     {
-                                        Toast.makeText(getApplicationContext(),"Something Went Wrong",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(),""+passwordVM.msg.get(),Toast.LENGTH_LONG).show();
                                     }
 
+                                }
+                                else
+                                {
+                                    Toast.makeText(getApplicationContext(),"Response Empty",Toast.LENGTH_LONG).show();
+                                }
                             }
-                            else
-                            {
-                                Toast.makeText(getApplicationContext(),"API Empty",Toast.LENGTH_LONG).show();
-                            }
+
+
 
                         }
                     });
@@ -264,7 +288,7 @@ public class PasswordActivity extends AppCompatActivity{
                 imm.hideSoftInputFromWindow(binding.forgotPasswordOtpCode.getWindowToken(), 0);
 
 
-                int status = passwordVM.resetPasswordOtpValidation();
+                int status = passwordVMGlobal.resetPasswordOtpValidation();
                 if (status == Constants.OTP_EMPTY)
                 {
                     binding.forgotPasswordOtpCode.setError("required");
@@ -274,16 +298,17 @@ public class PasswordActivity extends AppCompatActivity{
                     if (status == Constants.SUCCESS)
                 {
                     showProgressBar();
-                    passwordVM.otpVerifyApi(Session.getUserId(PasswordActivity.this));
-                    passwordVM.getOtpMutableLiveData().observe(PasswordActivity.this, new Observer<PasswordVM>() {
+                    passwordVMGlobal.otpVerifyApi(Session.getUserId(PasswordActivity.this));
+                    passwordVMGlobal.getOtpMutableLiveData().observe(PasswordActivity.this, new Observer<PasswordVM>() {
                         @Override
                         public void onChanged(@Nullable PasswordVM passwordVM) {
 
                             if (!passwordVM.status.get().isEmpty())
                             {
+                                hideProgressBar();
+
                                 if (passwordVM.status.get().equalsIgnoreCase("success"))
                                 {
-                                    hideProgressBar();
 
                                     if (binding.resetPasswordOtpLayout.getVisibility() == View.VISIBLE)
                                     {
@@ -301,11 +326,9 @@ public class PasswordActivity extends AppCompatActivity{
                                 }
                                 else if (passwordVM.status.get().equalsIgnoreCase("error"))
                                 {
-                                    binding.resetPasswordOtpLayout.setVisibility(View.VISIBLE);
+                                    Toast.makeText(PasswordActivity.this, ""+passwordVM.msg.get(), Toast.LENGTH_SHORT).show();
                                 }
-
                             }
-
                             else
                                 {
                                     Toast.makeText(getApplicationContext(),"API Empty",Toast.LENGTH_LONG).show();

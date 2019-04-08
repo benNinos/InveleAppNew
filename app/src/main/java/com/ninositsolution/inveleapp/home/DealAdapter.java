@@ -1,6 +1,7 @@
 package com.ninositsolution.inveleapp.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.AdapterDealProductsBinding;
+import com.ninositsolution.inveleapp.product_detail_page.ProductDetailActivity;
 
 public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder> {
 
@@ -66,6 +68,13 @@ public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder
             this.binding = binding;
 
             binding.dealDeleteRate.setPaintFlags(binding.dealDeleteRate.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+            binding.dealLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    context.startActivity(new Intent(context, ProductDetailActivity.class));
+                }
+            });
         }
 
         public void bind(HomeVM homeVM)

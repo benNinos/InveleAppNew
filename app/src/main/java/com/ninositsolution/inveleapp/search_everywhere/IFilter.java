@@ -6,4 +6,8 @@ public interface IFilter {
     void onCategoriesShowClicked();
     void onBrandsShowClicked();
     void onShippingShowClicked();
+    void onLocationsShowClicked();
+    void onResetClicked();
+    void ApplyClicked();
+    void onFilterTwoViewClicked(int mode, int id);
 }

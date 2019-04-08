@@ -1,6 +1,11 @@
 package com.ninositsolution.inveleapp.utils;
 
+import android.content.Context;
 import android.content.Intent;
+
+import com.ninositsolution.inveleapp.pojo.HomeArrayLists;
+import com.ninositsolution.inveleapp.pojo.POJOClass;
+import com.ninositsolution.inveleapp.pojo.Users;
 
 public final class Constants {
 
@@ -44,19 +49,70 @@ public final class Constants {
     public static final String TYPE_MOBILE = "mobile";
     public static final String TYPE_EMAIL = "email";
 
-    public static final Integer SEARCH_EVERYWHERE_PRODUCTS = 23;
-    public static final Integer SEARCH_EVERYWHERE_CATEGORIES = 24;
-    public static final Integer SEARCH_EVERYWHERE_BRANDS = 25;
-    public static final Integer SEARCH_EVERYWHERE_LOCATIONS = 26;
-    public static final Integer SEARCH_EVERYWHERE_ATTRIBUTES = 27;
+    public static final int SEARCH_EVERYWHERE_PRODUCTS = 23;
+    public static final int SEARCH_EVERYWHERE_CATEGORIES = 24;
+    public static final int SEARCH_EVERYWHERE_BRANDS = 25;
+    public static final int SEARCH_EVERYWHERE_LOCATIONS = 26;
+    public static final int SEARCH_EVERYWHERE_ATTRIBUTES = 27;
+    public static final int SEARCH_EVERYWHERE_ATTRIBUTES_CHILD = 28;
 
 
-    public static final Integer FILTER_SHOW_LESS = 28;
-    public static final Integer FILTER_SHOW_MORE = 29;
+    public static final Integer FILTER_SHOW_LESS = 101;
+    public static final Integer FILTER_SHOW_MORE = 102;
 
-    public static final Integer SEARCH_EVERYWHERE_SHIPPING = 30;
-    public static final Integer FITME_MEN = 31;
-    public static final Integer FITME_WOMEN = 32;
+    public static final int SEARCH_EVERYWHERE_SHIPPING = 103;
+    public static final Integer FITME_MEN = 104;
+    public static final Integer FITME_WOMEN = 105;
+
+    public static void setSession(Users user, Context context)
+    {
+        if (user.id != null)
+        {
+            String value = user.id.toString();
+            Session.setUserId(value, context);
+        }
+
+        if (user.first_name != null)
+        {
+            String value = user.first_name;
+            Session.setUserFirstName(value, context);
+        }
+
+        if (user.last_name != null)
+        {
+            String value = user.last_name;
+            Session.setUserLastName(value, context);
+        }
+        if (user.email != null)
+        {
+            String value = user.email;
+            Session.setUserEmail(value, context);
+        }
+
+        if (user.mobile != null)
+        {
+            String value = user.mobile;
+            Session.setUserPhone(value, context);
+        }
+
+        if (user.dob != null)
+        {
+            String value = user.dob;
+            Session.setUserDob(value, context);
+        }
+
+        if (user.image != null)
+        {
+            String value = user.image;
+            Session.setUserPhoto(value, context);
+        }
+
+        if (user.gender != null)
+        {
+            String value = user.gender;
+            Session.setUserGender(value, context);
+        }
+    }
 
 
 }

@@ -3,6 +3,7 @@ package com.ninositsolution.inveleapp.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 /**
  * Created by Parthasarathy D on 1/17/2019.
@@ -10,6 +11,8 @@ import android.preference.PreferenceManager;
  * ben@ninositsolution.com
  */
 public class Session {
+
+    private static final String TAG = "Session";
 
     private String CategoryPosition = "CategoryPosition";
 
@@ -29,6 +32,7 @@ public class Session {
     private static final String is_email_registered = "is_email_registered";
     private static final String image_path = "image_path";
     private static final String is_logged = "is_logged";
+    private static final String clearSession = "clearSession";
 
     public Session(Context context)
     {
@@ -50,16 +54,18 @@ public class Session {
 
     public static void setDevice_id(String values, Context context) {
         context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(device_id, values).apply();
+        Log.i(TAG, "setDevice_id -> "+values);
     }
 
     public static String getUserId(Context context)
     {
-        return context.getSharedPreferences("Session", Context.MODE_PRIVATE).getString(user_id, "21");
+        return context.getSharedPreferences("Session", Context.MODE_PRIVATE).getString(user_id, "");
     }
 
     public static void setUserId(String value, Context context)
     {
         context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(user_id, value).apply();
+        Log.i(TAG, "setUserId -> "+value);
     }
 
     public static String getUserFirstName(Context context)
@@ -70,6 +76,7 @@ public class Session {
     public static void setUserFirstName(String value, Context context)
     {
         context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(user_first_name, value).apply();
+        Log.i(TAG, "setUserFirstName -> "+value);
     }
 
     public static String getUserLastName(Context context)
@@ -80,6 +87,7 @@ public class Session {
     public static void setUserLastName(String value, Context context)
     {
         context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(user_last_name, value).apply();
+        Log.i(TAG, "setUserLastName -> "+value);
     }
 
     public static String getUserEmail(Context context)
@@ -90,6 +98,7 @@ public class Session {
     public static void setUserEmail(String value, Context context)
     {
         context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(user_email, value).apply();
+        Log.i(TAG, "setUserEmail -> "+value);
     }
 
     public static String getUserPhone(Context context)
@@ -100,6 +109,7 @@ public class Session {
     public static void setUserPhone(String value, Context context)
     {
         context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(user_phone, value).apply();
+        Log.i(TAG, "setUserPhone -> "+value);
     }
 
     public static String getUserDob(Context context)
@@ -110,6 +120,7 @@ public class Session {
     public static void setUserDob(String value, Context context)
     {
         context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(user_dob, value).apply();
+        Log.i(TAG, "setUserDob -> "+value);
     }
 
     public static String getUserGender(Context context)
@@ -120,6 +131,7 @@ public class Session {
     public static void setUserGender(String value, Context context)
     {
         context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(user_gender, value).apply();
+        Log.i(TAG, "setUserGender -> "+value);
     }
 
     public static String getUserUid(Context context)
@@ -130,6 +142,7 @@ public class Session {
     public static void setUserUid(String value, Context context)
     {
         context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(user_uid, value).apply();
+        Log.i(TAG, "setUserUid -> "+value);
     }
 
     public static String getUserPhoto(Context context)
@@ -140,6 +153,7 @@ public class Session {
     public static void setUserPhoto(String value, Context context)
     {
         context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(user_photo, value).apply();
+        Log.i(TAG, "setUserPhoto -> "+value);
     }
 
     public static Boolean getIsEmailRegistered(Context context)
@@ -150,6 +164,7 @@ public class Session {
     public static void setIsEmailRegistered(Boolean value, Context context)
     {
         context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putBoolean(is_email_registered, value).apply();
+        Log.i(TAG, "setIsEmailRegistered -> "+value);
     }
 
     public static String getImagePath(Context context)
@@ -160,6 +175,7 @@ public class Session {
     public static void setImagePath(String value, Context context)
     {
         context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(image_path, value).apply();
+        Log.i(TAG, "setImagePath -> "+value);
     }
 
     public static Boolean getIsLogged(Context context)
@@ -170,6 +186,21 @@ public class Session {
     public static void setIsLogged(Boolean value, Context context)
     {
         context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putBoolean(is_logged, value).apply();
+        Log.i(TAG, "setIsLogged -> "+value);
+    }
+
+    public static void clear(Context context)
+    {
+        setUserDob("", context);
+        setUserEmail("", context);
+        setUserFirstName("", context);
+        setUserLastName("", context);
+        setUserGender("", context);
+        setUserPhone("", context);
+        setUserPhoto("", context);
+        setUserUid("", context);
+
+        setIsLogged(false, context);
     }
 
 

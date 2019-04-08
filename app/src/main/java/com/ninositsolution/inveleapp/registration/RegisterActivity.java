@@ -498,6 +498,7 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(RegisterActivity.this, ""+registerVM.msg.get(), Toast.LENGTH_SHORT).show();
                         Session.setUserId(String.valueOf(registerVM.user.get().id), RegisterActivity.this);
                         registerVM.status.set("");
+                        Session.setIsLogged(true, context);
                         startActivity(new Intent(context, HomeActivity.class));
                     } else
                     {
@@ -640,6 +641,7 @@ public class RegisterActivity extends AppCompatActivity {
                                             Toast.makeText(RegisterActivity.this, ""+registerVM.msg.get(), Toast.LENGTH_SHORT).show();
                                             registerVM.status.set("");
                                             Session.setUserId(String.valueOf(registerVM.user.get().id), RegisterActivity.this);
+                                            Session.setIsLogged(true, context);
                                             startActivity(new Intent(context, HomeActivity.class));
                                         } else
                                         {
@@ -672,7 +674,7 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken("446803575025-r37itv2og68l73m3r0v1dvi042dbr0so.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
 

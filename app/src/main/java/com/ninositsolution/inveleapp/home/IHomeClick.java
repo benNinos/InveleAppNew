@@ -8,4 +8,5 @@ public interface IHomeClick {
     void onItemClicked();
     void onUsernameClicked();
     void onBrandMoreClicked();
+    void onCategoriesClicked(String slug);
 }

@@ -2,6 +2,7 @@ package com.ninositsolution.inveleapp.search_everywhere;
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,13 +10,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.ninositsolution.inveleapp.R;
@@ -24,9 +25,6 @@ import com.ninositsolution.inveleapp.pojo.HomeArrayLists;
 import com.ninositsolution.inveleapp.utils.Constants;
 import com.ninositsolution.inveleapp.utils.OnSwipeTouchListener;
 import com.ninositsolution.inveleapp.utils.Session;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -76,6 +74,15 @@ public class FilterFragment extends Fragment implements IFilter{
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_filter, container, false);
         final View view = binding.getRoot();
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getActivity().findViewById(R.id.search_appbar_layout).setForeground(getResources().getDrawable(R.drawable.window_dim));
+            getActivity().findViewById(R.id.search_body_layout).setForeground(getResources().getDrawable(R.drawable.window_dim));
+            getActivity().findViewById(R.id.search_appbar_layout).getForeground().setAlpha(180);
+            getActivity().findViewById(R.id.search_body_layout).getForeground().setAlpha(180);
+        }
+
         searchEverywhereVM = ViewModelProviders.of(this).get(SearchEverywhereVM.class);
         binding.setFilter(searchEverywhereVM);
         binding.setLifecycleOwner(this);
@@ -318,17 +325,49 @@ public class FilterFragment extends Fragment implements IFilter{
     @Override
     public void onResetClicked() {
 
+        ((SearchEverywhereActivity)getActivity()).refreshFragment();
+        onDestroy();
     }
 
     @Override
     public void ApplyClicked() {
 
-        ((SearchEverywhereActivity)getActivity()).showProgressBar();
+        String type = ((SearchEverywhereActivity)getActivity()).getType();
+        String slug = ((SearchEverywhereActivity)getActivity()).getSlug();
 
-        searchEverywhereVM.updateSearchFilterApi("shirt", brand_ids, store_location_ids, attribute_value_ids, shipping_ids, sizes,
-                Session.getUserId(getContext()), "new", "New");
 
-        searchEverywhereVM.getSearchFilterUpdateLiveData().observe(this, new Observer<SearchEverywhereVM>() {
+            ((SearchEverywhereActivity)getActivity()).showProgressBar();
+
+            searchEverywhereVM.updateSearchFilterApi(slug, brand_ids, store_location_ids, attribute_value_ids, shipping_ids, sizes,
+                    Session.getUserId(getContext()), "new", "New", type);
+
+            searchEverywhereVM.getSearchFilterUpdateLiveData().observe(this, new Observer<SearchEverywhereVM>() {
+                @Override
+                public void onChanged(@Nullable SearchEverywhereVM searchEverywhereVM) {
+
+                    ((SearchEverywhereActivity)getActivity()).hideProgressBar();
+
+                    if (!searchEverywhereVM.status.get().isEmpty())
+                    {
+                        if (searchEverywhereVM.status.get().equalsIgnoreCase("success"))
+                        {
+                            Toast.makeText(getContext(), ""+searchEverywhereVM.msg.get(), Toast.LENGTH_SHORT).show();
+                            ((SearchEverywhereActivity)getActivity()).binding.recentlyViewedRecyclerview.setAdapter(new SearchEveryWhereAdapter(getContext(), searchEverywhereVM));
+                            onCloseClicked();
+
+                        } else
+                        {
+                            Toast.makeText(getContext(), ""+searchEverywhereVM.msg.get(), Toast.LENGTH_SHORT).show();
+                        }
+                    } else
+                    {
+                        Toast.makeText(getContext(), "Api Empty", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
+
+        searchEverywhereVM.getCategoryFilterUpdateLiveData().observe(this, new Observer<SearchEverywhereVM>() {
             @Override
             public void onChanged(@Nullable SearchEverywhereVM searchEverywhereVM) {
 
@@ -351,7 +390,6 @@ public class FilterFragment extends Fragment implements IFilter{
                     Toast.makeText(getContext(), "Api Empty", Toast.LENGTH_SHORT).show();
                 }
 
-
             }
         });
     }
@@ -363,7 +401,6 @@ public class FilterFragment extends Fragment implements IFilter{
         {
             case SEARCH_EVERYWHERE_CATEGORIES:
                 Toast.makeText(getContext(), "categories_id : "+ id , Toast.LENGTH_SHORT).show();
-
                 break;
 
             case SEARCH_EVERYWHERE_BRANDS:
@@ -388,4 +425,11 @@ public class FilterFragment extends Fragment implements IFilter{
         }
     }
 
+    @Override
+    public void onCategoriesClicked(String slug) {
+
+        ((SearchEverywhereActivity)getActivity()).getProducts("category", slug);
+        onCloseClicked();
+
+    }
 }

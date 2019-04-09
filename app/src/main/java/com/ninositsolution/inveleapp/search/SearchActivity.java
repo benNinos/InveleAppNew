@@ -86,6 +86,13 @@ public class SearchActivity extends AppCompatActivity implements ISearch{
 
     @Override
     public void searchClicked() {
-        startActivity(new Intent(this, SearchEverywhereActivity.class));
+
+        Intent intent = new Intent(this, SearchEverywhereActivity.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("type", "search");
+        bundle.putString("slug", "shirt");
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

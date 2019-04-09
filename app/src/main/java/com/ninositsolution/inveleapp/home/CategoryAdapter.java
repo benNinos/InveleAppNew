@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.ninositsolution.inveleapp.R;
@@ -15,10 +16,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     private Context context;
     private HomeVM homeVM;
     private LayoutInflater layoutInflater;
+    private IHomeClick iHomeClick;
 
-    public CategoryAdapter(Context context, HomeVM homeVM) {
+    public CategoryAdapter(Context context, HomeVM homeVM, IHomeClick iHomeClick) {
         this.context = context;
         this.homeVM = homeVM;
+        this.iHomeClick = iHomeClick;
         notifyDataSetChanged();
     }
 
@@ -33,7 +36,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
         AdapterCategoriesBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.adapter_categories, viewGroup, false);
 
-        return new CategoryViewHolder(binding);
+        return new CategoryViewHolder(binding, iHomeClick);
     }
 
     @Override
@@ -52,17 +55,28 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder{
 
+        IHomeClick iHomeClick;
+
         private AdapterCategoriesBinding binding;
 
-        public CategoryViewHolder(@NonNull AdapterCategoriesBinding binding) {
+        public CategoryViewHolder(@NonNull AdapterCategoriesBinding binding, IHomeClick iHomeClick) {
             super(binding.getRoot());
             this.binding = binding;
+            this.iHomeClick = iHomeClick;
         }
 
-        public void bind(HomeVM homeVM)
+        public void bind(final HomeVM homeVMBind)
         {
-            this.binding.setAdapterCategories(homeVM);
+            this.binding.setAdapterCategories(homeVMBind);
             binding.executePendingBindings();
+
+            binding.categoriesClick.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                        iHomeClick.onCategoriesClicked(homeVM.menus.get().get(getAdapterPosition()).slug);
+
+                }
+            });
         }
 
         public AdapterCategoriesBinding getBinding()

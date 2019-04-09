@@ -10,4 +10,5 @@ public interface IFilter {
     void onResetClicked();
     void ApplyClicked();
     void onFilterTwoViewClicked(int mode, int id);
+    void onCategoriesClicked(String slug);
 }

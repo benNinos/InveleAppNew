@@ -18,8 +18,50 @@ public class SearchEveryWhereRepo {
     private static final String TAG = "SearchEveryWhereRepo";
     private MutableLiveData<SearchEverywhereVM> searchEverywhereVMMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<SearchEverywhereVM> searchFilterUpdateLiveData = new MutableLiveData<>();
+    private MutableLiveData<SearchEverywhereVM> categorySearchLiveData = new MutableLiveData<>();
+    private MutableLiveData<SearchEverywhereVM> categoryFilterUpdateLiveData = new MutableLiveData<>();
 
     public SearchEveryWhereRepo() {
+    }
+
+    public MutableLiveData<SearchEverywhereVM> getCategorySearchLiveData(String user_id, String order_by, String slug) {
+
+        ApiService apiService = RetrofitClient.getApiService();
+
+        apiService.categerySearchApi(user_id, order_by, slug).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<POJOClass>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(POJOClass pojoClass) {
+
+                        Log.i(TAG, "onNext : "+pojoClass.status);
+                        Log.i(TAG, "onNext : "+pojoClass.msg);
+
+                        SearchEverywhereVM searchEverywhereVM = new SearchEverywhereVM(pojoClass);
+
+                        categorySearchLiveData.setValue(searchEverywhereVM);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Log.e(TAG, "onError : "+e.getMessage());
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+        return categorySearchLiveData;
     }
 
     public MutableLiveData<SearchEverywhereVM> getSearchEverywhereVMMutableLiveData(SearchEverywhereRequest request) {
@@ -101,5 +143,45 @@ public class SearchEveryWhereRepo {
 
 
         return searchFilterUpdateLiveData;
+    }
+
+    public MutableLiveData<SearchEverywhereVM> getCategoryFilterUpdateLiveData(String jsonRequest)
+    {
+        ApiService apiService = RetrofitClient.getApiService();
+
+        apiService.getCategoryFilterUpdate(jsonRequest).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<POJOClass>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(POJOClass pojoClass) {
+
+                        Log.i(TAG, "onNext : "+pojoClass.status);
+                        Log.i(TAG, "onNext : "+pojoClass.msg);
+
+                        SearchEverywhereVM searchEverywhereVM = new SearchEverywhereVM(pojoClass);
+                        categoryFilterUpdateLiveData.setValue(searchEverywhereVM);
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Log.e(TAG, "onError : "+e.getMessage());
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+        return categoryFilterUpdateLiveData;
     }
 }

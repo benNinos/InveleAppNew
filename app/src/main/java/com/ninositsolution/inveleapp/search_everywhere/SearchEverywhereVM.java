@@ -29,6 +29,8 @@ public class SearchEverywhereVM extends ViewModel implements Serializable {
 
     private MutableLiveData<SearchEverywhereVM> searchEverywhereVMMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<SearchEverywhereVM> searchFilterUpdateLiveData = new MutableLiveData<>();
+    private MutableLiveData<SearchEverywhereVM> categorySearchLiveData = new MutableLiveData<>();
+    private MutableLiveData<SearchEverywhereVM> categoryFilterUpdateLiveData = new MutableLiveData<>();
 
     public ObservableField<String> start_price = new ObservableField<>("");
     public ObservableField<String> end_price = new ObservableField<>("");
@@ -70,40 +72,84 @@ public class SearchEverywhereVM extends ViewModel implements Serializable {
         searchEverywhereVMMutableLiveData = searchEveryWhereRepo.getSearchEverywhereVMMutableLiveData(request);
     }
 
-    public void updateSearchFilterApi(String search_keyword, ArrayList<Integer> brand_ids, ArrayList<Integer> store_location_ids,
+    public void updateSearchFilterApi(String keyword_slug, ArrayList<Integer> brand_ids, ArrayList<Integer> store_location_ids,
                                       ArrayList<Integer> attribute_value_ids, ArrayList<Integer> shipping_ids, ArrayList<Integer> sizes,
-                                      String user_id, String order_by, String condition)
+                                      String user_id, String order_by, String condition, String type)
     {
-        JSONObject jsonObject = new JSONObject();
 
-        JSONArray brand_ids_json = new JSONArray(brand_ids);
-        JSONArray store_location_ids_json = new JSONArray(brand_ids);
-        JSONArray attribute_value_ids_json = new JSONArray(brand_ids);
-        JSONArray shipping_ids_json = new JSONArray(brand_ids);
-        JSONArray sizes_json = new JSONArray(brand_ids);
+        if (type.equalsIgnoreCase("search"))
+        {
+            JSONObject jsonObject = new JSONObject();
 
-        try {
-            jsonObject.put("search_keyword", search_keyword);
-            jsonObject.put("brand_ids", brand_ids_json);
-            jsonObject.put("store_location_ids", store_location_ids_json);
-            jsonObject.put("attribute_value_ids", attribute_value_ids_json);
-            jsonObject.put("shipping_ids", shipping_ids_json);
-            jsonObject.put("sizes", sizes_json);
-            jsonObject.put("user_id", user_id);
-            jsonObject.put("start_price", start_price.get());
-            jsonObject.put("end_price", end_price.get());
-            jsonObject.put("end_price", end_price.get());
-            jsonObject.put("order_by", order_by);
-            jsonObject.put("condition", condition);
+            JSONArray brand_ids_json = new JSONArray(brand_ids);
+            JSONArray store_location_ids_json = new JSONArray(brand_ids);
+            JSONArray attribute_value_ids_json = new JSONArray(brand_ids);
+            JSONArray shipping_ids_json = new JSONArray(brand_ids);
+            JSONArray sizes_json = new JSONArray(brand_ids);
 
-            Log.i(TAG, "JsonStructure -> "+jsonObject);
+            try {
+                jsonObject.put("search_keyword", keyword_slug);
+                jsonObject.put("brand_ids", brand_ids_json);
+                jsonObject.put("store_location_ids", store_location_ids_json);
+                jsonObject.put("attribute_value_ids", attribute_value_ids_json);
+                jsonObject.put("shipping_ids", shipping_ids_json);
+                jsonObject.put("sizes", sizes_json);
+                jsonObject.put("user_id", user_id);
+                jsonObject.put("start_price", start_price.get());
+                jsonObject.put("end_price", end_price.get());
+                jsonObject.put("end_price", end_price.get());
+                jsonObject.put("order_by", order_by);
+                jsonObject.put("condition", condition);
 
-            searchFilterUpdateLiveData = searchEveryWhereRepo.getSearchFilterUpdateLiveData(jsonObject.toString());
+                Log.i(TAG, "JsonStructure -> "+jsonObject);
+
+                searchFilterUpdateLiveData = searchEveryWhereRepo.getSearchFilterUpdateLiveData(jsonObject.toString());
 
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
+
+        else
+        {
+            JSONObject jsonObject = new JSONObject();
+
+            JSONArray brand_ids_json = new JSONArray(brand_ids);
+            JSONArray store_location_ids_json = new JSONArray(brand_ids);
+            JSONArray attribute_value_ids_json = new JSONArray(brand_ids);
+            JSONArray shipping_ids_json = new JSONArray(brand_ids);
+            JSONArray sizes_json = new JSONArray(brand_ids);
+
+            try {
+                jsonObject.put("category_slug", keyword_slug);
+                jsonObject.put("brand_ids", brand_ids_json);
+                jsonObject.put("store_location_ids", store_location_ids_json);
+                jsonObject.put("attribute_value_ids", attribute_value_ids_json);
+                jsonObject.put("shipping_ids", shipping_ids_json);
+                jsonObject.put("sizes", sizes_json);
+                jsonObject.put("user_id", user_id);
+                jsonObject.put("start_price", start_price.get());
+                jsonObject.put("end_price", end_price.get());
+                jsonObject.put("end_price", end_price.get());
+                jsonObject.put("order_by", order_by);
+                jsonObject.put("condition", condition);
+
+                Log.i(TAG, "JsonStructure -> "+jsonObject);
+
+                //searchFilterUpdateLiveData = searchEveryWhereRepo.getSearchFilterUpdateLiveData(jsonObject.toString());
+                categoryFilterUpdateLiveData = searchEveryWhereRepo.getCategoryFilterUpdateLiveData(jsonObject.toString());
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void getByCategoryApi(String user_id, String order_by, String slug)
+    {
+        categorySearchLiveData = searchEveryWhereRepo.getCategorySearchLiveData(user_id, order_by, slug);
     }
 
     public MutableLiveData<SearchEverywhereVM> getSearchEverywhereVMMutableLiveData() {
@@ -112,6 +158,14 @@ public class SearchEverywhereVM extends ViewModel implements Serializable {
 
     public MutableLiveData<SearchEverywhereVM> getSearchFilterUpdateLiveData() {
         return searchFilterUpdateLiveData;
+    }
+
+    public MutableLiveData<SearchEverywhereVM> getCategorySearchLiveData() {
+        return categorySearchLiveData;
+    }
+
+    public MutableLiveData<SearchEverywhereVM> getCategoryFilterUpdateLiveData() {
+        return categoryFilterUpdateLiveData;
     }
 
     // product loading

@@ -28,6 +28,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface ApiService {
 
@@ -122,4 +123,16 @@ public interface ApiService {
     @Headers("Content-Type: application/json")
     @POST("filter-search")
     Observable<POJOClass> getSearchFilterUpdate(@Body String jsonRequest);
+
+    @FormUrlEncoded
+    @POST("category/{slug}")
+    Observable<POJOClass> categerySearchApi(
+            @Field("user_id") String user_id,
+            @Field("order_by") String order_by,
+            @Path("slug") String slug
+    );
+
+    @Headers("Content-Type: application/json")
+    @POST("filter")
+    Observable<POJOClass> getCategoryFilterUpdate(@Body String jsonRequest);
 }

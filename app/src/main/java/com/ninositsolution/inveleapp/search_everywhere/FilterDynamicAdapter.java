@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.AdapterFilterDynamicBinding;
 import com.ninositsolution.inveleapp.pojo.HomeArrayLists;
+import com.ninositsolution.inveleapp.utils.Constants;
 
 import java.util.ArrayList;
 
@@ -54,7 +55,8 @@ public class FilterDynamicAdapter extends RecyclerView.Adapter<FilterDynamicAdap
         filterDynamicViewHolder.setBinding(searchEverywhereVM);
 
         filterDynamicViewHolder.binding.filterDynamicRecyclerView.setAdapter(new FilterFourViewAdapter(context,
-                homeArrayLists.get(i).attribute_values, homeArrayLists.get(i).is_color.equalsIgnoreCase("1"), iFilter));
+                homeArrayLists.get(i).attribute_values, homeArrayLists.get(i).is_color.equalsIgnoreCase("1"), iFilter,
+                null, Constants.SEARCH_EVERYWHERE_ATTRIBUTES_CHILD));
 
     }
 

@@ -2,7 +2,6 @@ package com.ninositsolution.inveleapp.search_everywhere;
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
@@ -50,7 +48,7 @@ public class FilterFragment extends Fragment implements IFilter{
     private ArrayList<Integer> store_location_ids = new ArrayList<>();
     private ArrayList<Integer> attribute_value_ids = new ArrayList<>();
     private ArrayList<Integer> shipping_ids = new ArrayList<>();
-    private ArrayList<Integer> sizes = new ArrayList<>();
+    private ArrayList<String> sizes = new ArrayList<>();
 
 
     public FilterFragment() {
@@ -146,6 +144,10 @@ public class FilterFragment extends Fragment implements IFilter{
             binding.filterLocationsRecyclerViewMore.setAdapter(new FilterTwoViewAdapterMore(getContext(), getArraylistMore(vm.locations.get()), Constants.SEARCH_EVERYWHERE_LOCATIONS, this));
         }
 
+        binding.filterSizesRecyclerView.setHasFixedSize(true);
+        binding.filterSizesRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
+        binding.filterSizesRecyclerView.setAdapter(new FilterFourViewAdapter(getContext(), null, false,this, vm.fitme_sizes.get(), Constants.SEARCH_EVERYWHERE_FITME_SIZE));
+
         binding.filterAttributesRecyclerView.setHasFixedSize(true);
         binding.filterAttributesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.filterAttributesRecyclerView.setAdapter(new FilterDynamicAdapter(getContext(), vm.attributes.get(), Constants.SEARCH_EVERYWHERE_ATTRIBUTES, this));
@@ -205,11 +207,11 @@ public class FilterFragment extends Fragment implements IFilter{
     {
         ArrayList<HomeArrayLists> listsArrayList = new ArrayList<>();
 
-        listsArrayList = lists;
 
-            for (int i = 0; i<4; i++)
+            for (int i = 0; i<lists.size(); i++)
             {
-                listsArrayList.remove(0);
+                if (i > 3)
+                    listsArrayList.add(lists.get(i));
             }
 
             return listsArrayList;
@@ -399,10 +401,6 @@ public class FilterFragment extends Fragment implements IFilter{
 
         switch(mode)
         {
-            case SEARCH_EVERYWHERE_CATEGORIES:
-                Toast.makeText(getContext(), "categories_id : "+ id , Toast.LENGTH_SHORT).show();
-                break;
-
             case SEARCH_EVERYWHERE_BRANDS:
                 Toast.makeText(getContext(), "brands_id : "+ id , Toast.LENGTH_SHORT).show();
                 brand_ids.add(id);
@@ -423,6 +421,12 @@ public class FilterFragment extends Fragment implements IFilter{
                 attribute_value_ids.add(id);
                 break;
         }
+    }
+
+    @Override
+    public void onFitmeSizeClicked(String size) {
+
+        sizes.add(size);
     }
 
     @Override

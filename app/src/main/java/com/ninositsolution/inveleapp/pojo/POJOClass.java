@@ -36,4 +36,5 @@ public class POJOClass {
     public String start_date_time;
     public String end_date_time;
     public String caption;
+    public ArrayList<String> fitme_sizes;
 }

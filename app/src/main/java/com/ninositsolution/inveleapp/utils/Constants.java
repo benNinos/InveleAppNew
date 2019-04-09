@@ -55,6 +55,7 @@ public final class Constants {
     public static final int SEARCH_EVERYWHERE_LOCATIONS = 26;
     public static final int SEARCH_EVERYWHERE_ATTRIBUTES = 27;
     public static final int SEARCH_EVERYWHERE_ATTRIBUTES_CHILD = 28;
+    public static final int SEARCH_EVERYWHERE_FITME_SIZE = 29;
 
 
     public static final Integer FILTER_SHOW_LESS = 101;

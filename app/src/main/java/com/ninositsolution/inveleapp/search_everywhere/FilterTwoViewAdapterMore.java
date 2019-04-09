@@ -94,7 +94,7 @@ public class FilterTwoViewAdapterMore extends RecyclerView.Adapter<FilterTwoView
                     }
 
                     if (mode == Constants.SEARCH_EVERYWHERE_CATEGORIES)
-                        iFilter.onFilterTwoViewClicked(mode, homeArrayLists.get(getAdapterPosition()).category_id);
+                        iFilter.onCategoriesClicked(homeArrayLists.get(getAdapterPosition()).slug);
 
                     if (mode == Constants.SEARCH_EVERYWHERE_BRANDS || mode == Constants.SEARCH_EVERYWHERE_SHIPPING)
                         iFilter.onFilterTwoViewClicked(mode, homeArrayLists.get(getAdapterPosition()).id);

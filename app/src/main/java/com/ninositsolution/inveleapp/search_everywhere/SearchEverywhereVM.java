@@ -50,6 +50,7 @@ public class SearchEverywhereVM extends ViewModel implements Serializable {
     public ObservableField<ArrayList<HomeArrayLists>> shippings = new ObservableField<>();
     public ObservableField<Float> filter_min_price = new ObservableField<>();
     public ObservableField<Float> filter_max_price = new ObservableField<>();
+    public ObservableField<ArrayList<String>> fitme_sizes = new ObservableField<>();
 
     public SearchEverywhereVM(POJOClass pojoClass)
     {
@@ -63,6 +64,7 @@ public class SearchEverywhereVM extends ViewModel implements Serializable {
         filter_max_price.set(pojoClass.filter_max_price);
         brands.set(pojoClass.brands);
         shippings.set(pojoClass.shippings);
+        fitme_sizes.set(pojoClass.fitme_sizes);
     }
 
     public void getBySearchApi(String user_id, String search_keyword, String order_by)
@@ -73,7 +75,7 @@ public class SearchEverywhereVM extends ViewModel implements Serializable {
     }
 
     public void updateSearchFilterApi(String keyword_slug, ArrayList<Integer> brand_ids, ArrayList<Integer> store_location_ids,
-                                      ArrayList<Integer> attribute_value_ids, ArrayList<Integer> shipping_ids, ArrayList<Integer> sizes,
+                                      ArrayList<Integer> attribute_value_ids, ArrayList<Integer> shipping_ids, ArrayList<String> sizes,
                                       String user_id, String order_by, String condition, String type)
     {
 
@@ -229,5 +231,12 @@ public class SearchEverywhereVM extends ViewModel implements Serializable {
             two_view_text.set(homeArrayLists.name);
         else
             two_view_text.set(homeArrayLists.value);
+    }
+
+    //for fitme sizes
+
+    public SearchEverywhereVM(String size)
+    {
+        two_view_text.set(size);
     }
 }

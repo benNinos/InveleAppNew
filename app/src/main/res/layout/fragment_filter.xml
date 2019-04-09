@@ -463,6 +463,30 @@
                                 android:background="@color/grayWhite"
                                 android:layout_marginTop="@dimen/_12sdp"/>
 
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left"
+                                android:layout_marginStart="@dimen/filter_box_margin"
+                                android:textStyle="bold"
+                                android:textSize="@dimen/filter_heading_textsize"
+                                android:textColor="@color/colorAccent"
+                                android:text="@string/sizes"
+                                android:layout_marginTop="@dimen/_12sdp"/>
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/filter_sizes_recycler_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                            </android.support.v7.widget.RecyclerView>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_1sdp"
+                                android:background="@color/grayWhite"
+                                android:layout_marginTop="@dimen/_12sdp"/>
+
                             <android.support.v7.widget.RecyclerView
                                 android:id="@+id/filter_attributes_recycler_view"
                                 android:layout_width="match_parent"

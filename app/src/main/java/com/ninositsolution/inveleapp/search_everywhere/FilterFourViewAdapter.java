@@ -21,13 +21,23 @@ public class FilterFourViewAdapter extends RecyclerView.Adapter<FilterFourViewAd
     private boolean flag;
     private LayoutInflater layoutInflater;
     private IFilter iFilter;
+    private ArrayList<String> fitme_sizes;
+    private int mode;
 
-    public FilterFourViewAdapter(Context context, ArrayList<HomeArrayLists> homeArrayLists, boolean flag, IFilter iFilter) {
+    public FilterFourViewAdapter(Context context, ArrayList<HomeArrayLists> homeArrayLists, boolean flag, IFilter iFilter, ArrayList<String> filtme_sizes, int mode) {
         this.context = context;
-        this.homeArrayLists = homeArrayLists;
-        this.flag = flag;
         this.iFilter = iFilter;
+        this.mode = mode;
         notifyDataSetChanged();
+
+        if (mode == Constants.SEARCH_EVERYWHERE_ATTRIBUTES_CHILD)
+        {
+            this.homeArrayLists = homeArrayLists;
+            this.flag = flag;
+        } else
+        {
+            this.fitme_sizes = filtme_sizes;
+        }
     }
 
     @NonNull
@@ -49,14 +59,36 @@ public class FilterFourViewAdapter extends RecyclerView.Adapter<FilterFourViewAd
 
         SearchEverywhereVM searchEverywhereVM;
 
-        searchEverywhereVM = new SearchEverywhereVM(homeArrayLists.get(i), flag);
-        filterFourViewHolder.setBinding(searchEverywhereVM);
+        if (mode == Constants.SEARCH_EVERYWHERE_ATTRIBUTES_CHILD)
+        {
+            searchEverywhereVM = new SearchEverywhereVM(homeArrayLists.get(i), flag);
+            filterFourViewHolder.setBinding(searchEverywhereVM);
+        } else
+        {
+            searchEverywhereVM = new SearchEverywhereVM(fitme_sizes.get(i));
+            filterFourViewHolder.setBinding(searchEverywhereVM);
+        }
 
     }
 
     @Override
     public int getItemCount() {
-        return homeArrayLists.size();
+
+        if (mode == Constants.SEARCH_EVERYWHERE_ATTRIBUTES_CHILD)
+        {
+            return homeArrayLists.size();
+        } else
+        {
+            try {
+                return fitme_sizes.size();
+            } catch (NullPointerException e)
+            {
+
+            }
+
+        }
+
+        return 0;
     }
 
     public class FilterFourViewHolder extends RecyclerView.ViewHolder{
@@ -90,7 +122,11 @@ public class FilterFourViewAdapter extends RecyclerView.Adapter<FilterFourViewAd
                         binding.twoViewButton.setTextColor(context.getResources().getColor(R.color.text_color));
                     }
 
+                    if (mode == Constants.SEARCH_EVERYWHERE_ATTRIBUTES_CHILD)
                         iFilter.onFilterTwoViewClicked(Constants.SEARCH_EVERYWHERE_ATTRIBUTES_CHILD, homeArrayLists.get(getAdapterPosition()).id);
+                    else
+                        iFilter.onFitmeSizeClicked(fitme_sizes.get(getAdapterPosition()));
+
                 }
             });
         }

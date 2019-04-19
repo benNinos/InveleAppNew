@@ -1,36 +1,28 @@
 package com.ninositsolution.inveleapp.wishlist;
 
-import android.content.Context;
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.ViewModel;
 
 /**
  * Created by Parthasarathy D on 1/22/2019.
  * Ninos IT Solution Pvt Ltd
  * ben@ninositsolution.com
  */
-public class WishlistVM {
+public class WishlistVM extends ViewModel {
 
-    private WishlistModel wishlistModel;
-    private Context context;
-    private IWishlist iWishlist;
+    private WishlistRepo wishlistRepo;
+    private MutableLiveData<WishlistVM> wishlistVMMutableLiveData = new MutableLiveData<>();
 
-    public WishlistVM(Context context, IWishlist iWishlist) {
-        this.context = context;
-        this.iWishlist = iWishlist;
-        wishlistModel = new WishlistModel();
-        loadWishlist();
+    public WishlistVM() {
+        wishlistRepo = new WishlistRepo();
     }
 
-    private void loadWishlist() {
-
-        WishlistAdapter wishlistAdapter = new WishlistAdapter(context);
-        iWishlist.setRecyclerAdapter(wishlistAdapter);
-
-    }
-
-    //clickListeners
-
-    public void onBackClicked()
+    public void getWishists(String userId)
     {
-        iWishlist.onBackClicked();
+        wishlistVMMutableLiveData = wishlistRepo.getWishlistVMMutableLiveData(userId);
+    }
+
+    public MutableLiveData<WishlistVM> getWishlistVMMutableLiveData() {
+        return wishlistVMMutableLiveData;
     }
 }

@@ -13,18 +13,24 @@ import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.AdapterProductThumbnailBinding;
 import com.ninositsolution.inveleapp.databinding.AdapterTrendingProductsBinding;
 import com.ninositsolution.inveleapp.home.HomeVM;
+import com.ninositsolution.inveleapp.pojo.HomeArrayLists;
 import com.ninositsolution.inveleapp.search.SearchAdapter;
 import com.ninositsolution.inveleapp.utils.Constants;
+import com.ninositsolution.inveleapp.utils.WishListListener;
+
+import java.util.ArrayList;
 
 public class SearchEveryWhereAdapter extends RecyclerView.Adapter<SearchEveryWhereAdapter.SearchEveryWhereViewHolder> {
 
     private Context context;
-    private SearchEverywhereVM searchEverywhereVM;
+    private ArrayList<HomeArrayLists> productList;
     private LayoutInflater layoutInflater;
+    private WishListListener wishListListener;
 
-    public SearchEveryWhereAdapter(Context context, SearchEverywhereVM searchEverywhereVM) {
+    public SearchEveryWhereAdapter(Context context, ArrayList<HomeArrayLists> productList, WishListListener wishListListener) {
         this.context = context;
-        this.searchEverywhereVM = searchEverywhereVM;
+        this.productList = productList;
+        this.wishListListener = wishListListener;
         notifyDataSetChanged();
     }
 
@@ -39,32 +45,37 @@ public class SearchEveryWhereAdapter extends RecyclerView.Adapter<SearchEveryWhe
 
         AdapterProductThumbnailBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.adapter_product_thumbnail, viewGroup, false);
 
-        return new SearchEveryWhereViewHolder(binding);
+        return new SearchEveryWhereViewHolder(binding, wishListListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SearchEveryWhereViewHolder searchEveryWhereViewHolder, int i) {
 
         SearchEverywhereVM searchEverywhereVM =
-                new SearchEverywhereVM(this.searchEverywhereVM.products.get().get(i), Constants.SEARCH_EVERYWHERE_PRODUCTS);
+                new SearchEverywhereVM(this.productList.get(i), Constants.SEARCH_EVERYWHERE_PRODUCTS);
 
         searchEveryWhereViewHolder.setBinding(searchEverywhereVM);
+
+        if (productList.get(i).wishlist == 1)
+            searchEveryWhereViewHolder.showWishList();
 
     }
 
     @Override
     public int getItemCount() {
-        return searchEverywhereVM.products.get().size();
+        return productList.size();
     }
 
     public class SearchEveryWhereViewHolder extends RecyclerView.ViewHolder {
 
         private AdapterProductThumbnailBinding binding;
+        private WishListListener wishListListener;
 
 
-        public SearchEveryWhereViewHolder(@NonNull AdapterProductThumbnailBinding binding) {
+        public SearchEveryWhereViewHolder(@NonNull AdapterProductThumbnailBinding binding, WishListListener wishListListener) {
             super(binding.getRoot());
             this.binding = binding;
+            this.wishListListener = wishListListener;
 
             binding.productDeleteRate.setPaintFlags(binding.productDeleteRate.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
@@ -73,11 +84,40 @@ public class SearchEveryWhereAdapter extends RecyclerView.Adapter<SearchEveryWhe
         {
             this.binding.setAdapterProductThumbnail(searchEverywhereVM);
             binding.executePendingBindings();
+
+            binding.wishlist0.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showWishList();
+                    wishListListener.updateWishList(productList.get(getAdapterPosition()).product_id, 1);
+                }
+            });
+
+            binding.wishlist1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    removeWishList();
+                    wishListListener.updateWishList(productList.get(getAdapterPosition()).product_id, 0);
+
+                }
+            });
         }
 
         public AdapterProductThumbnailBinding getBinding()
         {
             return binding;
         }
+
+        public void showWishList() {
+
+            binding.wishlist0.setVisibility(View.GONE);
+            binding.wishlist1.setVisibility(View.VISIBLE);
+        }
+        public void removeWishList() {
+
+            binding.wishlist1.setVisibility(View.GONE);
+            binding.wishlist0.setVisibility(View.VISIBLE);
+        }
+
     }
 }

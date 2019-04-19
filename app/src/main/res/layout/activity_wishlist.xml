@@ -6,6 +6,10 @@
         <variable
             name="wishlist"
             type="com.ninositsolution.inveleapp.wishlist.WishlistVM"/>
+
+        <variable
+            name="iWishlist"
+            type="com.ninositsolution.inveleapp.wishlist.IWishlist"/>
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -31,7 +35,7 @@
                         android:id="@+id/search_header_back"
                         android:layout_width="@dimen/back_arrow_size"
                         android:layout_height="@dimen/back_arrow_size"
-                        android:onClick="@{()->wishlist.onBackClicked()}"
+                        android:onClick="@{()->iWishlist.onBackClicked()}"
                         android:layout_marginStart="@dimen/_8sdp"
                         android:layout_centerVertical="true"
                         app:srcCompat="@drawable/ic_arrow_back_24dp"

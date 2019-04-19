@@ -7,6 +7,8 @@ import com.ninositsolution.inveleapp.api.ApiService;
 import com.ninositsolution.inveleapp.api.RetrofitClient;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 
+import java.net.SocketTimeoutException;
+
 import io.reactivex.Observer;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -25,7 +27,7 @@ public class SearchEveryWhereRepo {
     public SearchEveryWhereRepo() {
     }
 
-    public MutableLiveData<SearchEverywhereVM> getCategorySearchLiveData(String user_id, String order_by, String slug) {
+    public MutableLiveData<SearchEverywhereVM> getCategorySearchLiveData(final String user_id, final String order_by, final String slug) {
 
         ApiService apiService = RetrofitClient.getApiService();
 
@@ -52,7 +54,10 @@ public class SearchEveryWhereRepo {
                     @Override
                     public void onError(Throwable e) {
 
-                        Log.e(TAG, "onError : "+e.getMessage());
+                        Log.e(TAG, "onError : "+e);
+
+
+                            getCategorySearchLiveData(user_id, order_by, slug);
 
                     }
 
@@ -65,7 +70,7 @@ public class SearchEveryWhereRepo {
         return categorySearchLiveData;
     }
 
-    public MutableLiveData<SearchEverywhereVM> getSearchEverywhereVMMutableLiveData(SearchEverywhereRequest request) {
+    public MutableLiveData<SearchEverywhereVM> getSearchEverywhereVMMutableLiveData(final SearchEverywhereRequest request) {
 
         ApiService apiService = RetrofitClient.getApiService();
 
@@ -92,7 +97,9 @@ public class SearchEveryWhereRepo {
                     @Override
                     public void onError(Throwable e) {
 
-                        Log.e(TAG, "onError : "+e.getMessage());
+                        Log.e(TAG, "onError : "+e);
+
+                            getSearchEverywhereVMMutableLiveData(request);
 
                     }
 
@@ -105,7 +112,7 @@ public class SearchEveryWhereRepo {
         return searchEverywhereVMMutableLiveData;
     }
 
-    public MutableLiveData<SearchEverywhereVM> getSearchFilterUpdateLiveData(String jsonRequest) {
+    public MutableLiveData<SearchEverywhereVM> getSearchFilterUpdateLiveData(final String jsonRequest) {
 
         ApiService apiService = RetrofitClient.getApiService();
 
@@ -132,7 +139,9 @@ public class SearchEveryWhereRepo {
                     @Override
                     public void onError(Throwable e) {
 
-                        Log.e(TAG, "onError : "+e.getMessage());
+                        Log.e(TAG, "onError : "+e);
+
+                            getSearchFilterUpdateLiveData(jsonRequest);
 
                     }
 
@@ -146,7 +155,7 @@ public class SearchEveryWhereRepo {
         return searchFilterUpdateLiveData;
     }
 
-    public MutableLiveData<SearchEverywhereVM> getCategoryFilterUpdateLiveData(String jsonRequest)
+    public MutableLiveData<SearchEverywhereVM> getCategoryFilterUpdateLiveData(final String jsonRequest)
     {
         ApiService apiService = RetrofitClient.getApiService();
 
@@ -173,8 +182,9 @@ public class SearchEveryWhereRepo {
                     @Override
                     public void onError(Throwable e) {
 
-                        Log.e(TAG, "onError : "+e.getMessage());
+                        Log.e(TAG, "onError : "+e);
 
+                            getCategoryFilterUpdateLiveData(jsonRequest);
                     }
 
                     @Override
@@ -186,7 +196,7 @@ public class SearchEveryWhereRepo {
         return categoryFilterUpdateLiveData;
     }
 
-    public MutableLiveData<SearchEverywhereVM> getTrendingLiveData(String order_by, String page_no) {
+    public MutableLiveData<SearchEverywhereVM> getTrendingLiveData(final String order_by, final String page_no) {
 
         ApiService apiService = RetrofitClient.getApiService();
 
@@ -213,7 +223,8 @@ public class SearchEveryWhereRepo {
                     @Override
                     public void onError(Throwable e) {
 
-                        Log.e(TAG, "onError : "+e.getMessage());
+                        Log.e(TAG, "onError : "+e);
+                            getTrendingLiveData(order_by, page_no);
 
                     }
 

@@ -23,6 +23,7 @@ import com.ninositsolution.inveleapp.pojo.HomeArrayLists;
 import com.ninositsolution.inveleapp.utils.Constants;
 import com.ninositsolution.inveleapp.utils.OnSwipeTouchListener;
 import com.ninositsolution.inveleapp.utils.Session;
+import com.ninositsolution.inveleapp.utils.WishListListener;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -36,7 +37,7 @@ import static com.ninositsolution.inveleapp.utils.Constants.SEARCH_EVERYWHERE_SH
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FilterFragment extends Fragment implements IFilter{
+public class FilterFragment extends Fragment implements IFilter, WishListListener {
 
     private static final String TAG = "FilterFragment";
     private FragmentFilterBinding binding;
@@ -49,6 +50,8 @@ public class FilterFragment extends Fragment implements IFilter{
     private ArrayList<Integer> attribute_value_ids = new ArrayList<>();
     private ArrayList<Integer> shipping_ids = new ArrayList<>();
     private ArrayList<String> sizes = new ArrayList<>();
+
+    private WishListListener wishListListener;
 
 
     public FilterFragment() {
@@ -72,6 +75,8 @@ public class FilterFragment extends Fragment implements IFilter{
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_filter, container, false);
         final View view = binding.getRoot();
+
+        wishListListener = this;
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -362,7 +367,7 @@ public class FilterFragment extends Fragment implements IFilter{
                         if (searchEverywhereVM.status.get().equalsIgnoreCase("success"))
                         {
                             Toast.makeText(getContext(), ""+searchEverywhereVM.msg.get(), Toast.LENGTH_SHORT).show();
-                            ((SearchEverywhereActivity)getActivity()).binding.recentlyViewedRecyclerview.setAdapter(new SearchEveryWhereAdapter(getContext(), searchEverywhereVM));
+                            ((SearchEverywhereActivity)getActivity()).binding.recentlyViewedRecyclerview.setAdapter(new SearchEveryWhereAdapter(getContext(), searchEverywhereVM.products.get(), wishListListener));
                             onCloseClicked();
 
                         } else
@@ -388,9 +393,8 @@ public class FilterFragment extends Fragment implements IFilter{
                     if (searchEverywhereVM.status.get().equalsIgnoreCase("success"))
                     {
                         Toast.makeText(getContext(), ""+searchEverywhereVM.msg.get(), Toast.LENGTH_SHORT).show();
-                        ((SearchEverywhereActivity)getActivity()).binding.recentlyViewedRecyclerview.setAdapter(new SearchEveryWhereAdapter(getContext(), searchEverywhereVM));
+                        ((SearchEverywhereActivity)getActivity()).binding.recentlyViewedRecyclerview.setAdapter(new SearchEveryWhereAdapter(getContext(), searchEverywhereVM.products.get(), wishListListener));
                         onCloseClicked();
-
                     } else
                     {
                         Toast.makeText(getContext(), ""+searchEverywhereVM.msg.get(), Toast.LENGTH_SHORT).show();
@@ -399,7 +403,6 @@ public class FilterFragment extends Fragment implements IFilter{
                 {
                     Toast.makeText(getContext(), "Api Empty", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
     }
@@ -442,6 +445,11 @@ public class FilterFragment extends Fragment implements IFilter{
 
         ((SearchEverywhereActivity)getActivity()).getProducts("category", slug, name);
         onCloseClicked();
+
+    }
+
+    @Override
+    public void updateWishList(int product_id, int status) {
 
     }
 }

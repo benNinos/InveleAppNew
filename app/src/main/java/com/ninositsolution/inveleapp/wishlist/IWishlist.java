@@ -6,7 +6,5 @@ package com.ninositsolution.inveleapp.wishlist;
  * ben@ninositsolution.com
  */
 public interface IWishlist {
-
-    void setRecyclerAdapter(WishlistAdapter wishlistAdapter);
     void onBackClicked();
 }

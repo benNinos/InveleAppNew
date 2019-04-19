@@ -1,5 +1,6 @@
 package com.ninositsolution.inveleapp.search_everywhere;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -19,21 +20,29 @@ import android.widget.Toast;
 
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.ActivitySearchEverywhereBinding;
+import com.ninositsolution.inveleapp.home.HomeActivity;
+import com.ninositsolution.inveleapp.home.HomeRepo;
+import com.ninositsolution.inveleapp.home.HomeVM;
 import com.ninositsolution.inveleapp.utils.Session;
+import com.ninositsolution.inveleapp.utils.WishListListener;
 
-public class SearchEverywhereActivity extends AppCompatActivity {
+public class SearchEverywhereActivity extends AppCompatActivity implements WishListListener {
 
     ActivitySearchEverywhereBinding binding;
     SearchEverywhereVM searchEverywhereVM, vmInstance;
     Context context;
     private static final String TAG = "SearchEverywherActivity";
     private String slug, type, name;
+    private WishListListener wishListListener;
+    private MutableLiveData<HomeVM> updateWishlistLiveData = new MutableLiveData<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         vmInstance = new SearchEverywhereVM();
+
+        wishListListener = this;
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search_everywhere);
         searchEverywhereVM = ViewModelProviders.of(this).get(SearchEverywhereVM.class);
@@ -65,7 +74,7 @@ public class SearchEverywhereActivity extends AppCompatActivity {
                         Toast.makeText(SearchEverywhereActivity.this, ""+msg, Toast.LENGTH_SHORT).show();
                         // handle success process
 
-                        SearchEveryWhereAdapter adapter = new SearchEveryWhereAdapter(context, searchEverywhereVM);
+                        SearchEveryWhereAdapter adapter = new SearchEveryWhereAdapter(context, searchEverywhereVM.products.get(), wishListListener);
                         binding.recentlyViewedRecyclerview.setHasFixedSize(true);
                         binding.recentlyViewedRecyclerview.setLayoutManager(new GridLayoutManager(context, 2));
                         binding.recentlyViewedRecyclerview.setAdapter(adapter);
@@ -100,7 +109,7 @@ public class SearchEverywhereActivity extends AppCompatActivity {
                         Toast.makeText(SearchEverywhereActivity.this, ""+msg, Toast.LENGTH_SHORT).show();
                         // handle success process
 
-                        SearchEveryWhereAdapter adapter = new SearchEveryWhereAdapter(context, searchEverywhereVM);
+                        SearchEveryWhereAdapter adapter = new SearchEveryWhereAdapter(context, searchEverywhereVM.products.get(),wishListListener);
                         binding.recentlyViewedRecyclerview.setHasFixedSize(true);
                         binding.recentlyViewedRecyclerview.setLayoutManager(new GridLayoutManager(context, 2));
                         binding.recentlyViewedRecyclerview.setAdapter(adapter);
@@ -136,7 +145,7 @@ public class SearchEverywhereActivity extends AppCompatActivity {
                         Toast.makeText(SearchEverywhereActivity.this, ""+msg, Toast.LENGTH_SHORT).show();
                         // handle success process
 
-                        SearchEveryWhereAdapter adapter = new SearchEveryWhereAdapter(context, searchEverywhereVM);
+                        SearchEveryWhereAdapter adapter = new SearchEveryWhereAdapter(context, searchEverywhereVM.products.get(), wishListListener);
                         binding.recentlyViewedRecyclerview.setHasFixedSize(true);
                         binding.recentlyViewedRecyclerview.setLayoutManager(new GridLayoutManager(context, 2));
                         binding.recentlyViewedRecyclerview.setAdapter(adapter);
@@ -236,6 +245,9 @@ public class SearchEverywhereActivity extends AppCompatActivity {
     public void getProducts(String type, String slug, String name) {
 
         showProgressBar();
+        Log.i(TAG, "Type -> "+type);
+        Log.i(TAG, "Slug -> "+slug);
+        Log.i(TAG, "Name -> "+name);
 
         searchEverywhereVM.toolbarHeader.set(name);
 
@@ -298,5 +310,38 @@ public class SearchEverywhereActivity extends AppCompatActivity {
             binding.searchAppbarLayout.getForeground().setAlpha(180);
             binding.searchBodyLayout.getForeground().setAlpha(180);
         }
+    }
+
+    @Override
+    public void updateWishList(int product_id, int status) {
+
+       updateWishlistLiveData = new HomeRepo().getUpdateWishlistLiveData(Session.getUserId(context), String.valueOf(product_id), String.valueOf(status));
+
+       updateWishlistLiveData.observe(this, new Observer<HomeVM>() {
+           @Override
+           public void onChanged(@Nullable HomeVM homeVM) {
+
+               if (homeVM.status.get() != null)
+               {
+                   String status = homeVM.status.get();
+                   String message = homeVM.msg.get();
+
+                   if (status.equalsIgnoreCase("success"))
+                   {
+                       Toast.makeText(context, ""+message, Toast.LENGTH_SHORT).show();
+                   } else {
+                       Toast.makeText(context, ""+message, Toast.LENGTH_SHORT).show();
+                   }
+
+                   homeVM.status.set("");
+
+               } else
+               {
+                   Toast.makeText(context, "Response null", Toast.LENGTH_SHORT).show();
+               }
+
+           }
+       });
+
     }
 }

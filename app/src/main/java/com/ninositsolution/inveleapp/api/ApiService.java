@@ -144,11 +144,19 @@ public interface ApiService {
             @Field("page_no") String page_no
     );
 
+    //update wishlists
     @FormUrlEncoded
     @POST("user/wishlist/add")
     Observable<POJOClass> updatewishlistApi(
             @Field("user_id") String user_id,
             @Field("product_id") String product_id,
             @Field("status") String status
+    );
+
+    //get wishlists
+    @FormUrlEncoded
+    @POST("users/wishlists")
+    Observable<POJOClass> getWishListsApi(
+            @Field("user_id") String user_id
     );
 }

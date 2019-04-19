@@ -9,6 +9,7 @@ import com.ninositsolution.inveleapp.api.ApiService;
 import com.ninositsolution.inveleapp.api.RetrofitClient;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 
+import java.net.SocketTimeoutException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,7 +27,7 @@ public class HomeRepo {
     private MutableLiveData<HomeVM> updateWishlistLiveData = new MutableLiveData<>();
 
 
-    public MutableLiveData<HomeVM> getHomeVMMutableLiveData(String userIid) {
+    public MutableLiveData<HomeVM> getHomeVMMutableLiveData(final String userIid) {
 
         ApiService apiService = RetrofitClient.getApiService();
 
@@ -51,7 +52,9 @@ public class HomeRepo {
                     @Override
                     public void onError(Throwable e) {
 
-                        Log.e(TAG, "onError : "+e.getMessage());
+                        Log.e(TAG, "onError : "+e);
+                        if (e.equals(new SocketTimeoutException()))
+                            getHomeVMMutableLiveData(userIid);
                     }
 
                     @Override
@@ -63,7 +66,7 @@ public class HomeRepo {
         return homeVMMutableLiveData;
     }
 
-    public MutableLiveData<HomeVM> getUpdateWishlistLiveData(String userId, String productId, String status) {
+    public MutableLiveData<HomeVM> getUpdateWishlistLiveData(final String userId, final String productId, final String status) {
 
         ApiService apiService = RetrofitClient.getApiService();
 
@@ -88,7 +91,8 @@ public class HomeRepo {
                     @Override
                     public void onError(Throwable e) {
 
-                        Log.e(TAG, "onError : "+e.getMessage());
+                        Log.e(TAG, "onError : "+e);
+                        getUpdateWishlistLiveData(userId, productId, status);
                     }
 
                     @Override

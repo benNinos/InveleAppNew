@@ -8,5 +8,6 @@ public interface IHomeClick {
     void onItemClicked();
     void onUsernameClicked();
     void onBrandMoreClicked();
-    void onCategoriesClicked(String slug);
+    void onCategoriesClicked(String slug, String name);
+    void updateWishlist(int productId, int status);
 }

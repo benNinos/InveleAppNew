@@ -17,10 +17,12 @@ public class HomeManagementAdapter extends RecyclerView.Adapter<HomeManagementAd
     private Context context;
     private HomeVM homeVM;
     private LayoutInflater layoutInflater;
+    private IHomeClick iHomeClick;
 
-    public HomeManagementAdapter(Context context, HomeVM homeVM) {
+    public HomeManagementAdapter(Context context, HomeVM homeVM, IHomeClick iHomeClick) {
         this.context = context;
         this.homeVM = homeVM;
+        this.iHomeClick = iHomeClick;
         notifyDataSetChanged();
     }
 
@@ -33,7 +35,7 @@ public class HomeManagementAdapter extends RecyclerView.Adapter<HomeManagementAd
         }
 
         HomeManagementRecyclerBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.adapter_home_management, viewGroup, false);
-        return new HomeManagementViewHolder(binding);
+        return new HomeManagementViewHolder(binding, iHomeClick);
     }
 
     @Override
@@ -51,16 +53,18 @@ public class HomeManagementAdapter extends RecyclerView.Adapter<HomeManagementAd
     public class HomeManagementViewHolder extends RecyclerView.ViewHolder{
 
         private HomeManagementRecyclerBinding binding;
+        private IHomeClick iHomeClick;
 
-        public HomeManagementViewHolder(@NonNull HomeManagementRecyclerBinding binding) {
+        public HomeManagementViewHolder(@NonNull HomeManagementRecyclerBinding binding, IHomeClick iHomeClick) {
             super(binding.getRoot());
             this.binding = binding;
+            this.iHomeClick = iHomeClick;
         }
 
         public void bind(HomeArrayLists homeArrayLists, String name)
         {
             this.binding.setAdapterHomeManagement(new HomeVM(name, 1));
-            HomeManagementViewPagerAdapter adapter = new HomeManagementViewPagerAdapter(context, homeArrayLists);
+            HomeManagementViewPagerAdapter adapter = new HomeManagementViewPagerAdapter(context, homeArrayLists, iHomeClick);
             binding.homeManagementViewPager.setAdapter(adapter);
             binding.executePendingBindings();
         }
@@ -69,5 +73,6 @@ public class HomeManagementAdapter extends RecyclerView.Adapter<HomeManagementAd
         {
             return binding;
         }
+
     }
 }

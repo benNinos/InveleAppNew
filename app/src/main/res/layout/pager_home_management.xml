@@ -118,23 +118,28 @@
                             android:layout_height="match_parent" />
 
                         <ImageView
+                            android:id="@+id/wishlistLeft0"
+                            android:visibility="visible"
                             android:layout_width="@dimen/_8sdp"
                             android:layout_height="@dimen/_8sdp"
                             app:srcCompat="@drawable/ic_heart_black"
-                            android:layout_gravity="center_vertical"/>
+                            android:layout_gravity="center_vertical"
+                            tools:ignore="ContentDescription" />
+
+                        <ImageView
+                            android:id="@+id/wishlistLeft1"
+                            android:visibility="gone"
+                            android:layout_width="@dimen/_8sdp"
+                            android:layout_height="@dimen/_8sdp"
+                            app:srcCompat="@drawable/ic_heart_red"
+                            android:layout_gravity="center_vertical"
+                            tools:ignore="ContentDescription" />
 
                         <Space
                             android:layout_width="@dimen/_4sdp"
                             android:layout_height="match_parent" />
 
-                     <!--   <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/heart"
-                            android:textSize="@dimen/star_rating_num_size"/>-->
-
                     </LinearLayout>
-
 
                 </RelativeLayout>
 
@@ -197,10 +202,7 @@
                             android:layout_height="wrap_content"
                             android:text="@{pagerHomeManagement.homeItemDeleteRate2}" />
 
-
                     </LinearLayout>
-
-
 
                     <LinearLayout
                         android:id="@+id/flash_rating2"
@@ -234,9 +236,20 @@
                             android:layout_height="match_parent" />
 
                         <ImageView
+                            android:id="@+id/wishlistRight0"
+                            android:visibility="visible"
                             android:layout_width="@dimen/_8sdp"
                             android:layout_height="@dimen/_8sdp"
                             app:srcCompat="@drawable/ic_heart_black"
+                            android:layout_gravity="center_vertical"
+                            tools:ignore="ContentDescription" />
+
+                        <ImageView
+                            android:id="@+id/wishlistRight1"
+                            android:visibility="gone"
+                            android:layout_width="@dimen/_8sdp"
+                            android:layout_height="@dimen/_8sdp"
+                            app:srcCompat="@drawable/ic_heart_red"
                             android:layout_gravity="center_vertical"
                             tools:ignore="ContentDescription" />
 
@@ -244,26 +257,14 @@
                             android:layout_width="@dimen/_4sdp"
                             android:layout_height="match_parent" />
 
-                      <!--  <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/heart"
-                            android:textSize="@dimen/star_rating_num_size"/>-->
-
                     </LinearLayout>
-
-
 
                 </RelativeLayout>
 
-
             </LinearLayout>
-
-
 
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
 
 </layout>
-

@@ -70,43 +70,44 @@ public class AddressBookActivity extends AppCompatActivity{
 
                     addressBookAdapter = new AddressBookAdapter(AddressBookActivity.this, addressBookVMS);
                 binding.addressBookRecyclerview.setAdapter(addressBookAdapter);
-            }else {
+                    addressBookAdapter.setClikEvent(new AddressBookAdapter.ClickEvent() {
+                        @Override
+                        public void setClickEventItem(int position, String id, String user_id) {
+                            Log.e(TAG,"selected_id==>"+id);
+                            if(!id.equalsIgnoreCase("")){
+                                select_id = id;
+                                addressBookVM.updateAddressDefault(id);
+                            }
+                        }
+
+
+                        @Override
+                        public void setClickEventEdit(int position, String id, String user_id) {
+                            Log.e(TAG,"edit_clicked==>");
+                            Session.setUserId(user_id,AddressBookActivity.this);
+
+                            Intent intent = new Intent(AddressBookActivity.this,EditAddressActivity.class);
+                            intent.putExtra("user_address_id",id);
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void setClickEventDelete(int position, String id, String user_id) {
+                            Session.setUserId(user_id,AddressBookActivity.this);
+
+                            if(!id.equalsIgnoreCase("")){
+                                select_id = id;
+                                addressBookVM.addressDelete(id);
+                            }
+                        }
+
+
+                    });
+
+                }else {
                     Toast.makeText(getApplicationContext(),"List Empty",Toast.LENGTH_SHORT).show();
                 }
-                addressBookAdapter.setClikEvent(new AddressBookAdapter.ClickEvent() {
-                    @Override
-                    public void setClickEventItem(int position, String id, String user_id) {
-                        Log.e(TAG,"selected_id==>"+id);
-                        if(!id.equalsIgnoreCase("")){
-                            select_id = id;
-                            addressBookVM.updateAddressDefault(id);
-                        }
-                    }
-
-
-                    @Override
-                    public void setClickEventEdit(int position, String id, String user_id) {
-                        Log.e(TAG,"edit_clicked==>");
-                        Session.setUserId(user_id,AddressBookActivity.this);
-
-                        Intent intent = new Intent(AddressBookActivity.this,EditAddressActivity.class);
-                        intent.putExtra("user_address_id",id);
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void setClickEventDelete(int position, String id, String user_id) {
-                        Session.setUserId(user_id,AddressBookActivity.this);
-
-                        if(!id.equalsIgnoreCase("")){
-                            select_id = id;
-                            addressBookVM.addressDelete(id);
-                        }
-                    }
-
-
-                });
-            }
+                            }
         });
         //address default update response
         addressBookVM.getDefaultUpdateVMMutableLiveData().observe(this, new Observer<AddressBookVM>() {

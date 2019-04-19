@@ -31,9 +31,11 @@ public class SearchEverywhereVM extends ViewModel implements Serializable {
     private MutableLiveData<SearchEverywhereVM> searchFilterUpdateLiveData = new MutableLiveData<>();
     private MutableLiveData<SearchEverywhereVM> categorySearchLiveData = new MutableLiveData<>();
     private MutableLiveData<SearchEverywhereVM> categoryFilterUpdateLiveData = new MutableLiveData<>();
+    private MutableLiveData<SearchEverywhereVM> trendingLiveData = new MutableLiveData<>();
 
     public ObservableField<String> start_price = new ObservableField<>("");
     public ObservableField<String> end_price = new ObservableField<>("");
+    public ObservableField<String> toolbarHeader = new ObservableField<>("");
 
     public SearchEverywhereVM() {
 
@@ -154,6 +156,11 @@ public class SearchEverywhereVM extends ViewModel implements Serializable {
         categorySearchLiveData = searchEveryWhereRepo.getCategorySearchLiveData(user_id, order_by, slug);
     }
 
+    public void getByTrendingApi(String order_by, String page_no)
+    {
+        trendingLiveData = searchEveryWhereRepo.getTrendingLiveData(order_by, page_no);
+    }
+
     public MutableLiveData<SearchEverywhereVM> getSearchEverywhereVMMutableLiveData() {
         return searchEverywhereVMMutableLiveData;
     }
@@ -168,6 +175,10 @@ public class SearchEverywhereVM extends ViewModel implements Serializable {
 
     public MutableLiveData<SearchEverywhereVM> getCategoryFilterUpdateLiveData() {
         return categoryFilterUpdateLiveData;
+    }
+
+    public MutableLiveData<SearchEverywhereVM> getTrendingLiveData() {
+        return trendingLiveData;
     }
 
     // product loading

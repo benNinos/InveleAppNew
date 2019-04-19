@@ -92,6 +92,7 @@ public class SearchActivity extends AppCompatActivity implements ISearch{
         Bundle bundle = new Bundle();
         bundle.putString("type", "search");
         bundle.putString("slug", "shirt");
+        bundle.putString("name", "shirt");
         intent.putExtras(bundle);
         startActivity(intent);
     }

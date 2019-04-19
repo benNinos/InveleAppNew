@@ -1,13 +1,13 @@
 package com.ninositsolution.inveleapp.utils;
 
 import android.content.Context;
-import android.content.Intent;
-
-import com.ninositsolution.inveleapp.pojo.HomeArrayLists;
-import com.ninositsolution.inveleapp.pojo.POJOClass;
 import com.ninositsolution.inveleapp.pojo.Users;
 
 public final class Constants {
+
+    private static final String TYPE_SEARCH = "TYPE_SEARCH";
+    private static final String TYPE_CATEGORY = "TYPE_CATEGORY";
+    private static final String TYPE_TRENDING = "TYPE_TRENDING";
 
     public static final Integer SUCCESS = 0;
 
@@ -114,7 +114,4 @@ public final class Constants {
             Session.setUserGender(value, context);
         }
     }
-
-
 }
-

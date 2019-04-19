@@ -20,6 +20,7 @@ public class SearchEveryWhereRepo {
     private MutableLiveData<SearchEverywhereVM> searchFilterUpdateLiveData = new MutableLiveData<>();
     private MutableLiveData<SearchEverywhereVM> categorySearchLiveData = new MutableLiveData<>();
     private MutableLiveData<SearchEverywhereVM> categoryFilterUpdateLiveData = new MutableLiveData<>();
+    private MutableLiveData<SearchEverywhereVM> trendingLiveData = new MutableLiveData<>();
 
     public SearchEveryWhereRepo() {
     }
@@ -183,5 +184,44 @@ public class SearchEveryWhereRepo {
                 });
 
         return categoryFilterUpdateLiveData;
+    }
+
+    public MutableLiveData<SearchEverywhereVM> getTrendingLiveData(String order_by, String page_no) {
+
+        ApiService apiService = RetrofitClient.getApiService();
+
+        apiService.trendingAllApi(order_by, page_no).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<POJOClass>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(POJOClass pojoClass) {
+
+                        Log.i(TAG, "onNext : "+pojoClass.status);
+                        Log.i(TAG, "onNext : "+pojoClass.msg);
+
+                        SearchEverywhereVM searchEverywhereVM = new SearchEverywhereVM(pojoClass);
+                        trendingLiveData.setValue(searchEverywhereVM);
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Log.e(TAG, "onError : "+e.getMessage());
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+        return trendingLiveData;
     }
 }

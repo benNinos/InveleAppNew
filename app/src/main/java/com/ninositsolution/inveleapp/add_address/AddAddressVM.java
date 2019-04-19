@@ -65,10 +65,6 @@ public class AddAddressVM extends ViewModel {
         return addAddressRepo.addressValidation(Name.get(), contact_number.get(), postal_code.get(),floor_unit_numer.get(),address.get(),city_name.get(),address_type.get());
     }
 
-
-
-
-
     public void saveAddress(String user_id)
     {
         AddAddressRequest addAddressRequest = new AddAddressRequest(user_id, address_type.get(),Name.get(),

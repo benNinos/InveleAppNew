@@ -123,10 +123,22 @@
                           android:layout_height="match_parent" />
 
                       <ImageView
+                          android:id="@+id/whishlist_0"
                           android:layout_width="@dimen/_8sdp"
                           android:layout_height="@dimen/_8sdp"
+                          android:visibility="visible"
                           app:srcCompat="@drawable/ic_heart_black"
-                          android:layout_gravity="center_vertical"/>
+                          android:layout_gravity="center_vertical"
+                          tools:ignore="ContentDescription" />
+
+                      <ImageView
+                          android:id="@+id/whishlist_1"
+                          android:visibility="gone"
+                          android:layout_width="@dimen/_8sdp"
+                          android:layout_height="@dimen/_8sdp"
+                          app:srcCompat="@drawable/ic_heart_red"
+                          android:layout_gravity="center_vertical"
+                          tools:ignore="ContentDescription" />
 
                       <Space
                           android:layout_width="@dimen/_4sdp"

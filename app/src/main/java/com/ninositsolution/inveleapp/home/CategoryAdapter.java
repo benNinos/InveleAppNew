@@ -73,7 +73,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             binding.categoriesClick.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                        iHomeClick.onCategoriesClicked(homeVM.menus.get().get(getAdapterPosition()).slug);
+                        iHomeClick.onCategoriesClicked(homeVM.menus.get().get(getAdapterPosition()).slug, homeVM.menus.get().get(getAdapterPosition()).name);
 
                 }
             });

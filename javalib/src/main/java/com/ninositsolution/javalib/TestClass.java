@@ -19,7 +19,5 @@ public class TestClass {
         jsonObject.put("json_array", jsonArray);
 
         System.out.println(jsonObject);
-
-
     }
 }

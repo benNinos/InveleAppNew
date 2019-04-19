@@ -17,10 +17,12 @@ public class TrendingProductsAdapter extends RecyclerView.Adapter<TrendingProduc
     private Context context;
     private HomeVM homeVM;
     private LayoutInflater layoutInflater;
+    private IHomeClick iHomeClick;
 
-    public TrendingProductsAdapter(Context context, HomeVM homeVM) {
+    public TrendingProductsAdapter(Context context, HomeVM homeVM, IHomeClick iHomeClick) {
         this.context = context;
         this.homeVM = homeVM;
+        this.iHomeClick = iHomeClick;
         notifyDataSetChanged();
     }
 
@@ -34,13 +36,17 @@ public class TrendingProductsAdapter extends RecyclerView.Adapter<TrendingProduc
 
         AdapterTrendingProductsBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.adapter_trending_products, viewGroup, false);
 
-        return new TrendingProductsViewHolder(binding);
+        return new TrendingProductsViewHolder(binding, iHomeClick);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TrendingProductsViewHolder trendingProductsViewHolder, int i) {
 
         trendingProductsViewHolder.bind(homeVM, i);
+
+        if (homeVM.product_trendings.get().get(i).wishlist == 1)
+            trendingProductsViewHolder.showWishlist();
+
     }
 
     @Override
@@ -57,13 +63,31 @@ public class TrendingProductsAdapter extends RecyclerView.Adapter<TrendingProduc
     public class TrendingProductsViewHolder extends RecyclerView.ViewHolder{
 
         private AdapterTrendingProductsBinding binding;
+        private IHomeClick iHomeClick;
 
 
-        public TrendingProductsViewHolder(@NonNull AdapterTrendingProductsBinding binding) {
+        public TrendingProductsViewHolder(@NonNull AdapterTrendingProductsBinding binding, final IHomeClick iHomeClick) {
             super(binding.getRoot());
             this.binding = binding;
+            this.iHomeClick = iHomeClick;
 
             binding.dealDeleteRate.setPaintFlags(binding.dealDeleteRate.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+            binding.whishlist0.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showWishlist();
+                    TrendingProductsViewHolder.this.iHomeClick.updateWishlist(homeVM.product_trendings.get().get(getAdapterPosition()).product_id, 1);
+                }
+            });
+
+            binding.whishlist1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    removeWishlist();
+                    TrendingProductsViewHolder.this.iHomeClick.updateWishlist(homeVM.product_trendings.get().get(getAdapterPosition()).product_id, 0);
+                }
+            });
         }
 
         public void bind(HomeVM homeVM, int position)
@@ -76,6 +100,18 @@ public class TrendingProductsAdapter extends RecyclerView.Adapter<TrendingProduc
         public AdapterTrendingProductsBinding getBinding()
         {
             return binding;
+        }
+
+        public void showWishlist()
+        {
+            binding.whishlist0.setVisibility(View.GONE);
+            binding.whishlist1.setVisibility(View.VISIBLE);
+        }
+
+        public void removeWishlist()
+        {
+            binding.whishlist0.setVisibility(View.VISIBLE);
+            binding.whishlist1.setVisibility(View.GONE);
         }
     }
 }

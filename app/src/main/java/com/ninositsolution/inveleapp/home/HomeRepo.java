@@ -23,6 +23,7 @@ public class HomeRepo {
     private static final String TAG = "HomeRepo";
 
     private MutableLiveData<HomeVM> homeVMMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<HomeVM> updateWishlistLiveData = new MutableLiveData<>();
 
 
     public MutableLiveData<HomeVM> getHomeVMMutableLiveData(String userIid) {
@@ -60,5 +61,42 @@ public class HomeRepo {
                 });
 
         return homeVMMutableLiveData;
+    }
+
+    public MutableLiveData<HomeVM> getUpdateWishlistLiveData(String userId, String productId, String status) {
+
+        ApiService apiService = RetrofitClient.getApiService();
+
+        apiService.updatewishlistApi(userId, productId, status)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<POJOClass>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(POJOClass pojoClass) {
+
+                        Log.i(TAG, "onNext : "+pojoClass.status);
+                        HomeVM homeVM = new HomeVM(pojoClass);
+
+                        updateWishlistLiveData.setValue(homeVM);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Log.e(TAG, "onError : "+e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+        return updateWishlistLiveData;
     }
 }

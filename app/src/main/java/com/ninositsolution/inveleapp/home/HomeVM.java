@@ -27,6 +27,7 @@ public class HomeVM extends ViewModel {
     private HomeRepo homeRepo;
 
     public MutableLiveData<HomeVM> homeVMMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<HomeVM> updateWishlistLiveData = new MutableLiveData<>();
     public ObservableField<String> dealTimer = new ObservableField<>("");
     public ObservableField<String> dealHeading = new ObservableField<>("");
 
@@ -186,6 +187,7 @@ public class HomeVM extends ViewModel {
         trendingProductDeletedRate.set(Constants.CURRENCY+homeVM.product_trendings.get().get(position).usual_price);
         trendingProductRating.set(String.valueOf(homeVM.product_trendings.get().get(position).average_rating));
         trendingProductRatingFloat.set(Float.valueOf(homeVM.product_trendings.get().get(position).average_rating));
+
     }
 
     public ObservableField<String> trendingProductImage()
@@ -326,8 +328,18 @@ public class HomeVM extends ViewModel {
         homeVMMutableLiveData = homeRepo.getHomeVMMutableLiveData(user_id);
     }
 
+    //updating wishlists api call
+    public void updateWishListApi(String userId, String productId, String status)
+    {
+       updateWishlistLiveData =  homeRepo.getUpdateWishlistLiveData(userId, productId, status);
+    }
+
     //Live Data getters
     public MutableLiveData<HomeVM> getHomeVMMutableLiveData() {
         return homeVMMutableLiveData;
+    }
+
+    public MutableLiveData<HomeVM> getUpdateWishlistLiveData() {
+        return updateWishlistLiveData;
     }
 }

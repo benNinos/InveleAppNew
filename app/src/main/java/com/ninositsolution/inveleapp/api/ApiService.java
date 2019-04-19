@@ -135,4 +135,20 @@ public interface ApiService {
     @Headers("Content-Type: application/json")
     @POST("filter")
     Observable<POJOClass> getCategoryFilterUpdate(@Body String jsonRequest);
+
+    //All Trending products
+    @FormUrlEncoded
+    @POST("trending")
+    Observable<POJOClass> trendingAllApi(
+            @Field("order_by") String order_by,
+            @Field("page_no") String page_no
+    );
+
+    @FormUrlEncoded
+    @POST("user/wishlist/add")
+    Observable<POJOClass> updatewishlistApi(
+            @Field("user_id") String user_id,
+            @Field("product_id") String product_id,
+            @Field("status") String status
+    );
 }

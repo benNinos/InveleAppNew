@@ -27,7 +27,7 @@ public class SearchEverywhereActivity extends AppCompatActivity {
     SearchEverywhereVM searchEverywhereVM, vmInstance;
     Context context;
     private static final String TAG = "SearchEverywherActivity";
-    private String slug, type;
+    private String slug, type, name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +46,9 @@ public class SearchEverywhereActivity extends AppCompatActivity {
 
         slug = bundle.getString("slug");
         type = bundle.getString("type");
+        name = bundle.getString("name");
 
-        getProducts(type, slug);
+        getProducts(type, slug, name);
 
         searchEverywhereVM.getSearchEverywhereVMMutableLiveData().observe(this, new Observer<SearchEverywhereVM>() {
             @Override
@@ -119,10 +120,39 @@ public class SearchEverywhereActivity extends AppCompatActivity {
             }
         });
 
-        searchEverywhereVM.getSearchFilterUpdateLiveData().observe(this, new Observer<SearchEverywhereVM>() {
+        searchEverywhereVM.getTrendingLiveData().observe(this, new Observer<SearchEverywhereVM>() {
             @Override
             public void onChanged(@Nullable SearchEverywhereVM searchEverywhereVM) {
-                Toast.makeText(SearchEverywhereActivity.this, "Filter updated", Toast.LENGTH_SHORT).show();
+
+                hideProgressBar();
+                String status = searchEverywhereVM.status.get();
+                String msg = searchEverywhereVM.msg.get();
+
+                if (!status.isEmpty())
+                {
+                    if (status.equalsIgnoreCase("success"))
+                    {
+
+                        Toast.makeText(SearchEverywhereActivity.this, ""+msg, Toast.LENGTH_SHORT).show();
+                        // handle success process
+
+                        SearchEveryWhereAdapter adapter = new SearchEveryWhereAdapter(context, searchEverywhereVM);
+                        binding.recentlyViewedRecyclerview.setHasFixedSize(true);
+                        binding.recentlyViewedRecyclerview.setLayoutManager(new GridLayoutManager(context, 2));
+                        binding.recentlyViewedRecyclerview.setAdapter(adapter);
+
+                        vmInstance = searchEverywhereVM;
+
+                    } else  {
+
+                        Toast.makeText(SearchEverywhereActivity.this, ""+msg, Toast.LENGTH_SHORT).show();
+                        // handle failure process
+                    }
+                } else
+                {
+                    Log.e(TAG, "getBySearchApiError : Api Error");
+                }
+
             }
         });
 
@@ -203,9 +233,11 @@ public class SearchEverywhereActivity extends AppCompatActivity {
         });
     }
 
-    public void getProducts(String type, String slug) {
+    public void getProducts(String type, String slug, String name) {
 
         showProgressBar();
+
+        searchEverywhereVM.toolbarHeader.set(name);
 
         if (type.equalsIgnoreCase("search"))
         {
@@ -216,6 +248,9 @@ public class SearchEverywhereActivity extends AppCompatActivity {
         {
             searchEverywhereVM.getByCategoryApi(Session.getUserId(this), "new", slug);
             Toast.makeText(context, ""+slug, Toast.LENGTH_SHORT).show();
+        } else if (type.equalsIgnoreCase("trending"))
+        {
+            searchEverywhereVM.getByTrendingApi("new", "");
         } else
         {
             Toast.makeText(context, "slug : "+slug, Toast.LENGTH_SHORT).show();

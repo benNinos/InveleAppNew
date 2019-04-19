@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.PagerHomeManagementBinding;
 import com.ninositsolution.inveleapp.pojo.HomeArrayLists;
@@ -18,11 +19,13 @@ public class HomeManagementViewPagerAdapter extends PagerAdapter {
     private Context context;
     private HomeArrayLists homeArrayLists;
     private LayoutInflater layoutInflater;
+    private IHomeClick iHomeClick;
 
-    public HomeManagementViewPagerAdapter(Context context, HomeArrayLists homeArrayLists) {
+    public HomeManagementViewPagerAdapter(Context context, HomeArrayLists homeArrayLists, IHomeClick iHomeClick) {
         layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
         this.homeArrayLists = homeArrayLists;
+        this.iHomeClick = iHomeClick;
     }
 
     @Override
@@ -39,13 +42,52 @@ public class HomeManagementViewPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
 
-        PagerHomeManagementBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.pager_home_management, container, false);
+        final PagerHomeManagementBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.pager_home_management, container, false);
         container.addView(binding.getRoot());
 
-        int i = 2*position;
+        final int i = 2*position;
 
-        HomeVM homeVM = new HomeVM(homeArrayLists.home_management_products.get(i), homeArrayLists.home_management_products.get(i+1));
+        final HomeVM homeVM = new HomeVM(homeArrayLists.home_management_products.get(i), homeArrayLists.home_management_products.get(i+1));
         binding.setPagerHomeManagement(homeVM);
+
+        if (homeArrayLists.home_management_products.get(i).wishlist == 1)
+            showLeftWishList(binding);
+
+        if (homeArrayLists.home_management_products.get(i+1).wishlist == 1)
+            showRightWishList(binding);
+
+        binding.wishlistLeft0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showLeftWishList(binding);
+                iHomeClick.updateWishlist(homeArrayLists.home_management_products.get(i).product_id, 1);
+            }
+        });
+
+        binding.wishlistLeft1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeLeftWishList(binding);
+                iHomeClick.updateWishlist(homeArrayLists.home_management_products.get(i).product_id, 0);
+            }
+        });
+
+        binding.wishlistRight0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showRightWishList(binding);
+                iHomeClick.updateWishlist(homeArrayLists.home_management_products.get(i+1).product_id, 1);
+            }
+        });
+
+        binding.wishlistRight1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeRightWishList(binding);
+                iHomeClick.updateWishlist(homeArrayLists.home_management_products.get(i+1).product_id, 0);
+            }
+        });
+
         return binding.getRoot();
     }
 
@@ -55,4 +97,29 @@ public class HomeManagementViewPagerAdapter extends PagerAdapter {
         View view = (View) object;
         viewPager.removeView(view);
     }
+
+    private void showLeftWishList(PagerHomeManagementBinding binding)
+    {
+        binding.wishlistLeft0.setVisibility(View.GONE);
+        binding.wishlistLeft1.setVisibility(View.VISIBLE);
+    }
+
+    private void showRightWishList(PagerHomeManagementBinding binding)
+    {
+        binding.wishlistRight0.setVisibility(View.GONE);
+        binding.wishlistRight1.setVisibility(View.VISIBLE);
+    }
+
+    private void removeLeftWishList(PagerHomeManagementBinding binding)
+    {
+        binding.wishlistLeft0.setVisibility(View.VISIBLE);
+        binding.wishlistLeft1.setVisibility(View.GONE);
+    }
+
+    private void removeRightWishList(PagerHomeManagementBinding binding)
+    {
+        binding.wishlistRight0.setVisibility(View.VISIBLE);
+        binding.wishlistRight1.setVisibility(View.GONE);
+    }
+
 }

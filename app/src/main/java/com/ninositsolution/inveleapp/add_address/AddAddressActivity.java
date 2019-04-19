@@ -24,6 +24,12 @@ public class AddAddressActivity extends AppCompatActivity {
     public static final String TAG = AddAddressActivity.class.getSimpleName();
 
     @Override
+    protected void onStart() {
+        addAddressVM.address_type.set("Home");
+        super.onStart();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_add_address);

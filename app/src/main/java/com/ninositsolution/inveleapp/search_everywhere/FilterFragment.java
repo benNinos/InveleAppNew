@@ -93,64 +93,72 @@ public class FilterFragment extends Fragment implements IFilter{
         shipping_ids.clear();
         sizes.clear();
 
+        try {
+            vm = (SearchEverywhereVM) getArguments().getSerializable(SEARCHEVERYWHEREVM_KEY);
 
-        vm = (SearchEverywhereVM) getArguments().getSerializable(SEARCHEVERYWHEREVM_KEY);
+            Toast.makeText(getContext(), ""+vm.msg.get(), Toast.LENGTH_SHORT).show();
 
-        Toast.makeText(getContext(), ""+vm.msg.get(), Toast.LENGTH_SHORT).show();
+            binding.filterCategoriesRecyclerView.setHasFixedSize(true);
+            binding.filterCategoriesRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            binding.filterCategoriesRecyclerView.setAdapter(new FilterTwoViewAdapter(getContext(), getArraylistLess(vm.categories.get()), SEARCH_EVERYWHERE_CATEGORIES, this));
 
-        binding.filterCategoriesRecyclerView.setHasFixedSize(true);
-        binding.filterCategoriesRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        binding.filterCategoriesRecyclerView.setAdapter(new FilterTwoViewAdapter(getContext(), getArraylistLess(vm.categories.get()), SEARCH_EVERYWHERE_CATEGORIES, this));
+            if (vm.categories.get().size() > 4)
+            {
+                binding.filterCategoriesRecyclerViewMore.setHasFixedSize(true);
+                binding.filterCategoriesRecyclerViewMore.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                binding.filterCategoriesRecyclerViewMore.setAdapter(new FilterTwoViewAdapterMore(getContext(), getArraylistMore(vm.categories.get()), SEARCH_EVERYWHERE_CATEGORIES, this));
+            }
 
-        if (vm.categories.get().size() > 4)
-        {
-            binding.filterCategoriesRecyclerViewMore.setHasFixedSize(true);
-            binding.filterCategoriesRecyclerViewMore.setLayoutManager(new GridLayoutManager(getContext(), 2));
-            binding.filterCategoriesRecyclerViewMore.setAdapter(new FilterTwoViewAdapterMore(getContext(), getArraylistMore(vm.categories.get()), SEARCH_EVERYWHERE_CATEGORIES, this));
+            Log.i(TAG, "brandlist size -> "+ vm.brands.get().size());
+
+            binding.filterBrandRecyclerView.setHasFixedSize(true);
+            binding.filterBrandRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            binding.filterBrandRecyclerView.setAdapter(new FilterTwoViewAdapter(getContext(), getArraylistLess(vm.brands.get()), Constants.SEARCH_EVERYWHERE_BRANDS, this));
+
+            if (vm.brands.get().size() > 4)
+            {
+                binding.filterBrandRecyclerViewMore.setHasFixedSize(true);
+                binding.filterBrandRecyclerViewMore.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                binding.filterBrandRecyclerViewMore.setAdapter(new FilterTwoViewAdapterMore(getContext(), getArraylistMore(vm.brands.get()), Constants.SEARCH_EVERYWHERE_BRANDS, this));
+            }
+
+            binding.filterShippingRecyclerView.setHasFixedSize(true);
+            binding.filterShippingRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            binding.filterShippingRecyclerView.setAdapter(new FilterTwoViewAdapter(getContext(), getArraylistLess(vm.shippings.get()),Constants.SEARCH_EVERYWHERE_SHIPPING, this));
+
+            if (vm.shippings.get().size() > 4)
+            {
+                binding.filterShippingRecyclerViewMore.setHasFixedSize(true);
+                binding.filterShippingRecyclerViewMore.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                binding.filterShippingRecyclerViewMore.setAdapter(new FilterTwoViewAdapterMore(getContext(), getArraylistMore(vm.shippings.get()), Constants.SEARCH_EVERYWHERE_SHIPPING, this));
+            }
+
+            binding.filterLocationsRecyclerView.setHasFixedSize(true);
+            binding.filterLocationsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            binding.filterLocationsRecyclerView.setAdapter(new FilterTwoViewAdapter(getContext(), getArraylistLess(vm.locations.get()),Constants.SEARCH_EVERYWHERE_LOCATIONS, this));
+
+            if (vm.locations.get().size() > 4)
+            {
+                binding.filterLocationsRecyclerViewMore.setHasFixedSize(true);
+                binding.filterLocationsRecyclerViewMore.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                binding.filterLocationsRecyclerViewMore.setAdapter(new FilterTwoViewAdapterMore(getContext(), getArraylistMore(vm.locations.get()), Constants.SEARCH_EVERYWHERE_LOCATIONS, this));
+            }
+
+            binding.filterSizesRecyclerView.setHasFixedSize(true);
+            binding.filterSizesRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
+            binding.filterSizesRecyclerView.setAdapter(new FilterFourViewAdapter(getContext(), null, false,this, vm.fitme_sizes.get(), Constants.SEARCH_EVERYWHERE_FITME_SIZE));
+
+            binding.filterAttributesRecyclerView.setHasFixedSize(true);
+            binding.filterAttributesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            binding.filterAttributesRecyclerView.setAdapter(new FilterDynamicAdapter(getContext(), vm.attributes.get(), Constants.SEARCH_EVERYWHERE_ATTRIBUTES, this));
+
+
+        } catch (NullPointerException e) {
+
+            Toast.makeText(getContext(), ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "NullPointerException -> "+e);
         }
 
-        Log.i(TAG, "brandlist size -> "+ vm.brands.get().size());
-
-        binding.filterBrandRecyclerView.setHasFixedSize(true);
-        binding.filterBrandRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        binding.filterBrandRecyclerView.setAdapter(new FilterTwoViewAdapter(getContext(), getArraylistLess(vm.brands.get()), Constants.SEARCH_EVERYWHERE_BRANDS, this));
-
-        if (vm.brands.get().size() > 4)
-        {
-            binding.filterBrandRecyclerViewMore.setHasFixedSize(true);
-            binding.filterBrandRecyclerViewMore.setLayoutManager(new GridLayoutManager(getContext(), 2));
-            binding.filterBrandRecyclerViewMore.setAdapter(new FilterTwoViewAdapterMore(getContext(), getArraylistMore(vm.brands.get()), Constants.SEARCH_EVERYWHERE_BRANDS, this));
-        }
-
-        binding.filterShippingRecyclerView.setHasFixedSize(true);
-        binding.filterShippingRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        binding.filterShippingRecyclerView.setAdapter(new FilterTwoViewAdapter(getContext(), getArraylistLess(vm.shippings.get()),Constants.SEARCH_EVERYWHERE_SHIPPING, this));
-
-        if (vm.shippings.get().size() > 4)
-        {
-            binding.filterShippingRecyclerViewMore.setHasFixedSize(true);
-            binding.filterShippingRecyclerViewMore.setLayoutManager(new GridLayoutManager(getContext(), 2));
-            binding.filterShippingRecyclerViewMore.setAdapter(new FilterTwoViewAdapterMore(getContext(), getArraylistMore(vm.shippings.get()), Constants.SEARCH_EVERYWHERE_SHIPPING, this));
-        }
-
-        binding.filterLocationsRecyclerView.setHasFixedSize(true);
-        binding.filterLocationsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        binding.filterLocationsRecyclerView.setAdapter(new FilterTwoViewAdapter(getContext(), getArraylistLess(vm.locations.get()),Constants.SEARCH_EVERYWHERE_LOCATIONS, this));
-
-        if (vm.locations.get().size() > 4)
-        {
-            binding.filterLocationsRecyclerViewMore.setHasFixedSize(true);
-            binding.filterLocationsRecyclerViewMore.setLayoutManager(new GridLayoutManager(getContext(), 2));
-            binding.filterLocationsRecyclerViewMore.setAdapter(new FilterTwoViewAdapterMore(getContext(), getArraylistMore(vm.locations.get()), Constants.SEARCH_EVERYWHERE_LOCATIONS, this));
-        }
-
-        binding.filterSizesRecyclerView.setHasFixedSize(true);
-        binding.filterSizesRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
-        binding.filterSizesRecyclerView.setAdapter(new FilterFourViewAdapter(getContext(), null, false,this, vm.fitme_sizes.get(), Constants.SEARCH_EVERYWHERE_FITME_SIZE));
-
-        binding.filterAttributesRecyclerView.setHasFixedSize(true);
-        binding.filterAttributesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.filterAttributesRecyclerView.setAdapter(new FilterDynamicAdapter(getContext(), vm.attributes.get(), Constants.SEARCH_EVERYWHERE_ATTRIBUTES, this));
 
 
 
@@ -430,9 +438,9 @@ public class FilterFragment extends Fragment implements IFilter{
     }
 
     @Override
-    public void onCategoriesClicked(String slug) {
+    public void onCategoriesClicked(String slug, String name) {
 
-        ((SearchEverywhereActivity)getActivity()).getProducts("category", slug);
+        ((SearchEverywhereActivity)getActivity()).getProducts("category", slug, name);
         onCloseClicked();
 
     }

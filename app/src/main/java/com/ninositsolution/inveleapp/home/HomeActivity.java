@@ -193,7 +193,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeClick {
                         //Trending Products
                         binding.trending.trendingRecyclerView.setHasFixedSize(true);
                         binding.trending.trendingRecyclerView.setLayoutManager(new GridLayoutManager(context, 2));
-                        binding.trending.trendingRecyclerView.setAdapter(new TrendingProductsAdapter(context, homeVM));
+                        binding.trending.trendingRecyclerView.setAdapter(new TrendingProductsAdapter(context, homeVM, iHomeClick));
 
                         //Brands
                         BrandViewPagerAdapter brandViewPagerAdapter = new BrandViewPagerAdapter(context, homeVM);
@@ -202,7 +202,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeClick {
                         //Home Management
                         binding.homeManagementRecyclerView.setHasFixedSize(true);
                         binding.homeManagementRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-                        binding.homeManagementRecyclerView.setAdapter(new HomeManagementAdapter(context, homeVM));
+                        binding.homeManagementRecyclerView.setAdapter(new HomeManagementAdapter(context, homeVM, iHomeClick));
 
                     } else
                     {
@@ -219,35 +219,18 @@ public class HomeActivity extends AppCompatActivity implements IHomeClick {
             }
         });
 
-
-        /*binding.clicks.onClick.setOnClickListener(new View.OnClickListener() {
+        binding.trending.trendingMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, ProductDetailActivity.class));
+                Intent intent = new Intent(context, SearchEverywhereActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("type", "trending");
+                bundle.putString("slug", "Trending Products");
+                bundle.putString("name", "Trending Products");
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
-        });*/
-
-      /*  *//*After setting the adapter use the timer *//*
-        final Handler handler = new Handler();
-        final Runnable Update = new Runnable() {
-            public void run() {
-                if (currentPage == viewPagerAdapter.getCount()) {
-                    currentPage = 0;
-                }
-                binding.viewPager.setCurrentItem(currentPage++, true);
-            }
-        };
-
-        timer = new Timer(); // This will create a new Thread
-        timer .schedule(new TimerTask() { // task to be scheduled
-
-            @Override
-            public void run() {
-                handler.post(Update);
-            }
-        }, DELAY_MS, PERIOD_MS);*/
-
-        //loadBaseBanner();
+        });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             binding.homeScrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
@@ -486,8 +469,6 @@ public class HomeActivity extends AppCompatActivity implements IHomeClick {
         {
             startActivity(new Intent(context, InternetConnectionActivity.class));
         }
-
-
     }
 
     @Override
@@ -506,7 +487,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeClick {
     }
 
     @Override
-    public void onCategoriesClicked(String slug) {
+    public void onCategoriesClicked(String slug, String name) {
 
         Toast.makeText(context, ""+slug, Toast.LENGTH_SHORT).show();
 
@@ -514,7 +495,40 @@ public class HomeActivity extends AppCompatActivity implements IHomeClick {
         Bundle bundle = new Bundle();
         bundle.putString("type", "category");
         bundle.putString("slug", slug);
+        bundle.putString("name", name);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    @Override
+    public void updateWishlist(int productId, int status) {
+
+        homeVMGlobal.updateWishListApi(Session.getUserId(context), String.valueOf(productId), String.valueOf(status));
+
+        homeVMGlobal.getUpdateWishlistLiveData().observe(this, new Observer<HomeVM>() {
+            @Override
+            public void onChanged(@Nullable HomeVM homeVM) {
+
+                if (homeVM.status.get() != null)
+                {
+                    String status = homeVM.status.get();
+                    String message = homeVM.msg.get();
+
+                    if (status.equalsIgnoreCase("success"))
+                    {
+                        Toast.makeText(HomeActivity.this, ""+message, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(HomeActivity.this, ""+message, Toast.LENGTH_SHORT).show();
+                    }
+
+                    homeVM.status.set("");
+
+                } else
+                {
+                    Toast.makeText(context, "Response null", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 }

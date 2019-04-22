@@ -38,6 +38,8 @@ public class POJOClass {
     public String start_date_time;
     public String end_date_time;
     public String caption;
+    public List<HomeArrayLists> active_coupons;
+    public List<HomeArrayLists> used_coupons;
     public ArrayList<String> fitme_sizes;
     public List<String> search_keys;
 }

@@ -323,11 +323,6 @@
 
         </RelativeLayout>
 
-
-
-
-
-
         <include
             android:fitsSystemWindows="true"
             app:behavior_hideable="true"

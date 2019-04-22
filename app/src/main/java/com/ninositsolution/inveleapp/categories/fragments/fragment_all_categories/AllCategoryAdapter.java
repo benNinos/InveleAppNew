@@ -29,9 +29,10 @@ public class AllCategoryAdapter extends RecyclerView.Adapter<AllCategoryAdapter.
 
     public static final String TAG = CategoryAdapter.class.getSimpleName();
 
-    public AllCategoryAdapter(Context context, List<AllCategoryFragmentVM> arrayList) {
+    public AllCategoryAdapter(Context context, List<AllCategoryFragmentVM> arrayList, IAllCategories iAllCategories) {
         this.context = context;
         this.arrayList = arrayList;
+        this.iAllCategories = iAllCategories;
     }
     @NonNull
     @Override
@@ -57,7 +58,6 @@ public class AllCategoryAdapter extends RecyclerView.Adapter<AllCategoryAdapter.
 
         mainViewHolder.bind(allCategoryFragmentVM,iAllCategories);
 
-
     }
 
     @Override
@@ -73,14 +73,20 @@ public class AllCategoryAdapter extends RecyclerView.Adapter<AllCategoryAdapter.
             super(binding.getRoot());
             this.binding = binding;
             this.iAllCategories = iAllCategories;
+
+            this.binding.categoryLinear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MainViewHolder.this.iAllCategories.categoryClicked(arrayList.get(getAdapterPosition()).slug.get());
+                }
+            });
         }
+
         public void bind(final AllCategoryFragmentVM allCategoryFragmentVM, IAllCategories iAllCategories)
         {
             this.binding.setAdapterAllCategoryFragment(allCategoryFragmentVM);
             this.binding.setIAllCategories(iAllCategories);
-            // this.binding.setIAddressBook(iAddressBook);
             binding.executePendingBindings();
-
         }
 
         public AllCategoriesAdapterBinding getBinding()

@@ -17,6 +17,7 @@ import com.ninositsolution.inveleapp.pojo.CategoryPojoClass;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 import com.ninositsolution.inveleapp.registration.pojo.RegistartionRequest;
 import com.ninositsolution.inveleapp.search_everywhere.SearchEverywhereRequest;
+import com.ninositsolution.inveleapp.utils.Constants;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -166,4 +167,11 @@ public interface ApiService {
     Observable<POJOClass> getSearchByKeyword(
             @Field("search_keyword") String search_keyword
     );
+
+    //get coupons
+    @FormUrlEncoded
+    @POST("user-coupon-list")
+    Observable<POJOClass> getCoupon(
+            @Field("user_id") String userId
+            );
 }

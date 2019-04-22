@@ -35,11 +35,13 @@ public class AllCategoryFragmentVM extends ViewModel {
     //pojo fields
     public ObservableField<String> status = new ObservableField<>();
     public ObservableField<String> msg = new ObservableField<>();
+    public ObservableField<String> slug = new ObservableField<>();
     public ObservableField <List<CategoryModel>> parent_categories = new ObservableField<>();
 
     public AllCategoryFragmentVM(CategoryPojoClass pojoClass, CategoryModel categoryModel){
         this.status.set(pojoClass.status);
         this.msg.set(pojoClass.msg);
+        this.slug.set(categoryModel.slug);
         this.parent_categories.set(pojoClass.parent_categories);
         this.category_name.set(categoryModel.name);
         this.imageUrl.set(categoryModel.image_path);

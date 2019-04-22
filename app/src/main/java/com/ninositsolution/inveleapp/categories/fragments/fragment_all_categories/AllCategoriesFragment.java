@@ -50,6 +50,8 @@ public class AllCategoriesFragment extends Fragment implements IAllCategories{
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_all_categories,container,false);
         final View view = binding.getRoot();
 
+        iAllCategories = this;
+
         binding.setAllCategoryFragment(allCategoryFragmentVM);
         binding.setLifecycleOwner(this);
 
@@ -72,7 +74,7 @@ public class AllCategoriesFragment extends Fragment implements IAllCategories{
 
                     Log.e(TAG,"LIST_SIZE==>"+allCategoryFragmentVMS.size());
 
-                    allCategoryAdapter = new AllCategoryAdapter(view.getContext(), allCategoryFragmentVMS);
+                    allCategoryAdapter = new AllCategoryAdapter(view.getContext(), allCategoryFragmentVMS, iAllCategories);
                    binding.allCategoryRecyclerview.setAdapter(allCategoryAdapter);
                    //allCategoryFragmentVMS.clear();
                 }else {
@@ -86,6 +88,14 @@ public class AllCategoriesFragment extends Fragment implements IAllCategories{
 
     @Override
     public void categoryClicked() {
+
+    }
+
+    @Override
+    public void categoryClicked(String slug) {
+
+        Toast.makeText(getContext(), ""+slug, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "clicked", Toast.LENGTH_SHORT).show();
 
     }
 

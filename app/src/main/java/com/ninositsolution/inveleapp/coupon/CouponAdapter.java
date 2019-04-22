@@ -1,79 +1,86 @@
 package com.ninositsolution.inveleapp.coupon;
-import android.app.Activity;
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.ninositsolution.inveleapp.R;
-import com.squareup.picasso.Picasso;
+import com.ninositsolution.inveleapp.databinding.AdapterCouponBinding;
+import com.ninositsolution.inveleapp.pojo.HomeArrayLists;
+
+import java.util.List;
 
 public class CouponAdapter  extends RecyclerView.Adapter<CouponAdapter.MyViewHolder>{
-Context context;
-List<CouponModel> couponModel =new ArrayList<>();
-public static final String TAG = CouponAdapter.class.getSimpleName();
+    Context context;
+    List<HomeArrayLists> couponLists;
+    public static final String TAG = CouponAdapter.class.getSimpleName();
+    LayoutInflater layoutInflater;
+    ICoupon iCoupon;
 
 
-public CouponAdapter(Context context){
+public CouponAdapter(Context context, List<HomeArrayLists> couponLists, ICoupon iCoupon){
     this.context = context;
+    this.couponLists = couponLists;
+    this.iCoupon = iCoupon;
 }
-
 
     @NonNull
     @Override
     public CouponAdapter.MyViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_coupon,parent,false);
-        return new MyViewHolder(view);
+        if (layoutInflater == null)
+        {
+            layoutInflater = LayoutInflater.from(context);
+        }
+
+        AdapterCouponBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.adapter_coupon, parent, false);
+
+        return new MyViewHolder(binding, iCoupon);
     }
 
     @Override
     public void onBindViewHolder(final  CouponAdapter.MyViewHolder holder, final int position) {
-       /* Log.e(TAG,"size is:=>"+ couponModel.size());
-        holder.couponName.setText(couponModel.get(position).couponName);
-        holder.offer_textView.setText(couponModel.get(position).offer);
-        holder.discount_textView.setText(couponModel.get(position).discount);
 
-
-        Picasso
-                .get()
-                .load(couponModel.get(position).image)
-
-                .into(holder.couponImageView);
-
-        holder.couponImageView.setScaleType(ImageView.ScaleType.FIT_XY);
-     */
+        holder.setBinding(new CouponVM(couponLists.get(position)));
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return couponLists.size();
     }
-
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-       /* TextView couponName,offer_textView,discount_textView;
-        ImageView couponImageView;*/
+        AdapterCouponBinding binding;
+        ICoupon iCoupon;
 
+        public MyViewHolder(@NonNull AdapterCouponBinding binding, ICoupon iCoupon) {
+            super(binding.getRoot());
+            this.binding = binding;
+            this.iCoupon = iCoupon;
 
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
+            binding.moreDetails.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-          /*  couponName = (TextView)itemView.findViewById(R.id.couponName);
-            offer_textView = (TextView)itemView.findViewById(R.id.offer_textView);
-            discount_textView = (TextView)itemView.findViewById(R.id.discount_textView);
-            couponImageView = (ImageView)itemView.findViewById(R.id.couponImageView);*/
+                   MyViewHolder.this.iCoupon.onMoreDetailsClicked(couponLists.get(getAdapterPosition()).description);
+                }
+            });
+        }
+
+        public void setBinding(CouponVM couponVM)
+        {
+            binding.setAdapterCoupon(couponVM);
+            binding.executePendingBindings();
+        }
+
+        public AdapterCouponBinding getBinding()
+        {
+            return binding;
         }
     }
-
-
-
 }

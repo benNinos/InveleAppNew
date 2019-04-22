@@ -47,6 +47,10 @@ public class PersonalInformationActivity extends AppCompatActivity {
     public String gender;
     Context context;
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -69,39 +73,33 @@ public class PersonalInformationActivity extends AppCompatActivity {
                 if (!personalInformationVM.status.get().isEmpty())
                 {
                     if (personalInformationVM.status.get().equalsIgnoreCase("success"))
-                    {
-                        personalInformationVMGlobal.setPersonalInfo(personalInformationVM.user.get());
-//                       personalInformationVMGlobal.firstName.set(personalInformationVM.user.get().first_name);
-//                       personalInformationVMGlobal.lastName.set(personalInformationVM.user.get().last_name);
-//                       personalInformationVMGlobal.mobileNumber.set(personalInformationVM.user.get().mobile);
-//                       personalInformationVMGlobal.emailAddress.set(personalInformationVM.user.get().email);
-//                       personalInformationVMGlobal.dateOfBirth.set(personalInformationVM.user.get().dob);
+                    {   personalInformationVMGlobal.setPersonalInfo(personalInformationVM.user.get());
+                       personalInformationVMGlobal.firstName.set(personalInformationVM.user.get().first_name);
+                       personalInformationVMGlobal.lastName.set(personalInformationVM.user.get().last_name);
+                       personalInformationVMGlobal.mobileNumber.set(personalInformationVM.user.get().mobile);
+                       personalInformationVMGlobal.emailAddress.set(personalInformationVM.user.get().email);
+                       personalInformationVMGlobal.dateOfBirth.set(personalInformationVM.user.get().dob);
 
-//                       binding.genderRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//                            @Override
-//                            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                                switch (checkedId)
-//                                {
-//                                    case R.id.personGenderMale:
-//                                        gender = "Male";
-//                                        break;
-//
-//                                    case R.id.personGenderFemale:
-//                                        gender = "Female";
-//                                        break;
-//
-//
-//                                }
-//                            }
-//                        });
+                       binding.genderRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                                switch (checkedId)
+                                {
+                                    case R.id.personGenderMale:
+                                        gender = "Male";
+                                        break;
 
+                                    case R.id.personGenderFemale:
+                                        gender = "Female";
+                                        break;
+                                }
+                            }
+                        });
 
                     }
                 }
             }
         });
-
-
 
         binding.setIpersonalInfo(new IPersonalInformation() {
             @Override
@@ -158,14 +156,14 @@ public class PersonalInformationActivity extends AppCompatActivity {
                                     finish();
                                     Log.e(TAG, "status: ->" + personalInformationVM.status.get());
                                     personalInformationVM.status.set("");
-                                    Session.setImagePath("",context);
-                                    Session.setUserFirstName("",context);
-                                    Session.setUserLastName("",context);
-                                    Session.setUserEmail("",context);
-                                    Session.setUserPhone("",context);
-                                    Session.setUserDob("",context);
-                                    Session.setUserGender("",context);
 
+                                    try { Session.setUserFirstName(personalInformationVM.user.get().first_name,context); } catch (NullPointerException e){Log.e(TAG, "first_name");}
+                                    try { Session.setUserLastName(personalInformationVM.user.get().last_name,context); } catch (NullPointerException e){Log.e(TAG, "last_name");}
+                                    try { Session.setUserEmail(personalInformationVM.user.get().email,context); } catch (NullPointerException e){Log.e(TAG, "email");}
+                                    try { Session.setUserPhone(personalInformationVM.user.get().mobile,context); } catch (NullPointerException e){Log.e(TAG, "dob");}
+                                    try { Session.setUserDob(personalInformationVM.user.get().dob,context); } catch (NullPointerException e){Log.e(TAG, "mobile");}
+                                    try { Session.setUserGender(personalInformationVM.user.get().gender,context); } catch (NullPointerException e){Log.e(TAG, "gender");}
+                                    try { Session.setUserPhoto(personalInformationVM.user.get().image_path,context); } catch (NullPointerException e){Log.e(TAG, "gender");}
 
                                 } else
 

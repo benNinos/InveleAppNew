@@ -19,6 +19,7 @@ import com.ninositsolution.inveleapp.registration.pojo.RegistartionRequest;
 import com.ninositsolution.inveleapp.search_everywhere.SearchEverywhereRequest;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -89,8 +90,8 @@ public interface ApiService {
                                             @Part("mobile") String mobile,
                                             @Part("email") String email,
                                             @Part("gender") String gender,
-                                            @Part("dob") String dob
-                                           // @Part MultipartBody.Part body
+                                            @Part("dob") String dob,
+                                            @Part MultipartBody.Part body
     );
 
     @FormUrlEncoded

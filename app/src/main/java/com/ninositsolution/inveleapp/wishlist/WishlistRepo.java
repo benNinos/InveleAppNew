@@ -40,6 +40,8 @@ public class WishlistRepo {
                     public void onNext(POJOClass pojoClass) {
                         Log.i(TAG, "onNext : "+pojoClass.status);
                         Log.i(TAG, "onNext : "+pojoClass.msg);
+
+                        wishlistVMMutableLiveData.setValue(new WishlistVM(pojoClass));
                     }
 
                     @Override

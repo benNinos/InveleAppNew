@@ -56,6 +56,7 @@ public class HomeArrayLists {
     public ArrayList<HomeArrayLists> home_management_images;
     public ArrayList<HomeArrayLists> attribute_values;
 
+    public Integer wishlist_id;
 
     public HomeArrayLists  (Integer fitme_label_id,String label)
     {

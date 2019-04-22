@@ -27,12 +27,12 @@ public class PersonalInformationRepo {
 
     private MutableLiveData<PersonalInformationVM> profileDetailsMutableLiveData =new MutableLiveData<>();
 
-    public MutableLiveData<PersonalInformationVM> getPersonalInformationMutableLiveData(final Integer user_id, String first_name, String last_name, String mobile, String email, String gender, String dob)
+    public MutableLiveData<PersonalInformationVM> getPersonalInformationMutableLiveData(final Integer user_id, String first_name, String last_name, String mobile, String email, String gender, String dob, MultipartBody.Part body)
 
     {
         Log.d(TAG, "user ID is: " + user_id);
         ApiService apiService = RetrofitClient.getApiService();
-        apiService.profileUpdateApi(user_id, first_name, last_name, mobile, email, gender, dob).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        apiService.profileUpdateApi(user_id, first_name, last_name, mobile, email, gender, dob, body).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<POJOClass>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -76,7 +76,9 @@ public class PersonalInformationRepo {
             @Override
             public void onNext(POJOClass pojoClass) {
 
-                Log.e(TAG, "onNext : "+pojoClass.status);
+                Log.i(TAG, "onNext : "+pojoClass.status);
+                Log.i(TAG, "onNext : "+pojoClass.msg);
+               // Log.i(TAG, "userName : "+pojoClass.user_id.first_name);
                 PersonalInformationVM personalInformationVM = new PersonalInformationVM(pojoClass);
                 profileDetailsMutableLiveData.setValue(personalInformationVM);
 
@@ -85,7 +87,7 @@ public class PersonalInformationRepo {
             @Override
             public void onError(Throwable e) {
 
-                Log.e(TAG, "onError : "+e.getMessage());
+                Log.e(TAG, "onError : "+e);
 
             }
 
@@ -97,8 +99,6 @@ public class PersonalInformationRepo {
 
         return profileDetailsMutableLiveData;
     }
-
-
 
 
     public int personalInfoValidation(String firstName, String mobile, String emailAddress, String dateOfBirth)

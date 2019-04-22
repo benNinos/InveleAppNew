@@ -52,7 +52,7 @@ public class ViewPagerAdapter extends PagerAdapter {
         AdapterMainBannerBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.adapter_main_banner, container, false);
         container.addView(binding.getRoot());
 
-        Log.i(TAG, "Image - > "+homeVM.main_banners.get().get(position).image_path);
+        //Log.i(TAG, "Image - > "+homeVM.main_banners.get().get(position).image_path);
 
         binding.setAdapterMainBanner(new HomeVM(homeVM.main_banners.get().get(position).image_path));
 

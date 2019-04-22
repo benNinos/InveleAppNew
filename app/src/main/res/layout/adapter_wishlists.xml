@@ -5,11 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <data class = "AdapterProductThumbnailBinding">
+    <data>
 
         <variable
-            name="adapterProductThumbnail"
-            type="com.ninositsolution.inveleapp.search_everywhere.SearchEverywhereVM"/>
+            name="adapterWishlist"
+            type="com.ninositsolution.inveleapp.wishlist.WishlistVM"/>
 
     </data>
 
@@ -43,7 +43,7 @@
                     android:layout_width="@dimen/_130sdp"
                     android:layout_height="@dimen/_150sdp"
                     android:scaleType="fitXY"
-                    bind:image="@{adapterProductThumbnail.product_img}"
+                    bind:image="@{adapterWishlist.product_img}"
                     android:layout_gravity="center_horizontal"
                     tools:ignore="ContentDescription" />
 
@@ -56,7 +56,7 @@
                     android:textSize="@dimen/item_text_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@={adapterProductThumbnail.product_item_name}" />
+                    android:text="@={adapterWishlist.product_item_name}" />
 
                 <LinearLayout
                     android:id="@+id/product_rate"
@@ -71,7 +71,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/item_text_size"
-                        android:text="@={adapterProductThumbnail.product_rate}"
+                        android:text="@={adapterWishlist.product_rate}"
                         android:textColor="@color/colorPrimary" />
 
                     <Space
@@ -84,7 +84,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/item_text_size"
-                        android:text="@={adapterProductThumbnail.product_delete_rate}" />
+                        android:text="@={adapterWishlist.product_delete_rate}" />
+
 
                 </LinearLayout>
 
@@ -104,7 +105,7 @@
                         android:layout_marginStart="-8dp"
                         android:layout_height="wrap_content"
                         android:numStars="5"
-                        android:rating="@{adapterProductThumbnail.product_rating_float}"
+                        android:rating="@{adapterWishlist.product_rating_float}"
                         android:scaleX="0.8"
                         android:scaleY="0.8"
                         android:theme="@style/RatingBar"
@@ -113,7 +114,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/_12sdp"
-                        android:text="@={adapterProductThumbnail.product_rating}"
+                        android:text="@={adapterWishlist.product_rating}"
                         android:layout_gravity="center_vertical"
                         android:textSize="@dimen/star_rating_num_size" />
 
@@ -125,7 +126,7 @@
                         android:id="@+id/wishlist0"
                         android:layout_width="@dimen/_12sdp"
                         android:layout_height="@dimen/_12sdp"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         app:srcCompat="@drawable/ic_heart_black"
                         android:layout_gravity="center_vertical"
                         tools:ignore="ContentDescription" />
@@ -134,7 +135,7 @@
                         android:id="@+id/wishlist1"
                         android:layout_width="@dimen/_12sdp"
                         android:layout_height="@dimen/_12sdp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:srcCompat="@drawable/ic_heart_red"
                         android:layout_gravity="center_vertical"
                         tools:ignore="ContentDescription" />

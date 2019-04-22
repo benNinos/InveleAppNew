@@ -7,6 +7,10 @@
         <variable
             name="account"
             type="com.ninositsolution.inveleapp.account.AccountVM"/>
+
+        <variable
+            name="iAccount"
+            type="com.ninositsolution.inveleapp.account.IAccount"/>
     </data>
 
   <!--  <android.support.design.widget.CoordinatorLayout
@@ -43,7 +47,7 @@
                 android:id="@+id/account_header_back"
                 android:layout_width="@dimen/back_arrow_size"
                 android:layout_height="@dimen/back_arrow_size"
-                android:onClick="@{()->account.onBackClicked()}"
+                android:onClick="@{()->iAccount.onBackClicked()}"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:layout_centerVertical="true"
                 app:srcCompat="@drawable/ic_arrow_back_24dp"
@@ -88,15 +92,16 @@
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/account_profile_pic"
                         android:layout_width="@dimen/profile_pic"
+                        android:scaleType="centerCrop"
                         android:layout_height="@dimen/profile_pic"
                         android:layout_margin="@dimen/_8sdp"
-                        android:src="@drawable/user" />
+                        android:src="@{account.userPhoto}" />
 
                     <TextView
                         android:id="@+id/account_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/account_name"
+                        android:text="@={account.username}"
                         android:textSize="@dimen/_18sdp"
                         android:alpha="0.8"
                         android:layout_marginStart="@dimen/_12sdp"
@@ -123,7 +128,7 @@
                         android:paddingStart="@dimen/_8sdp"
                         android:paddingEnd="@dimen/_8sdp"
                         android:text="@string/account_button_fitme"
-                        android:onClick="@{()->account.onUpdateFitmeClicked()}"
+                        android:onClick="@{()->iAccount.onUpdateFitmeClicked()}"
                         android:layout_below="@+id/account_additional_info"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:layout_marginBottom="@dimen/_8sdp"
@@ -138,7 +143,7 @@
                         android:layout_width="@dimen/app_icon"
                         android:layout_height="@dimen/app_icon"
                         android:layout_alignParentEnd="true"
-                        android:onClick="@{()->account.onSettingsClicked()}"
+                        android:onClick="@{()->iAccount.onSettingsClicked()}"
                         android:layout_marginEnd="@dimen/_8sdp"
                         android:layout_alignTop="@+id/account_name"
                         android:layout_marginTop="@dimen/_4sdp"
@@ -173,7 +178,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:text="@string/view_order"
-                            android:onClick="@{()->account.onOrderHistoryClicked()}"
+                            android:onClick="@{()->iAccount.onOrderHistoryClicked()}"
                             android:layout_marginEnd="@dimen/_16sdp"
                             android:textSize="@dimen/more_text_size"
                             android:layout_marginStart="@dimen/_8sdp"
@@ -224,7 +229,7 @@
                             </android.support.v7.widget.CardView>
 
                             <android.support.v7.widget.CardView
-                                android:onClick="@{()->account.onOrdersClicked()}"
+                                android:onClick="@{()->iAccount.onOrdersClicked()}"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_marginStart="@dimen/_2sdp"
@@ -261,7 +266,7 @@
                             </android.support.v7.widget.CardView>
 
                             <android.support.v7.widget.CardView
-                                android:onClick="@{()->account.onReviewsClicked()}"
+                                android:onClick="@{()->iAccount.onReviewsClicked()}"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_marginStart="@dimen/_2sdp"
@@ -279,7 +284,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="@dimen/account_page_icon_size"
                                         android:layout_centerInParent="true"
-                                        android:src="@drawable/cmyorder"
+                                        android:src="@drawable/hand"
                                         tools:ignore="ContentDescription" />
 
                                     <TextView
@@ -298,7 +303,7 @@
                             </android.support.v7.widget.CardView>
 
                             <android.support.v7.widget.CardView
-                                android:onClick="@{()->account.onCancelClicked()}"
+                                android:onClick="@{()->iAccount.onCancelClicked()}"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_marginStart="@dimen/_2sdp"
@@ -317,7 +322,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="@dimen/account_page_icon_size"
                                         android:layout_centerInParent="true"
-                                        android:src="@drawable/cmyorder"
+                                        android:src="@drawable/cmywishlist"
                                         tools:ignore="ContentDescription" />
 
                                     <TextView
@@ -380,7 +385,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignTop="@+id/fitme_image"
                             android:layout_toEndOf="@+id/fitme_image"
-                            android:text="@string/account_name"
+                            android:text="@={account.fitmeName}"
                             android:textSize="@dimen/_14sdp"
                             android:layout_marginStart="@dimen/_16sdp"
                             tools:ignore="RelativeOverlap" />
@@ -460,7 +465,7 @@
                             android:layout_below="@+id/fitme_icon_layout"
                             android:layout_toEndOf="@+id/fitme_image"
                             android:layout_marginTop="@dimen/_8sdp"
-                            android:onClick="@{()->account.onAddProfileClicked()}"
+                            android:onClick="@{()->iAccount.onAddProfileClicked()}"
                             android:layout_alignStart="@+id/fitme_icon_layout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -487,7 +492,7 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:onClick="@{()->account.onWishlistClicked()}"
+                            android:onClick="@{()->iAccount.onWishlistClicked()}"
                             android:layout_height="@dimen/_44sdp"
                             android:layout_marginStart="@dimen/account_page_8sdp"
                             android:layout_marginEnd="@dimen/account_page_8sdp"
@@ -532,7 +537,7 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:onClick="@{()->account.onRecentsClicked()}"
+                            android:onClick="@{()->iAccount.onRecentsClicked()}"
                             android:layout_marginStart="@dimen/account_page_8sdp"
                             android:layout_marginEnd="@dimen/account_page_8sdp"
                             android:layout_height="@dimen/_44sdp"
@@ -578,7 +583,7 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:onClick="@{()->account.onCouponClicked()}"
+                            android:onClick="@{()->iAccount.onCouponClicked()}"
                             android:layout_marginStart="@dimen/account_page_8sdp"
                             android:layout_marginEnd="@dimen/account_page_8sdp"
                             android:layout_height="@dimen/_44sdp"
@@ -625,7 +630,7 @@
                             android:layout_width="match_parent"
                             android:layout_marginStart="@dimen/account_page_8sdp"
                             android:layout_marginEnd="@dimen/account_page_8sdp"
-                            android:onClick="@{()->account.onAddressClicked()}"
+                            android:onClick="@{()->iAccount.onAddressClicked()}"
                             android:layout_height="@dimen/_44sdp"
                             android:padding="@dimen/_8sdp">
 
@@ -669,7 +674,7 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:onClick="@{()->account.onMyAccountClickedClicked()}"
+                            android:onClick="@{()->iAccount.onMyAccountClickedClicked()}"
                             android:layout_height="@dimen/_44sdp"
                             android:layout_marginStart="@dimen/account_page_8sdp"
                             android:layout_marginEnd="@dimen/account_page_8sdp"
@@ -715,7 +720,7 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:onClick="@{()->account.onHelpDeskClicked()}"
+                            android:onClick="@{()->iAccount.onHelpDeskClicked()}"
                             android:layout_height="@dimen/_44sdp"
                             android:layout_marginStart="@dimen/account_page_8sdp"
                             android:layout_marginEnd="@dimen/account_page_8sdp"
@@ -760,7 +765,7 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:onClick="@{()->account.onContactUSClicked()}"
+                            android:onClick="@{()->iAccount.onContactUSClicked()}"
                             android:layout_height="@dimen/_44sdp"
                             android:layout_marginStart="@dimen/account_page_8sdp"
                             android:layout_marginEnd="@dimen/account_page_8sdp"

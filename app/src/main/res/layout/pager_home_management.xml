@@ -120,8 +120,8 @@
                         <ImageView
                             android:id="@+id/wishlistLeft0"
                             android:visibility="visible"
-                            android:layout_width="@dimen/_8sdp"
-                            android:layout_height="@dimen/_8sdp"
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="@dimen/_12sdp"
                             app:srcCompat="@drawable/ic_heart_black"
                             android:layout_gravity="center_vertical"
                             tools:ignore="ContentDescription" />
@@ -129,8 +129,8 @@
                         <ImageView
                             android:id="@+id/wishlistLeft1"
                             android:visibility="gone"
-                            android:layout_width="@dimen/_8sdp"
-                            android:layout_height="@dimen/_8sdp"
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="@dimen/_12sdp"
                             app:srcCompat="@drawable/ic_heart_red"
                             android:layout_gravity="center_vertical"
                             tools:ignore="ContentDescription" />
@@ -238,8 +238,8 @@
                         <ImageView
                             android:id="@+id/wishlistRight0"
                             android:visibility="visible"
-                            android:layout_width="@dimen/_8sdp"
-                            android:layout_height="@dimen/_8sdp"
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="@dimen/_12sdp"
                             app:srcCompat="@drawable/ic_heart_black"
                             android:layout_gravity="center_vertical"
                             tools:ignore="ContentDescription" />
@@ -247,8 +247,8 @@
                         <ImageView
                             android:id="@+id/wishlistRight1"
                             android:visibility="gone"
-                            android:layout_width="@dimen/_8sdp"
-                            android:layout_height="@dimen/_8sdp"
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="@dimen/_12sdp"
                             app:srcCompat="@drawable/ic_heart_red"
                             android:layout_gravity="center_vertical"
                             tools:ignore="ContentDescription" />

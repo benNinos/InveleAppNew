@@ -83,7 +83,7 @@ public class PersonalInformationVM extends ViewModel {
 
     public int personalValidation()
     {
-        return personalInformationRepo.personalInfoValidation(firstName.get(),emailAddress.get(),dateOfBirth.get(),mobileNumber.get());
+        return personalInformationRepo.personalInfoValidation(firstName.get(),mobileNumber.get(),emailAddress.get(),dateOfBirth.get());
     }
 
 
@@ -94,13 +94,22 @@ public class PersonalInformationVM extends ViewModel {
 
     public void profileUpdateApi(Integer user_id, String image_path, String gender)
     {
+        MultipartBody.Part body;
+
+        if (image_path.equalsIgnoreCase(""))
+        {
+            RequestBody requestBody  = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+            body = MultipartBody.Part.createFormData("image","", requestBody);
+        } else
+        {
             File file = new File(image_path);
             RequestBody requestBody  = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), requestBody);
+            body = MultipartBody.Part.createFormData("image", file.getName(), requestBody);
+        }
 
             personalInformationMutableLiveData = personalInformationRepo
                     .getPersonalInformationMutableLiveData(user_id,firstName.get(),lastName.get(),
-                            mobileNumber.get(),emailAddress.get(),gender,dateOfBirth.get());
+                            mobileNumber.get(),emailAddress.get(),gender,dateOfBirth.get(), body);
 
         Log.i(TAG, "body -> " + body);
     }
@@ -108,6 +117,7 @@ public class PersonalInformationVM extends ViewModel {
     public void getPersonalInfoApi(String user_id)
     {
         personalInfoDetailsMutableLiveData = personalInformationRepo.getProfileDetailsMutableLiveData(user_id);
+        Log.i(TAG, "userId -> "+user_id);
 
     }
 
@@ -117,16 +127,11 @@ public class PersonalInformationVM extends ViewModel {
 
     public void setPersonalInfo(Users users)
     {
-        this.firstName.set(users.first_name);
-        this.lastName.set(users.last_name);
-        this.emailAddress.set(users.email);
-        this.dateOfBirth.set(users.dob);
-        this.mobileNumber.set(users.mobile);
-        this.user_image.set(users.image_path);
+        try { this.firstName.set(users.first_name); } catch (NullPointerException e){Log.e(TAG, "first_name");}
+        try { this.lastName.set(users.last_name); } catch (NullPointerException e){Log.e(TAG, "last_name");}
+        try { this.emailAddress.set(users.email); } catch (NullPointerException e){Log.e(TAG, "email");}
+        try { this.dateOfBirth.set(users.dob); } catch (NullPointerException e){Log.e(TAG, "dob");}
+        try { this.mobileNumber.set(users.mobile); } catch (NullPointerException e){Log.e(TAG, "mobile");}
+        try { this.user_image.set(users.image_path); } catch (NullPointerException e){Log.e(TAG, "image_path");}
     }
-
-
-
-
 }
-

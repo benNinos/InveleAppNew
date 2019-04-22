@@ -16,6 +16,7 @@ public class POJOClass {
     public Float filter_min_price;
     public Float filter_max_price;
     public Users user;
+    //public Users user_id;
     public List<AddressList>address_list;
     public List<AddressList>addresses;
     public AddressList user_address;
@@ -33,6 +34,7 @@ public class POJOClass {
     public ArrayList<HomeArrayLists> shippings;
     public ArrayList<HomeArrayLists> men;
     public ArrayList<HomeArrayLists> women;
+    public ArrayList<HomeArrayLists> wishlists;
     public String start_date_time;
     public String end_date_time;
     public String caption;

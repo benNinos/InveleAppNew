@@ -53,7 +53,6 @@ public class HomeRepo {
                     public void onError(Throwable e) {
 
                         Log.e(TAG, "onError : "+e);
-                        if (e.equals(new SocketTimeoutException()))
                             getHomeVMMutableLiveData(userIid);
                     }
 

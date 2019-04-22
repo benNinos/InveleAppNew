@@ -1,108 +1,34 @@
 package com.ninositsolution.inveleapp.account;
 
-import android.content.Context;
+import android.arch.lifecycle.ViewModel;
+import android.databinding.BindingAdapter;
+import android.databinding.ObservableField;
+import android.widget.ImageView;
+
+import com.ninositsolution.inveleapp.R;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by Parthasarathy D on 1/17/2019.
  * Ninos IT Solution Pvt Ltd
  * ben@ninositsolution.com
  */
-public class AccountVM {
+public class AccountVM extends ViewModel {
 
-    private AccountModel accountModel;
-    private Context context;
-    private IAccount iAccount;
+    public ObservableField<String> username = new ObservableField<>();
+    public ObservableField<String> userPhoto = new ObservableField<>();
+    public ObservableField<String> fitmeName = new ObservableField<>();
 
-    public AccountVM(Context context, IAccount iAccount) {
-        this.context = context;
-        this.iAccount = iAccount;
-        accountModel = new AccountModel();
+    public ObservableField<String> getUserPhoto() {
+        return userPhoto;
     }
 
-    //ClickListeners
-
-    public void onBackClicked()
+    @BindingAdapter("{android:src}")
+    public static void loadImage(ImageView imageView, String imageUrl)
     {
-        iAccount.onBackClicked();
+        Picasso.get().load(imageUrl).placeholder(R.drawable.user).into(imageView);
     }
 
-    public void onUpdateFitmeClicked()
-    {
-        iAccount.onUpdateFitmeClicked();
-    }
-
-    public void onSettingsClicked()
-    {
-        iAccount.onSettingsClicked();
-    }
-
-    public void onOrderHistoryClicked()
-    {
-        iAccount.onOrderHistoryClicked();
-    }
-
-    public void onFitmeEditClicked()
-    {
-        iAccount.onFitmeEditClicked();
-    }
-
-    public void onAddProfileClicked()
-    {
-        iAccount.onAddProfileClicked();
-    }
-
-    public void onWishlistClicked()
-    {
-        iAccount.onWishlistClicked();
-    }
-
-    public void onRecentsClicked()
-    {
-        iAccount.onRecentsClicked();
-    }
-
-    public void onCouponClicked()
-    {
-        iAccount.onCouponClicked();
-    }
-
-    public void onAddressClicked()
-    {
-        iAccount.onAddressClicked();
-    }
-
-    public void onMyAccountClickedClicked()
-    {
-        iAccount.onMyAccountClickedClicked();
-    }
-
-    public void onHelpDeskClicked()
-    {
-        iAccount.onHelpDeskClicked();
-    }
-
-    public void onContactUSClicked()
-    {
-        iAccount.onContactUSClicked();
-    }
-
-    public void onCartClicked()
-    {
-        iAccount.onCartClicked();
-    }
-
-    public void onOrdersClicked()
-    {
-        iAccount.onOrdersClicked();
-    }
-
-    public void onReviewsClicked()
-    {
-        iAccount.onReviewsClicked();
-    }
-
-    public void onCancelClicked()
-    {
-        iAccount.onCancelClicked();
+    public AccountVM() {
     }
 }

@@ -11,10 +11,7 @@ import android.view.ViewGroup;
 
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.AdapterProductThumbnailBinding;
-import com.ninositsolution.inveleapp.databinding.AdapterTrendingProductsBinding;
-import com.ninositsolution.inveleapp.home.HomeVM;
 import com.ninositsolution.inveleapp.pojo.HomeArrayLists;
-import com.ninositsolution.inveleapp.search.SearchAdapter;
 import com.ninositsolution.inveleapp.utils.Constants;
 import com.ninositsolution.inveleapp.utils.WishListListener;
 

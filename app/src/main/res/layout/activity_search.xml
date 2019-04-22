@@ -9,6 +9,14 @@
         <variable
             name="search"
             type="com.ninositsolution.inveleapp.search.SearchVM"/>
+
+        <variable
+            name="iSearch"
+            type="com.ninositsolution.inveleapp.search.ISearch"/>
+
+        <variable
+            name="textChange"
+            type="com.ninositsolution.inveleapp.search.SearchActivity"/>
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -33,7 +41,7 @@
                         android:id="@+id/search_header_back"
                         android:layout_width="@dimen/back_arrow_size"
                         android:layout_height="@dimen/back_arrow_size"
-                        android:onClick="@{()->search.onBackClicked()}"
+                        android:onClick="@{()->iSearch.onBackClicked()}"
                         android:layout_marginStart="@dimen/_8sdp"
                         android:layout_centerVertical="true"
                         app:srcCompat="@drawable/ic_arrow_back_24dp"
@@ -50,13 +58,14 @@
                         android:background="@android:color/transparent"
                         android:hint="@string/overall_search"
                         android:textSize="@dimen/toolBarFont"
-                        tools:ignore="RelativeOverlap" />
+                        tools:ignore="Autofill,RelativeOverlap"
+                        android:inputType="text" />
 
                     <ImageView
                         android:layout_width="@dimen/app_icon"
                         android:layout_height="@dimen/app_icon"
                         android:layout_centerVertical="true"
-                        android:onClick="@{()->search.onCameraClicked()}"
+                        android:onClick="@{()->iSearch.onCameraClicked()}"
                         android:alpha="0.7"
                         android:layout_toStartOf="@+id/search_header_cart"
                         android:layout_marginEnd="@dimen/_16sdp"
@@ -69,7 +78,7 @@
                         android:layout_width="@dimen/app_icon"
                         android:layout_height="@dimen/_16sdp"
                         android:layout_alignParentEnd="true"
-                        android:onClick="@{()->search.onMicrophoneClicked()}"
+                        android:onClick="@{()->iSearch.onMicrophoneClicked()}"
                         android:alpha="0.7"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/_8sdp"
@@ -85,80 +94,12 @@
         </android.support.design.widget.AppBarLayout>
 
         <LinearLayout
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/invelebg"
             android:orientation="vertical">
 
-
-           <!-- <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="5"
-                android:orientation="horizontal"
-                android:baselineAligned="false">
-
-                <RelativeLayout
-                    android:id="@+id/search_everywhere_layout"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_32sdp"
-                    android:onClick="@{()->search.onEverywhereClicked()}"
-                    android:background="@color/colorPrimary"
-                    android:layout_weight="2.5">
-
-                    <TextView
-                        android:id="@+id/search_everywhere"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:textStyle="bold"
-                        android:textColor="@android:color/white"
-                        android:text="@string/search_every"/>
-
-                    <ImageView
-                        android:id="@+id/everywhere_check"
-                        android:layout_width="@dimen/_12sdp"
-                        android:layout_height="@dimen/_12sdp"
-                        android:layout_marginStart="@dimen/_6sdp"
-                        android:layout_toEndOf="@+id/search_everywhere"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/checked"
-                        tools:ignore="ContentDescription" />
-
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/search_nearby_layout"
-                    android:layout_width="0dp"
-                    android:onClick="@{()->search.onNearbyClicked()}"
-                    android:layout_height="@dimen/_32sdp"
-                    android:layout_weight="2.5">
-
-                    <TextView
-                        android:id="@+id/search_nearby"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:textStyle="bold"
-                        android:text="@string/search_nearby"/>
-
-                    <ImageView
-                        android:id="@+id/nearby_check"
-                        android:layout_width="@dimen/_12sdp"
-                        android:layout_height="@dimen/_12sdp"
-                        android:layout_marginStart="@dimen/_6sdp"
-                        android:layout_toEndOf="@+id/search_nearby"
-                        android:visibility="invisible"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/checked"
-                        tools:ignore="ContentDescription" />
-
-                </RelativeLayout>
-
-
-            </LinearLayout>-->
 
             <RelativeLayout
                 android:layout_marginTop="@dimen/_8sdp"
@@ -226,7 +167,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="@dimen/_1sdp"
                 android:background="#e0e0e0"/>
 
             <Space
@@ -258,7 +199,6 @@
                 android:background="@drawable/round_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_32sdp"
-                android:afterTextChanged="@{(editable)->search.afterPostalCodeChanged(editable)}"
                 android:drawableEnd="@drawable/ic_gps_fixed_black_24dp"
                 android:padding="@dimen/_8sdp"
                 android:hint="Enter Area or Postal Code   "

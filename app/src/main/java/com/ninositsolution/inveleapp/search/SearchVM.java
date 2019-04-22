@@ -1,69 +1,76 @@
 package com.ninositsolution.inveleapp.search;
 
-import android.content.Context;
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.ViewModel;
+import android.databinding.ObservableField;
+import android.util.Log;
+import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.ninositsolution.inveleapp.pojo.POJOClass;
+
+import java.util.List;
 
 /**
  * Created by Parthasarathy D on 1/24/2019.
  * Ninos IT Solution Pvt Ltd
  * ben@ninositsolution.com
  */
-public class SearchVM {
+public class SearchVM extends ViewModel {
 
-    private SearchModel searchModel;
-    private Context context;
-    private ISearch iSearch;
+  //  public ObservableField<String> keyword = new ObservableField<>("");
 
-    public SearchVM(Context context, ISearch iSearch) {
-        this.context = context;
-        this.iSearch = iSearch;
-        searchModel = new SearchModel();
-        loadSearchAdapter();
+    private static final String TAG = "SearchVM";
+
+    private SearchRepo searchRepo;
+    private MutableLiveData<SearchVM> searchVMMutableLiveData = new MutableLiveData<>();
+
+    public SearchVM() {
+
+        searchRepo = new SearchRepo();
     }
 
-    private void loadSearchAdapter() {
+    private String status, message;
+    private List<String> searchKeys;
 
-        ArrayList<String> arrayList = new ArrayList<>();
-
-        arrayList = searchModel.populateSearchList();
-
-        SearchAdapter searchAdapter = new SearchAdapter(context, arrayList, iSearch);
-
-        iSearch.loadSearchAdapter(searchAdapter);
-    }
-
-    //TextWatchers
-
-    public void afterPostalCodeChanged(CharSequence sequence)
+    public SearchVM(POJOClass pojoClass)
     {
-        searchModel.setPostalCode(sequence.toString());
+        status = pojoClass.status;
+        message = pojoClass.msg;
+        searchKeys = pojoClass.search_keys;
     }
 
-    //ClickListeners
-
-    public void onBackClicked()
+    public void searchByKeywordApi(String keyword)
     {
-        iSearch.onBackClicked();
+        searchVMMutableLiveData = searchRepo.getSearchVMMutableLiveData(keyword);
     }
 
-    public void onCameraClicked()
-    {
-        iSearch.onCameraClicked();
+    public MutableLiveData<SearchVM> getSearchVMMutableLiveData() {
+        return searchVMMutableLiveData;
     }
 
-    public void onMicrophoneClicked()
-    {
-        iSearch.onMicrophoneClicked();
+
+    public String getStatus() {
+        return status;
     }
 
-    public void onEverywhereClicked()
-    {
-        iSearch.onEverywhereClicked();
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public void onNearbyClicked()
-    {
-        iSearch.onNearbyClicked();
+    public String getMessage() {
+        return message;
     }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public List<String> getSearchKeys() {
+        return searchKeys;
+    }
+
+    public void setSearchKeys(List<String> searchKeys) {
+        this.searchKeys = searchKeys;
+    }
+
 }

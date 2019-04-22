@@ -244,7 +244,7 @@ public class SearchEverywhereActivity extends AppCompatActivity implements WishL
 
     public void getProducts(String type, String slug, String name) {
 
-        showProgressBar();
+        //showProgressBar();
         Log.i(TAG, "Type -> "+type);
         Log.i(TAG, "Slug -> "+slug);
         Log.i(TAG, "Name -> "+name);

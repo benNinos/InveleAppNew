@@ -12,6 +12,5 @@ public interface ISearch {
     void onMicrophoneClicked();
     void onEverywhereClicked();
     void onNearbyClicked();
-    void loadSearchAdapter(SearchAdapter searchAdapter);
-    void searchClicked();
+    void searchClicked(String slug);
 }

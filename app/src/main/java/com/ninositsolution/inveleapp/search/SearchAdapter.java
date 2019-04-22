@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.ninositsolution.inveleapp.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Parthasarathy D on 1/24/2019.
@@ -20,10 +21,10 @@ import java.util.ArrayList;
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
 
     private Context context;
-    private ArrayList<String> searchTextList = new ArrayList<>();
+    private List<String> searchTextList = new ArrayList<>();
     private ISearch iSearch;
 
-    public SearchAdapter(Context context, ArrayList<String> searchTextList, ISearch iSearch) {
+    public SearchAdapter(Context context, List<String> searchTextList, ISearch iSearch) {
         this.context = context;
         this.searchTextList = searchTextList;
         this.iSearch = iSearch;
@@ -38,14 +39,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SearchViewHolder searchViewHolder, int i) {
+    public void onBindViewHolder(@NonNull SearchViewHolder searchViewHolder, final int i) {
 
         searchViewHolder.textView.setText(searchTextList.get(i));
 
         searchViewHolder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                iSearch.searchClicked();
+                iSearch.searchClicked(searchTextList.get(i));
             }
         });
 

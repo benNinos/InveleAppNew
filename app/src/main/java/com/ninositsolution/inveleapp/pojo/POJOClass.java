@@ -42,4 +42,5 @@ public class POJOClass {
     public List<HomeArrayLists> used_coupons;
     public ArrayList<String> fitme_sizes;
     public List<String> search_keys;
+    public List<FitmeLists> user_measurements;
 }

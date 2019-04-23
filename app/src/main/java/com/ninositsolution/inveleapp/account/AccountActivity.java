@@ -14,6 +14,7 @@ import com.ninositsolution.inveleapp.cart.CartActivity;
 import com.ninositsolution.inveleapp.coupon.CouponActivity;
 import com.ninositsolution.inveleapp.databinding.ActivityAccountBinding;
 import com.ninositsolution.inveleapp.fitme.FitmeActivity;
+import com.ninositsolution.inveleapp.fitme_list.FitmeListActivity;
 import com.ninositsolution.inveleapp.help_desk.HelpDeskActivity;
 import com.ninositsolution.inveleapp.home.HomeActivity;
 import com.ninositsolution.inveleapp.my_order.MyOrderActivity;
@@ -58,7 +59,7 @@ public class AccountActivity extends AppCompatActivity {
 
             @Override
             public void onUpdateFitmeClicked() {
-                startActivity(new Intent(context, FitmeActivity.class));
+                startActivity(new Intent(context, FitmeListActivity.class));
             }
 
             @Override

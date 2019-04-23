@@ -5,19 +5,17 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.Toast;
 
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.ActivityCouponBinding;
-import com.ninositsolution.inveleapp.search.SearchAdapter;
-import com.ninositsolution.inveleapp.utils.Constants;
 import com.ninositsolution.inveleapp.utils.Session;
 
 public class CouponActivity extends AppCompatActivity implements ICoupon{
@@ -31,7 +29,6 @@ public class CouponActivity extends AppCompatActivity implements ICoupon{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_coupon);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_coupon);
 
         iCoupon = this;
@@ -92,7 +89,6 @@ public class CouponActivity extends AppCompatActivity implements ICoupon{
                         Toast.makeText(CouponActivity.this, ""+couponVM.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-
             }
         });
     }

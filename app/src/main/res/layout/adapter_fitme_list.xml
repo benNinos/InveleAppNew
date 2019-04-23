@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="adapterFitmeList"
+            type="com.ninositsolution.inveleapp.fitme_list.FitmeListVM" />
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_4sdp"
+        android:background="@drawable/curved_bg">
+
+        <RelativeLayout
+            android:id="@+id/fitmeListsLayout"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/fitme_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={adapterFitmeList.name}"
+                android:layout_marginTop="@dimen/listMarginTop"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/listTextSize"
+                android:layout_centerHorizontal="true"/>
+
+            <RadioButton
+                android:id="@+id/fitme_radioBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/listMarginTop"
+                android:layout_marginTop="@dimen/listMarginTop"/>
+
+            <View
+                android:id="@+id/fitme_viewLine"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_below="@+id/fitme_name"
+                android:layout_marginTop="@dimen/listMarginTop"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:background="@color/grayWhite"/>
+
+            <TextView
+                android:id="@+id/date_key"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Measurement Date"
+                android:layout_below="@+id/fitme_viewLine"
+                android:layout_marginTop="@dimen/listMarginTop"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/listTextSize"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/date_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={adapterFitmeList.date}"
+                android:layout_below="@+id/date_key"
+                android:layout_marginTop="@dimen/listMarginTop"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/listTextSize"
+                android:layout_centerHorizontal="true"/>
+
+            <LinearLayout
+                android:id="@+id/neck_layout"
+                android:orientation="horizontal"
+                android:layout_below="@+id/date_value"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/neck_key"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@={adapterFitmeList.key1}"
+                    android:layout_marginTop="@dimen/listMarginTop"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/listTextSize" />
+
+                <TextView
+                    android:id="@+id/neck_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@={adapterFitmeList.value1}"
+                    android:layout_marginTop="@dimen/listMarginTop"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/listTextSize" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/chest_layout"
+                android:orientation="horizontal"
+                android:layout_below="@+id/neck_layout"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/chest_key"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@={adapterFitmeList.key2}"
+                    android:layout_marginTop="@dimen/listMarginTop"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/listTextSize" />
+
+                <TextView
+                    android:id="@+id/chest_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@={adapterFitmeList.value2}"
+                    android:layout_marginTop="@dimen/listMarginTop"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/listTextSize" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/viewAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="view all"
+                android:layout_below="@+id/chest_layout"
+                android:layout_marginTop="@dimen/listMarginTop"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/listTextSize"
+                android:layout_centerHorizontal="true"/>
+
+            <RelativeLayout
+                android:id="@+id/button_layout"
+                android:layout_below="@+id/viewAll"
+                android:layout_marginBottom="@dimen/listMarginTop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="edit"
+                    android:layout_marginStart="@dimen/_18sdp"
+                    android:layout_marginTop="@dimen/listMarginTop"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/listTextSize" />
+
+                <TextView
+                    android:id="@+id/delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="delete"
+                    android:layout_marginEnd="@dimen/_18sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/listMarginTop"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/listTextSize" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/addLayout"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_200sdp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/grayWhite"
+                android:layout_margin="@dimen/_18sdp"
+                android:layout_centerInParent="true"/>
+
+            <View
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="match_parent"
+                android:background="@color/grayWhite"
+                android:layout_margin="@dimen/_18sdp"
+                android:layout_centerInParent="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="Add New"
+                android:textSize="@dimen/_8sdp"
+                android:textColor="@color/text_color"
+                android:layout_marginBottom="@dimen/_6sdp"
+                android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+
+
+
+</layout>

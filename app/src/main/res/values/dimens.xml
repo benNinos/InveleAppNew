@@ -101,6 +101,12 @@
     <dimen name="filter_height">@dimen/_30sdp</dimen>
 
 
+    <!-- Fitme List Activity-->
+
+    <dimen name="listTextSize">@dimen/_12sdp</dimen>
+    <dimen name="listMarginTop">@dimen/_10sdp</dimen>
+
+
 
 
 </resources>

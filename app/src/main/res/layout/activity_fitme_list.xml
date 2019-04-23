@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="fitmeList"
+            type="com.ninositsolution.inveleapp.fitme_list.FitmeListVM" />
+
+        <variable
+            name="iFitmeList"
+            type="com.ninositsolution.inveleapp.fitme_list.IFitmeList" />
+
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolBar_height"
+                app:contentInsetStart="0dp"
+                android:background="@color/white">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/toolBar_height">
+
+                    <ImageView
+                        android:id="@+id/account_header_back"
+                        android:layout_width="@dimen/back_arrow_size"
+                        android:layout_height="@dimen/back_arrow_size"
+                        android:onClick="@{()->iFitmeList.onBackClicked()}"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/ic_arrow_back_24dp"
+                        tools:ignore="ContentDescription" />
+
+
+                    <TextView
+                        android:layout_toEndOf="@+id/account_header_back"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:id="@+id/search_header"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fitmeListToolbar"
+                        android:textSize="@dimen/toolBarFont"
+                        tools:ignore="RelativeOverlap" />
+
+
+                </RelativeLayout>
+
+
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fitmeListRecyclerView"
+            app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</layout>
+

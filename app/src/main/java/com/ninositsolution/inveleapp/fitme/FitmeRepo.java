@@ -25,7 +25,7 @@ import io.reactivex.schedulers.Schedulers;
 public class FitmeRepo {
 
 
-    private static final String TAG = "FitmeRepo";
+    private static final String TAG = "FitmeListRepo";
     private MutableLiveData<FitmeVM> fitmeVMMutableLiveData = new MutableLiveData<>();
 
     public ArrayList<FitmeVM> arrayList;

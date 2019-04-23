@@ -158,7 +158,13 @@ public class HomeVM extends ViewModel {
     @BindingAdapter({"android:src"})
     public static void loadDealImage(ImageView imageView, String dealProductImage)
     {
-        Picasso.get().load(dealProductImage).placeholder(R.drawable.product_detail_placeholder).into(imageView);
+        try {
+            Picasso.get().load(dealProductImage).placeholder(R.drawable.product_detail_placeholder).into(imageView);
+
+        } catch (Exception e)
+        {
+
+        }
     }
 
 
@@ -187,7 +193,6 @@ public class HomeVM extends ViewModel {
         trendingProductDeletedRate.set(Constants.CURRENCY+homeVM.product_trendings.get().get(position).usual_price);
         trendingProductRating.set(String.valueOf(homeVM.product_trendings.get().get(position).average_rating));
         trendingProductRatingFloat.set(Float.valueOf(homeVM.product_trendings.get().get(position).average_rating));
-
     }
 
     public ObservableField<String> trendingProductImage()

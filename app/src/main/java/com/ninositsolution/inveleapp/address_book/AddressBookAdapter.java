@@ -159,7 +159,6 @@ public class AddressBookAdapter extends RecyclerView.Adapter<AddressBookAdapter.
 
 
 
-
     public class MainViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private MainAdapterBinding binding;

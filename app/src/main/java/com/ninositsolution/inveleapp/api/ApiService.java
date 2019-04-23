@@ -174,4 +174,11 @@ public interface ApiService {
     Observable<POJOClass> getCoupon(
             @Field("user_id") String userId
             );
+
+    //get fitme list
+    @FormUrlEncoded
+    @POST("user/fitmes")
+    Observable<POJOClass> getFitmeLists(
+            @Field("user_id") String userId
+    );
 }

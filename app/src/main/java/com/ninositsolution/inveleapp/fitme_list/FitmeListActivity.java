@@ -3,14 +3,19 @@ package com.ninositsolution.inveleapp.fitme_list;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.ActivityFitmeListBinding;
+import com.ninositsolution.inveleapp.fitme.FitmeActivity;
+import com.ninositsolution.inveleapp.pojo.FitmeLists;
 import com.ninositsolution.inveleapp.utils.Session;
 
 public class FitmeListActivity extends AppCompatActivity implements IFitmeList{
@@ -19,6 +24,7 @@ public class FitmeListActivity extends AppCompatActivity implements IFitmeList{
     FitmeListVM fitmeListVM;
     Context context;
     IFitmeList iFitmeList;
+    FitmeListAdapter fitmeListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,9 @@ public class FitmeListActivity extends AppCompatActivity implements IFitmeList{
         binding.fitmeListRecyclerView.setHasFixedSize(true);
         binding.fitmeListRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
+        binding.viewAllRecyclerView.setHasFixedSize(true);
+        binding.viewAllRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
         fitmeListVM.getFitmeListsApi(Session.getUserId(context));
 
@@ -48,16 +57,63 @@ public class FitmeListActivity extends AppCompatActivity implements IFitmeList{
                 {
                     if (fitmeListVM.getStatus().equalsIgnoreCase("success"))
                     {
-                        binding.fitmeListRecyclerView.setAdapter(new FitmeListAdapter(fitmeListVM.getUserMeasurements(), context, iFitmeList));
+                        fitmeListAdapter = new FitmeListAdapter(fitmeListVM.getUserMeasurements(), context, iFitmeList);
+                        binding.fitmeListRecyclerView.setAdapter(fitmeListAdapter);
                     }
                 }
             }
         });
-
     }
 
     @Override
     public void onBackClicked() {
 
+        if (binding.viewAllLayout.getVisibility() == View.VISIBLE)
+        {
+            binding.viewAllLayout.setVisibility(View.GONE);
+            binding.fitmeListRecyclerView.setVisibility(View.VISIBLE);
+            fitmeListVM.toolBarHeader.set("Fitme List");
+        } else
+        {
+            super.onBackPressed();
+        }
+
+    }
+
+    @Override
+    public void onCheckboxClicked(int userMeasurementId) {
+
+
+    }
+
+    @Override
+    public void onViewAllClicked(FitmeLists fitmeLists) {
+
+        binding.fitmeListRecyclerView.setVisibility(View.GONE);
+        binding.viewAllLayout.setVisibility(View.VISIBLE);
+        fitmeListVM.toolBarHeader.set("Fitme View Details");
+
+        fitmeListVM.viewAllName.set(fitmeLists.getName());
+        fitmeListVM.viewAllgender.set(fitmeLists.getGender());
+        fitmeListVM.viewAllMeasurement.set(fitmeLists.getMeasurement());
+
+        binding.viewAllRecyclerView.setAdapter(new FitmeViewAllAdapter(context, fitmeLists.getMeasureDetails(), fitmeLists.getMeasurement()));
+
+    }
+
+    @Override
+    public void onEditClicked(int userMeasurementId) {
+
+    }
+
+    @Override
+    public void onDeleteClicked(int userMeasurementId) {
+
+    }
+
+    @Override
+    public void onAddLayoutClicked() {
+
+        startActivity(new Intent(this, FitmeActivity.class));
     }
 }

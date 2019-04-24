@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
         <variable
             name="adapterFitmeList"
             type="com.ninositsolution.inveleapp.fitme_list.FitmeListVM" />
-
     </data>
-
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,7 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <TextView
                 android:id="@+id/fitme_name"
                 android:layout_width="wrap_content"
@@ -34,13 +29,20 @@
                 android:textSize="@dimen/listTextSize"
                 android:layout_centerHorizontal="true"/>
 
-            <RadioButton
-                android:id="@+id/fitme_radioBtn"
+            <RadioGroup
+                android:id="@+id/fitme_radioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="@dimen/listMarginTop"
-                android:layout_marginTop="@dimen/listMarginTop"/>
+                android:layout_alignParentEnd="true">
+
+                <RadioButton
+                    android:id="@+id/fitme_radioBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/listMarginTop"
+                    android:layout_marginTop="@dimen/listMarginTop"/>
+
+            </RadioGroup>
 
             <View
                 android:id="@+id/fitme_viewLine"
@@ -131,7 +133,6 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/listTextSize" />
 
-
             </LinearLayout>
 
             <TextView
@@ -152,26 +153,60 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <LinearLayout
                     android:id="@+id/edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="edit"
+                    android:gravity="center_vertical"
                     android:layout_marginStart="@dimen/_18sdp"
                     android:layout_marginTop="@dimen/listMarginTop"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/listTextSize" />
+                    android:orientation="horizontal">
 
-                <TextView
+                    <ImageView
+                        android:layout_width="@dimen/_12sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:src="@drawable/edit_button"/>
+
+                    <Space
+                        android:layout_width="@dimen/_4sdp"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Edit"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/listTextSize" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="delete"
                     android:layout_marginEnd="@dimen/_18sdp"
+                    android:gravity="center_vertical"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="@dimen/listMarginTop"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/listTextSize" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_12sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:src="@drawable/delete_button"/>
+
+                    <Space
+                        android:layout_width="@dimen/_4sdp"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Delete"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/listTextSize" />
+
+                </LinearLayout>
 
             </RelativeLayout>
 
@@ -210,9 +245,5 @@
         </RelativeLayout>
 
     </RelativeLayout>
-
-
-
-
 
 </layout>

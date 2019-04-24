@@ -22,6 +22,15 @@ public class FitmeListVM extends ViewModel {
     public ObservableField<String> key2 = new ObservableField<>();
     public ObservableField<String> value2 = new ObservableField<>();
 
+    public ObservableField<String> viewAllName = new ObservableField<>();
+    public ObservableField<String> viewAllgender = new ObservableField<>();
+    public ObservableField<String> viewAllMeasurement = new ObservableField<>();
+    public ObservableField<String> viewAllLabel = new ObservableField<>();
+    public ObservableField<String> viewAllValue = new ObservableField<>();
+
+
+    public ObservableField<String> toolBarHeader = new ObservableField<>("Fitme List");
+
     private String status, message;
     private List<FitmeLists> userMeasurements;
 
@@ -45,6 +54,12 @@ public class FitmeListVM extends ViewModel {
         key2.set(fitmeLists.getMeasureDetails().get(1).getLabel()+" : ");
         value1.set(fitmeLists.getMeasureDetails().get(0).getValue()+" "+fitmeLists.getMeasurement());
         value2.set(fitmeLists.getMeasureDetails().get(1).getValue()+" "+fitmeLists.getMeasurement());
+    }
+
+    public FitmeListVM(String label, String value, String unit)
+    {
+        viewAllLabel.set(label);
+        viewAllValue.set(value+" "+unit);
     }
 
     public void getFitmeListsApi(String userId)

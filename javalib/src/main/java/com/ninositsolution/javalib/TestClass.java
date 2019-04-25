@@ -4,20 +4,47 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TestClass {
 
     public static void main(String[] args) {
 
-        ArrayList<Integer> brand_ids = new ArrayList<>();
+        HashMap<Integer, String> hashMap = new HashMap<>();
 
-        JSONObject jsonObject = new JSONObject();
+        hashMap.put(1,"Partha");
+        hashMap.put(2,"bobby");
+        hashMap.put(3,"sarathy");
+        hashMap.put(4,"arun");
 
-        JSONArray jsonArray = new JSONArray(brand_ids);
+        for (int i=0; i<hashMap.size(); i++)
+        {
+            Model model = new Model();
 
-        jsonObject.put("array", brand_ids);
-        jsonObject.put("json_array", jsonArray);
+         //   model.setLabel_id(hashMap.get());
+        }
 
-        System.out.println(jsonObject);
+        System.out.println(hashMap);
+    }
+
+    public static class Model
+    {
+        private String label_id, value;
+
+        public String getLabel_id() {
+            return label_id;
+        }
+
+        public void setLabel_id(String label_id) {
+            this.label_id = label_id;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
     }
 }

@@ -43,4 +43,5 @@ public class POJOClass {
     public ArrayList<String> fitme_sizes;
     public List<String> search_keys;
     public List<FitmeLists> user_measurements;
+    public FitmeLists user_measurement;
 }

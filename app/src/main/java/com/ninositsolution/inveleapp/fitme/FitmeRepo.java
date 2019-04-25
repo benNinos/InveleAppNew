@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.ninositsolution.inveleapp.api.ApiService;
 import com.ninositsolution.inveleapp.api.RetrofitClient;
+import com.ninositsolution.inveleapp.fitme.pojo.FitmeRequest;
 import com.ninositsolution.inveleapp.pojo.HomeArrayLists;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 
@@ -27,6 +28,7 @@ public class FitmeRepo {
 
     private static final String TAG = "FitmeListRepo";
     private MutableLiveData<FitmeVM> fitmeVMMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<FitmeVM> fitmeAddLiveData = new MutableLiveData<>();
 
     public ArrayList<FitmeVM> arrayList;
 
@@ -69,5 +71,39 @@ public class FitmeRepo {
         return fitmeVMMutableLiveData;
     }
 
+    public MutableLiveData<FitmeVM> getFitmeAddLiveData(String jsonRequest) {
+
+        ApiService apiService = RetrofitClient.getApiService();
+
+        apiService.addfitmeApi(jsonRequest).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<POJOClass>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(POJOClass pojoClass) {
+                        Log.i(TAG, "onNext - > "+pojoClass.status);
+                        Log.i(TAG, "onNext - > "+pojoClass.msg);
+
+                        FitmeVM fitmeVM = new FitmeVM(pojoClass.status, pojoClass.msg);
+                        fitmeAddLiveData.setValue(fitmeVM);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "onError -> "+e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+        return fitmeAddLiveData;
     }
+}
 

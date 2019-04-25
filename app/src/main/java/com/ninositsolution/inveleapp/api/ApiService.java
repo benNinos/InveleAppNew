@@ -65,8 +65,9 @@ public interface ApiService {
     @GET("fitme/details")
     Observable<POJOClass> getFitMeDetails();
 
-    @POST("fitme/add")
-    Observable<POJOClass> addfitmeApi (@Body FitmeRequest fitmeRequest);
+    @Headers("Content-Type: application/json")
+    @POST("users/fitme/add")
+    Observable<POJOClass>addfitmeApi (@Body String jsonRequest);
 
     @FormUrlEncoded
     @POST("users/forgot_password")

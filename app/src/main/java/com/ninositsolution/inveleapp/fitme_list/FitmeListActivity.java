@@ -104,6 +104,12 @@ public class FitmeListActivity extends AppCompatActivity implements IFitmeList{
     @Override
     public void onEditClicked(int userMeasurementId) {
 
+        Intent intent = new Intent(this, FitmeActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("userMeasurementId", userMeasurementId);
+        intent.putExtras(bundle);
+        startActivity(intent);
+
     }
 
     @Override
@@ -114,6 +120,10 @@ public class FitmeListActivity extends AppCompatActivity implements IFitmeList{
     @Override
     public void onAddLayoutClicked() {
 
-        startActivity(new Intent(this, FitmeActivity.class));
+        Intent intent = new Intent(this, FitmeActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("userMeasurementId", 0);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

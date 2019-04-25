@@ -63,7 +63,7 @@
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -84,6 +84,14 @@
                         android:layout_marginStart="@dimen/_8sdp"
                         android:textSize="@dimen/_14sdp"/>
 
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true">
+
+                    </LinearLayout>
+
                     <EditText
                         android:id="@+id/enter_name_edit"
                         android:layout_below="@+id/enter_name"
@@ -91,8 +99,7 @@
                         android:layout_height="@dimen/_36sdp"
                         android:paddingStart="@dimen/_8sdp"
                         android:paddingEnd="@dimen/_8sdp"
-                        android:focusable="false"
-                        android:focusableInTouchMode="true"
+                        android:text="@={fitme.nameEdt}"
                         android:background="@drawable/margin"
                         android:layout_marginTop="@dimen/_4sdp"
                         android:layout_marginStart="@dimen/_8sdp"
@@ -248,7 +255,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/fitMeRecyclerView"
                     android:layout_width ="match_parent"
@@ -261,50 +267,42 @@
         </android.support.v4.widget.NestedScrollView>
 
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/save_button"
+            android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="@dimen/_2sdp">
+            android:layout_height="@dimen/_36sdp"
+            android:layout_gravity="bottom">
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:onClick="@{()->iFitme.onSaveClicked()}"
                     android:text="@string/save"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_10sdp"
                     android:background="@color/fitme_save_button_color"/>
 
+            </RelativeLayout>
 
 
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
+            <RelativeLayout
+                android:id="@+id/update_button"
+                android:layout_gravity="bottom"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_36sdp">
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/update"
+                    android:onClick="@{()->iFitme.onUpdateClicked()}"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_10sdp"
                     android:background="@color/fitme_update_button"/>
 
-
-
-            </LinearLayout>
-        </LinearLayout>
+            </RelativeLayout>
 
 
     </android.support.design.widget.CoordinatorLayout>

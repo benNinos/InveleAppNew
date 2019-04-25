@@ -48,12 +48,18 @@ public class FitmeListVM extends ViewModel {
 
     public FitmeListVM(FitmeLists fitmeLists)
     {
-        name.set(fitmeLists.getName());
-        date.set(fitmeLists.getCreatedAt());
-        key1.set(fitmeLists.getMeasureDetails().get(0).getLabel()+" : ");
-        key2.set(fitmeLists.getMeasureDetails().get(1).getLabel()+" : ");
-        value1.set(fitmeLists.getMeasureDetails().get(0).getValue()+" "+fitmeLists.getMeasurement());
-        value2.set(fitmeLists.getMeasureDetails().get(1).getValue()+" "+fitmeLists.getMeasurement());
+        try {
+            name.set(fitmeLists.getName());
+            date.set(fitmeLists.getCreatedAt());
+            key1.set(fitmeLists.getMeasureDetails().get(0).getLabel()+" : ");
+            key2.set(fitmeLists.getMeasureDetails().get(1).getLabel()+" : ");
+            value1.set(fitmeLists.getMeasureDetails().get(0).getValue()+" "+fitmeLists.getMeasurement());
+            value2.set(fitmeLists.getMeasureDetails().get(1).getValue()+" "+fitmeLists.getMeasurement());
+        } catch (Exception e)
+        {
+
+        }
+
     }
 
     public FitmeListVM(String label, String value, String unit)

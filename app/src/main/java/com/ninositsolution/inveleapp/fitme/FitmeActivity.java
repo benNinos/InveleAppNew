@@ -12,11 +12,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.ActivityFitmeBinding;
+import com.ninositsolution.inveleapp.fitme.pojo.FitmeRequest;
+import com.ninositsolution.inveleapp.utils.Session;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +38,7 @@ public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAda
     FitmeRecyclerAdapter adapter;
     FitmeRecyclerAdapter.FitmeDetailsListener fitmeDetailsListener;
     private HashMap<Integer, String> fitme_details;
+    private int userMeasurementId;
 
 
     @Override
@@ -48,6 +53,22 @@ public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAda
         binding.setLifecycleOwner(this);
         //fitmeVMGlobal.currentSize.set("0");
         context = FitmeActivity.this;
+
+        Bundle bundle = getIntent().getExtras();
+
+        userMeasurementId = bundle.getInt("userMeasurementId");
+
+        if (userMeasurementId == 0)
+        {
+            binding.saveButton.setVisibility(View.VISIBLE);
+            binding.updateButton.setVisibility(View.GONE);
+        }
+        else
+        {
+            binding.saveButton.setVisibility(View.GONE);
+            binding.updateButton.setVisibility(View.VISIBLE);
+        }
+
         Log.e(TAG, "Flow will show progress dialog");
 
         showProgressBar();
@@ -57,7 +78,6 @@ public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAda
         binding.fitMeRecyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         fitme_details = new HashMap<Integer, String>();
-
 
         fitmeVMGlobal.getFitmeVMMutableLiveData().observe(this, new Observer<FitmeVM>() {
             @Override
@@ -84,8 +104,6 @@ public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAda
                         Toast.makeText(context, ""+msg, Toast.LENGTH_SHORT).show();
                     }
                 }
-
-
             }
         });
 
@@ -98,6 +116,8 @@ public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAda
                 binding.womenTextView.setTextColor(getResources().getColor(R.color.black));
                 binding.enabledMen.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 binding.menTextView.setTextColor(getResources().getColor(R.color.white));
+
+                fitmeVMGlobal.genderValue.set("MALE");
 
                 fitme_details.clear();
 
@@ -114,6 +134,8 @@ public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAda
                 binding.disabledWomen.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 binding.womenTextView.setTextColor(getResources().getColor(R.color.white));
 
+                fitmeVMGlobal.genderValue.set("FEMALE");
+
                 fitme_details.clear();
 
                 adapter = new FitmeRecyclerAdapter(context,fitmeInstance, FITME_WOMEN, fitmeDetailsListener);
@@ -129,17 +151,50 @@ public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAda
                 binding.cmTextView.setTextColor(getResources().getColor(R.color.white));
                 binding.inchesTextView.setTextColor(getResources().getColor(R.color.black));
 
+                fitmeVMGlobal.measurementValue.set("CM");
+
             }
 
             @Override
             public void onEnabledInchesClicked()
             {
-
                 binding.disabledCM.setBackgroundColor(getResources().getColor(R.color.ash_color));
                 binding.enabledInches.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 binding.cmTextView.setTextColor(getResources().getColor(R.color.black));
                 binding.inchesTextView.setTextColor(getResources().getColor(R.color.white));
 
+                fitmeVMGlobal.measurementValue.set("INCHES");
+            }
+
+            @Override
+            public void onSaveClicked() {
+
+                Log.i(TAG, "Clicked");
+
+                fitmeVMGlobal.addFitmeApi(Session.getUserId(context), getFitmeDetails(fitme_details));
+
+                fitmeVMGlobal.getFitmeAddLiveData().observe(FitmeActivity.this, new Observer<FitmeVM>() {
+                    @Override
+                    public void onChanged(@Nullable FitmeVM fitmeVM) {
+
+                        if (fitmeVM.status != null)
+                        {
+                            if (fitmeVM.status.get().equalsIgnoreCase("success"))
+                            {
+                                Toast.makeText(context, ""+fitmeVM.msg.get(), Toast.LENGTH_SHORT).show();
+                            } else
+                            {
+                                Toast.makeText(context, ""+fitmeVM.msg.get(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
+
+            }
+
+            @Override
+            public void onUpdateClicked() {
+                Log.i(TAG, "Clicked");
             }
         });
     }
@@ -166,9 +221,11 @@ public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAda
     @Override
     public void onIncreasedSizeClicked(int key, String value)
     {
+        Log.i(TAG, "key : "+key+" value : "+value);
         fitme_details.put(key, value);
+        Log.i(TAG, "fitme_details : "+fitme_details);
 
-        if (fitme_details.size() >5)
+        if (fitme_details.size() > 5)
         {
             getFitmeDetails(fitme_details);
         }
@@ -180,26 +237,34 @@ public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAda
         Toast.makeText(context, "Hello ! Clicked", Toast.LENGTH_SHORT).show();
     }
 
-    private String getFitmeDetails(HashMap<Integer, String> fitme_details)
+    private JSONArray getFitmeDetails(HashMap<Integer, String> fitme_details)
     {
         ArrayList<FitmeDetailModel> fitmeDetailModelArrayList = new ArrayList<>();
-        FitmeDetailModel fitmeDetailModel = new FitmeDetailModel();
-
-
 
        for (Integer key : fitme_details.keySet())
        {
+           FitmeDetailModel fitmeDetailModel = new FitmeDetailModel();
+
            fitmeDetailModel.setLabel_id(key);
            fitmeDetailModel.setValue(fitme_details.get(key));
+
+           Log.i(TAG, "key -> "+key);
 
            fitmeDetailModelArrayList.add(fitmeDetailModel);
        }
 
-        JSONArray jsonArray = new JSONArray(Arrays.asList(fitmeDetailModelArrayList));
+        Gson gson = new Gson();
+        JSONArray jsonArray = null;
+        try {
+            jsonArray = new JSONArray(gson.toJson(fitmeDetailModelArrayList));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-       Log.i(TAG, "fitme_details -> "+ jsonArray.toString());
 
-       return jsonArray.toString();
+        Log.i(TAG, "fitme_details -> "+ jsonArray);
+
+       return jsonArray;
     }
 
     public class FitmeDetailModel

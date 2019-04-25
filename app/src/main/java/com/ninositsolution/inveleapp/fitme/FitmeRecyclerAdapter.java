@@ -3,6 +3,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -17,8 +18,9 @@ import static com.ninositsolution.inveleapp.utils.Constants.FITME_MEN;
 import static com.ninositsolution.inveleapp.utils.Constants.FITME_WOMEN;
 
 public class FitmeRecyclerAdapter extends RecyclerView.Adapter<FitmeRecyclerAdapter.MyViewHolder>{
+    private static final String TAG = "FitmeRecyclerAdapter";
     private Context context;
-    private FitmeVM fitmeVM;
+    private FitmeVM fitmeVMGlobal;
     private LayoutInflater layoutInflater;
     private int gender;
     private ToolTip toolTip;
@@ -28,7 +30,7 @@ public class FitmeRecyclerAdapter extends RecyclerView.Adapter<FitmeRecyclerAdap
 
     public FitmeRecyclerAdapter(Context context, FitmeVM fitmeVM, int gender, FitmeDetailsListener fitmeDetailsListener)
     {
-        this.fitmeVM = fitmeVM;
+        this.fitmeVMGlobal = fitmeVM;
         this.context = context;
         this.gender = gender;
         this.fitmeDetailsListener = fitmeDetailsListener;
@@ -56,7 +58,7 @@ FitmeRecyclerAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.
 
         if (gender == FITME_MEN)
         {
-            FitmeVM fitmeVM = new FitmeVM(this.fitmeVM.men.get().get(i));
+            FitmeVM fitmeVM = new FitmeVM(this.fitmeVMGlobal.men.get().get(i));
 
             myViewHolder.setBinding(fitmeVM);
 
@@ -64,7 +66,7 @@ FitmeRecyclerAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.
 
         if (gender == FITME_WOMEN)
         {
-            FitmeVM fitmeVM1 = new FitmeVM(this.fitmeVM.women.get().get(i));
+            FitmeVM fitmeVM1 = new FitmeVM(this.fitmeVMGlobal.women.get().get(i));
 
             myViewHolder.setBinding(fitmeVM1);
         }
@@ -75,12 +77,12 @@ FitmeRecyclerAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.
 
         if (gender == FITME_MEN)
         {
-            return fitmeVM.men.get().size();
+            return fitmeVMGlobal.men.get().size();
         }
 
         if (gender == FITME_WOMEN)
         {
-            return fitmeVM.women.get().size();
+            return fitmeVMGlobal.women.get().size();
         }
 
         return 0;
@@ -118,10 +120,10 @@ FitmeRecyclerAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.
                         i++;
                         fitmeVM.currentSize.set(String.valueOf(i));
 
-                        fitmeDetailsListener.onIncreasedSizeClicked(fitmeVM.men.get().get(getAdapterPosition()).fitme_label_id, fitmeVM.currentSize.get());
+                        fitmeDetailsListener.onIncreasedSizeClicked(fitmeVMGlobal.men.get().get(getAdapterPosition()).fitme_label_id, fitmeVM.currentSize.get());
 
                     } catch (Exception e) {
-                        //Log.i(TAG, "Integer exception");
+                        Log.e(TAG, "Integer exception : "+e);
                     }
                 }
 
@@ -140,7 +142,7 @@ FitmeRecyclerAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.
                             i--;
                             fitmeVM.currentSize.set(String.valueOf(i));
 
-                            fitmeDetailsListener.onDecreasedSizeClicked(getAdapterPosition(), fitmeVM.currentSize.get());
+                            fitmeDetailsListener.onDecreasedSizeClicked(fitmeVMGlobal.men.get().get(getAdapterPosition()).fitme_label_id, fitmeVM.currentSize.get());
 
 
                         } catch (Exception e) {

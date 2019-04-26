@@ -102,9 +102,9 @@ public final class Constants {
             Session.setUserDob(value, context);
         }
 
-        if (user.image != null)
+        if (user.image_path != null)
         {
-            String value = user.image;
+            String value = user.image_path;
             Session.setUserPhoto(value, context);
         }
 

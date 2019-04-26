@@ -55,6 +55,7 @@ public class HomeArrayLists {
     public ArrayList<HomeArrayLists> home_management_products;
     public ArrayList<HomeArrayLists> home_management_images;
     public ArrayList<HomeArrayLists> attribute_values;
+    public ArrayList<HomeArrayLists> brands;
 
     public Integer coupon_id;
     public String valid_date, promo_name, promo_code, entitle;

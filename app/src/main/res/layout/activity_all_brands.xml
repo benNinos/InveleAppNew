@@ -8,6 +8,10 @@
         <variable
             name="allBrand"
             type="com.ninositsolution.inveleapp.all_brands.AllBrandsVM"/>
+
+        <variable
+            name="iAllBrand"
+            type="com.ninositsolution.inveleapp.all_brands.IAllBrands"/>
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -37,6 +41,7 @@
                         android:layout_width="@dimen/_24sdp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:onClick="@{()->iAllBrand.onBackClick()}"
                         app:srcCompat="@drawable/ic_arrow_back_black_24dp"
                         tools:ignore="ContentDescription" />
 
@@ -73,24 +78,20 @@
                 app:tabIndicatorHeight="@dimen/_4sdp"
                 app:tabIndicatorFullWidth="false"
                 app:tabBackground="@android:color/white"
-                app:tabMode="fixed">
+                app:tabMode="scrollable">
             </android.support.design.widget.TabLayout>
 
 
         </android.support.design.widget.AppBarLayout>
 
 
-            <android.support.v4.view.ViewPager
-                android:layout_marginTop="-28dp"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </android.support.v4.view.ViewPager>
+          <android.support.v7.widget.RecyclerView
+              android:id="@+id/allBrandsRecyclerView"
+              app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
 
-
-
-
+          </android.support.v7.widget.RecyclerView>
 
 
     </android.support.design.widget.CoordinatorLayout>

@@ -40,6 +40,7 @@ public class POJOClass {
     public String caption;
     public List<HomeArrayLists> active_coupons;
     public List<HomeArrayLists> used_coupons;
+    public List<HomeArrayLists> all_brands;
     public ArrayList<String> fitme_sizes;
     public List<String> search_keys;
     public List<FitmeLists> user_measurements;

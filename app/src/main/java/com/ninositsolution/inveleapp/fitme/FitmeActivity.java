@@ -4,7 +4,10 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -39,6 +42,7 @@ public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAda
     FitmeRecyclerAdapter.FitmeDetailsListener fitmeDetailsListener;
     private int userMeasurementId;
     IFitme iFitme;
+    BottomSheetBehavior bottomSheetBehavior;
 
 
     @Override
@@ -60,6 +64,37 @@ public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAda
         //fitmeVMGlobal.currentSize.set("0");
         context = FitmeActivity.this;
         iFitme = this;
+
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.description);
+
+        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View view, int i) {
+
+
+                if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED)
+                {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        binding.fitmeBodyLayout.setForeground(getResources().getDrawable(R.drawable.window_dim));
+                        binding.fitmeBodyLayout.getForeground().setAlpha(180);
+                        binding.fitmeHeaderLayout.setForeground(getResources().getDrawable(R.drawable.window_dim));
+                        binding.fitmeHeaderLayout.getForeground().setAlpha(180);
+                    }
+                } else
+                {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        binding.fitmeBodyLayout.setForeground(null);
+                        binding.fitmeHeaderLayout.setForeground(null);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onSlide(@NonNull View view, float v) {
+
+            }
+        });
 
         Bundle bundle = getIntent().getExtras();
 
@@ -196,9 +231,20 @@ public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAda
     }
 
     @Override
-    public void onQuestionDescClicked()
-    {
-        Toast.makeText(context, "Hello ! Clicked", Toast.LENGTH_SHORT).show();
+    public void onQuestionDescClicked(String imagePath, String desc) {
+
+        fitmeVMGlobal.fitmeImage.set(imagePath);
+        fitmeVMGlobal.fitmeDesc.set(desc);
+
+        if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED)
+        {
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }
+        else
+        {
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        }
+
     }
 
     @Override

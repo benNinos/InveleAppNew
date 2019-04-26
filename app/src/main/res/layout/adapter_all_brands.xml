@@ -1,239 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
 
+<layout
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardElevation="@dimen/_8sdp"
-    android:paddingBottom="@dimen/_16sdp"
-    android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+        <variable
+            name="adapterAllBrand"
+            type="com.ninositsolution.inveleapp.all_brands.AllBrandsVM" />
 
+    </data>
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
+        app:cardElevation="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:paddingBottom="@dimen/_16sdp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Men"
-            android:textSize="@dimen/prod_text_size"
-            android:layout_marginStart="@dimen/_16sdp"
-            tools:ignore="HardcodedText" />
-
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:paddingBottom="@dimen/_16sdp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:orientation="horizontal"
-            android:weightSum="9"
-            android:baselineAligned="false">
+            android:orientation="vertical">
 
-
-            <LinearLayout
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/brandTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="3"
-                tools:ignore="UseCompoundDrawables">
+                android:text="@{adapterAllBrand.brandTitle}"
+                android:textSize="@dimen/prod_text_size"
+                android:layout_marginStart="@dimen/_16sdp"
+                tools:ignore="HardcodedText" />
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_4sdp" />
 
-                <ImageView
-                    android:padding="@dimen/_1sdp"
-                    android:background="@drawable/margin"
-                    android:id="@+id/imgView"
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:src="@drawable/brand"
-                    tools:ignore="ContentDescription" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/allBrandAdapterRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:text="@string/babies_toys"/>
+            </android.support.v7.widget.RecyclerView>
 
-
-
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="3"
-                tools:ignore="UseCompoundDrawables">
-
-
-                <ImageView
-                    android:padding="@dimen/_1sdp"
-                    android:background="@drawable/margin"
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:src="@drawable/brand1"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:text="@string/babies_toys"/>
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="3"
-                tools:ignore="UseCompoundDrawables">
-
-
-                <ImageView
-                    android:padding="@dimen/_1sdp"
-                    android:background="@drawable/margin"
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:src="@drawable/brand2"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:text="@string/babies_toys"/>
-
-
-            </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/grayWhite"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"/>
 
         </LinearLayout>
 
+    </android.support.v7.widget.CardView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:weightSum="9"
-            android:baselineAligned="false">
+</layout>
 
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="3">
-
-
-                <ImageView
-                    android:padding="@dimen/_1sdp"
-                    android:background="@drawable/margin"
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:src="@drawable/brand3"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:text="@string/babies_toys"/>
-
-
-
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="3"
-                tools:ignore="UseCompoundDrawables">
-
-
-                <ImageView
-                    android:padding="@dimen/_1sdp"
-                    android:background="@drawable/margin"
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:src="@drawable/brand4"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:text="@string/babies_toys"/>
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="3"
-                tools:ignore="UseCompoundDrawables">
-
-
-                <ImageView
-                    android:padding="@dimen/_1sdp"
-                    android:background="@drawable/margin"
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:src="@drawable/brand5"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:text="@string/babies_toys"/>
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_16sdp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_4sdp"
-            android:background="@color/grayWhite"/>
-
-    </LinearLayout>
-
-
-
-
-
-
-</android.support.v7.widget.CardView>

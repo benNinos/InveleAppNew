@@ -36,6 +36,9 @@ public class FitmeVM extends ViewModel {
     public ObservableField<String> gender = new ObservableField<>();
     public ObservableField<String> fitme_details = new ObservableField<>();
 
+    public ObservableField<String> fitmeImage = new ObservableField<>();
+    public ObservableField<String> fitmeDesc = new ObservableField<>();
+
     public ObservableField<String> nameEdt = new ObservableField<>("");
 
     public ObservableField<String> genderValue = new ObservableField<>("MALE");

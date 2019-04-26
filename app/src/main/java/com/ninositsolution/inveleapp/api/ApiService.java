@@ -201,4 +201,8 @@ public interface ApiService {
     Observable<POJOClass> deleteFitme(
             @Field("user_measurement_id") int userMeasurementId
     );
+
+    //All Brands
+    @GET("mobile/brands")
+    Observable<POJOClass> allBrands();
 }

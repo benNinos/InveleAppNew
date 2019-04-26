@@ -200,20 +200,14 @@ FitmeRecyclerAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.
                 @Override
                 public void onQuestionImageClicked() {
 
-                    try {
-                        toolTipView.remove();
-                    } catch (NullPointerException e)
-                    {
-                        e.printStackTrace();
-                    }
+                    if (gender == FITME_MEN)
+                        fitmeDetailsListener.onQuestionDescClicked(fitmeVMGlobal.men.get().get(getAdapterPosition()).image_path,
+                                fitmeVMGlobal.men.get().get(getAdapterPosition()).description);
 
-                    toolTip = new ToolTip().withContentView(LayoutInflater.from(context).inflate(R.layout.fitme_adapter_popup,null ))
-                            .withShadow()
-                            .withAnimationType(ToolTip.AnimationType.FROM_TOP);
+                    if (gender == FITME_WOMEN)
+                        fitmeDetailsListener.onQuestionDescClicked(fitmeVMGlobal.women.get().get(getAdapterPosition()).image_path,
+                                fitmeVMGlobal.women.get().get(getAdapterPosition()).description);
 
-                    ToolTipRelativeLayout toolTipRelativeLayout = itemView.findViewById(R.id.fitme_tooltip_layout);
-
-                    toolTipView = toolTipRelativeLayout.showToolTipForView(toolTip, itemView.findViewById(R.id.questionLayout));
                 }
             });
         }
@@ -228,7 +222,7 @@ FitmeRecyclerAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.
     {
         void onDecreasedSizeClicked(int key, String value);
         void onIncreasedSizeClicked(int key, String value);
-        void onQuestionDescClicked();
+        void onQuestionDescClicked(String imagePath, String desc);
         void onValueEdited(int key, String value);
     }
 }

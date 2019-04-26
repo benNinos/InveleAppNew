@@ -44,10 +44,11 @@
                     <ImageView
                         android:layout_width="@dimen/back_arrow_size"
                         android:layout_height="@dimen/back_arrow_size"
+                        android:layout_gravity="center_vertical"
                         android:onClick="@{()->iCoupon.onBackClicked()}"
                         android:layout_marginStart="@dimen/_20sdp"
-                        android:layout_marginTop="@dimen/_4sdp"
-                        app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+                        app:srcCompat="@drawable/ic_arrow_back_black_24dp"
+                        tools:ignore="ContentDescription" />
 
 
                     <TextView

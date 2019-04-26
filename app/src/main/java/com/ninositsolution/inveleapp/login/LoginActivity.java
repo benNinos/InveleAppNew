@@ -156,7 +156,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             } else
                             {
-                                Toast.makeText(LoginActivity.this, "Api Error", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(LoginActivity.this, "Api Error", Toast.LENGTH_SHORT).show();
                             }
 
 
@@ -217,7 +217,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             } else
                             {
-                                Toast.makeText(LoginActivity.this, "Api Error", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(LoginActivity.this, "Api Error", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -434,7 +434,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 else
                 {
-                    Toast.makeText(LoginActivity.this, "Api Error", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(LoginActivity.this, "Api Error", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -459,7 +459,7 @@ public class LoginActivity extends AppCompatActivity {
                 digest.update(signature.toByteArray());
                 String key = Base64.encodeToString(digest.digest(), Base64.DEFAULT);
                 Log.i("Keyhash",key);
-                Toast.makeText(this, ""+key, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, ""+key, Toast.LENGTH_SHORT).show();
                 //email.setText(key);
             }
         } catch (PackageManager.NameNotFoundException e) {
@@ -573,7 +573,7 @@ public class LoginActivity extends AppCompatActivity {
                                         } else
                                         {
                                             hideProgressBar();
-                                            Toast.makeText(LoginActivity.this, "Api Error", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(LoginActivity.this, ""+loginVM.msg.get(), Toast.LENGTH_SHORT).show();
                                             loginVM.status.set("");
                                         }
                                     }

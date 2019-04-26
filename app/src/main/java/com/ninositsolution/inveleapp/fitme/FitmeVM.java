@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.ninositsolution.inveleapp.fitme.pojo.FitmeRequest;
+import com.ninositsolution.inveleapp.pojo.FitmeLists;
 import com.ninositsolution.inveleapp.pojo.HomeArrayLists;
 import com.ninositsolution.inveleapp.pojo.POJOClass;
 
@@ -25,6 +26,7 @@ import java.util.ArrayList;
  */
 public class FitmeVM extends ViewModel {
 
+    private static final String TAG = FitmeVM.class.getSimpleName();
     private FitmeRepo fitmeRepo;
 
     public ObservableField<String> label = new ObservableField<>();
@@ -44,12 +46,23 @@ public class FitmeVM extends ViewModel {
 
     private MutableLiveData<FitmeVM> fitmeAddLiveData = new MutableLiveData<>();
 
+    private MutableLiveData<FitmeVM> fitmeUpdateLiveData = new MutableLiveData<>();
+
 
     public FitmeVM()
     {
 
         fitmeRepo = new FitmeRepo();
+    }
+
+    public void getFitmeforAddApi()
+    {
         fitmeVMMutableLiveData = fitmeRepo.getFitmeVMMutableLiveData();
+    }
+
+    public void getFitmeforEdit(String userId, int userMeasurementId)
+    {
+        fitmeVMMutableLiveData = fitmeRepo.getFitmeEditMutableLiveData(userId, userMeasurementId);
     }
 
     public ObservableField<String> status = new ObservableField<>("");
@@ -57,6 +70,7 @@ public class FitmeVM extends ViewModel {
 
     public ObservableField<ArrayList<HomeArrayLists>> men = new ObservableField<>();
     public ObservableField<ArrayList<HomeArrayLists>> women = new ObservableField<>();
+    public ObservableField<FitmeLists> userMeasurement = new ObservableField<>();
 
     public FitmeVM(POJOClass pojoClass)
     {
@@ -64,6 +78,13 @@ public class FitmeVM extends ViewModel {
         this.msg.set(pojoClass.msg);
         this.men.set(pojoClass.men);
         this.women.set(pojoClass.women);
+
+        try {
+            userMeasurement.set(pojoClass.user_measurement);
+            Log.i(TAG, "user_measurement : "+pojoClass.user_measurement);
+        } catch (Exception e) {
+            Log.e(TAG, "Error -> "+e);
+        }
     }
 
     public FitmeVM(String status, String message)
@@ -89,16 +110,44 @@ public class FitmeVM extends ViewModel {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
+    public void updateFitmeApi(String userMeasurmentId, JSONArray fitmeDetails)
+    {
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("user_measurement_id", userMeasurmentId);
+            jsonObject.put("name", nameEdt.get());
+            jsonObject.put("measurement", measurementValue.get());
+            jsonObject.put("gender", genderValue.get());
+            jsonObject.put("fitme_details", fitmeDetails);
+
+            Log.i("JSON", ""+jsonObject);
+            fitmeUpdateLiveData = fitmeRepo.getFitmeUpdateLiveData(jsonObject.toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e(TAG, "JSONException -> "+e);
+        }
+
+    }
 
     public FitmeVM(HomeArrayLists homeArrayLists1) {
 
         this.label.set(homeArrayLists1.getLabel());
-        this.currentSize.set("0");
 
-
+        try {
+            currentSize.set(homeArrayLists1.value);
+            if (homeArrayLists1.value == null)
+            {
+                currentSize.set("0");
+            }
+        } catch (NullPointerException e)
+        {
+            Log.e(TAG, "Value Exception -> "+e);
+            this.currentSize.set("0");
+        }
     }
 
     public MutableLiveData<FitmeVM> getFitmeVMMutableLiveData() {
@@ -107,5 +156,9 @@ public class FitmeVM extends ViewModel {
 
     public MutableLiveData<FitmeVM> getFitmeAddLiveData() {
         return fitmeAddLiveData;
+    }
+
+    public MutableLiveData<FitmeVM> getFitmeUpdateLiveData() {
+        return fitmeUpdateLiveData;
     }
 }

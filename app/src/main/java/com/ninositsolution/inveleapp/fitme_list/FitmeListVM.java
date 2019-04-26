@@ -12,6 +12,7 @@ import java.util.List;
 public class FitmeListVM extends ViewModel {
 
     private MutableLiveData<FitmeListVM> fitmeListVMMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<FitmeListVM> fitmeDeleteLiveData = new MutableLiveData<>();
 
     private FitmeListRepo fitmeListRepo;
 
@@ -73,6 +74,11 @@ public class FitmeListVM extends ViewModel {
         fitmeListVMMutableLiveData = fitmeListRepo.getFitmeListVMMutableLiveData(userId);
     }
 
+    public void deleteFitmeApi(int id)
+    {
+        fitmeDeleteLiveData = fitmeListRepo.getFitmeDeleteLiveData(id);
+    }
+
     public String getStatus() {
         return status;
     }
@@ -91,5 +97,9 @@ public class FitmeListVM extends ViewModel {
 
     public MutableLiveData<FitmeListVM> getFitmeListVMMutableLiveData() {
         return fitmeListVMMutableLiveData;
+    }
+
+    public MutableLiveData<FitmeListVM> getFitmeDeleteLiveData() {
+        return fitmeDeleteLiveData;
     }
 }

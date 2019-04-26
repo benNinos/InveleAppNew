@@ -25,6 +25,16 @@ public class FitmeListActivity extends AppCompatActivity implements IFitmeList{
     Context context;
     IFitmeList iFitmeList;
     FitmeListAdapter fitmeListAdapter;
+    Observer<FitmeListVM> listObserver;
+
+    @Override
+    protected void onStart() {
+
+        fitmeListVM.getFitmeListsApi(Session.getUserId(context));
+        fitmeListVM.getFitmeListVMMutableLiveData().observe(this, listObserver);
+
+        super.onStart();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +56,23 @@ public class FitmeListActivity extends AppCompatActivity implements IFitmeList{
         binding.viewAllRecyclerView.setHasFixedSize(true);
         binding.viewAllRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        listObserver = new Observer<FitmeListVM>() {
+            @Override
+            public void onChanged(@Nullable FitmeListVM fitmeListVM) {
 
-        fitmeListVM.getFitmeListsApi(Session.getUserId(context));
+                if (fitmeListVM.getStatus() != null)
+                {
+                    if (fitmeListVM.getStatus().equalsIgnoreCase("success"))
+                    {
+                        fitmeListAdapter = new FitmeListAdapter(fitmeListVM.getUserMeasurements(), context, iFitmeList);
+                        binding.fitmeListRecyclerView.setAdapter(fitmeListAdapter);
+                    }
+                }
 
-        fitmeListVM.getFitmeListVMMutableLiveData().observe(this, new Observer<FitmeListVM>() {
+            }
+        };
+
+   /*     fitmeListVM.getFitmeListVMMutableLiveData().observe(this, new Observer<FitmeListVM>() {
             @Override
             public void onChanged(@Nullable FitmeListVM fitmeListVM) {
 
@@ -62,7 +85,7 @@ public class FitmeListActivity extends AppCompatActivity implements IFitmeList{
                     }
                 }
             }
-        });
+        });*/
     }
 
     @Override
@@ -114,6 +137,23 @@ public class FitmeListActivity extends AppCompatActivity implements IFitmeList{
 
     @Override
     public void onDeleteClicked(int userMeasurementId) {
+
+        fitmeListVM.deleteFitmeApi(userMeasurementId);
+
+        fitmeListVM.getFitmeDeleteLiveData().observe(this, new Observer<FitmeListVM>() {
+            @Override
+            public void onChanged(@Nullable FitmeListVM fitmeListVM) {
+
+                if (fitmeListVM.getStatus() != null)
+                {
+                    if (fitmeListVM.getStatus().equalsIgnoreCase("success"))
+                    {
+                        onStart();
+                    }
+                }
+
+            }
+        });
 
     }
 

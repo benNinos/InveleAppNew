@@ -29,6 +29,8 @@ public class FitmeRepo {
     private static final String TAG = "FitmeListRepo";
     private MutableLiveData<FitmeVM> fitmeVMMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<FitmeVM> fitmeAddLiveData = new MutableLiveData<>();
+    private MutableLiveData<FitmeVM> fitmeUpdateLiveData = new MutableLiveData<>();
+    private MutableLiveData<FitmeVM> fitmeEditMutableLiveData = new MutableLiveData<>();
 
     public ArrayList<FitmeVM> arrayList;
 
@@ -104,6 +106,78 @@ public class FitmeRepo {
                 });
 
         return fitmeAddLiveData;
+    }
+
+    public MutableLiveData<FitmeVM> getFitmeEditMutableLiveData(String userId, int userMeasurementId) {
+
+        ApiService apiService = RetrofitClient.getApiService();
+
+        apiService.getFitmeEditLabels(userId, userMeasurementId).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<POJOClass>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(POJOClass pojoClass) {
+                        Log.i(TAG, "onNext - > "+pojoClass.status);
+                        Log.i(TAG, "onNext - > "+pojoClass.msg);
+
+                        FitmeVM fitmeVM = new FitmeVM(pojoClass);
+                        fitmeEditMutableLiveData.setValue(fitmeVM);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "onError -> "+e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+
+        return fitmeEditMutableLiveData;
+    }
+
+    public MutableLiveData<FitmeVM> getFitmeUpdateLiveData(String jsonRequest) {
+
+        ApiService apiService = RetrofitClient.getApiService();
+
+        apiService.updatefitmeApi(jsonRequest).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<POJOClass>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(POJOClass pojoClass) {
+                        Log.i(TAG, "onNext - > "+pojoClass.status);
+                        Log.i(TAG, "onNext - > "+pojoClass.msg);
+
+                        FitmeVM fitmeVM = new FitmeVM(pojoClass.status, pojoClass.msg);
+                        fitmeUpdateLiveData.setValue(fitmeVM);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "onError -> "+e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+
+        return fitmeUpdateLiveData;
     }
 }
 

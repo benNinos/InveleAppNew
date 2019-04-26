@@ -29,7 +29,7 @@ import java.util.HashMap;
 import static com.ninositsolution.inveleapp.utils.Constants.FITME_MEN;
 import static com.ninositsolution.inveleapp.utils.Constants.FITME_WOMEN;
 
-public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAdapter.FitmeDetailsListener {
+public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAdapter.FitmeDetailsListener, IFitme {
     ActivityFitmeBinding binding;
 
     public static final String TAG = "FitmeActivity";
@@ -37,9 +37,15 @@ public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAda
     Context context;
     FitmeRecyclerAdapter adapter;
     FitmeRecyclerAdapter.FitmeDetailsListener fitmeDetailsListener;
-    private HashMap<Integer, String> fitme_details;
     private int userMeasurementId;
+    IFitme iFitme;
 
+
+    @Override
+    protected void onStart() {
+        Session.clearFitmeMap(context);
+        super.onStart();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,7 @@ public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAda
         binding.setLifecycleOwner(this);
         //fitmeVMGlobal.currentSize.set("0");
         context = FitmeActivity.this;
+        iFitme = this;
 
         Bundle bundle = getIntent().getExtras();
 
@@ -62,11 +69,15 @@ public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAda
         {
             binding.saveButton.setVisibility(View.VISIBLE);
             binding.updateButton.setVisibility(View.GONE);
+
+            fitmeVMGlobal.getFitmeforAddApi();
         }
         else
         {
             binding.saveButton.setVisibility(View.GONE);
             binding.updateButton.setVisibility(View.VISIBLE);
+
+            fitmeVMGlobal.getFitmeforEdit(Session.getUserId(context), userMeasurementId);
         }
 
         Log.e(TAG, "Flow will show progress dialog");
@@ -77,7 +88,6 @@ public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAda
         binding.fitMeRecyclerView.setHasFixedSize(true);
         binding.fitMeRecyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-        fitme_details = new HashMap<Integer, String>();
 
         fitmeVMGlobal.getFitmeVMMutableLiveData().observe(this, new Observer<FitmeVM>() {
             @Override
@@ -96,8 +106,26 @@ public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAda
 
                         fitmeInstance = fitmeVM;
 
-                        adapter = new FitmeRecyclerAdapter(context,fitmeVM, FITME_MEN, fitmeDetailsListener);
-                        binding.fitMeRecyclerView.setAdapter(adapter);
+                        Log.i(TAG, "userMeasurementId -> "+userMeasurementId);
+                        if (userMeasurementId != 0)
+                        {
+                            initHashmap();
+                            binding.enterNameEdit.setText(fitmeVM.userMeasurement.get().getName());
+
+                            if (fitmeVM.userMeasurement.get().getGender().equalsIgnoreCase("MALE"))
+                                onDisabledMenClicked();
+                            else
+                                onDisabledWomenClicked();
+
+                            if (fitmeVM.userMeasurement.get().getMeasurement().equalsIgnoreCase("CM"))
+                                onDisabledCMClicked();
+                            else
+                                onEnabledInchesClicked();
+                        } else
+                        {
+                            adapter = new FitmeRecyclerAdapter(context,fitmeVM, FITME_MEN, fitmeDetailsListener);
+                            binding.fitMeRecyclerView.setAdapter(adapter);
+                        }
 
                     } else
                     {
@@ -108,95 +136,30 @@ public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAda
         });
 
 
-        binding.setIFitme(new IFitme() {
-            @Override
-            public void onDisabledMenClicked() {
+        binding.setIFitme(iFitme);
+    }
 
-                binding.disabledWomen.setBackgroundColor(getResources().getColor(R.color.ash_color));
-                binding.womenTextView.setTextColor(getResources().getColor(R.color.black));
-                binding.enabledMen.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                binding.menTextView.setTextColor(getResources().getColor(R.color.white));
+    private void initHashmap() {
 
-                fitmeVMGlobal.genderValue.set("MALE");
+        HashMap<Integer, String> fitme_details = new HashMap<>();
 
-                fitme_details.clear();
-
-                adapter = new FitmeRecyclerAdapter(context,fitmeInstance, FITME_MEN, fitmeDetailsListener);
-                binding.fitMeRecyclerView.setAdapter(adapter);
-
-            }
-
-            @Override
-            public void onDisabledWomenClicked() {
-
-                binding.enabledMen.setBackgroundColor(getResources().getColor(R.color.ash_color));
-                binding.menTextView.setTextColor(getResources().getColor(R.color.black));
-                binding.disabledWomen.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                binding.womenTextView.setTextColor(getResources().getColor(R.color.white));
-
-                fitmeVMGlobal.genderValue.set("FEMALE");
-
-                fitme_details.clear();
-
-                adapter = new FitmeRecyclerAdapter(context,fitmeInstance, FITME_WOMEN, fitmeDetailsListener);
-                binding.fitMeRecyclerView.setAdapter(adapter);
-
-            }
-
-            @Override
-            public void onDisabledCMClicked() {
-                binding.disabledCM.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                binding.enabledInches.setBackgroundColor(getResources().getColor(R.color.ash_color));
-                binding.cmTextView.setTextColor(getResources().getColor(R.color.white));
-                binding.cmTextView.setTextColor(getResources().getColor(R.color.white));
-                binding.inchesTextView.setTextColor(getResources().getColor(R.color.black));
-
-                fitmeVMGlobal.measurementValue.set("CM");
-
-            }
-
-            @Override
-            public void onEnabledInchesClicked()
+        if (fitmeVMGlobal.genderValue.get().equalsIgnoreCase("MALE"))
+        {
+            for (int i=0; i<fitmeInstance.men.get().size(); i++)
             {
-                binding.disabledCM.setBackgroundColor(getResources().getColor(R.color.ash_color));
-                binding.enabledInches.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                binding.cmTextView.setTextColor(getResources().getColor(R.color.black));
-                binding.inchesTextView.setTextColor(getResources().getColor(R.color.white));
-
-                fitmeVMGlobal.measurementValue.set("INCHES");
+                fitme_details.put(fitmeInstance.men.get().get(i).fitme_label_id, fitmeInstance.men.get().get(i).value);
             }
-
-            @Override
-            public void onSaveClicked() {
-
-                Log.i(TAG, "Clicked");
-
-                fitmeVMGlobal.addFitmeApi(Session.getUserId(context), getFitmeDetails(fitme_details));
-
-                fitmeVMGlobal.getFitmeAddLiveData().observe(FitmeActivity.this, new Observer<FitmeVM>() {
-                    @Override
-                    public void onChanged(@Nullable FitmeVM fitmeVM) {
-
-                        if (fitmeVM.status != null)
-                        {
-                            if (fitmeVM.status.get().equalsIgnoreCase("success"))
-                            {
-                                Toast.makeText(context, ""+fitmeVM.msg.get(), Toast.LENGTH_SHORT).show();
-                            } else
-                            {
-                                Toast.makeText(context, ""+fitmeVM.msg.get(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-                });
-
+        } else
+        {
+            for (int i=0; i<fitmeInstance.women.get().size(); i++)
+            {
+                fitme_details.put(fitmeInstance.women.get().get(i).fitme_label_id, fitmeInstance.women.get().get(i).value);
             }
+        }
 
-            @Override
-            public void onUpdateClicked() {
-                Log.i(TAG, "Clicked");
-            }
-        });
+        Log.i(TAG, "fitme_details -> "+fitme_details);
+        Session.setFitmeMap(context, fitme_details);
+
     }
 
 
@@ -215,26 +178,38 @@ public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAda
     @Override
     public void onDecreasedSizeClicked(int key, String value)
     {
-        fitme_details.put(key, value);
+        Log.i(TAG, "key : "+key+" value : "+value);
+
+        Session.updateFitmeMap(context, key, value);
+
+        Log.i(TAG, "updated fitme -> "+Session.getFitmeMap(context));
     }
 
     @Override
     public void onIncreasedSizeClicked(int key, String value)
     {
         Log.i(TAG, "key : "+key+" value : "+value);
-        fitme_details.put(key, value);
-        Log.i(TAG, "fitme_details : "+fitme_details);
 
-        if (fitme_details.size() > 5)
-        {
-            getFitmeDetails(fitme_details);
-        }
+        Session.updateFitmeMap(context, key, value);
+
+        Log.i(TAG, "updated fitme -> "+Session.getFitmeMap(context));
     }
 
     @Override
     public void onQuestionDescClicked()
     {
         Toast.makeText(context, "Hello ! Clicked", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onValueEdited(int key, String value) {
+
+        Log.i(TAG, "key : "+key+" value : "+value);
+
+        Session.updateFitmeMap(context, key, value);
+
+        Log.i(TAG, "updated fitme -> "+Session.getFitmeMap(context));
+
     }
 
     private JSONArray getFitmeDetails(HashMap<Integer, String> fitme_details)
@@ -247,8 +222,6 @@ public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAda
 
            fitmeDetailModel.setLabel_id(key);
            fitmeDetailModel.setValue(fitme_details.get(key));
-
-           Log.i(TAG, "key -> "+key);
 
            fitmeDetailModelArrayList.add(fitmeDetailModel);
        }
@@ -265,6 +238,117 @@ public class FitmeActivity extends AppCompatActivity implements FitmeRecyclerAda
         Log.i(TAG, "fitme_details -> "+ jsonArray);
 
        return jsonArray;
+    }
+
+    @Override
+    public void onDisabledMenClicked() {
+
+        binding.disabledWomen.setBackgroundColor(getResources().getColor(R.color.ash_color));
+        binding.womenTextView.setTextColor(getResources().getColor(R.color.black));
+        binding.enabledMen.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        binding.menTextView.setTextColor(getResources().getColor(R.color.white));
+
+        fitmeVMGlobal.genderValue.set("MALE");
+
+        Session.clearFitmeMap(context);
+        initHashmap();
+
+        adapter = new FitmeRecyclerAdapter(context,fitmeInstance, FITME_MEN, fitmeDetailsListener);
+        binding.fitMeRecyclerView.setAdapter(adapter);
+
+    }
+
+    @Override
+    public void onDisabledWomenClicked() {
+
+        binding.enabledMen.setBackgroundColor(getResources().getColor(R.color.ash_color));
+        binding.menTextView.setTextColor(getResources().getColor(R.color.black));
+        binding.disabledWomen.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        binding.womenTextView.setTextColor(getResources().getColor(R.color.white));
+
+        fitmeVMGlobal.genderValue.set("FEMALE");
+
+        Session.clearFitmeMap(context);
+        initHashmap();
+
+        adapter = new FitmeRecyclerAdapter(context,fitmeInstance, FITME_WOMEN, fitmeDetailsListener);
+        binding.fitMeRecyclerView.setAdapter(adapter);
+
+    }
+
+    @Override
+    public void onDisabledCMClicked() {
+        binding.disabledCM.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        binding.enabledInches.setBackgroundColor(getResources().getColor(R.color.ash_color));
+        binding.cmTextView.setTextColor(getResources().getColor(R.color.white));
+        binding.cmTextView.setTextColor(getResources().getColor(R.color.white));
+        binding.inchesTextView.setTextColor(getResources().getColor(R.color.black));
+
+        fitmeVMGlobal.measurementValue.set("CM");
+
+    }
+
+    @Override
+    public void onEnabledInchesClicked()
+    {
+        binding.disabledCM.setBackgroundColor(getResources().getColor(R.color.ash_color));
+        binding.enabledInches.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        binding.cmTextView.setTextColor(getResources().getColor(R.color.black));
+        binding.inchesTextView.setTextColor(getResources().getColor(R.color.white));
+
+        fitmeVMGlobal.measurementValue.set("INCHES");
+    }
+
+    @Override
+    public void onSaveClicked() {
+
+
+        fitmeVMGlobal.addFitmeApi(Session.getUserId(context), getFitmeDetails(Session.getFitmeMap(context)));
+
+        fitmeVMGlobal.getFitmeAddLiveData().observe(FitmeActivity.this, new Observer<FitmeVM>() {
+            @Override
+            public void onChanged(@Nullable FitmeVM fitmeVM) {
+
+                if (fitmeVM.status != null)
+                {
+                    if (fitmeVM.status.get().equalsIgnoreCase("success"))
+                    {
+                        Toast.makeText(context, ""+fitmeVM.msg.get(), Toast.LENGTH_SHORT).show();
+                        FitmeActivity.super.onBackPressed();
+                    } else
+                    {
+                        Toast.makeText(context, ""+fitmeVM.msg.get(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public void onUpdateClicked() {
+
+        Log.i(TAG, "update clicked");
+
+        fitmeVMGlobal.updateFitmeApi(String.valueOf(userMeasurementId), getFitmeDetails(Session.getFitmeMap(context)));
+
+        fitmeVMGlobal.getFitmeUpdateLiveData().observe(FitmeActivity.this, new Observer<FitmeVM>() {
+            @Override
+            public void onChanged(@Nullable FitmeVM fitmeVM) {
+
+                if (fitmeVM.status != null)
+                {
+                    if (fitmeVM.status.get().equalsIgnoreCase("success"))
+                    {
+                        Toast.makeText(context, ""+fitmeVM.msg.get(), Toast.LENGTH_SHORT).show();
+                        FitmeActivity.super.onBackPressed();
+                    } else
+                    {
+                        Toast.makeText(context, ""+fitmeVM.msg.get(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
     }
 
     public class FitmeDetailModel

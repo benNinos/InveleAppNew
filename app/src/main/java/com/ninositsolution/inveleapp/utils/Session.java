@@ -5,6 +5,11 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by Parthasarathy D on 1/17/2019.
  * Ninos IT Solution Pvt Ltd
@@ -33,6 +38,8 @@ public class Session {
     private static final String image_path = "image_path";
     private static final String is_logged = "is_logged";
     private static final String clearSession = "clearSession";
+
+    private static List<String> keyLists = new ArrayList<>();
 
     public Session(Context context)
     {
@@ -203,5 +210,63 @@ public class Session {
         setIsLogged(false, context);
     }
 
+    public static void setFitmeMap(Context context, HashMap<Integer, String> hashMap)
+    {
+       SharedPreferences preferences =  context.getSharedPreferences("Session", Context.MODE_PRIVATE);
+       SharedPreferences.Editor editor = preferences.edit();
 
+       for (Integer i : hashMap.keySet())
+       {
+           keyLists.add(String.valueOf(i));
+           editor.putString(String.valueOf(i), hashMap.get(i));
+       }
+
+       Log.i(TAG, "keyLists -> "+keyLists);
+
+       editor.apply();
+    }
+
+    public static HashMap<Integer, String> getFitmeMap(Context context)
+    {
+        HashMap<Integer, String> hashMap = new HashMap<>();
+        SharedPreferences preferences =  context.getSharedPreferences("Session", Context.MODE_PRIVATE);
+
+        for (int i = 0; i<keyLists.size(); i++)
+        {
+           String key = keyLists.get(i);
+           String value = preferences.getString(key, "0");
+
+           hashMap.put(Integer.parseInt(key), value);
+        }
+
+        return hashMap;
+    }
+
+    public static void updateFitmeMap(Context context, int key, String value)
+    {
+        if (keyLists.contains(String.valueOf(key)))
+        {
+            context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putString(String.valueOf(key), value).apply();
+        } else
+        {
+            Log.e(TAG, "does not contain key");
+        }
+    }
+
+    public static void clearFitmeMap(Context context)
+    {
+        SharedPreferences preferences =  context.getSharedPreferences("Session", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        if (keyLists != null)
+        {
+            for (int i=0; i<keyLists.size(); i++)
+            {
+                editor.remove(keyLists.get(i));
+            }
+
+            keyLists.clear();
+            editor.apply();
+        }
+    }
 }

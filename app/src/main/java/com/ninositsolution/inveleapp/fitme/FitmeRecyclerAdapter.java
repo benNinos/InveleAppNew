@@ -3,6 +3,8 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -96,10 +98,38 @@ FitmeRecyclerAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.
         private FitmeDetailsListener fitmeDetailsListener;
 
 
-        public MyViewHolder(@NonNull FitmeRecyclerAdapterBinding binding, FitmeDetailsListener fitmeDetailsListener) {
+        public MyViewHolder(@NonNull FitmeRecyclerAdapterBinding binding, final FitmeDetailsListener fitmeDetailsListener) {
             super(binding.getRoot());
             this.binding = binding;
             this.fitmeDetailsListener = fitmeDetailsListener;
+
+            binding.sizeValueEditText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                    if (gender == FITME_MEN)
+                    {
+                       fitmeDetailsListener.onValueEdited(fitmeVMGlobal.men.get().get(getAdapterPosition()).fitme_label_id, s.toString());
+                    }
+
+                    if (gender == FITME_WOMEN)
+                    {
+                        fitmeDetailsListener.onValueEdited(fitmeVMGlobal.women.get().get(getAdapterPosition()).fitme_label_id, s.toString());
+                    }
+
+
+                }
+            });
 
         }
 
@@ -109,18 +139,25 @@ FitmeRecyclerAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.
             binding.setAdapterFitme(fitmeVM);
             binding.executePendingBindings();
 
-            fitmeVM.currentSize.set("0");
-
             binding.setIadapterFitme(new FitmeClickListener() {
                 @Override
                 public void onIncreseClicked() {
 
                     try {
-                        int i = Integer.parseInt(fitmeVM.currentSize.get());
+                        float i = Float.parseFloat(fitmeVM.currentSize.get());
                         i++;
                         fitmeVM.currentSize.set(String.valueOf(i));
 
-                        fitmeDetailsListener.onIncreasedSizeClicked(fitmeVMGlobal.men.get().get(getAdapterPosition()).fitme_label_id, fitmeVM.currentSize.get());
+                        if (gender == FITME_MEN)
+                        {
+                            fitmeDetailsListener.onIncreasedSizeClicked(fitmeVMGlobal.men.get().get(getAdapterPosition()).fitme_label_id, fitmeVM.currentSize.get());
+                        }
+
+                        if (gender == FITME_WOMEN)
+                        {
+                            fitmeDetailsListener.onIncreasedSizeClicked(fitmeVMGlobal.women.get().get(getAdapterPosition()).fitme_label_id, fitmeVM.currentSize.get());
+                        }
+
 
                     } catch (Exception e) {
                         Log.e(TAG, "Integer exception : "+e);
@@ -138,12 +175,19 @@ FitmeRecyclerAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.
                         {
                         try
                         {
-                            int i = Integer.parseInt(fitmeVM.currentSize.get());
+                            float i = Float.parseFloat(fitmeVM.currentSize.get());
                             i--;
                             fitmeVM.currentSize.set(String.valueOf(i));
 
-                            fitmeDetailsListener.onDecreasedSizeClicked(fitmeVMGlobal.men.get().get(getAdapterPosition()).fitme_label_id, fitmeVM.currentSize.get());
+                            if (gender == FITME_MEN)
+                            {
+                                fitmeDetailsListener.onDecreasedSizeClicked(fitmeVMGlobal.men.get().get(getAdapterPosition()).fitme_label_id, fitmeVM.currentSize.get());
+                            }
 
+                            if (gender == FITME_WOMEN)
+                            {
+                                fitmeDetailsListener.onDecreasedSizeClicked(fitmeVMGlobal.women.get().get(getAdapterPosition()).fitme_label_id, fitmeVM.currentSize.get());
+                            }
 
                         } catch (Exception e) {
                             // Log.i(TAG, "Integer exception");
@@ -185,5 +229,6 @@ FitmeRecyclerAdapterBinding binding = DataBindingUtil.inflate(layoutInflater, R.
         void onDecreasedSizeClicked(int key, String value);
         void onIncreasedSizeClicked(int key, String value);
         void onQuestionDescClicked();
+        void onValueEdited(int key, String value);
     }
 }

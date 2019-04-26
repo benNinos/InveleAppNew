@@ -69,6 +69,10 @@ public interface ApiService {
     @POST("users/fitme/add")
     Observable<POJOClass>addfitmeApi (@Body String jsonRequest);
 
+    @Headers("Content-Type: application/json")
+    @POST("users/fitme/update")
+    Observable<POJOClass>updatefitmeApi (@Body String jsonRequest);
+
     @FormUrlEncoded
     @POST("users/forgot_password")
     Observable<POJOClass> forgotPasswordApi (@Field("forgot_name")String forgotName);
@@ -181,5 +185,20 @@ public interface ApiService {
     @POST("user/fitmes")
     Observable<POJOClass> getFitmeLists(
             @Field("user_id") String userId
+    );
+
+    //get fitme edit list
+    @FormUrlEncoded
+    @POST("user/fitme/edit")
+    Observable<POJOClass> getFitmeEditLabels(
+            @Field("user_id") String userId,
+            @Field("user_measurement_id") int userMeasurementId
+    );
+
+    //Fitme delete
+    @FormUrlEncoded
+    @POST("users/fitme/delete")
+    Observable<POJOClass> deleteFitme(
+            @Field("user_measurement_id") int userMeasurementId
     );
 }

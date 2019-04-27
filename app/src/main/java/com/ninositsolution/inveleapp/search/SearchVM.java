@@ -24,6 +24,8 @@ public class SearchVM extends ViewModel {
     private SearchRepo searchRepo;
     private MutableLiveData<SearchVM> searchVMMutableLiveData = new MutableLiveData<>();
 
+    public ObservableField<String> searchText = new ObservableField<>();
+
     public SearchVM() {
 
         searchRepo = new SearchRepo();
@@ -46,6 +48,12 @@ public class SearchVM extends ViewModel {
 
     public MutableLiveData<SearchVM> getSearchVMMutableLiveData() {
         return searchVMMutableLiveData;
+    }
+
+    public SearchVM(String value)
+    {
+        searchText.set(value);
+        Log.i(TAG, "value -> "+value);
     }
 
 

@@ -7,8 +7,11 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Parthasarathy D on 1/17/2019.
@@ -38,6 +41,7 @@ public class Session {
     private static final String image_path = "image_path";
     private static final String is_logged = "is_logged";
     private static final String clearSession = "clearSession";
+    private static final String keyword = "keyword";
 
     private static List<String> keyLists = new ArrayList<>();
 
@@ -268,5 +272,45 @@ public class Session {
             keyLists.clear();
             editor.apply();
         }
+    }
+
+    public static void addSearchKeyword(Context context, String value)
+    {
+        Set<String> stringSet = new HashSet<>();
+        stringSet =  context.getSharedPreferences("Session", Context.MODE_PRIVATE).getStringSet(keyword, null);
+        stringSet.add(value);
+        context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putStringSet(keyword, stringSet).apply();
+        Log.i(TAG, "strings -> "+stringSet);
+    }
+
+    public static List<String> getKeywords(Context context)
+    {
+       Set<String> stringSet =  context.getSharedPreferences("Session", Context.MODE_PRIVATE).getStringSet(keyword, null);
+
+       if (stringSet != null)
+       {
+           List<String> stringList = new ArrayList<>(stringSet);
+
+           Log.i(TAG, "List -> "+stringList);
+
+           return stringList;
+       } else
+       {
+           List<String> stringList = new ArrayList<>();
+
+           stringList.clear();
+           return stringList;
+       }
+
+    }
+
+    public static void clearSearchHistory(Context context)
+    {
+        Set<String> stringSet = new HashSet<>();
+        stringSet =  context.getSharedPreferences("Session", Context.MODE_PRIVATE).getStringSet(keyword, null);
+
+        stringSet.clear();
+
+        context.getSharedPreferences("Session", Context.MODE_PRIVATE).edit().putStringSet(keyword, stringSet).apply();
     }
 }

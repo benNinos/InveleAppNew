@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="adapterSearchHistory"
+            type="com.ninositsolution.inveleapp.search.SearchVM" />
+
+        <variable
+            name="iAdapterSearchHistory"
+            type="com.ninositsolution.inveleapp.search.SearchHistoryAdapter.SearchHistoryClickListeners" />
+
+    </data>
+
+
+        <RelativeLayout
+            android:layout_margin="@dimen/_12sdp"
+            android:layout_width="@dimen/_96sdp"
+            android:background="@color/searchHistoryBg"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{adapterSearchHistory.searchText}"
+                android:onClick="@{()->iAdapterSearchHistory.onTextClicked()}"
+                android:paddingStart="@dimen/_4sdp"
+                android:paddingEnd="@dimen/_4sdp"
+                android:gravity="center_vertical" />
+
+            <ImageView
+                android:layout_width="@dimen/_12sdp"
+                android:layout_height="@dimen/_12sdp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:onClick="@{()->iAdapterSearchHistory.onCloseClicked()}"
+                android:layout_marginEnd="@dimen/_4sdp"
+                app:srcCompat="@drawable/ic_close_24dp"
+                tools:ignore="ContentDescription" />
+
+
+        </RelativeLayout>
+
+
+</layout>

@@ -9,6 +9,7 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,6 +25,7 @@ import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.ActivitySearchBinding;
 import com.ninositsolution.inveleapp.home.HomeActivity;
 import com.ninositsolution.inveleapp.search_everywhere.SearchEverywhereActivity;
+import com.ninositsolution.inveleapp.utils.DatabaseInvele;
 
 public class SearchActivity extends AppCompatActivity implements ISearch{
 
@@ -33,6 +35,8 @@ public class SearchActivity extends AppCompatActivity implements ISearch{
     Context context;
     Observer<SearchVM> observer;
     ISearch iSearch;
+    DatabaseInvele databaseInvele;
+    SearchHistoryAdapter searchHistoryAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +45,12 @@ public class SearchActivity extends AppCompatActivity implements ISearch{
 
         context = SearchActivity.this;
 
+        databaseInvele = new DatabaseInvele(this);
+
         iSearch = this;
         searchVM = ViewModelProviders.of(this).get(SearchVM.class);
         binding.setSearch(searchVM);
+
 
         binding.setISearch(iSearch);
 
@@ -51,6 +58,9 @@ public class SearchActivity extends AppCompatActivity implements ISearch{
 
         binding.searchRecyclerview.setHasFixedSize(true);
         binding.searchRecyclerview.setLayoutManager(new LinearLayoutManager(this));
+
+        binding.searchHistoryRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        searchHistoryAdapter = new SearchHistoryAdapter(context, databaseInvele.getAllSearchHistory(), iSearch);
 
         binding.searchHeader.addTextChangedListener(new TextWatcher() {
             @Override
@@ -61,14 +71,27 @@ public class SearchActivity extends AppCompatActivity implements ISearch{
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
 
-                searchVM.searchByKeywordApi(s.toString());
-                searchVM.getSearchVMMutableLiveData().observe(SearchActivity.this, observer);
-                Log.i(TAG, "keyword : "+s.toString());
+                if (s.toString().length() == 0)
+                {
+                    if (binding.searchLayout.getVisibility() == View.VISIBLE)
+                    {
+                        binding.searchLayout.setVisibility(View.GONE);
+                        binding.searchHistoryLayout.setVisibility(View.VISIBLE);
+                        binding.searchHistoryRecyclerView.setAdapter(searchHistoryAdapter);
+                    }
+
+                } else
+                {
+                    searchVM.searchByKeywordApi(s.toString());
+                    searchVM.getSearchVMMutableLiveData().observe(SearchActivity.this, observer);
+                    Log.i(TAG, "keyword : "+s.toString());
+                }
             }
         });
 
@@ -78,6 +101,8 @@ public class SearchActivity extends AppCompatActivity implements ISearch{
                 if (actionId == EditorInfo.IME_ACTION_NEXT) {
 
                     searchClicked(binding.searchHeader.getText().toString());
+                    databaseInvele.addSearchHistory(binding.searchHeader.getText().toString());
+                    searchHistoryAdapter.notifyDataSetChanged();
 
                     return true;
                 }
@@ -94,6 +119,11 @@ public class SearchActivity extends AppCompatActivity implements ISearch{
                 {
                     if (searchVM.getStatus().equalsIgnoreCase("success"))
                     {
+                        if (binding.searchLayout.getVisibility() == View.GONE)
+                        {
+                            binding.searchLayout.setVisibility(View.VISIBLE);
+                            binding.searchHistoryLayout.setVisibility(View.GONE);
+                        }
                         binding.searchRecyclerview.setAdapter(new SearchAdapter(context, searchVM.getSearchKeys(), iSearch));
 
                     } else
@@ -105,7 +135,6 @@ public class SearchActivity extends AppCompatActivity implements ISearch{
         };
 
         }
-
 
     @Override
     public void onBackClicked() {
@@ -155,7 +184,16 @@ public class SearchActivity extends AppCompatActivity implements ISearch{
     }
 
     @Override
+    public void onDeleteHistoryClicked() {
+
+        databaseInvele.deleteAllHistory();
+        searchHistoryAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void searchClicked(String slug) {
+
+        databaseInvele.addSearchHistory(slug);
 
         Intent intent = new Intent(context, SearchEverywhereActivity.class);
 
@@ -165,5 +203,12 @@ public class SearchActivity extends AppCompatActivity implements ISearch{
         bundle.putString("name", slug);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    @Override
+    public void onKeywordCloseClicked(int keyword) {
+
+        databaseInvele.deleteKeyword(keyword);
+        searchHistoryAdapter.notifyDataSetChanged();
     }
 }

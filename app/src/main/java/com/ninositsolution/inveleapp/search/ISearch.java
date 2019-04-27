@@ -12,5 +12,7 @@ public interface ISearch {
     void onMicrophoneClicked();
     void onEverywhereClicked();
     void onNearbyClicked();
+    void onDeleteHistoryClicked();
     void searchClicked(String slug);
+    void onKeywordCloseClicked(int keyword);
 }

@@ -93,7 +93,10 @@
 
         </android.support.design.widget.AppBarLayout>
 
+
         <LinearLayout
+            android:id="@+id/searchLayout"
+            android:visibility="gone"
             app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -221,6 +224,52 @@
 
 
         </LinearLayout>
+
+        <LinearLayout
+            app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"
+            android:id="@+id/searchHistoryLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_36sdp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:text="Search History"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/_12sdp"/>
+
+                <ImageView
+                    android:layout_width="@dimen/_14sdp"
+                    android:layout_height="@dimen/_14sdp"
+                    android:layout_alignParentEnd="true"
+                    android:onClick="@{()->iSearch.onDeleteHistoryClicked()}"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:src="@drawable/delete_button"
+                    tools:ignore="ContentDescription" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/searchHistoryRecyclerView"
+                android:layout_margin="@dimen/_12sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+
+
+        </LinearLayout>
+
 
     </android.support.design.widget.CoordinatorLayout>
 

@@ -1,8 +1,9 @@
 package com.ninositsolution.inveleapp.pojo;
 
-import java.util.ArrayList;
-import com.ninositsolution.inveleapp.categories.CategoryModel;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class POJOClass {
@@ -45,4 +46,13 @@ public class POJOClass {
     public List<String> search_keys;
     public List<FitmeLists> user_measurements;
     public FitmeLists user_measurement;
+
+
+    @SerializedName("cart_details")
+    @Expose
+    private List<CartDetails> cartDetailsList;
+
+    public List<CartDetails> getCartDetailsList() {
+        return cartDetailsList;
+    }
 }

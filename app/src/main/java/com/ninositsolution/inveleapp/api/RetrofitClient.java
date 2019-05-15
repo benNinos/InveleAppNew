@@ -7,7 +7,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RetrofitClient {
 
-    private static final String BASE_URL = "http://invele.com.sg/api/";
+    //private static final String BASE_URL = "http://invele.com.sg/api/";
+    private static final String BASE_URL = "http://10.10.10.68/Invele/public/api/";
 
     private static Retrofit getRetrofitInstance()
     {

@@ -20,6 +20,7 @@ import com.ninositsolution.inveleapp.search_everywhere.SearchEverywhereRequest;
 import com.ninositsolution.inveleapp.utils.Constants;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -205,4 +206,9 @@ public interface ApiService {
     //All Brands
     @GET("mobile/brands")
     Observable<POJOClass> allBrands();
+
+    //get Cart details
+    @FormUrlEncoded
+    @POST("user/mobile-cart/details")
+    Observable<POJOClass> getCartLists(@Field("user_id") String userId);
 }

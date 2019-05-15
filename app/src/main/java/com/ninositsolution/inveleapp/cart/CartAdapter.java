@@ -1,23 +1,21 @@
 package com.ninositsolution.inveleapp.cart;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Paint;
+import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.CompoundButton;
 
 import com.ninositsolution.inveleapp.R;
-import com.ninositsolution.inveleapp.generated.callback.OnClickListener;
+import com.ninositsolution.inveleapp.databinding.AdapterCartBinding;
+import com.ninositsolution.inveleapp.pojo.CartDetails;
+
+import java.util.List;
 
 /**
  * Created by Parthasarathy D on 1/22/2019.
@@ -27,79 +25,105 @@ import com.ninositsolution.inveleapp.generated.callback.OnClickListener;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
     private Context context;
-    private static int currentPosition = -1;
     private ICart iCart;
+    private LayoutInflater layoutInflater;
+    private List<CartDetails> cartDetailsList;
 
-    public CartAdapter(Context context, ICart iCart) {
+    private static final String TAG = CartAdapter.class.getSimpleName();
+
+    public CartAdapter(Context context, List<CartDetails> cartDetailsList, ICart iCart) {
         this.context = context;
         this.iCart = iCart;
+        this.cartDetailsList = cartDetailsList;
         notifyDataSetChanged();
+
+        //Log.i(TAG, "size -> "+cartDetailsList.size());
+
     }
 
     @NonNull
     @Override
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_cart, viewGroup, false);
-        return new CartViewHolder(view);
+
+        if (layoutInflater == null)
+            layoutInflater = LayoutInflater.from(context);
+
+        AdapterCartBinding binding = DataBindingUtil.inflate(layoutInflater,R.layout.adapter_cart, viewGroup, false);
+
+        return new CartViewHolder(binding, iCart);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CartViewHolder cartViewHolder, final int i) {
-/*
-        if (cartViewHolder.edit_layout.getVisibility() == View.VISIBLE)
-        {
-            Animation slideUp = AnimationUtils.loadAnimation(context, R.anim.slide_up);
-            cartViewHolder.edit_layout.setVisibility(View.GONE);
-            cartViewHolder.edit_layout.startAnimation(slideUp);
+    public void onBindViewHolder(@NonNull CartViewHolder cartViewHolder, int i) {
 
-        }
-
-        if (currentPosition == i)
-        {
-            if (cartViewHolder.edit_layout.getVisibility() == View.VISIBLE)
-            {
-                Animation slideUp = AnimationUtils.loadAnimation(context, R.anim.slide_up);
-                cartViewHolder.edit_layout.setVisibility(View.GONE);
-                cartViewHolder.edit_layout.startAnimation(slideUp);
-            }
-
-            else {
-                Animation slideDown = AnimationUtils.loadAnimation(context, R.anim.slide_down);
-                cartViewHolder.edit_layout.setVisibility(View.VISIBLE);
-                cartViewHolder.edit_layout.startAnimation(slideDown);
-                cartViewHolder.edit_layout.requestFocus();
-
-            }
-
-        }*/
-
-        cartViewHolder.edit_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                iCart.onEditClicked(i);
-                notifyDataSetChanged();
-            }
-        });
-
+        cartViewHolder.setBinding(new CartVM(cartDetailsList.get(i).getStoreName()));
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+
+     return cartDetailsList.size();
     }
 
     public class CartViewHolder extends RecyclerView.ViewHolder {
 
-        TextView delete;
-        //LinearLayout edit_layout;
-        RelativeLayout edit_button;
+        private AdapterCartBinding binding;
+        private ICart iCart;
 
-        public CartViewHolder(@NonNull View itemView) {
-            super(itemView);
-            delete = itemView.findViewById(R.id.cart_delete_rate);
-            //edit_layout = itemView.findViewById(R.id.cart_edit);
-            edit_button = itemView.findViewById(R.id.cart_edit_button1);
-            delete.setPaintFlags(delete.getPaintFlags()|Paint.STRIKE_THRU_TEXT_FLAG);
+        public CartViewHolder(@NonNull AdapterCartBinding binding, ICart iCart) {
+            super(binding.getRoot());
+            this.binding = binding;
+            this.iCart = iCart;
+
+            binding.cartAdapterRecyclerView.setHasFixedSize(true);
+            binding.cartAdapterRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        }
+
+        public void setBinding(CartVM cartVM)
+        {
+            binding.setAdapterCart(cartVM);
+            binding.executePendingBindings();
+
+            binding.cartAdapterRecyclerView.setAdapter(new CartChildAdapter(context, cartDetailsList
+                    .get(getAdapterPosition()).getProductlists(),iCart, false));
+
+            binding.headCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                    if (isChecked)
+                    {
+                        checkAllSubitems();
+                        getAllSubtotal();
+                        binding.cartDelete.setVisibility(View.VISIBLE);
+                    } else
+                    {
+                        removeAllSubitems();
+                        binding.cartDelete.setVisibility(View.GONE);
+                    }
+
+                }
+            });
+
+        }
+
+        private void getAllSubtotal() {
+        }
+
+        private void checkAllSubitems() {
+
+            binding.cartAdapterRecyclerView.setAdapter(new CartChildAdapter(context, cartDetailsList
+                    .get(getAdapterPosition()).getProductlists(),iCart, true));
+        }
+
+        private void removeAllSubitems()
+        {
+            binding.cartAdapterRecyclerView.setAdapter(new CartChildAdapter(context, cartDetailsList
+                    .get(getAdapterPosition()).getProductlists(),iCart, false));
+        }
+
+        public void setTotal(float value)
+        {
 
         }
 

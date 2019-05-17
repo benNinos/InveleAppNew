@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import com.ninositsolution.inveleapp.payment.PaymentActivity;
 import com.ninositsolution.inveleapp.pojo.CartDetails;
 import com.ninositsolution.inveleapp.size_chart.SizeChartActivity;
 import com.ninositsolution.inveleapp.utils.CartDatabase;
+import com.ninositsolution.inveleapp.utils.Constants;
 
 import java.util.List;
 
@@ -33,9 +35,8 @@ public class CartActivity extends AppCompatActivity implements ICart {
     private static final String TAG = CartActivity.class.getSimpleName();
     ActivityCartBinding binding;
     BottomSheetBehavior bottomSheetBehavior;
-    BottomSheetBehavior behavior;
     TextView size_chart;
-    CartVM cartVM;
+    CartVM cartVM, cartVMTemp;
     ICart iCart;
 
     private Context context;
@@ -97,6 +98,25 @@ public class CartActivity extends AppCompatActivity implements ICart {
             }
         });
 
+        binding.allCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                {
+                    cartDatabase.checkAllBoxes();
+                    binding.cartRecyclerview.setAdapter(new CartAdapter(context, cartVMTemp.getCartDetailsList(), iCart));
+                    cartVM.total.set(Constants.CURRENCY+cartDatabase.getTotalAmount());
+                    cartVM.shippingTotal.set(Constants.CURRENCY+cartDatabase.getTotalAmount());
+
+                } else {
+                    cartDatabase.unCheckAllBoxes();
+                    binding.cartRecyclerview.setAdapter(new CartAdapter(context, cartVMTemp.getCartDetailsList(), iCart));
+                    cartVM.total.set(Constants.CURRENCY+cartDatabase.getTotalAmount());
+                    cartVM.shippingTotal.set(Constants.CURRENCY+cartDatabase.getTotalAmount());
+                }
+            }
+        });
+
         size_chart = findViewById(R.id.size_chart);
 
         size_chart.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +139,7 @@ public class CartActivity extends AppCompatActivity implements ICart {
         progressDialog.show();
 
         cartDatabase = new CartDatabase(context);
-
+        cartDatabase.deleteValues();
         binding.cartRecyclerview.setHasFixedSize(true);
         binding.cartRecyclerview.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -135,9 +155,11 @@ public class CartActivity extends AppCompatActivity implements ICart {
                     progressDialog.dismiss();
                     if (cartVM.getStatus().equalsIgnoreCase("success"))
                     {
+                        cartVMTemp = cartVM;
                         updateDatabase(cartVM.getCartDetailsList());
                         binding.cartRecyclerview.setAdapter(new CartAdapter(context, cartVM.getCartDetailsList(), iCart));
                         Toast.makeText(CartActivity.this, ""+cartVM.getMessage(), Toast.LENGTH_SHORT).show();
+                        cartDatabase.getParentCheckbox(0);
                     } else
                     {
                         Toast.makeText(CartActivity.this, ""+cartVM.getMessage(), Toast.LENGTH_SHORT).show();
@@ -155,7 +177,7 @@ public class CartActivity extends AppCompatActivity implements ICart {
         {
             for (int j= 0; j<cartDetailsList.get(i).getProductlists().size(); j++)
             {
-                long result = cartDatabase.insertValues(i, j, 0);
+                long result = cartDatabase.insertValues(i, j, 0, cartDetailsList.get(i).getProductlists().get(j).getInvelePrice());
                 Log.i(TAG, "insert result -> "+result);
             }
         }
@@ -189,11 +211,44 @@ public class CartActivity extends AppCompatActivity implements ICart {
     public void onCheckoutClicked() {
 
         startActivity(new Intent(this, PaymentActivity.class));
-
     }
 
     @Override
     public void changeTotal(String total) {
 
+    }
+
+    @Override
+    public void onParentBoxChecked(int position) {
+       cartDatabase.checkAllSubItems(position);
+       binding.cartRecyclerview.setAdapter(new CartAdapter(context, cartVMTemp.getCartDetailsList(), iCart));
+       cartVM.total.set(Constants.CURRENCY+cartDatabase.getTotalAmount());
+       cartVM.shippingTotal.set(Constants.CURRENCY+cartDatabase.getTotalAmount());
+    }
+
+    @Override
+    public void onParentBoxUnChecked(int position) {
+        cartDatabase.unCheckAllSubitems(position);
+        binding.cartRecyclerview.setAdapter(new CartAdapter(context, cartVMTemp.getCartDetailsList(), iCart));
+        cartVM.total.set(Constants.CURRENCY+cartDatabase.getTotalAmount());
+        cartVM.shippingTotal.set(Constants.CURRENCY+cartDatabase.getTotalAmount());
+    }
+
+    @Override
+    public void onChildBoxChecked(int parentPosition, int childPosition) {
+
+        cartDatabase.checkSubItem(parentPosition, childPosition);
+        binding.cartRecyclerview.setAdapter(new CartAdapter(context, cartVMTemp.getCartDetailsList(), iCart));
+        cartVM.total.set(Constants.CURRENCY+cartDatabase.getTotalAmount());
+        cartVM.shippingTotal.set(Constants.CURRENCY+cartDatabase.getTotalAmount());
+    }
+
+    @Override
+    public void onChildBoxUnChecked(int parentPosition, int childPosition) {
+
+        cartDatabase.unCheckSubItem(parentPosition, childPosition);
+        binding.cartRecyclerview.setAdapter(new CartAdapter(context, cartVMTemp.getCartDetailsList(), iCart));
+        cartVM.total.set(Constants.CURRENCY+cartDatabase.getTotalAmount());
+        cartVM.shippingTotal.set(Constants.CURRENCY+cartDatabase.getTotalAmount());
     }
 }

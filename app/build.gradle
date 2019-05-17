@@ -105,6 +105,11 @@ dependencies {
 
     //facebook sdk
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+
+    //real-time resource viewer
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.facebook.stetho:stetho-js-rhino:1.4.2'
+
 }
 
 com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true

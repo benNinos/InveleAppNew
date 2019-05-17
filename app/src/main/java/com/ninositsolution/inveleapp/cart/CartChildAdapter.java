@@ -5,13 +5,16 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.AdapterCartChildBinding;
 import com.ninositsolution.inveleapp.pojo.CartDetails;
+import com.ninositsolution.inveleapp.utils.CartDatabase;
 
 import java.util.List;
 
@@ -21,13 +24,17 @@ public class CartChildAdapter extends RecyclerView.Adapter<CartChildAdapter.Cart
     private List<CartDetails> cartDetailsList;
     private ICart iCart;
     private LayoutInflater layoutInflater;
-    private boolean status;
+    private int parentPosition;
+    private CartDatabase cartDatabase;
 
-    public CartChildAdapter(Context context, List<CartDetails> cartDetailsList, ICart iCart, boolean status) {
+    public CartChildAdapter(Context context, List<CartDetails> cartDetailsList, ICart iCart, int parentPosition) {
         this.context = context;
         this.cartDetailsList = cartDetailsList;
         this.iCart = iCart;
-        this.status = status;
+        this.parentPosition = parentPosition;
+
+        cartDatabase = new CartDatabase(context);
+
         notifyDataSetChanged();
     }
 
@@ -49,7 +56,7 @@ public class CartChildAdapter extends RecyclerView.Adapter<CartChildAdapter.Cart
 
         cartChildViewHolder.setBinding(new CartVM(cartDetailsList.get(i)));
 
-        cartChildViewHolder.binding.cartCheckBox.setChecked(status);
+            cartChildViewHolder.binding.cartCheckBox.setChecked(cartDatabase.getChildCheckBox(parentPosition, i));
     }
 
     @Override
@@ -62,7 +69,7 @@ public class CartChildAdapter extends RecyclerView.Adapter<CartChildAdapter.Cart
         private AdapterCartChildBinding binding;
         private ICart iCart;
 
-        public CartChildViewHolder(@NonNull AdapterCartChildBinding binding, ICart iCart) {
+        public CartChildViewHolder(@NonNull final AdapterCartChildBinding binding, final ICart iCart) {
             super(binding.getRoot());
 
             this.binding = binding;
@@ -75,9 +82,22 @@ public class CartChildAdapter extends RecyclerView.Adapter<CartChildAdapter.Cart
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked)
                     {
-
+                        cartDatabase.checkSubItem(parentPosition, getAdapterPosition());
                     }else {
+                        cartDatabase.unCheckSubItem(parentPosition, getAdapterPosition());
+                    }
+                }
+            });
+            binding.cartCheckBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                    if (binding.cartCheckBox.isChecked())
+                    {
+                        iCart.onChildBoxChecked(parentPosition, getAdapterPosition());
+                    } else
+                    {
+                        iCart.onChildBoxUnChecked(parentPosition, getAdapterPosition());
                     }
                 }
             });

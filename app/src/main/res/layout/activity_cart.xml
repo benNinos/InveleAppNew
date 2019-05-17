@@ -173,6 +173,7 @@
 
 
                             <CheckBox
+                                android:id="@+id/allCheckBox"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/checkbox_text"
@@ -212,7 +213,7 @@
                                     android:textColor="@color/colorPrimary"
                                     android:textSize="@dimen/_12sdp"
                                     android:layout_marginStart="@dimen/_2sdp"
-                                    android:text="@string/price_value_textview"
+                                    android:text="@{cart.total}"
                                     android:layout_marginTop="@dimen/_10sdp" />
 
                             </LinearLayout>
@@ -226,7 +227,6 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-
                                     android:text="@string/Shipping"/>
 
 
@@ -236,7 +236,7 @@
                                     android:textSize="@dimen/prod_text_small"
                                     android:paddingLeft="@dimen/_2sdp"
                                     android:layout_marginBottom="@dimen/_10sdp"
-                                    android:text="@string/shipping_price_textView"/>
+                                    android:text="@{cart.shippingTotal}"/>
 
                             </LinearLayout>
 

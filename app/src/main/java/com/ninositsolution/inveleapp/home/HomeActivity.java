@@ -33,6 +33,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.stetho.Stetho;
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.account.AccountActivity;
 import com.ninositsolution.inveleapp.all_brands.AllBrandsActivity;
@@ -117,6 +118,8 @@ public class HomeActivity extends AppCompatActivity implements IHomeClick {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
+
+        Stetho.initializeWithDefaults(this);
 
         homeVMGlobal = ViewModelProviders.of(this).get(HomeVM.class);
 

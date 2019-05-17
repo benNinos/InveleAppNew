@@ -2,6 +2,7 @@ package com.ninositsolution.inveleapp.cart;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.widget.CompoundButton;
 import com.ninositsolution.inveleapp.R;
 import com.ninositsolution.inveleapp.databinding.AdapterCartBinding;
 import com.ninositsolution.inveleapp.pojo.CartDetails;
+import com.ninositsolution.inveleapp.utils.CartDatabase;
 
 import java.util.List;
 
@@ -28,6 +30,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     private ICart iCart;
     private LayoutInflater layoutInflater;
     private List<CartDetails> cartDetailsList;
+    private CartDatabase cartDatabase;
 
     private static final String TAG = CartAdapter.class.getSimpleName();
 
@@ -36,6 +39,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         this.iCart = iCart;
         this.cartDetailsList = cartDetailsList;
         notifyDataSetChanged();
+
+        cartDatabase = new CartDatabase(context);
 
         //Log.i(TAG, "size -> "+cartDetailsList.size());
 
@@ -57,6 +62,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public void onBindViewHolder(@NonNull CartViewHolder cartViewHolder, int i) {
 
         cartViewHolder.setBinding(new CartVM(cartDetailsList.get(i).getStoreName()));
+
+        if (cartDatabase.getParentCheckbox(i))
+        {
+            cartViewHolder.binding.headCheckBox.setChecked(true);
+            cartViewHolder.binding.cartDelete.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -85,48 +96,26 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             binding.executePendingBindings();
 
             binding.cartAdapterRecyclerView.setAdapter(new CartChildAdapter(context, cartDetailsList
-                    .get(getAdapterPosition()).getProductlists(),iCart, false));
+                    .get(getAdapterPosition()).getProductlists(),iCart, getAdapterPosition()));
 
-            binding.headCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            binding.headCheckBox.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                public void onClick(View v) {
 
-                    if (isChecked)
-                    {
-                        checkAllSubitems();
-                        getAllSubtotal();
-                        binding.cartDelete.setVisibility(View.VISIBLE);
-                    } else
-                    {
-                        removeAllSubitems();
-                        binding.cartDelete.setVisibility(View.GONE);
-                    }
+                            if (binding.headCheckBox.isChecked())
+                            {
+                               // binding.headCheckBox.setChecked(true);
+                                iCart.onParentBoxChecked(getAdapterPosition());
 
+                            } else {
+
+                               // binding.headCheckBox.setChecked(false);
+                                iCart.onParentBoxUnChecked(getAdapterPosition());
+                            }
                 }
             });
 
         }
-
-        private void getAllSubtotal() {
-        }
-
-        private void checkAllSubitems() {
-
-            binding.cartAdapterRecyclerView.setAdapter(new CartChildAdapter(context, cartDetailsList
-                    .get(getAdapterPosition()).getProductlists(),iCart, true));
-        }
-
-        private void removeAllSubitems()
-        {
-            binding.cartAdapterRecyclerView.setAdapter(new CartChildAdapter(context, cartDetailsList
-                    .get(getAdapterPosition()).getProductlists(),iCart, false));
-        }
-
-        public void setTotal(float value)
-        {
-
-        }
-
     }
 
 }

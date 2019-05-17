@@ -22,9 +22,15 @@ public class CartVM extends ViewModel {
     private CartRepo cartRepo;
     private static final String TAG = CartVM.class.getSimpleName();
 
+    //widgets observers
+    public ObservableField<String> total = new ObservableField<>();
+    public ObservableField<String> shippingTotal = new ObservableField<>();
+
     public CartVM() {
 
         cartRepo = new CartRepo();
+        total.set(Constants.CURRENCY+"0.0");
+        shippingTotal.set(Constants.CURRENCY+"0.0");
     }
 
     private MutableLiveData<CartVM> cartListsLiveData = new MutableLiveData<>();
@@ -38,6 +44,7 @@ public class CartVM extends ViewModel {
     public ObservableField<String> usualPrice = new ObservableField<>();
     public ObservableField<String> count = new ObservableField<>();
     public ObservableField<String> imagePath = new ObservableField<>();
+
 
    public CartVM(POJOClass pojoClass)
    {

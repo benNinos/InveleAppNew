@@ -11,4 +11,8 @@ public interface ICart {
     void onContinueClicked();
     void onCheckoutClicked();
     void changeTotal(String total);
+    void onParentBoxChecked(int position);
+    void onParentBoxUnChecked(int position);
+    void onChildBoxChecked(int parentPosition, int childPosition);
+    void onChildBoxUnChecked(int parentPosition, int childPosition);
 }

@@ -211,4 +211,9 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("user/mobile-cart/details")
     Observable<POJOClass> getCartLists(@Field("user_id") String userId);
+
+    //update cart quantity
+    @FormUrlEncoded
+    @POST("user/cart/update-quantity")
+    Observable<POJOClass> updateCartQuantity(@Field("cart_id") String cartId, @Field("quantity") String quantity);
 }

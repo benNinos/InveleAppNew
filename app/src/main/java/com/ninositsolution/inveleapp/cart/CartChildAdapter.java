@@ -5,7 +5,6 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,6 +87,7 @@ public class CartChildAdapter extends RecyclerView.Adapter<CartChildAdapter.Cart
                     }
                 }
             });
+
             binding.cartCheckBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -99,6 +99,27 @@ public class CartChildAdapter extends RecyclerView.Adapter<CartChildAdapter.Cart
                     {
                         iCart.onChildBoxUnChecked(parentPosition, getAdapterPosition());
                     }
+                }
+            });
+
+            binding.cartEditButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    iCart.onEditClicked(getAdapterPosition());
+                }
+            });
+
+            binding.cartCountMinus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    iCart.onDecrementClicked(parentPosition, getAdapterPosition());
+                }
+            });
+
+            binding.cartCountPlus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    iCart.onIncrementClicked(parentPosition, getAdapterPosition());
                 }
             });
         }

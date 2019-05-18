@@ -15,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -98,10 +97,11 @@ public class CartActivity extends AppCompatActivity implements ICart {
             }
         });
 
-        binding.allCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        binding.allCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
+            public void onClick(View v) {
+
+                if (binding.allCheckBox.isChecked())
                 {
                     cartDatabase.checkAllBoxes();
                     binding.cartRecyclerview.setAdapter(new CartAdapter(context, cartVMTemp.getCartDetailsList(), iCart));
@@ -113,6 +113,7 @@ public class CartActivity extends AppCompatActivity implements ICart {
                     binding.cartRecyclerview.setAdapter(new CartAdapter(context, cartVMTemp.getCartDetailsList(), iCart));
                     cartVM.total.set(Constants.CURRENCY+cartDatabase.getTotalAmount());
                     cartVM.shippingTotal.set(Constants.CURRENCY+cartDatabase.getTotalAmount());
+
                 }
             }
         });
@@ -177,7 +178,10 @@ public class CartActivity extends AppCompatActivity implements ICart {
         {
             for (int j= 0; j<cartDetailsList.get(i).getProductlists().size(); j++)
             {
-                long result = cartDatabase.insertValues(i, j, 0, cartDetailsList.get(i).getProductlists().get(j).getInvelePrice());
+                long result = cartDatabase.insertValues(i, j,
+                        Integer.parseInt(cartDetailsList.get(i).getProductlists().get(j).getQuantity()),
+                        cartDetailsList.get(i).getProductlists().get(j).getInvelePrice(),
+                        cartDetailsList.get(i).getProductlists().get(j).getShippingAmount());
                 Log.i(TAG, "insert result -> "+result);
             }
         }
@@ -214,24 +218,17 @@ public class CartActivity extends AppCompatActivity implements ICart {
     }
 
     @Override
-    public void changeTotal(String total) {
-
-    }
-
-    @Override
     public void onParentBoxChecked(int position) {
        cartDatabase.checkAllSubItems(position);
        binding.cartRecyclerview.setAdapter(new CartAdapter(context, cartVMTemp.getCartDetailsList(), iCart));
-       cartVM.total.set(Constants.CURRENCY+cartDatabase.getTotalAmount());
-       cartVM.shippingTotal.set(Constants.CURRENCY+cartDatabase.getTotalAmount());
+       changeViews();
     }
 
     @Override
     public void onParentBoxUnChecked(int position) {
         cartDatabase.unCheckAllSubitems(position);
         binding.cartRecyclerview.setAdapter(new CartAdapter(context, cartVMTemp.getCartDetailsList(), iCart));
-        cartVM.total.set(Constants.CURRENCY+cartDatabase.getTotalAmount());
-        cartVM.shippingTotal.set(Constants.CURRENCY+cartDatabase.getTotalAmount());
+        changeViews();
     }
 
     @Override
@@ -239,8 +236,7 @@ public class CartActivity extends AppCompatActivity implements ICart {
 
         cartDatabase.checkSubItem(parentPosition, childPosition);
         binding.cartRecyclerview.setAdapter(new CartAdapter(context, cartVMTemp.getCartDetailsList(), iCart));
-        cartVM.total.set(Constants.CURRENCY+cartDatabase.getTotalAmount());
-        cartVM.shippingTotal.set(Constants.CURRENCY+cartDatabase.getTotalAmount());
+        changeViews();
     }
 
     @Override
@@ -248,7 +244,27 @@ public class CartActivity extends AppCompatActivity implements ICart {
 
         cartDatabase.unCheckSubItem(parentPosition, childPosition);
         binding.cartRecyclerview.setAdapter(new CartAdapter(context, cartVMTemp.getCartDetailsList(), iCart));
+        changeViews();
+    }
+
+    @Override
+    public void onIncrementClicked(int parentPosition, int childPosition) {
+
+    }
+
+    @Override
+    public void onDecrementClicked(int parentPosition, int childPosition) {
+
+    }
+
+    private void changeViews()
+    {
         cartVM.total.set(Constants.CURRENCY+cartDatabase.getTotalAmount());
         cartVM.shippingTotal.set(Constants.CURRENCY+cartDatabase.getTotalAmount());
+
+        if (cartDatabase.allBoxesChecked())
+            binding.allCheckBox.setChecked(true);
+        else
+            binding.allCheckBox.setChecked(false);
     }
 }

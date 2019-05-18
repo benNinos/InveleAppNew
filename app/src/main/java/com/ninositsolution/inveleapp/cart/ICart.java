@@ -10,9 +10,10 @@ public interface ICart {
     void onEditClicked(int position);
     void onContinueClicked();
     void onCheckoutClicked();
-    void changeTotal(String total);
     void onParentBoxChecked(int position);
     void onParentBoxUnChecked(int position);
     void onChildBoxChecked(int parentPosition, int childPosition);
     void onChildBoxUnChecked(int parentPosition, int childPosition);
+    void onIncrementClicked(int parentPosition, int childPosition);
+    void onDecrementClicked(int parentPosition, int childPosition);
 }

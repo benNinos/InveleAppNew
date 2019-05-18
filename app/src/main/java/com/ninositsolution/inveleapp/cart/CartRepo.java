@@ -19,6 +19,7 @@ import io.reactivex.schedulers.Schedulers;
 public class CartRepo {
 
     private MutableLiveData<CartVM> cartListsLiveData = new MutableLiveData<>();
+    private MutableLiveData<CartVM> quantityLiveData = new MutableLiveData<>();
     private static final String TAG = CartRepo.class.getSimpleName();
 
     public MutableLiveData<CartVM> getCartListsLiveData(final String userId) {
@@ -59,5 +60,44 @@ public class CartRepo {
                 });
 
         return cartListsLiveData;
+    }
+
+    public MutableLiveData<CartVM> getQuantityLiveData(final String cartId, final String quantity) {
+
+        RetrofitClient.getApiService().updateCartQuantity(cartId, quantity)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<POJOClass>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(POJOClass pojoClass) {
+
+                        Log.i(TAG, "onNext -> "+pojoClass.status);
+                        Log.i(TAG, "onNext -> "+pojoClass.msg);
+
+                        cartListsLiveData.setValue(new CartVM(pojoClass));
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Log.e(TAG, "onNext -> "+e);
+                        getQuantityLiveData(cartId, quantity);
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+
+        return quantityLiveData;
     }
 }

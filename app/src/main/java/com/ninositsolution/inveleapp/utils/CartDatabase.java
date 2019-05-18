@@ -21,11 +21,12 @@ public class CartDatabase extends SQLiteOpenHelper {
     private static final String KEY_CHILD = "KEY_CHILD";
     private static final String KEY_VALUE = "KEY_VALUE";
     private static final String KEY_AMOUNT = "KEY_AMOUNT";
+    private static final String KEY_SHOPPING_AMOUNT = "KEY_SHOPPING_AMOUNT";
     private static final String KEY_QUANTITY = "KEY_QUANTITY";
 
     private static final String CREATE_CALL_TABLE = " CREATE TABLE "+ TABLE_NAME + " (" +
             KEY_PARENT + " INTEGER NOT NULL, " + KEY_CHILD + " INTEGER NOT NULL, " +
-            KEY_VALUE + " INTEGER NOT NULL, " + KEY_QUANTITY + " INTEGER DEFAULT 1, " +
+            KEY_VALUE + " INTEGER DEFAULT 0, " + KEY_QUANTITY + " INTEGER NOT NULL, " + KEY_SHOPPING_AMOUNT + " TEXT NOT NULL, " +
             KEY_AMOUNT + " TEXT NOT NULL );" ;
 
     public CartDatabase(Context context) {
@@ -49,7 +50,7 @@ public class CartDatabase extends SQLiteOpenHelper {
 
     }
 
-    public long insertValues(int parent, int child, int value, String amount)
+    public long insertValues(int parent, int child, int quantity, String amount, String shoppingAmount)
     {
         db = this.getWritableDatabase();
 
@@ -57,8 +58,9 @@ public class CartDatabase extends SQLiteOpenHelper {
 
         values.put(KEY_PARENT, parent);
         values.put(KEY_CHILD, child);
-        values.put(KEY_VALUE, value);
+        values.put(KEY_QUANTITY, quantity);
         values.put(KEY_AMOUNT, amount);
+        values.put(KEY_SHOPPING_AMOUNT, shoppingAmount);
 
         return db.insert(TABLE_NAME, null, values);
     }
@@ -289,6 +291,39 @@ public class CartDatabase extends SQLiteOpenHelper {
 
         } catch (Exception e) {
             Log.i(TAG, "Error -> "+e);
+        }
+    }
+
+    public boolean allBoxesChecked()
+    {
+        List<Integer> integerList = new ArrayList<>();
+        Cursor cursor = null;
+
+        try {
+            cursor = getReadableDatabase().rawQuery("SELECT * FROM "+TABLE_NAME, null);
+
+            if (cursor.getCount()>0)
+            {
+                if (cursor.moveToFirst())
+                {
+                    do {
+                            integerList.add(cursor.getInt(cursor.getColumnIndex(KEY_VALUE)));
+
+
+                    } while (cursor.moveToNext());
+                }
+            }
+        } catch (Exception e)
+        {
+            Log.e(TAG, "Error -> "+e);
+
+        } finally {
+
+            {
+                cursor.close();
+
+                return !integerList.contains(0);
+            }
         }
     }
 

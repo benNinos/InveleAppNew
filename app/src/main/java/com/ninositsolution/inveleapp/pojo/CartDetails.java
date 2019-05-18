@@ -67,6 +67,14 @@ public class CartDetails {
     @Expose
     private String attributeValue;
 
+    @SerializedName("qty")
+    @Expose
+    private String quantity;
+
+    @SerializedName("shipping_fees")
+    @Expose
+    private String shippingAmount;
+
 
     public String getStoreName() {
         return storeName;
@@ -126,5 +134,13 @@ public class CartDetails {
 
     public String getAttributeValue() {
         return attributeValue;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public String getShippingAmount() {
+        return shippingAmount;
     }
 }
